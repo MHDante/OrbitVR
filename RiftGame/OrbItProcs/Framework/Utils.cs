@@ -7,11 +7,13 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Color = SharpDX.Color;
 using SharpDX;
+using SharpDX.Direct3D11;
 using SharpOVR;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.DXGI;
 using SharpDX.Toolkit.Content;
+using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 namespace OrbItProcs {
 
@@ -27,7 +29,7 @@ namespace OrbItProcs {
         {
             return i == 0 ? false : true;
         }
-        public static bool AsBool(this Microsoft.Xna.Framework.Input.ButtonState bs) 
+        public static bool AsBool(this ButtonState bs) 
         {
             return ((int)bs).AsBool();
         }
@@ -81,18 +83,22 @@ namespace OrbItProcs {
         public static Texture2D Crop(this Texture2D image, Rectangle source)
         {
             var graphics = image.GraphicsDevice;
-            var ret = new RenderTarget2D(graphics, source.Width, source.Height);
+            var ret = RenderTarget2D.New(graphics, new Texture2DDescription() { Width = source.Width, Height = source.Height });
+            DepthStencilView d = null;
+            var oldTargets = graphics.GetRenderTargets(out d);
+             
+
             var sb = new SpriteBatch(graphics);
 
-            graphics.SetRenderTarget(ret); // draw to image
+            graphics.SetRenderTargets(ret); // draw to image
             graphics.Clear(new Color(0, 0, 0, 0));
 
             sb.Begin();
             sb.Draw(image, Vector2.Zero, source, Color.White);
             sb.End();
-
-            graphics.SetRenderTarget(null); // set back to main window
-            Texture2D ret2 = new Texture2D(graphics, source.Width, source.Height);
+            
+            graphics.SetRenderTargets(oldTargets); // set back to main window
+            Texture2D ret2 = Texture2D.New(graphics, source.Width, source.Height, PixelFormat.Unknown);
             Color[] q = new Color[source.Width * source.Height]; 
             ret.GetData(q);
 
@@ -103,8 +109,8 @@ namespace OrbItProcs {
         public static Texture2D[,] sliceSpriteSheet(this Texture2D spritesheet, int columnsX, int rowsY)
         {
            Texture2D[,] result = new Texture2D[columnsX,rowsY];
-            int width = spritesheet.Bounds.Width / columnsX;
-            int height = spritesheet.Bounds.Height / rowsY;
+            int width = spritesheet.Width / columnsX;
+            int height = spritesheet.Height / rowsY;
            for (int x = 0; x < columnsX; x++)
            {
                for (int y = 0; y < rowsY; y++)
@@ -346,16 +352,16 @@ namespace OrbItProcs {
             return item;
         }
 
-        public static string SelectedItem(this TomShane.Neoforce.Controls.ComboBox cb)
-        {
-            if (cb == null || cb.ItemIndex == -1) return null;
-            return cb.Items.ElementAt(cb.ItemIndex).ToString();
-        }
+        //public static string SelectedItem(this TomShane.Neoforce.Controls.ComboBox cb)
+        //{
+        //    if (cb == null || cb.ItemIndex == -1) return null;
+        //    return cb.Items.ElementAt(cb.ItemIndex).ToString();
+        //}
 
 
-        public static object selected(this TomShane.Neoforce.Controls.ListBox c) { return c.Items.ElementAt(c.ItemIndex); }
+        //public static object selected(this TomShane.Neoforce.Controls.ListBox c) { return c.Items.ElementAt(c.ItemIndex); }
 
-        public static object selected(this TomShane.Neoforce.Controls.ComboBox c) { return c.Items.ElementAt(c.ItemIndex); }
+        //public static object selected(this TomShane.Neoforce.Controls.ComboBox c) { return c.Items.ElementAt(c.ItemIndex); }
 
         public static void syncToOCDelegate(this ICollection<object> lst, NotifyCollectionChangedEventArgs e)
         {

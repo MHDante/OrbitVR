@@ -63,32 +63,32 @@ namespace OrbItProcs
 
         public static void shittest()
         {
-            Shite ss = new Shite(Shite.pieces.Button | Shite.pieces.Switch);
-            Console.WriteLine(ss.win);
-            ss = new Shite(Shite.pieces.Button | Shite.pieces.Lever);
-            Console.WriteLine(ss.win);
-            ss = new Shite(Shite.pieces.Switch | Shite.pieces.Lever);
-            Console.WriteLine(ss.win);
-            ss = new Shite(Shite.pieces.Button);
-            Console.WriteLine(ss.win);
-            ss = new Shite(Shite.pieces.Lever);
-            Console.WriteLine(ss.win);
-            ss = new Shite(Shite.pieces.Switch);
-            Console.WriteLine(ss.win);
-            ss = new Shite(Shite.pieces.Button | Shite.pieces.Switch | Shite.pieces.Lever);
-            Console.WriteLine(ss.win);
-
-            return;
-            dynamic s = new { s = "s" };
-            try
-            {
-                s = shit(s);
-            }
-            catch (StackOverflowException e)
-            {
-                shittest();
-            }
-            //Console.WriteLine(s.GetType());
+            //Shite ss = new Shite(Shite.pieces.Button | Shite.pieces.Switch);
+            //Console.WriteLine(ss.win);
+            //ss = new Shite(Shite.pieces.Button | Shite.pieces.Lever);
+            //Console.WriteLine(ss.win);
+            //ss = new Shite(Shite.pieces.Switch | Shite.pieces.Lever);
+            //Console.WriteLine(ss.win);
+            //ss = new Shite(Shite.pieces.Button);
+            //Console.WriteLine(ss.win);
+            //ss = new Shite(Shite.pieces.Lever);
+            //Console.WriteLine(ss.win);
+            //ss = new Shite(Shite.pieces.Switch);
+            //Console.WriteLine(ss.win);
+            //ss = new Shite(Shite.pieces.Button | Shite.pieces.Switch | Shite.pieces.Lever);
+            //Console.WriteLine(ss.win);
+            //
+            //return;
+            //dynamic s = new { s = "s" };
+            //try
+            //{
+            //    s = shit(s);
+            //}
+            //catch (StackOverflowException e)
+            //{
+            //    shittest();
+            //}
+            ////Console.WriteLine(s.GetType());
         }
         static int c = 0;
         static dynamic shit(dynamic other)

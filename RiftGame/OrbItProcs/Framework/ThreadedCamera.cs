@@ -180,7 +180,7 @@ namespace OrbItProcs
         public Room room;
         public float zoom;
         
-        public float vWidth{get{return OrbIt.ScreenWidth - CameraOffsetVect.X - OrbIt.ui.sidebar.toolWindow.toolBar.Width;}}
+        public float vWidth{get{return OrbIt.ScreenWidth - CameraOffsetVect.X;}}
         public float vHeight { get { return OrbIt.ScreenHeight - CameraOffsetVect.Y; } }
 
         public Vector2 virtualTopLeft { get { return pos - new Vector2(room.gridsystemAffect.gridWidth/2, room.gridsystemAffect.gridHeight/ 2) * 1 / zoom; } }// + CameraOffsetVect; } }
@@ -257,7 +257,7 @@ namespace OrbItProcs
                 CameraWaiting.Reset();
                 lock (_locker)
                 {
-                    batch.GraphicsDevice.SetRenderTarget(room.roomRenderTarget);
+                    batch.GraphicsDevice.SetRenderTargets(room.roomRenderTarget);
                     batch.GraphicsDevice.Clear(bg);
                     //batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, Game1.shaderEffect); //tran
                     batch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);

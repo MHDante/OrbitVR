@@ -12,6 +12,7 @@ using SharpDX.Toolkit.Graphics;
 
 using Color = SharpDX.Color;
 using SharpDX;
+using SharpDX.Direct3D11;
 using SharpOVR;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
@@ -75,7 +76,7 @@ namespace OrbItProcs {
             collisionManager = new CollisionManager(this);
             //gridsystemAffect = new GridSystem(this, 40, new Vector2(0, worldHeight - OrbIt.Height), worldWidth, OrbIt.Height);
             level = new Level(this, 40, 40, gridsystemAffect.cellWidth, gridsystemAffect.cellHeight);
-            roomRenderTarget = new RenderTarget2D(game.GraphicsDevice, OrbIt.ScreenWidth, OrbIt.ScreenHeight);
+            roomRenderTarget = RenderTarget2D.New(game.GraphicsDevice, new Texture2DDescription() { Width = OrbIt.ScreenWidth, Height = OrbIt.ScreenHeight});
             //gridsystemCollision = new GridSystem(this, gridsystemAffect.cellsX, new Vector2(0, worldHeight - OrbIt.Height), worldWidth, OrbIt.Height);
             camera = new ThreadedCamera(this, 1f);
             DrawLinks = true;
