@@ -54,7 +54,7 @@ namespace OrbItProcs
         private FrameRateCounter frameRateCounter;
         public static int ScreenWidth { get { return game.Graphics.PreferredBackBufferWidth; } set { game.Graphics.PreferredBackBufferWidth = value; } }
         public static int ScreenHeight { get { return game.Graphics.PreferredBackBufferHeight; } set { game.Graphics.PreferredBackBufferHeight = value; } }
-        public static int GameAreaWidth { get { return ScreenWidth - ui.sidebar.Width - ui.sidebar.toolWindow.toolBar.Width; } }
+        public static int GameAreaWidth { get { return ScreenWidth - ui.sidebar.Width; } }
         public static int GameAreaHeight { get { return ScreenHeight - 40; } }
         public resolutions? prefFullScreenResolution{ get; set; }
         public resolutions prefWindowedResolution { get; set; }
@@ -137,7 +137,7 @@ namespace OrbItProcs
             if (GraphicsReset)
             {
                 Graphics.ApplyChanges();
-                room.roomRenderTarget = RenderTarget2D.New(GraphicsDevice, new Texture2DDescription() {Width = ScreenWidth, Height = ScreenHeight};
+                room.roomRenderTarget = RenderTarget2D.New(GraphicsDevice, new Texture2DDescription() {Width = ScreenWidth, Height = ScreenHeight});
         
                 GraphicsReset = false;
             }
