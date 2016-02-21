@@ -1,17 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.CodeDom;
-using System.Runtime.Serialization;
-using SColor = System.Drawing.Color;
-using Component = OrbItProcs.Component;
-using Console = System.Console;
-using sc = System.Console;
-
-using System.IO;
-using System.Collections.ObjectModel;
-using System.Threading;
 using Polenter.Serialization;
 using SharpDX;
 using SharpDX.Direct3D11;
@@ -19,173 +6,169 @@ using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpOVR;
 using Rectangle = System.Drawing.Rectangle;
+using SColor = System.Drawing.Color;
+using sc = System.Console;
 
-namespace OrbItProcs
-{
+namespace OrbItProcs {
+  public enum resolutions {
+    AutoFullScreen,
 
-    public enum resolutions
-    {
-        AutoFullScreen,
+    VGA_640x480,
+    SVGA_800x600,
+    XGA_1024x768,
+    HD_1366x768,
+    WXGA_1280x800,
+    SXGA_1280x1024,
+    WSXGA_1680x1050,
+    FHD_1920x1080,
+  }
 
-        VGA_640x480,
-        SVGA_800x600,
-        XGA_1024x768,
-        HD_1366x768,
-        WXGA_1280x800,
-        SXGA_1280x1024,
-        WSXGA_1680x1050,
-        FHD_1920x1080,
-    }
+  public class OrbIt : Game {
+    public static OrbIt game;
+    public static UserInterface ui;
+    public static GameTime gametime;
+    public static bool soundEnabled = false;
+    public static bool isFullScreen = false;
+    private static bool GraphicsReset = false;
+    private static bool redrawWhenPaused = false;
+    private static GlobalGameMode _globalGameMode = null;
+    public static Action OnUpdate;
+    private FrameRateCounter frameRateCounter;
 
-    public class OrbIt : Game
-    {
-    
-        public GraphicsDeviceManager Graphics;
-    public SharpDX.Direct3D11.Device Device
-    {
-      get { return (SharpDX.Direct3D11.Device)GraphicsDevice; }
-    }
+    public GraphicsDeviceManager Graphics;
 
     private HMD hmd;
-    public static OrbIt game;
-        public static UserInterface ui;
-        public static GameTime gametime;
-        public static bool soundEnabled = false;
-        public static bool isFullScreen = false;
-        private static bool GraphicsReset = false;
-        private static bool redrawWhenPaused = false;
-        public SharpSerializer serializer = new SharpSerializer();
-        private FrameRateCounter frameRateCounter;
-        public static int ScreenWidth { get { return game.Graphics.PreferredBackBufferWidth; } set { game.Graphics.PreferredBackBufferWidth = value; } }
-        public static int ScreenHeight { get { return game.Graphics.PreferredBackBufferHeight; } set { game.Graphics.PreferredBackBufferHeight = value; } }
-        public static int GameAreaWidth { get { return ScreenWidth; } }
-        public static int GameAreaHeight { get { return ScreenHeight; } }
-        public resolutions? prefFullScreenResolution{ get; set; }
-        public resolutions prefWindowedResolution { get; set; }
-        private static GlobalGameMode _globalGameMode = null;
+    public SharpSerializer serializer = new SharpSerializer();
+    private SpriteBatch spriteBatch;
 
-        public static GlobalGameMode globalGameMode
-        {
-            get { return OrbIt._globalGameMode; }
-            set { OrbIt._globalGameMode = value; 
-                //if (ui != null && ui.sidebar != null)
-                //{
-                //    ui.sidebar.gamemodeWindow = new GamemodeWindow(ui.sidebar);
-                //}
-            }
-        }
+    private OrbIt() {
+      // Creates a graphics manager. This is mandatory.
+      Graphics = new GraphicsDeviceManager(this);
 
-        public Room room { get; set; }
-        public static Action OnUpdate;
-      private SpriteBatch spriteBatch;
+      // Setup the relative directory to the executable directory 
+      // for loading contents with the ContentManager
+      Content.RootDirectory = "Content";
 
-      private OrbIt()
-        {
-          // Creates a graphics manager. This is mandatory.
-          Graphics = new GraphicsDeviceManager(this);
+      // Initialize OVR Library
+      OVR.Initialize();
 
-          // Setup the relative directory to the executable directory 
-          // for loading contents with the ContentManager
-          Content.RootDirectory = "Content";
+      // Create our HMD
+      hmd = OVR.HmdCreate(0) ?? OVR.HmdCreateDebug(HMDType.DK2);
 
-          // Initialize OVR Library
-          //OVR.Initialize();
+      // Match back buffer size with HMD resolution
+      Graphics.PreferredBackBufferWidth = hmd.Resolution.Width;
+      Graphics.PreferredBackBufferHeight = hmd.Resolution.Height;
+      Graphics.PreferredFullScreenOutputIndex = 1;
+    }
 
-          // Create our HMD
-          //hmd = OVR.HmdCreate(0) ?? OVR.HmdCreateDebug(HMDType.DK2);
+    public SharpDX.Direct3D11.Device Device {
+      get { return (SharpDX.Direct3D11.Device) GraphicsDevice; }
+    }
 
-          // Match back buffer size with HMD resolution
-          Graphics.PreferredBackBufferWidth = 640;
-          Graphics.PreferredBackBufferHeight = 480;
-          //Graphics.PreferredFullScreenOutputIndex = 1;
+    public static int ScreenWidth {
+      get { return game.Graphics.PreferredBackBufferWidth; }
+      set { game.Graphics.PreferredBackBufferWidth = value; }
+    }
 
+    public static int ScreenHeight {
+      get { return game.Graphics.PreferredBackBufferHeight; }
+      set { game.Graphics.PreferredBackBufferHeight = value; }
+    }
 
+    public static int GameAreaWidth {
+      get { return ScreenWidth; }
+    }
 
+    public static int GameAreaHeight {
+      get { return ScreenHeight; }
+    }
 
-          game = this;
-            prefWindowedResolution = resolutions.HD_1366x768;
-        }
+    public resolutions? prefFullScreenResolution { get; set; }
+    public resolutions prefWindowedResolution { get; set; }
 
-      protected override void LoadContent()
-      {
-        base.LoadContent();
-        spriteBatch = new SpriteBatch(GraphicsDevice);
+    public static GlobalGameMode globalGameMode {
+      get { return OrbIt._globalGameMode; }
+      set {
+        OrbIt._globalGameMode = value;
+        //if (ui != null && ui.sidebar != null)
+        //{
+        //    ui.sidebar.gamemodeWindow = new GamemodeWindow(ui.sidebar);
+        //}
       }
+    }
 
-      protected override void Initialize()
-        {
-            Assets.LoadAssets(Content);
-            base.Initialize();
-            room = new Room(this, ScreenWidth, ScreenHeight);
-            globalGameMode = new GlobalGameMode(this);
-            frameRateCounter = new FrameRateCounter(this);
+    public Room room { get; set; }
 
-            Player.CreatePlayers(room);
-            ui = UserInterface.Start();
-            ui.Initialize();
-            room.attatchToSidebar(ui);
-            GlobalKeyBinds(ui);
-        }
+    protected override void LoadContent() {
+      base.LoadContent();
+      spriteBatch = new SpriteBatch(GraphicsDevice);
+    }
 
-        protected override void Update(GameTime gameTime)
-        {
-            
-            OrbIt.gametime = gameTime;
-            base.Update(gameTime);
-            frameRateCounter.Update(gameTime);
-            if (IsActive) ui.Update(gameTime);
+    protected override void Initialize() {
+      base.Initialize();
+      Assets.LoadAssets(Content);
+      Window.AllowUserResizing = false;
 
-            if (!ui.IsPaused) room.Update(gameTime);
-            else if(redrawWhenPaused) room.drawOnly();
+      room = new Room(this, ScreenWidth, ScreenHeight);
+      globalGameMode = new GlobalGameMode(this);
+      frameRateCounter = new FrameRateCounter(this);
 
-            
-            if (GraphicsReset)
-            {
-                Graphics.ApplyChanges();
-                room.roomRenderTarget = RenderTarget2D.New(GraphicsDevice, new Texture2DDescription() {Width = ScreenWidth, Height = ScreenHeight});
-        
-                GraphicsReset = false;
-            }
-            if (OnUpdate!= null) OnUpdate.Invoke();
+      Player.CreatePlayers(room);
+      ui = UserInterface.Start();
+      ui.Initialize();
+      room.attatchToSidebar(ui);
+      GlobalKeyBinds(ui);
+    }
 
-        }
+    protected override void Update(GameTime gameTime) {
+      OrbIt.gametime = gameTime;
+      base.Update(gameTime);
+      frameRateCounter.Update(gameTime);
+      if (IsActive) ui.Update(gameTime);
 
-        //called by tom-shame
-        protected override void Draw(GameTime gameTime)
-        {
+      if (!ui.IsPaused) room.Update(gameTime);
+      else if (redrawWhenPaused) room.drawOnly();
+
+
+      if (GraphicsReset) {
+        Graphics.ApplyChanges();
+        room.roomRenderTarget = RenderTarget2D.New(GraphicsDevice,
+          new Texture2DDescription() {Width = ScreenWidth, Height = ScreenHeight});
+
+        GraphicsReset = false;
+      }
+      if (OnUpdate != null) OnUpdate.Invoke();
+    }
+
+    //called by tom-shame
+    protected override void Draw(GameTime gameTime) {
       base.Draw(gameTime);
       spriteBatch.Begin();
       spriteBatch.GraphicsDevice.Clear(Color4.Black);
-            Rectangle frame = new Rectangle(0, 0, ScreenWidth, ScreenHeight);
+      Rectangle frame = new Rectangle(0, 0, ScreenWidth, ScreenHeight);
 
-            ShaderResourceView s = new ShaderResourceView(Graphics.GraphicsDevice, room.roomRenderTarget);
-          spriteBatch.Draw(s,new RectangleF(0,0, ScreenWidth, ScreenHeight), Color.White);
-      
-            if (room.camera.TakeScreenshot)
-            {
-                room.camera.Screenshot();
-                room.camera.TakeScreenshot = false;
-            }
+      ShaderResourceView s = new ShaderResourceView(Graphics.GraphicsDevice, room.roomRenderTarget);
+      spriteBatch.Draw(s, new RectangleF(0, 0, ScreenWidth, ScreenHeight), Color.White);
 
-          spriteBatch.End();
+      if (room.camera.TakeScreenshot) {
+        room.camera.Screenshot();
+        room.camera.TakeScreenshot = false;
+      }
 
-            
-        }
+      spriteBatch.End();
+    }
 
-        public static void Start()
-        {
-            if (game != null) throw new SystemException("Game was already Started");
-            game = new OrbIt();
-            game.Run(); //XNA LOGIC HAPPENS. IT HAPPENS.
-        }
+    public static void Start() {
+      if (game != null) throw new SystemException("Game was already Started");
+      game = new OrbIt();
+      game.Run(); //XNA LOGIC HAPPENS. IT HAPPENS.
+    }
 
-        private void GlobalKeyBinds(UserInterface ui)
-        {
-            ui.keyManager.addGlobalKeyAction("exitgame", KeyCodes.Escape, OnPress: () => Exit());
-            //ui.keyManager.addGlobalKeyAction("togglesidebar", KeyCodes.OemTilde, OnPress: ui.ToggleSidebar);
-            //ui.keyManager.addGlobalKeyAction("switchview", KeyCodes.PageDown, OnPress: ui.SwitchView);
-            //TODO: ui.keyManager.addGlobalKeyAction("removeall", KeyCodes.Delete, OnPress: () => ui.sidebar.btnRemoveAllNodes_Click(null, null));
-        }
-
-    }           
+    private void GlobalKeyBinds(UserInterface ui) {
+      ui.keyManager.addGlobalKeyAction("exitgame", KeyCodes.Escape, OnPress: () => Exit());
+      //ui.keyManager.addGlobalKeyAction("togglesidebar", KeyCodes.OemTilde, OnPress: ui.ToggleSidebar);
+      //ui.keyManager.addGlobalKeyAction("switchview", KeyCodes.PageDown, OnPress: ui.SwitchView);
+      //TODO: ui.keyManager.addGlobalKeyAction("removeall", KeyCodes.Delete, OnPress: () => ui.sidebar.btnRemoveAllNodes_Click(null, null));
+    }
+  }
 }
