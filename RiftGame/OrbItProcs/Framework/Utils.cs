@@ -98,7 +98,7 @@ namespace OrbItProcs {
             sb.End();
             
             graphics.SetRenderTargets(oldTargets); // set back to main window
-            Texture2D ret2 = Texture2D.New(graphics, source.Width, source.Height, PixelFormat.Unknown);
+            Texture2D ret2 = Texture2D.New(graphics, source.Width, source.Height, PixelFormat.R32G32B32A32.SInt);
             Color[] q = new Color[source.Width * source.Height]; 
             ret.GetData(q);
 

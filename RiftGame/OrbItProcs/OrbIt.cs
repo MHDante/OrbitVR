@@ -40,7 +40,11 @@ namespace OrbItProcs
     public class OrbIt : Game
     {
     
-        private GraphicsDeviceManager Graphics;
+        public GraphicsDeviceManager Graphics;
+    public SharpDX.Direct3D11.Device Device
+    {
+      get { return (SharpDX.Direct3D11.Device)GraphicsDevice; }
+    }
 
     private HMD hmd;
     public static OrbIt game;
@@ -85,15 +89,15 @@ namespace OrbItProcs
           Content.RootDirectory = "Content";
 
           // Initialize OVR Library
-          OVR.Initialize();
+          //OVR.Initialize();
 
           // Create our HMD
-          hmd = OVR.HmdCreate(0) ?? OVR.HmdCreateDebug(HMDType.DK2);
+          //hmd = OVR.HmdCreate(0) ?? OVR.HmdCreateDebug(HMDType.DK2);
 
           // Match back buffer size with HMD resolution
-          Graphics.PreferredBackBufferWidth = hmd.Resolution.Width;
-          Graphics.PreferredBackBufferHeight = hmd.Resolution.Height;
-          Graphics.PreferredFullScreenOutputIndex = 1;
+          Graphics.PreferredBackBufferWidth = 640;
+          Graphics.PreferredBackBufferHeight = 480;
+          //Graphics.PreferredFullScreenOutputIndex = 1;
 
 
 
@@ -134,7 +138,7 @@ namespace OrbItProcs
             if (!ui.IsPaused) room.Update(gameTime);
             else if(redrawWhenPaused) room.drawOnly();
 
-            base.Draw(gameTime);
+            
             if (GraphicsReset)
             {
                 Graphics.ApplyChanges();
@@ -149,8 +153,8 @@ namespace OrbItProcs
         //called by tom-shame
         protected override void Draw(GameTime gameTime)
         {
-      
-            spriteBatch.Begin();
+      base.Draw(gameTime);
+      spriteBatch.Begin();
             Rectangle frame = new Rectangle(0, 0, ScreenWidth, ScreenHeight);
 
             ShaderResourceView s = new ShaderResourceView(Graphics.GraphicsDevice, room.roomRenderTarget);
@@ -161,8 +165,8 @@ namespace OrbItProcs
                 room.camera.Screenshot();
                 room.camera.TakeScreenshot = false;
             }
-            
-            //Manager.Renderer.End();
+
+          spriteBatch.End();
 
             
         }

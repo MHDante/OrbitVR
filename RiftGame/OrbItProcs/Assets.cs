@@ -82,7 +82,7 @@ namespace OrbItProcs
         public static Dictionary<textures, Vector2> textureCenters;
         public static Texture2D[,] btnTextures;
         public static ObservableCollection<object> NodePresets = new ObservableCollection<object>();
-        public static Effect shaderEffect; // Shader code
+        //public static Effect shaderEffect; // Shader code
 
         public static void LoadAssets(ContentManager content)
         {
@@ -143,7 +143,7 @@ namespace OrbItProcs
             }
 
             font = content.Load<SpriteFont>("Courier New");
-            shaderEffect = content.Load<Effect>("Effects/Shader");
+           // shaderEffect = content.Load<Effect>("Effects/Shader");
             //TODO: btnTextures = content.Load<Texture2D>("Textures/buttons").sliceSpriteSheet(2, 5);
         }
 
@@ -232,7 +232,7 @@ namespace OrbItProcs
             Texture2D myTex = Texture2D.New(
               OrbIt.game.GraphicsDevice,
               bmp.Width,
-              bmp.Height, PixelFormat.Unknown);
+              bmp.Height, PixelFormat.R32G32B32A32.SInt);
 
             myTex.SetData<Color>(pixels);
             return myTex;

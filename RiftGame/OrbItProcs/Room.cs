@@ -76,7 +76,7 @@ namespace OrbItProcs {
             collisionManager = new CollisionManager(this);
             //gridsystemAffect = new GridSystem(this, 40, new Vector2(0, worldHeight - OrbIt.Height), worldWidth, OrbIt.Height);
             level = new Level(this, 40, 40, gridsystemAffect.cellWidth, gridsystemAffect.cellHeight);
-            roomRenderTarget = RenderTarget2D.New(game.GraphicsDevice, new Texture2DDescription() { Width = OrbIt.ScreenWidth, Height = OrbIt.ScreenHeight});
+            roomRenderTarget = RenderTarget2D.New(game.Graphics.GraphicsDevice, OrbIt.ScreenWidth, OrbIt.ScreenHeight, PixelFormat.R32G32B32A32.SInt);
             //gridsystemCollision = new GridSystem(this, gridsystemAffect.cellsX, new Vector2(0, worldHeight - OrbIt.Height), worldWidth, OrbIt.Height);
             camera = new ThreadedCamera(this, 1f);
             DrawLinks = true;
@@ -107,7 +107,7 @@ namespace OrbItProcs {
             firstdefault.name = "[G0]0";
             //firstdefault.IsDefault = true;
 
-            masterGroup = new Group(this, defaultNode, null, defaultNode.name, false);
+            masterGroup = new Group(this, defaultNode, null, defaultNode.name);
             if (Groups)
             {
                 new Group(this, defaultNode, masterGroup, "General Groups", false);
@@ -196,26 +196,22 @@ namespace OrbItProcs {
         public int waitTime = 5000;
         public int waitTimeCounter = 0;
         public bool drawCage = true;
+
+      public int testTimer = 0;
+      public Vector2 spawnPos = Vector2.One;
         public void Update(GameTime gametime)
         {
-
-            //FloodFill.boulderFountain();
-            //if (scroll && gameStarted)
-            //{
-            //    if (waitTimeCounter < waitTime)
-            //    {
-            //        waitTimeCounter += gametime.ElapsedGameTime.Milliseconds;
-            //    }
-            //    else
-            //    {
-            //        if (gridsystemAffect.position.Y > 0) { gridsystemAffect.position.Y -= scrollRate; gridsystemCollision.position.Y -= scrollRate; }
-            //        camera.pos = gridsystemCollision.position + new Vector2(gridsystemCollision.gridWidth / 2, gridsystemCollision.gridHeight / 2);
-            //#tojam    //
-            //    }
-            //}
+      
+            testTimer += gametime.ElapsedGameTime.Milliseconds;
+          if (testTimer > 2000)
+          {
+            spawnPos += Vector2.One*10;
+            spawnNode((int) spawnPos.X, (int) spawnPos.Y);
+            testTimer = 0;
+          }
 
             Player.CheckForPlayers(this);
-
+            
             camera.RenderAsync();
             long elapsed = 0;
             if (gametime != null) elapsed = (long)Math.Round(gametime.ElapsedGameTime.TotalMilliseconds);

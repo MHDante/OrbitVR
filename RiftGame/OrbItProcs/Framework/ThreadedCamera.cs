@@ -278,9 +278,9 @@ namespace OrbItProcs
                             f[0] = OrbIt.game.GraphicsDevice.Viewport.Width;
                             f[1] = OrbIt.game.GraphicsDevice.Viewport.Height;
 
-                            Assets.shaderEffect.Parameters["Viewport"].SetValue(f);
-                            Assets.shaderEffect.Parameters["colour"].SetValue(gg.shaderPack.colour);
-                            Assets.shaderEffect.Parameters["enabled"].SetValue(gg.shaderPack.enabled);
+                            //Assets.shaderEffect.Parameters["Viewport"].SetValue(f);
+                            //Assets.shaderEffect.Parameters["colour"].SetValue(gg.shaderPack.colour);
+                            //Assets.shaderEffect.Parameters["enabled"].SetValue(gg.shaderPack.enabled);
 
                             // ----- End Shader Set Parameter Code ---------
 

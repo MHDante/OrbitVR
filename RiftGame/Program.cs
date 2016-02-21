@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbItProcs;
 
 namespace RiftGame
 {
@@ -18,9 +19,10 @@ namespace RiftGame
 #endif
         static void Main()
         {
-            using (var program = new RiftGame())
-                program.Run();
+      //using (var program = new RiftGame())
+      //  program.Run();
+      OrbIt.Start();
 
-        }
+    }
     }
 }
