@@ -9,7 +9,6 @@ using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpDX.DXGI;
 using SharpDX.Toolkit.Content;
-using TomShane.Neoforce.Controls;
 using System.Reflection;
 
 
@@ -105,75 +104,9 @@ namespace OrbItProcs {
         public void Initialize()
         {
             sidebar.Initialize();
-            ui.sidebar.UpdateGroupComboBoxes();
-            ui.sidebar.cbListPicker.ItemIndex = 0;
-            ui.sidebar.cbListPicker.ItemIndex = 2;
-            ui.sidebar.cbGroupS.ItemIndex = 2;
-            ui.sidebar.cbGroupT.ItemIndex = 2;
-
-            ui.sidebar.InitializeGroupsPage();
-            ui.sidebar.InitializePlayersPage();
-            ui.sidebar.InitializeItemsPage();
-            ui.sidebar.InitializeProcessesPage();
-            //ui.sidebar.InitializeBulletsPage();
-            foreach (var tabpage in ui.sidebar.tbcViews.TabPages)
-            {
-                string whitespace = "  ";
-                tabpage.Text = whitespace + tabpage.Text + whitespace;
-            }
         }
-
-        public void SetSidebarActive(bool active)
-        {
-            if (active)
-            {
-                sidebar.master.Visible = true;
-                sidebar.master.Enabled = true;
-            }
-            else
-            {
-                sidebar.master.Visible = false;
-                sidebar.master.Enabled = false;
-            }
-            SidebarActive = active;
-        }
-
-        public void SwitchView()
-        {
-            sidebar.activeTabControl = (sidebar.activeTabControl == sidebar.tbcViews) ? sidebar.tbcMain : sidebar.tbcViews;
-            if (sidebar.activeTabControl == sidebar.tbcMain)
-            {
-                OrbIt.ui.sidebar.UpdateGroupComboBoxes();
-            }
-        }
-
-        public void ToggleSidebar()
-        {
-            if (SidebarActive)
-            {
-                sidebar.master.Visible = false;
-                sidebar.master.Enabled = false;
-                //foreach(Button b in ToolWindow.buttons.Values)
-                //{
-                //    b.Visible = false;
-                //}
-
-                sidebar.toolWindow.toolBar.Visible = false;
-
-            }
-            else
-            {
-                sidebar.master.Visible = true;
-                sidebar.master.Enabled = true;
-                foreach (Button b in ToolWindow.buttons.Values)
-                {
-                    b.Visible = true;
-                }
-            }
-            SidebarActive = !SidebarActive;
-        }
-
-        public List<DetailedView> detailedViews = new List<DetailedView>();
+        
+        
         private int refreshCount = 0;
 
         public void Update(GameTime gameTime)
@@ -183,17 +116,6 @@ namespace OrbItProcs {
             ProcessMouse();
             
             ProcessController();
-            //only update once per second to save performance (heavy reflection)
-            if (refreshCount++ % 60 == 0)
-            {
-                if (sidebar != null)
-                {
-                    foreach (var view in detailedViews)
-                    {
-                        view.RefreshLight(true);
-                    }
-                }
-            }
 
             //game.testing.KeyManagerTest(() => Keybindset.Update());
             keyManager.Update();
@@ -270,19 +192,7 @@ namespace OrbItProcs {
         }
 
         public Action<int> ScrollAction;
-
-        public void SetScrollableControl(Control control, Action<int> action)
-        {
-            if (control == null || action == null) return;
-            control.MouseOver += (s, e) => {
-                ScrollAction = action;
-            };
-            control.MouseOut += (s, e) =>
-            {
-                ScrollAction = null;
-            };
-        }
-
+        
         public void ProcessMouse()
         {
             mouseState = Mouse.GetState();
