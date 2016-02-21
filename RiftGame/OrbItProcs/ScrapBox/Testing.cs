@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-
-
 using System.Reflection;
 using System.Collections;
 using System.Collections.ObjectModel;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
+using Color = SharpDX.Color;
+using SharpDX;
+using SharpOVR;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
+using SharpDX.DXGI;
+using SharpDX.Toolkit.Content;
 
 namespace OrbItProcs
 {

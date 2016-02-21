@@ -51,6 +51,9 @@
     <Reference Include="SharpDX.DXGI">
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.DXGI.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.RawInput">
+      <HintPath>OrbItProcs\Includes\SharpDX.RawInput.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.Toolkit">
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.dll</HintPath>
     </Reference>
@@ -59,6 +62,9 @@
     </Reference>
     <Reference Include="SharpDX.Toolkit.Graphics">
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput">
+      <HintPath>OrbItProcs\Includes\SharpDX.XInput.dll</HintPath>
     </Reference>
     <Reference Include="SharpOVR, Version=0.6.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -133,6 +139,7 @@
     <Compile Include="OrbItProcs\Framework\Formation.cs" />
     <Compile Include="OrbItProcs\Framework\FPInfo.cs" />
     <Compile Include="OrbItProcs\Framework\FrameRateCounter.cs" />
+    <Compile Include="OrbItProcs\Framework\Input\MonoGameInput.cs" />
     <Compile Include="OrbItProcs\Framework\Gametypes\BigTony.cs" />
     <Compile Include="OrbItProcs\Framework\Gametypes\Gametype.cs" />
     <Compile Include="OrbItProcs\Framework\GridSystem.cs" />

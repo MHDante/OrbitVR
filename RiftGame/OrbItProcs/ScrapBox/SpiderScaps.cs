@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -9,7 +6,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Point = System.Drawing.Point;
-using Color = Microsoft.Xna.Framework.Color;
+
+using Color = SharpDX.Color;
+using SharpDX;
+using SharpOVR;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
+using SharpDX.DXGI;
+using SharpDX.Toolkit.Content;
+
 namespace OrbItProcs.ScrapBox
 {
     public static class Spider

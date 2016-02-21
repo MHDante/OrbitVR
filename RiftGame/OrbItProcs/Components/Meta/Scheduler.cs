@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Color = SharpDX.Color;
+using SharpDX;
+using SharpOVR;
+using SharpDX.Toolkit;
+
+using SharpDX.Toolkit.Graphics;
+using SharpDX.DXGI;
+using SharpDX.Toolkit.Content;
 using System.Collections.ObjectModel;
-using Microsoft.Xna.Framework.Audio;
 
 namespace OrbItProcs
 {
@@ -24,9 +29,10 @@ namespace OrbItProcs
     {
         public const mtypes CompType = mtypes.affectself |  mtypes.essential;
         public override mtypes compType { get { return CompType; } set { } }
-        public static SoundEffect start;
-        public static SoundEffect end;
-        public static SoundEffect fanfare;
+        //public static SoundEffect start;
+        //public static SoundEffect end;
+        //public static SoundEffect fanfare;
+        
         public override bool active
         {
             get
@@ -48,9 +54,9 @@ namespace OrbItProcs
 
         public Scheduler(Node parent = null)
         {
-            start = OrbIt.game.Content.Load<SoundEffect>("croc");
-            end = OrbIt.game.Content.Load<SoundEffect>("coin");
-            fanfare = OrbIt.game.Content.Load<SoundEffect>("fanfare");
+            //start = OrbIt.game.Content.Load<SoundEffect>("croc");
+            //end = OrbIt.game.Content.Load<SoundEffect>("coin");
+            //fanfare = OrbIt.game.Content.Load<SoundEffect>("fanfare");
             if (parent != null) this.parent = parent;
         }
 
@@ -92,7 +98,7 @@ namespace OrbItProcs
         }
         public void doAfterXMilliseconds(Action<Node> action, int X, bool playSound = false)
         {
-            if (playSound) start.Play();
+            //if (playSound) start.Play();
             Action<Node> a = delegate(Node n) { action(n); };
             Appointment appt = new Appointment(a, X, playSound: playSound);
             AddAppointment(appt);
@@ -100,7 +106,7 @@ namespace OrbItProcs
         }
         public void doEveryXMilliseconds(Action<Node> action, int X, bool playSound = false)
         {
-            if (playSound) start.Play();
+            //if (playSound) start.Play();
             Action<Node> a = delegate(Node n) { action(n); };
             Appointment appt = new Appointment(a, X, infinite: true, playSound: playSound);
             
@@ -163,8 +169,8 @@ namespace OrbItProcs
 
         public void InvokeAppointment(Node n)
         {
-            if (playSound) {
-                Scheduler.end.Play(); }
+            //if (playSound) {
+            //    Scheduler.end.Play(); }
             foreach(var a in actions)
             {
                 a(n);

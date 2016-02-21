@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
 using TomShane.Neoforce.Controls;
 using System.Reflection;
 
@@ -11,8 +10,14 @@ using Component = OrbItProcs.Component;
 using Console = System.Console;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using Color = Microsoft.Xna.Framework.Color;
 using SysColor = System.Drawing.Color;
+using Color = SharpDX.Color;
+using SharpDX;
+using SharpOVR;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
+using SharpDX.DXGI;
+using SharpDX.Toolkit.Content;
 
 namespace OrbItProcs {
 
