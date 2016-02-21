@@ -209,7 +209,7 @@ namespace OrbItProcs {
       Texture2D myTex = Texture2D.New(
         OrbIt.game.GraphicsDevice,
         bmp.Width,
-        bmp.Height, PixelFormat.R32G32B32A32.SInt);
+        bmp.Height, PixelFormat.B8G8R8A8.Typeless);
 
       myTex.SetData<Color>(pixels);
       return myTex;

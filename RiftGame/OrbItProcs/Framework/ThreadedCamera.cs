@@ -147,7 +147,8 @@ namespace OrbItProcs {
     }
   }
 
-  public class ThreadedCamera {
+  public class ThreadedCamera : ICamera
+  {
     static System.Drawing.Pen pen;
 
     static double x = 0;
@@ -161,17 +162,17 @@ namespace OrbItProcs {
     public float backgroundHue = 180;
     public SpriteBatch batch;
 
-    public Vector2 CameraOffsetVect = new Vector2(0, 0);
+    public Vector2 CameraOffsetVect { get; set; } = new Vector2(0, 0);
     ManualResetEventSlim CameraWaiting = new ManualResetEventSlim(false);
     Queue<DrawCommand> nextFrame = new Queue<DrawCommand>();
 
     List<DrawCommand> permanents = new List<DrawCommand>();
-    public Vector2 pos;
+    public Vector2 pos { get; set; }
     Queue<DrawCommand> removePerm = new Queue<DrawCommand>();
     public Room room;
     Queue<DrawCommand> thisFrame = new Queue<DrawCommand>();
     public ManualResetEventSlim TomShaneWaiting = new ManualResetEventSlim(true);
-    public float zoom;
+    public float zoom { get; set; }
 
     static ThreadedCamera() {
       pen = new System.Drawing.Pen(new System.Drawing.Color());
@@ -195,14 +196,7 @@ namespace OrbItProcs {
 
 
     public bool TakeScreenshot { get; set; }
-
-    public float vWidth {
-      get { return OrbIt.ScreenWidth - CameraOffsetVect.X; }
-    }
-
-    public float vHeight {
-      get { return OrbIt.ScreenHeight - CameraOffsetVect.Y; }
-    }
+    
 
     public Vector2 virtualTopLeft {
       get { return pos - new Vector2(room.gridsystemAffect.gridWidth/2, room.gridsystemAffect.gridHeight/2)*1/zoom; }

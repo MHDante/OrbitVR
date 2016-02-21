@@ -134,12 +134,14 @@
     <Compile Include="OrbItProcs\Components\Tracers\Queuer.cs" />
     <Compile Include="OrbItProcs\Components\Tracers\Waver.cs" />
     <Compile Include="OrbItProcs\Components\Tracers\WideRay.cs" />
+    <Compile Include="OrbItProcs\Framework\Camera.cs" />
     <Compile Include="OrbItProcs\Framework\Controller.cs" />
     <Compile Include="OrbItProcs\Framework\DelegateManager.cs" />
     <Compile Include="OrbItProcs\Framework\Formation.cs" />
     <Compile Include="OrbItProcs\Framework\FPInfo.cs" />
     <Compile Include="OrbItProcs\Framework\FrameRateCounter.cs" />
     <Compile Include="OrbItProcs\Framework\GlobalGameMode.cs" />
+    <Compile Include="OrbItProcs\Framework\ICamera.cs" />
     <Compile Include="OrbItProcs\Framework\Input\MonoGameInput.cs" />
     <Compile Include="OrbItProcs\Framework\Gametypes\BigTony.cs" />
     <Compile Include="OrbItProcs\Framework\Gametypes\Gametype.cs" />

@@ -42,7 +42,7 @@ namespace OrbItProcs {
     public GraphicsDeviceManager Graphics;
     
     public SharpSerializer serializer = new SharpSerializer();
-    private SpriteBatch spriteBatch;
+    public SpriteBatch spriteBatch;
 
     /////////////////VR///////////////////
     private float bodyYaw = 3.141592f;

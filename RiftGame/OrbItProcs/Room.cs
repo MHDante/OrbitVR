@@ -104,7 +104,7 @@ namespace OrbItProcs {
     public GridSystem gridsystemAffect { get; set; }
     public Level level { get; set; }
     public RenderTarget2D roomRenderTarget { get; set; }
-    public ThreadedCamera camera { get; set; }
+    public ICamera camera { get; set; }
     public Scheduler scheduler { get; set; }
     public CollisionManager collisionManager { get; set; }
     //Entities
@@ -130,12 +130,13 @@ namespace OrbItProcs {
     public bool DrawCollisionGrid { get; set; }
     //Events
     public event EventHandler AfterIteration;
-
+    private Randomizer randomizer ;
     public void attatchToSidebar(UserInterface ui) {
       //We put the Procs In OrbItProcs
       processManager = new ProcessManager();
       processManager.SetProcessKeybinds();
       ui.sidebar.ActiveGroupName = "Group1";
+      randomizer =  processManager.GetProcess<Randomizer>();
 
       //ui.sidebar.UpdateGroupComboBoxes();
     }
@@ -183,13 +184,13 @@ namespace OrbItProcs {
       testTimer += gametime.ElapsedGameTime.Milliseconds;
       if (testTimer > 2000) {
         spawnPos += Vector2.One*10;
-        spawnNode((int) spawnPos.X, (int) spawnPos.Y);
+        randomizer.SpawnSemiRandom();
         testTimer = 0;
       }
 
       Player.CheckForPlayers(this);
 
-      camera.RenderAsync();
+      ((ThreadedCamera)camera).RenderAsync();
       long elapsed = 0;
       if (gametime != null) elapsed = (long) Math.Round(gametime.ElapsedGameTime.TotalMilliseconds);
       totalElapsedMilliseconds += elapsed;
@@ -245,7 +246,7 @@ namespace OrbItProcs {
       }
 
       Draw();
-      camera.CatchUp();
+      ((ThreadedCamera)camera).CatchUp();
     }
 
 
