@@ -139,6 +139,7 @@
     <Compile Include="OrbItProcs\Framework\Formation.cs" />
     <Compile Include="OrbItProcs\Framework\FPInfo.cs" />
     <Compile Include="OrbItProcs\Framework\FrameRateCounter.cs" />
+    <Compile Include="OrbItProcs\Framework\GlobalGameMode.cs" />
     <Compile Include="OrbItProcs\Framework\Input\MonoGameInput.cs" />
     <Compile Include="OrbItProcs\Framework\Gametypes\BigTony.cs" />
     <Compile Include="OrbItProcs\Framework\Gametypes\Gametype.cs" />
@@ -161,7 +162,6 @@
     <Compile Include="OrbItProcs\Framework\VMath.cs" />
     <Compile Include="OrbItProcs\Interface\InspectorInfo.cs" />
     <Compile Include="OrbItProcs\Interface\OrbItAttributes.cs" />
-    <Compile Include="OrbItProcs\Interface\PopUp.cs" />
     <Compile Include="OrbItProcs\Interface\Sidebar.cs" />
     <Compile Include="OrbItProcs\Interface\Toggle.cs" />
     <Compile Include="OrbItProcs\Interface\UserInterface.cs" />

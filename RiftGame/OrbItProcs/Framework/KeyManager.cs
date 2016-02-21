@@ -899,7 +899,7 @@ namespace OrbItProcs
                     }
                 }
             }
-            if (ui.sidebar != null) ui.sidebar.UpdateProcessView();
+            //if (ui.sidebar != null) ui.sidebar.UpdateProcessView();
         }
 
         public void RemoveTemporaryProcess(ProcessManager pm)

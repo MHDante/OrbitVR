@@ -45,7 +45,7 @@ namespace OrbItProcs
         public static Node bigtony = null;
         public BigTony() : base()
         {
-            OrbIt.ui.SetSidebarActive(false);
+            //OrbIt.ui.SetSidebarActive(false);
             onCollisionEnter = delegate(Node s, Node t)
             {
                 if (t != null && !room.playerNodes.Contains(t))
@@ -118,7 +118,7 @@ namespace OrbItProcs
             Node tony = new Node(room, tonyProps);
             room.scheduler.doEveryXMilliseconds(delegate
             {
-                if (OrbIt.soundEnabled) Scheduler.end.Play(0.3f, -0.5f, 0f);
+                //if (OrbIt.soundEnabled) Scheduler.end.Play(0.3f, -0.5f, 0f);
                 int rad = 100;
                 for (int i = 0; i < 10; i++)
                 {
@@ -156,7 +156,7 @@ namespace OrbItProcs
                                 //pp.nodeCollision.body.ClearHandlers();
                                 pp.node.collision.AllHandlersEnabled = false;
                             }
-                            if (OrbIt.soundEnabled) Scheduler.fanfare.Play();
+                            //if (OrbIt.soundEnabled) Scheduler.fanfare.Play();
                             bigtony.OnAffectOthers -= updateScores;
                         }
                     }

@@ -54,30 +54,30 @@ namespace OrbItProcs
 
         public void SetProcessKeybinds()
         {
-            ToolWindow toolbar = OrbIt.ui.sidebar.toolWindow;
+            //ToolWindow toolbar = OrbIt.ui.sidebar.toolWindow;
             KeyManager Keybindset = OrbIt.ui.keyManager;
             
 
             Keybindset.Add("spawnnodes", new KeyBundle(KeyCodes.D1, KeyCodes.LeftShift), enableKeyBinds<SpawnNodes>());
-            toolbar.AddButton("spawn", enableKeyBinds<SpawnNodes>(), "Spawn node of selected group. RightClick to spawn many");
-            toolbar.AddButton("remove", enableKeyBinds<RemoveNodes>(), "Remove nodes: leftclick single, rightclick drag, middleclick remove all.");
+            //toolbar.AddButton("spawn", enableKeyBinds<SpawnNodes>(), "Spawn node of selected group. RightClick to spawn many");
+            //toolbar.AddButton("remove", enableKeyBinds<RemoveNodes>(), "Remove nodes: leftclick single, rightclick drag, middleclick remove all.");
 
             Keybindset.Add("groupselect", new KeyBundle(KeyCodes.D3, KeyCodes.LeftShift), enableKeyBinds<GroupSelect>());
             Keybindset.Add("singleselect", new KeyBundle(KeyCodes.D4, KeyCodes.LeftShift), enableKeyBinds<SingleSelect>());
-            toolbar.AddButton("select", enableKeyBinds<SingleSelect>(), "Click to select a node, drag to select many");
+            //toolbar.AddButton("select", enableKeyBinds<SingleSelect>(), "Click to select a node, drag to select many");
 
             Keybindset.Add("mapeditor", new KeyBundle(KeyCodes.D5, KeyCodes.LeftShift), enableKeyBinds<MapEditor>());
-            toolbar.AddButton("level", enableKeyBinds<MapEditor>(), "Click to set static colidable polygons.");
+           // toolbar.AddButton("level", enableKeyBinds<MapEditor>(), "Click to set static colidable polygons.");
 
             Keybindset.Add("randomizer", new KeyBundle(KeyCodes.D2, KeyCodes.LeftShift), enableKeyBinds<Randomizer>());
-            toolbar.AddButton("random", enableKeyBinds<Randomizer>(), "Click to spawn a random node, right click to spawn a copy of the previous random node.");
+            //toolbar.AddButton("random", enableKeyBinds<Randomizer>(), "Click to spawn a random node, right click to spawn a copy of the previous random node.");
 
-            toolbar.AddButton("forceSpawn", enableKeyBinds<DirectedSpawn>(), "Spawn nodes in a direction using left and right click.");
-            toolbar.AddButton("forcePush", enableKeyBinds<FloodFill>(), "Take a hike.");
+            //toolbar.AddButton("forceSpawn", enableKeyBinds<DirectedSpawn>(), "Spawn nodes in a direction using left and right click.");
+            //toolbar.AddButton("forcePush", enableKeyBinds<FloodFill>(), "Take a hike.");
             //toolbar.AddButton("control", enableKeyBinds<DiodeSpawner>(), "Spawn things in a confusing way");
-            toolbar.AddButton("control", enableKeyBinds<PlayerProcess>(), "Create a player who will use the keyboard and mouse.");
-            toolbar.AddButton("static", enableKeyBinds<GridSpawn>(), "Spawn nodes statically to the grid.");
-            toolbar.AddButton("resize", enableKeyBinds<ResizeRoom>(), "Change the size of the Room");
+            //toolbar.AddButton("control", enableKeyBinds<PlayerProcess>(), "Create a player who will use the keyboard and mouse.");
+            //toolbar.AddButton("static", enableKeyBinds<GridSpawn>(), "Spawn nodes statically to the grid.");
+            //toolbar.AddButton("resize", enableKeyBinds<ResizeRoom>(), "Change the size of the Room");
             
             Keybindset.Add("resetplayers", new KeyBundle(KeyCodes.Home), delegate { Player.ResetPlayers(OrbIt.game.room); });
 
@@ -95,7 +95,7 @@ namespace OrbItProcs
             Keybindset.AddProcess(this, GetProcess<CameraControl>(), false);
             Keybindset.AddProcess(this, GetProcess<SpawnNodes>());
 
-            OrbIt.ui.sidebar.UpdateProcessView();
+            //OrbIt.ui.sidebar.UpdateProcessView();
         }
         
         public void Update()

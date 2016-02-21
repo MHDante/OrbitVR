@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TomShane.Neoforce.Controls;
 using System.Reflection;
 
 
@@ -631,65 +630,7 @@ namespace OrbItProcs {
                 //System.Drawing.Drawing2D.
             }
         }
-        public void DoubleClickItem(InspectorArea inspectorArea)
-        {
-            //if (inspectorArea.sidebar.userLevel == UserLevel.User || inspectorArea.sidebar.userLevel == UserLevel.Advanced) return;
-
-            bool haschildren = hasChildren();
-            if (haschildren)
-            {
-                if (extended)
-                {
-                    prefix = "+";
-                    RemoveChildren();
-                }
-                else
-                {
-                    GenerateChildren(GenerateFields:inspectorArea.GenerateFields, userLevel: UserLevel.Debug);
-                    prefix = "-";
-                    
-                    if (masterList != null)
-                    {
-                        inspectorArea.ActiveInspectorParent = this;
-                        foreach (object item in masterList.ToList())
-                        {
-                            masterList.Remove(item);
-                        }
-                        if (parentItem != null)
-                        {
-                            InspectorInfo uplevel = new InspectorInfo(masterList, "...", sidebar);
-                            uplevel.parentItem = this;
-                            uplevel.membertype = member_type.previouslevel;
-                            masterList.Add(uplevel);
-                        }
-                        foreach (InspectorInfo subitem in children)
-                        {
-                            //masterList.Insert(position + i++, subitem);
-                            masterList.Add(subitem);
-                        }
-                    }
-                }
-                //extended = !extended;
-            }
-            else if (membertype == member_type.previouslevel)
-            {
-                if (parentItem != null && parentItem.parentItem != null)
-                {
-                    parentItem.parentItem.DoubleClickItem(inspectorArea);
-                }
-            }
-            else if (!haschildren)
-            {
-                if (masterList != null)
-                {
-                    foreach (InspectorInfo subitem in children)
-                    {
-                        //masterList.Insert(position + i++, subitem);
-                        masterList.Remove(subitem);
-                    }
-                }
-            }
-        }
+        
         public void CheckItemType()
         {
             if (methodInfo != null)

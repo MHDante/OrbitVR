@@ -95,9 +95,11 @@ namespace OrbItProcs
 
             if (File.Exists(filename))
             { //we must be overwriting, therefore don't update the live presetList
-                PopUp.Prompt("OverWrite?", "O/W?", delegate(bool c, object a) { if (c) { completeSave(); PopUp.Toast("Level '" + name + "' was overwritten."); } return true; });
+                //PopUp.Prompt("OverWrite?", "O/W?", delegate(bool c, object a) { if (c) { completeSave(); PopUp.Toast("Level '" + name + "' was overwritten."); } return true; });
             }
-            else { PopUp.Toast("Level Saved as " + name); completeSave(); }
+            else {
+                //PopUp.Toast("Level Saved as " + name); completeSave();
+            }
         }
     }
 }

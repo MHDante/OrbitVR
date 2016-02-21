@@ -173,18 +173,20 @@ namespace OrbItProcs
             string filename = "Presets//Nodes//" + name + ".xml";
             Action completeSave = delegate
             {
-                OrbIt.ui.sidebar.inspectorArea.editNode.name = name;
+                //OrbIt.ui.sidebar.inspectorArea.editNode.name = name;
                 Node serializenode = new Node(node.room);
-                Node.cloneNode(OrbIt.ui.sidebar.inspectorArea.editNode, serializenode);
+                //Node.cloneNode(OrbIt.ui.sidebar.inspectorArea.editNode, serializenode);
                 OrbIt.game.serializer.Serialize(serializenode, filename);
                 Assets.NodePresets.Add(serializenode);
             };
 
             if (File.Exists(filename))
             { //we must be overwriting, therefore don't update the live presetList
-                PopUp.Prompt("OverWrite?", "O/W?", delegate(bool c, object a) { if (c) { completeSave(); PopUp.Toast("Node was overridden"); } return true; });
+                //PopUp.Prompt("OverWrite?", "O/W?", delegate(bool c, object a) { if (c) { completeSave(); PopUp.Toast("Node was overridden"); } return true; });
             }
-            else { PopUp.Toast("Node Saved"); completeSave(); }
+            else {
+                //PopUp.Toast("Node Saved"); completeSave();
+            }
 
         }
 

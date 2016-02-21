@@ -27,7 +27,7 @@ namespace OrbItProcs
         {
             //if (buttonState == ButtonState.Released) return;
             Node found = room.SelectNodeAt(UserInterface.WorldMousePos);
-            OrbIt.ui.sidebar.SetTargetNode(found);
+            //OrbIt.ui.sidebar.SetTargetNode(found);
 
         }
         Node nodeInHand = null;
@@ -37,7 +37,7 @@ namespace OrbItProcs
             if (nodeInHand != null)
             {
                 nodeInHand.movement.effvelocityMode = true;
-                OrbIt.ui.sidebar.SetTargetNode(nodeInHand);
+                //OrbIt.ui.sidebar.SetTargetNode(nodeInHand);
             }
         }
         public void DragNode()
@@ -55,7 +55,7 @@ namespace OrbItProcs
             {
                 nodeInHand.movement.effvelocityMode = false;
                 nodeInHand = null;
-                OrbIt.ui.sidebar.SetTargetNode(null);
+                //OrbIt.ui.sidebar.SetTargetNode(null);
             }
         }
 
