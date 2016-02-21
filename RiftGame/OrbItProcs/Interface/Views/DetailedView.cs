@@ -7,7 +7,13 @@ using Component = OrbItProcs.Component;
 using Console = System.Console;
 using EventHandler = TomShane.Neoforce.Controls.EventHandler;
 using EventArgs = TomShane.Neoforce.Controls.EventArgs;
-using Microsoft.Xna.Framework;
+using Color = SharpDX.Color;
+using SharpDX;
+using SharpOVR;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
+using SharpDX.DXGI;
+using SharpDX.Toolkit.Content;
 using System.Collections.ObjectModel;
 
 namespace OrbItProcs

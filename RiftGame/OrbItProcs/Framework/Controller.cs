@@ -1,12 +1,20 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Color = SharpDX.Color;
+using SharpDX;
+using SharpOVR;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
+using SharpDX.DXGI;
+using SharpDX.Toolkit.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using SharpDX.XInput;
+
 namespace OrbItProcs
 {
+    
     public enum ControlSide { left, right }
     public enum FullPadMode { mirrorMode, spellMode }
     public struct HalfPadState
@@ -44,6 +52,11 @@ namespace OrbItProcs
         public static HalfPadState NullPadState = new HalfPadState();
         public HalfPadState(ControlSide side, PlayerIndex controllerIndex)
         {
+            //SharpDX.XInput.Controller c;
+            //var s = c.GetState();
+            //var gp = s.Gamepad;
+            //gp.
+
             GamePadState gamePadState = GamePad.GetState(controllerIndex);
             if (side == ControlSide.left)
             {
