@@ -11,7 +11,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
+using SharpDX.Direct3D11;
+using BlendState = SharpDX.Toolkit.Graphics.BlendState;
+using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 
 namespace OrbItProcs
@@ -257,10 +259,12 @@ namespace OrbItProcs
                 CameraWaiting.Reset();
                 lock (_locker)
                 {
+                    DepthStencilView d = null;
+                    var oldTargets = batch.GraphicsDevice.GetRenderTargets(out d);
                     batch.GraphicsDevice.SetRenderTargets(room.roomRenderTarget);
                     batch.GraphicsDevice.Clear(bg);
                     //batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, Game1.shaderEffect); //tran
-                    batch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+                    batch.Begin(SpriteSortMode.FrontToBack, null); //TODO: BlendState
                     for (int i = 0; i < 5; i++)
                     {
                         int count = thisFrame.Count;
@@ -301,7 +305,7 @@ namespace OrbItProcs
                     }
                     //Console.WriteLine("2: " + permCount);
                     batch.End();
-                    batch.GraphicsDevice.SetRenderTarget(null);
+                    batch.GraphicsDevice.SetRenderTargets(oldTargets);
                 }
                 //
                 TomShaneWaiting.Set();
@@ -386,7 +390,7 @@ namespace OrbItProcs
         }
         public void Screenshot()
         {
-            Texture2D t2d = room.roomRenderTarget;
+            Texture2DBase t2d = room.roomRenderTarget;
             int i = 0; string name;
             string date = DateTime.Now.ToShortDateString().Replace('/', '-');
             do
@@ -396,7 +400,7 @@ namespace OrbItProcs
             } while (File.Exists(name));
             //Scheduler.fanfare.Play();
             Stream st = new FileStream(name, FileMode.Create);
-            t2d.SaveAsPng(st, t2d.Width, t2d.Height);
+            t2d.Save(st,ImageFileType.Png);
             st.Close();
             //t2d.Dispose();
         }
