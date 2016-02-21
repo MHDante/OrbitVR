@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Property/Field Documentation</Title>
+      <Author>Dante</Author>
+      <Description>AutoGenerate Component Type</Description>
+      <Shortcut>ctyp</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Replace with type</ToolTip>
+          <Default>mtypes</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[public const mtypes CompType = $type$;
+        public override mtypes compType { get { return CompType; } set { } }]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
