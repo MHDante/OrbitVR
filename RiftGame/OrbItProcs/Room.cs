@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Component = OrbItProcs.Component;
 using System.Collections.ObjectModel;
 using OrbItProcs;
+using SharpDX;
+using SharpDX.Toolkit;
+using SharpDX.Toolkit.Graphics;
 
 namespace OrbItProcs {
 
