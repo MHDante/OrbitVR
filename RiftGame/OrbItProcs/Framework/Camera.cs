@@ -8,7 +8,7 @@ using SharpDX.Direct3D11;
 using SharpDX.Toolkit.Graphics;
 using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 namespace OrbItProcs {
-    public class Camera//:ICamera
+    public class Camera// : CameraBase
     {
       private static int _CameraOffset = 0;
       public static int CameraOffset { get { return _CameraOffset; } set { _CameraOffset = value; CameraOffsetVect = new Vector2(value, 0); } }
@@ -19,13 +19,8 @@ namespace OrbItProcs {
       public Vector2 pos;
       public SpriteBatch batch;
       public static readonly SpriteFont font = Assets.font;
-      public Camera(Room room, float zoom = 0.5f, Vector2? pos = null)
-      {
-        this.room = room;
-        this.batch = OrbIt.game.spriteBatch;
-        this.zoom = zoom;
-        this.pos = pos ?? Vector2.Zero;
-      }
+      public Camera(Room room, float zoom = 0.5f, Vector2? pos = null) {} // : base(room, zoom, pos) {}
+
       public virtual void Draw(textures texture, Vector2 position, Color color, float scale)
       {
         color *= ((float)color.A / 255f);

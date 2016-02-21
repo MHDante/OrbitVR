@@ -104,7 +104,7 @@ namespace OrbItProcs {
     public GridSystem gridsystemAffect { get; set; }
     public Level level { get; set; }
     public RenderTarget2D roomRenderTarget { get; set; }
-    public ICamera camera { get; set; }
+    public CameraBase camera { get; set; }
     public Scheduler scheduler { get; set; }
     public CollisionManager collisionManager { get; set; }
     //Entities
@@ -190,7 +190,7 @@ namespace OrbItProcs {
 
       Player.CheckForPlayers(this);
 
-      ((ThreadedCamera)camera).RenderAsync();
+      camera.Update();
       long elapsed = 0;
       if (gametime != null) elapsed = (long) Math.Round(gametime.ElapsedGameTime.TotalMilliseconds);
       totalElapsedMilliseconds += elapsed;

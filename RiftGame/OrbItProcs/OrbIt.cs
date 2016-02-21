@@ -42,7 +42,6 @@ namespace OrbItProcs {
     public GraphicsDeviceManager Graphics;
     
     public SharpSerializer serializer = new SharpSerializer();
-    public SpriteBatch spriteBatch;
 
     /////////////////VR///////////////////
     private float bodyYaw = 3.141592f;
@@ -118,7 +117,6 @@ namespace OrbItProcs {
 
     protected override void LoadContent() {
       base.LoadContent();
-      spriteBatch = new SpriteBatch(GraphicsDevice);
 
       landscape = Content.Load<Model>("landscape");
 

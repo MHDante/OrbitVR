@@ -141,7 +141,7 @@
     <Compile Include="OrbItProcs\Framework\FPInfo.cs" />
     <Compile Include="OrbItProcs\Framework\FrameRateCounter.cs" />
     <Compile Include="OrbItProcs\Framework\GlobalGameMode.cs" />
-    <Compile Include="OrbItProcs\Framework\ICamera.cs" />
+    <Compile Include="OrbItProcs\Framework\CameraBase.cs" />
     <Compile Include="OrbItProcs\Framework\Input\MonoGameInput.cs" />
     <Compile Include="OrbItProcs\Framework\Gametypes\BigTony.cs" />
     <Compile Include="OrbItProcs\Framework\Gametypes\Gametype.cs" />
