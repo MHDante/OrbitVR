@@ -12,24 +12,24 @@ namespace RiftGame {
   /// Simple RiftGame game using SharpDX.Toolkit.
   /// </summary>
   public class RiftGame : Game {
-    private float bodyYaw = 3.141592f;
-    private EyeRenderDesc[] eyeRenderDesc = new EyeRenderDesc[2];
-    private PoseF[] eyeRenderPose = new PoseF[2];
-    private SwapTexture[] eyeTexture = new SwapTexture[2];
-    private GraphicsDeviceManager graphicsDeviceManager;
+    public float bodyYaw = 3.141592f;
+    public EyeRenderDesc[] eyeRenderDesc = new EyeRenderDesc[2];
+    public PoseF[] eyeRenderPose = new PoseF[2];
+    public SwapTexture[] eyeTexture = new SwapTexture[2];
+    public GraphicsDeviceManager graphicsDeviceManager;
 
-    private Vector3 headPos = new Vector3(0f, 0f, -5f);
+    public Vector3 headPos = new Vector3(0f, 0f, -5f);
 
-    private HMD hmd;
-    private Vector3[] hmdToEyeViewOffset = new Vector3[2];
+    public HMD hmd;
+    public Vector3[] hmdToEyeViewOffset = new Vector3[2];
 
-    private LayerEyeFov layerEyeFov;
-    private SharpDX.Direct3D11.Texture2D mirrorTexture;
+    public LayerEyeFov layerEyeFov;
+    public SharpDX.Direct3D11.Texture2D mirrorTexture;
 
-    private Model model;
-    private Matrix projection;
+    public Model model;
+    public Matrix projection;
 
-    private Matrix view;
+    public Matrix view;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RiftGame" /> class.

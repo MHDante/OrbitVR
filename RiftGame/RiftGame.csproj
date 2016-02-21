@@ -214,6 +214,8 @@
     </None>
     <None Include="Content\Arial16.spritefont" />
     <ToolkitFont Include="Content\Courier New.spritefont" />
+    <ToolkitModel Include="Content\landscape.x" />
+    <None Include="Content\Effects\Macros.fxh" />
     <None Include="Content\OrbItProcsContent.contentproj" />
     <None Include="Content\Skins\Default.skin" />
     <None Include="Content\Skins\Green.skin" />
@@ -229,6 +231,7 @@
     <Content Include="Content\coin.wav" />
     <Content Include="Content\croc.wav" />
     <Content Include="Content\Effects\Shader.fx" />
+    <Content Include="Content\Effects\SpriteEffect.fx" />
     <Content Include="Content\fanfare.wav" />
     <ToolkitTexture Include="Content\Textures\blackorb.png" />
     <ToolkitTexture Include="Content\Textures\bluesphere.png" />
