@@ -279,7 +279,8 @@ namespace OrbItProcs
             }
             else
             {
-                PopUp.Toast("Insufficient controllers! Player "+ player +" will not work!");
+                Console.WriteLine("Insufficient controllers! Player " + player + " will not work!");
+                //PopUp.Toast("Insufficient controllers! Player "+ player +" will not work!");
                 enabled = false;
                 success = false;
                 return;
@@ -375,7 +376,7 @@ namespace OrbItProcs
                     }
                     else
                     {
-                        PopUp.Toast("Insufficient controllers! Player " + playerNum + " will not work!");
+                        Console.WriteLine("Insufficient controllers! Player " + playerNum + " will not work!");
                         enabled = false;
 
                         return false;
@@ -400,7 +401,7 @@ namespace OrbItProcs
                 }
             }
             if (!GamePad.GetState(controllerIndex).IsConnected)
-                PopUp.Toast("Warning: Player " + playerNum + " is disconnected.");
+                Console.WriteLine("Warning: Player " + playerNum + " is disconnected.");
             return false;
         }
 

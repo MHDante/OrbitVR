@@ -168,7 +168,7 @@ namespace OrbItProcs
             room.groups.player.EmptyGroup();
             Controller.ResetControllers();
             CreatePlayers(room);
-            OrbIt.ui.sidebar.playerView.InitializePlayers();
+            //OrbIt.ui.sidebar.playerView.InitializePlayers();
         }
 
         public static Player[] players = new Player[5]; //0th for keyboard, 1st-4th for controllers (for now)
@@ -244,10 +244,10 @@ namespace OrbItProcs
             //node.OnSpawn();
             node.texture = textures.robot1;
 
-            if (updateUI)
-            {
-                OrbIt.ui.sidebar.playerView.InitializePlayers();
-            }
+            //if (updateUI)
+            //{
+            //    OrbIt.ui.sidebar.playerView.InitializePlayers();
+            //}
         }
 
         

@@ -140,7 +140,7 @@ namespace OrbItProcs {
             //We put the Procs In OrbItProcs
             processManager = new ProcessManager();
             processManager.SetProcessKeybinds();
-            ui.sidebar.UpdateGroupComboBoxes();
+            //ui.sidebar.UpdateGroupComboBoxes();
         }
 
         public void MakePresetGroups()

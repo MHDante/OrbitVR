@@ -122,7 +122,7 @@ namespace OrbItProcs
                 Group p = room.masterGroup.childGroups["Link Groups"];
                 Group g = new Group(room, n, p, n.name);
                 //p.AddGroup(g.Name, g);
-                OrbIt.ui.sidebar.UpdateGroupComboBoxes();
+                //OrbIt.ui.sidebar.UpdateGroupComboBoxes();
                 savedGroups.Enqueue(g);
             }
             return n;

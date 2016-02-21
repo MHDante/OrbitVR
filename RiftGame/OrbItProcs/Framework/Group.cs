@@ -172,7 +172,7 @@ namespace OrbItProcs
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
             {
-                bool ui = OrbIt.ui != null && OrbIt.ui.sidebar.cbListPicker != null;
+                //bool ui = OrbIt.ui != null && OrbIt.ui.sidebar.cbListPicker != null;
                 foreach (Node n in e.NewItems)
                 {
                     if (parentGroup != null && !parentGroup.entities.Contains(n))
@@ -202,15 +202,15 @@ namespace OrbItProcs
 
         public void EmptyGroup()
         {
-            bool isold = OrbIt.ui.sidebar.cbListPicker.Text.Equals(Name); // if there is a crash in this line, we removed (room.game.IsOldUI && 
+            //bool isold = OrbIt.ui.sidebar.cbListPicker.Text.Equals(Name); // if there is a crash in this line, we removed (room.game.IsOldUI && 
             foreach(Node n in fullSet.ToList())
             {
                 DeleteEntity(n);
-                if (isold)
-                {
-                    OrbIt.ui.sidebar.lstMain.Items.Remove(n);
-                    OrbIt.ui.sidebar.SyncTitleNumber(this);
-                }
+                //if (isold)
+                //{
+                //    OrbIt.ui.sidebar.lstMain.Items.Remove(n);
+                //    OrbIt.ui.sidebar.SyncTitleNumber(this);
+                //}
             }
             
         }
@@ -233,13 +233,11 @@ namespace OrbItProcs
                 //room.CollisionSet.Add(entity);
                 entity.collision.UpdateCollisionSet();
             }
-            if (OrbIt.ui.sidebar.cbListPicker.Text.Equals(Name)) // if there is a crash in this line, we removed (room.game.IsOldUI && 
-            {
-                OrbIt.ui.sidebar.lstMain.Items.Add(entity);
-                OrbIt.ui.sidebar.SyncTitleNumber(this);
-            }
-            //if (parentGroup != null)
-            //    parentGroup.IncludeEntity(entity);
+            //if (OrbIt.ui.sidebar.cbListPicker.Text.Equals(Name)) // if there is a crash in this line, we removed (room.game.IsOldUI && 
+            //{
+            //    OrbIt.ui.sidebar.lstMain.Items.Add(entity);
+            //    OrbIt.ui.sidebar.SyncTitleNumber(this);
+            //}
         }
         //removes entity from current group and all child groups
         public void DiscludeEntity(Node entity)

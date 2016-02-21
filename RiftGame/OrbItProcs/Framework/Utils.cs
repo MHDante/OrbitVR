@@ -120,7 +120,7 @@ namespace OrbItProcs {
            }
            return result;
         }
-        public static void notImplementedException() { PopUp.Toast("Zack and Dante are lazy.", "NotImplementedException"); }
+        public static void notImplementedException() { Console.WriteLine("Zack and Dante are lazy."); }
         public static object parsePrimitive(Type primitiveType, String value)
         {
 
@@ -177,35 +177,6 @@ namespace OrbItProcs {
                 }
             }
             return null;
-        }
-        public static string increment(this String origin, Type primitiveType, NumBoxMode n)
-        {
-            dynamic number = parsePrimitive(primitiveType, origin);
-            if (number == null) return "0";
-            switch (n){
-                case NumBoxMode.byOne:
-                    return (number + 1).ToString();
-                case NumBoxMode.byTen:
-                    return (number + 10).ToString();
-                case NumBoxMode.quadratic:
-                    return (number * 2).ToString();
-                default: return "0";
-            }
-        }
-        public static string decrement(this String origin, Type primitiveType, NumBoxMode n)
-        {
-            dynamic number = parsePrimitive(primitiveType, origin);
-            if (number == null) return "0";
-            switch (n)
-            {
-                case NumBoxMode.byOne:
-                    return (number - 1).ToString();
-                case NumBoxMode.byTen:
-                    return (number - 10).ToString();
-                case NumBoxMode.quadratic:
-                    return (number / 2).ToString();
-                default: return "0";
-            }
         }
         public static mtypes GetCompTypes(Type t)
         {

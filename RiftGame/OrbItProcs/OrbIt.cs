@@ -64,12 +64,13 @@ namespace OrbItProcs
         {
             get { return OrbIt._globalGameMode; }
             set { OrbIt._globalGameMode = value; 
-                if (ui != null && ui.sidebar != null)
-                {
-                    ui.sidebar.gamemodeWindow = new GamemodeWindow(ui.sidebar);
-                }
+                //if (ui != null && ui.sidebar != null)
+                //{
+                //    ui.sidebar.gamemodeWindow = new GamemodeWindow(ui.sidebar);
+                //}
             }
         }
+
         public Room room { get; set; }
         public static Action OnUpdate;
       private SpriteBatch spriteBatch;
@@ -176,8 +177,8 @@ namespace OrbItProcs
         private void GlobalKeyBinds(UserInterface ui)
         {
             ui.keyManager.addGlobalKeyAction("exitgame", KeyCodes.Escape, OnPress: () => Exit());
-            ui.keyManager.addGlobalKeyAction("togglesidebar", KeyCodes.OemTilde, OnPress: ui.ToggleSidebar);
-            ui.keyManager.addGlobalKeyAction("switchview", KeyCodes.PageDown, OnPress: ui.SwitchView);
+            //ui.keyManager.addGlobalKeyAction("togglesidebar", KeyCodes.OemTilde, OnPress: ui.ToggleSidebar);
+            //ui.keyManager.addGlobalKeyAction("switchview", KeyCodes.PageDown, OnPress: ui.SwitchView);
             //TODO: ui.keyManager.addGlobalKeyAction("removeall", KeyCodes.Delete, OnPress: () => ui.sidebar.btnRemoveAllNodes_Click(null, null));
         }
 

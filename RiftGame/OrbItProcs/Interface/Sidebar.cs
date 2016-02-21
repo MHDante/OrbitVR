@@ -77,7 +77,7 @@ namespace OrbItProcs
             //this.room = ui.game.room;
             this.ui = ui;
             NotImplemented = delegate {
-                PopUp.Toast("Not Implemented. Take a hike.");
+                Console.WriteLine("Not Implemented. Take a hike.");
                 //throw new NotImplementedException();
             };
             
@@ -115,7 +115,7 @@ namespace OrbItProcs
 
             if (text.Equals(""))
             {
-                PopUp.Toast("No Command Provided");
+                Console.WriteLine("No Command Provided");
                 //consoletextbox.Text = "";
                 return;
             }
@@ -132,7 +132,7 @@ namespace OrbItProcs
             }
             else
             {
-                PopUp.Toast("No Command Provided");
+                Console.WriteLine("No Command Provided");
                 return;
             }
 
@@ -140,7 +140,7 @@ namespace OrbItProcs
 
             if (methinfo == null || methinfo.IsPrivate)
             {
-                PopUp.Toast("Invalid method specification.");
+                Console.WriteLine("Invalid method specification.");
                 return;
             }
 
@@ -160,7 +160,7 @@ namespace OrbItProcs
                         finalargs[i] = Type.Missing;
                         continue;
                     }
-                    PopUp.Toast("Parameter Inconsistenc[ies].");
+                    Console.WriteLine("Parameter Inconsistenc[ies].");
                     return;
                 }
                 try
@@ -169,7 +169,7 @@ namespace OrbItProcs
                 }
                 catch (Exception e)
                 {
-                    PopUp.Toast("Casting exception: " + e.Message);
+                    Console.WriteLine("Casting exception: " + e.Message);
                     throw e;
                 }
 
@@ -181,7 +181,7 @@ namespace OrbItProcs
             }
             catch (Exception e)
             {
-                PopUp.Toast("Invoking exception: " + e.Message);
+                Console.WriteLine("Invoking exception: " + e.Message);
                 throw e;
             }
         }

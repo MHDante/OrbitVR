@@ -59,7 +59,8 @@ namespace OrbItProcs
         }
         public void RemoveAll()
         {
-            OrbIt.ui.sidebar.btnRemoveAllNodes_Click(null, null);
+            //TODO: AHH
+            //OrbIt.ui.sidebar.btnRemoveAllNodes_Click(null, null);
         }
     }
 }
