@@ -71,22 +71,6 @@ namespace OrbItProcs {
 
         public Dictionary<dynamic, dynamic> UserProps;
 
-        private bool _SidebarActive = false;
-        public bool SidebarActive { get { return _SidebarActive; } 
-            set 
-            { 
-                _SidebarActive = value;
-                if (value)
-                {
-                    OrbIt.game.room.camera.CameraOffset = sidebar.Width;
-                }
-                else
-                {
-                    //OrbIt.game.room.camera.CameraOffset = 0;
-                }
-            } 
-        }
-
         public Node spawnerNode;
         public Sidebar sidebar;
 
@@ -98,7 +82,6 @@ namespace OrbItProcs {
             GameInputDisabled = false;
             IsPaused = false;
             this.keyManager = new KeyManager(this);
-            SidebarActive = true;
         }
 
         public void Initialize()

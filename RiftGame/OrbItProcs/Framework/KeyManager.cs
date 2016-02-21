@@ -808,7 +808,7 @@ namespace OrbItProcs
 
         public static MouseState newMouseState, oldMouseState;
 
-        public bool MouseInGameBox = false;
+        public bool MouseInGameBox = true;
 
         //don't call me generic
         public Dictionary<Process, List<Tuple<KeyBundle, KeyAction>>> ReplacedBundles = new Dictionary<Process, List<Tuple<KeyBundle, KeyAction>>>();
@@ -955,15 +955,8 @@ namespace OrbItProcs
         {   
             newKeyboardState = Keyboard.GetState();
             newMouseState = Mouse.GetState();
-
-            if (!ui.SidebarActive)
-            {
-                MouseInGameBox = true;
-            }
-            else
-            {
-                MouseInGameBox = newMouseState.X > OrbIt.game.room.camera.CameraOffset;
-            }
+      
+            MouseInGameBox = true;
             
             if (newMouseState.X >= 0 && newMouseState.Y >= 0) //todo:check that the game window is active
             {

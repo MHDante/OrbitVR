@@ -58,8 +58,8 @@ namespace OrbItProcs
         private FrameRateCounter frameRateCounter;
         public static int ScreenWidth { get { return game.Graphics.PreferredBackBufferWidth; } set { game.Graphics.PreferredBackBufferWidth = value; } }
         public static int ScreenHeight { get { return game.Graphics.PreferredBackBufferHeight; } set { game.Graphics.PreferredBackBufferHeight = value; } }
-        public static int GameAreaWidth { get { return ScreenWidth - ui.sidebar.Width; } }
-        public static int GameAreaHeight { get { return ScreenHeight - 40; } }
+        public static int GameAreaWidth { get { return ScreenWidth; } }
+        public static int GameAreaHeight { get { return ScreenHeight; } }
         public resolutions? prefFullScreenResolution{ get; set; }
         public resolutions prefWindowedResolution { get; set; }
         private static GlobalGameMode _globalGameMode = null;
@@ -116,7 +116,7 @@ namespace OrbItProcs
         {
             Assets.LoadAssets(Content);
             base.Initialize();
-            room = new Room(this, ScreenWidth, ScreenHeight-40);
+            room = new Room(this, ScreenWidth, ScreenHeight);
             globalGameMode = new GlobalGameMode(this);
             frameRateCounter = new FrameRateCounter(this);
 
@@ -155,6 +155,7 @@ namespace OrbItProcs
         {
       base.Draw(gameTime);
       spriteBatch.Begin();
+      spriteBatch.GraphicsDevice.Clear(Color4.Black);
             Rectangle frame = new Rectangle(0, 0, ScreenWidth, ScreenHeight);
 
             ShaderResourceView s = new ShaderResourceView(Graphics.GraphicsDevice, room.roomRenderTarget);

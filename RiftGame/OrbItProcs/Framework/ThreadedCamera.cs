@@ -177,7 +177,7 @@ namespace OrbItProcs
 
         private int _CameraOffset = 0;
         public float backgroundHue = 180;
-        public int CameraOffset { get { return _CameraOffset; } set { _CameraOffset = value; CameraOffsetVect = new Vector2(value + 10, 0); } }
+        
         public Vector2 CameraOffsetVect = new Vector2(0, 0);
         public Room room;
         public float zoom;
@@ -386,7 +386,7 @@ namespace OrbItProcs
             Vector2 pos = position;
             if (offset) pos += CameraOffsetVect;
             nextFrame.Enqueue(new DrawCommand(text, pos, c2, scale, layerDepth: (((float)Layer) / 10)));
-            nextFrame.Enqueue(new DrawCommand(text, pos + new Vector2(1, -1), color, scale, layerDepth: (((float)Layer) / 10)));
+            //nextFrame.Enqueue(new DrawCommand(text, pos + new Vector2(1, -1), color, scale, layerDepth: (((float)Layer) / 10)));
         }
         public void Screenshot()
         {

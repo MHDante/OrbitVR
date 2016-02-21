@@ -72,25 +72,20 @@ namespace OrbItProcs {
             borderColor = Color.DarkGray;
             
             // grid System
-            gridsystemAffect = new GridSystem(this, 40, new Vector2(0, worldHeight - OrbIt.ScreenHeight), worldWidth, OrbIt.ScreenHeight);
+            gridsystemAffect = new GridSystem(this, 40, new Vector2(0,0), worldWidth, OrbIt.ScreenHeight);
             collisionManager = new CollisionManager(this);
-            //gridsystemAffect = new GridSystem(this, 40, new Vector2(0, worldHeight - OrbIt.Height), worldWidth, OrbIt.Height);
             level = new Level(this, 40, 40, gridsystemAffect.cellWidth, gridsystemAffect.cellHeight);
             roomRenderTarget = RenderTarget2D.New(game.Graphics.GraphicsDevice, OrbIt.ScreenWidth, OrbIt.ScreenHeight, PixelFormat.R32G32B32A32.SInt);
-            //gridsystemCollision = new GridSystem(this, gridsystemAffect.cellsX, new Vector2(0, worldHeight - OrbIt.Height), worldWidth, OrbIt.Height);
             camera = new ThreadedCamera(this, 1f);
             DrawLinks = true;
             scheduler = new Scheduler();
 
             players = new HashSet<Player>();
-
-            #region ///Default User props///
+      
             Dictionary<dynamic, dynamic> userPr = new Dictionary<dynamic, dynamic>() {
                 { nodeE.position, new Vector2(0, 0) },
                 { nodeE.texture, textures.blackorb },
             };
-            #endregion
-
 
             defaultNode = new Node(this, userPr);
             defaultNode.name = "master";
@@ -107,7 +102,7 @@ namespace OrbItProcs {
             firstdefault.name = "[G0]0";
             //firstdefault.IsDefault = true;
 
-            masterGroup = new Group(this, defaultNode, null, defaultNode.name);
+            masterGroup = new Group(this, defaultNode, null, defaultNode.name, false);
             if (Groups)
             {
                 new Group(this, defaultNode, masterGroup, "General Groups", false);
@@ -119,7 +114,6 @@ namespace OrbItProcs {
                 new Group(this, defaultNode, masterGroup, "Wall Group", true);
                 new Group(this, firstdefault, groups.general, "Group1");
             }
-
             Dictionary<dynamic, dynamic> userPropsTarget = new Dictionary<dynamic, dynamic>() {
                     { typeof(ColorChanger), true }, 
                     { nodeE.texture, textures.ring } 
@@ -140,10 +134,12 @@ namespace OrbItProcs {
             //We put the Procs In OrbItProcs
             processManager = new ProcessManager();
             processManager.SetProcessKeybinds();
-            //ui.sidebar.UpdateGroupComboBoxes();
-        }
+            ui.sidebar.ActiveGroupName = "Group1";
 
-        public void MakePresetGroups()
+            //ui.sidebar.UpdateGroupComboBoxes();
+    }
+
+    public void MakePresetGroups()
         {
             var infos = Component.compInfos;
             int runenum = 0;

@@ -39,9 +39,11 @@ namespace OrbItProcs
             }
         }
         public bool CreatingGroup = false;
+      public string ActiveGroupName;
         public Group GetActiveGroup()
         {
-            return room.masterGroup;
+            if(string.IsNullOrEmpty(ActiveGroupName)) return room.masterGroup;
+          return room.masterGroup.FindGroup(ActiveGroupName);
         }
 
         public Node ActiveDefaultNode
@@ -55,21 +57,6 @@ namespace OrbItProcs
             }
         }
         //public InspectorInfo ActiveInspectorParent;
-        
-        private int _Width = 250;
-        public int Width
-        {
-            get { return _Width; }
-            set
-            {
-                _Width = value;
-                if (ui.SidebarActive)
-                {
-                    OrbIt.game.room.camera.CameraOffset = value;
-                }
-            }
-        }
-        
         
         public Sidebar(UserInterface ui)
         {
