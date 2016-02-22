@@ -149,86 +149,86 @@ public class PSMoveAPI {
     PSMOVE_CURRENT_VERSION = 0x030001, /*!< Current version, see psmove_init() */
   }
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern PSMove_Bool psmove_init(PSMove_Version version);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_shutdown();
 
   // Move Controller API
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern IntPtr psmove_connect();
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern IntPtr psmove_connect_by_id(int id);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern int psmove_count_connected();
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern PSMoveConnectionType psmove_connection_type(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern int psmove_has_calibration(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_enable_orientation(IntPtr move, PSMove_Bool enable);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern PSMove_Bool psmove_has_orientation(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_get_orientation(IntPtr move, ref float oriw, ref float orix, ref float oriy,
                                                    ref float oriz);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_set_leds(IntPtr move, char r, char g, char b);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern int psmove_update_leds(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_set_rumble(IntPtr move, System.Byte rumble);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern uint psmove_poll(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern uint psmove_get_buttons(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern uint psmove_get_button_events(IntPtr move, ref uint pressed, ref uint released);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern char psmove_get_trigger(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern float psmove_get_temperature(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern PSMove_Battery_Level psmove_get_battery(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_get_accelerometer(IntPtr move, ref int ax, ref int ay, ref int az);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_get_accelerometer_frame(IntPtr move, PSMove_Frame frame, ref float ax, ref float ay,
                                                            ref float az);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_get_gyroscope(IntPtr move, ref int gx, ref int gy, ref int gz);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_get_gyroscope_frame(IntPtr move, PSMove_Frame frame, ref float gx, ref float gy,
                                                        ref float gz);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_get_magnetometer(IntPtr move, ref int mx, ref int my, ref int mz);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_disconnect(IntPtr move);
 
-  [DllImport("psmoveapi.dll")]
+  [DllImport("Includes\\psmoveapi.dll")]
   public static extern void psmove_reset_orientation(IntPtr move);
 
 

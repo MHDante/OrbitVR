@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{AD7BE0BF-D32A-4C57-89D0-DB411E68EB0F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>WindowsApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>OrbitVR</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Polenter.SharpSerializer, Version=2.18.0.0, Culture=neutral, PublicKeyToken=8f4f20011571ee5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Includes\Polenter.SharpSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Toolkit">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Toolkit.Game">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Toolkit.Graphics">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.XInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpOVR, Version=0.6.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SharpOVR.0.6.0.4\lib\SharpOVR.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <ToolkitAudio Include="Content\coin.wav" />
+    <ToolkitAudio Include="Content\croc.wav" />
+    <Content Include="Content\Effects\Shader.fx" />
+    <ToolkitAudio Include="Content\fanfare.wav" />
+    <ToolkitTexture Include="Content\Textures\blackorb.png" />
+    <ToolkitTexture Include="Content\Textures\bluesphere.png" />
+    <ToolkitTexture Include="Content\Textures\Bolders.png" />
+    <ToolkitTexture Include="Content\Textures\boulderShine.png" />
+    <ToolkitTexture Include="Content\Textures\Boulder_3.png" />
+    <ToolkitTexture Include="Content\Textures\buttons.png" />
+    <ToolkitTexture Include="Content\Textures\cage.png" />
+    <ToolkitTexture Include="Content\Textures\colororb.png" />
+    <ToolkitTexture Include="Content\Textures\daniel.png" />
+    <ToolkitTexture Include="Content\Textures\EndLight.png" />
+    <ToolkitTexture Include="Content\Textures\fist.png" />
+    <ToolkitTexture Include="Content\Textures\gradient.png" />
+    <ToolkitTexture Include="Content\Textures\gradient2.png" />
+    <ToolkitTexture Include="Content\Textures\innerL.png" />
+    <ToolkitTexture Include="Content\Textures\innerR.png" />
+    <ToolkitTexture Include="Content\Textures\itemLight.png" />
+    <ToolkitTexture Include="Content\Textures\itemWhisper.png" />
+    <ToolkitTexture Include="Content\Textures\leaf.png" />
+    <ToolkitTexture Include="Content\Textures\orientedcircle.png" />
+    <ToolkitTexture Include="Content\Textures\outerL.png" />
+    <ToolkitTexture Include="Content\Textures\outerR.png" />
+    <ToolkitTexture Include="Content\Textures\pixelEdge.png" />
+    <ToolkitTexture Include="Content\Textures\pointer.png" />
+    <ToolkitTexture Include="Content\Textures\randompixels.png" />
+    <ToolkitTexture Include="Content\Textures\RidgesL.png" />
+    <ToolkitTexture Include="Content\Textures\RidgesR.png" />
+    <ToolkitTexture Include="Content\Textures\ring.png" />
+    <ToolkitTexture Include="Content\Textures\Robot.png" />
+    <ToolkitTexture Include="Content\Textures\Robot1.png" />
+    <ToolkitTexture Include="Content\Textures\RockTexture1.png" />
+    <ToolkitTexture Include="Content\Textures\RockTexture2.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\1 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\10 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\11 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\12 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\13 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\14 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\15 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\16 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\2 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\3 symboli.PNG" />
+    <ToolkitTexture Include="Content\Textures\Runes\4 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\5 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\6 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\7 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\8 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\9 symboli.png" />
+    <ToolkitTexture Include="Content\Textures\Runes\cage.png" />
+    <ToolkitTexture Include="Content\Textures\ShovelTip.png" />
+    <ToolkitTexture Include="Content\Textures\smoothEdge.png" />
+    <ToolkitTexture Include="Content\Textures\SpiderHead.png" />
+    <ToolkitTexture Include="Content\Textures\SpiderLeg1.png" />
+    <ToolkitTexture Include="Content\Textures\sword.png" />
+    <ToolkitTexture Include="Content\Textures\white3pixel.png" />
+    <ToolkitTexture Include="Content\Textures\whitecircle.png" />
+    <ToolkitTexture Include="Content\Textures\whiteorb.png" />
+    <ToolkitTexture Include="Content\Textures\whiteorb2.png" />
+    <ToolkitTexture Include="Content\Textures\whitepixel.png" />
+    <ToolkitTexture Include="Content\Textures\whitepixeltrans.png" />
+    <ToolkitTexture Include="Content\Textures\whitesphere.png" />
+    <Content Include="Includes\Polenter.SharpSerializer.dll" />
+    <Content Include="Includes\psmoveapi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Includes\psmoveapi_tracker.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Includes\SDL2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="OrbItProcs\Game.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ToolkitFont Include="Content\Courier New.spritefont" />
+    <ToolkitModel Include="Content\landscape.x" />
+    <ToolkitModel Include="Content\PSMove.fbx" />
+    <ToolkitModel Include="Content\Ship.fbx" />
+    <ToolkitTexture Include="Content\ShipDiffuse.dds" />
+    <None Include="app.config" />
+    <None Include="OrbItProcs\snippets\ctyp.snippet" />
+    <None Include="OrbItProcs\snippets\usra.snippet" />
+    <None Include="OrbItProcs\snippets\usrd.snippet" />
+    <None Include="OrbItProcs\snippets\usru.snippet" />
+    <None Include="packages.config" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OrbItProcs\Assets.cs" />
+    <Compile Include="OrbItProcs\Component.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\Displace.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\FixedForce.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\Follow.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\Gravity.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\IMultipliable.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\IRadius.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\Obstructor.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\Spike.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\Spring.cs" />
+    <Compile Include="OrbItProcs\Components\AffectOthers\Transfer.cs" />
+    <Compile Include="OrbItProcs\Components\Drawers\ColorChanger.cs" />
+    <Compile Include="OrbItProcs\Components\Drawers\ColorGravity.cs" />
+    <Compile Include="OrbItProcs\Components\Drawers\Light.cs" />
+    <Compile Include="OrbItProcs\Components\Drawers\Runer.cs" />
+    <Compile Include="OrbItProcs\Components\Drawers\Shader.cs" />
+    <Compile Include="OrbItProcs\Components\Essential\BasicDraw.cs" />
+    <Compile Include="OrbItProcs\Components\Essential\Collision.cs" />
+    <Compile Include="OrbItProcs\Components\Essential\Meta.cs" />
+    <Compile Include="OrbItProcs\Components\Essential\Movement.cs" />
+    <Compile Include="OrbItProcs\Components\Items\BeamGun.cs" />
+    <Compile Include="OrbItProcs\Components\Items\Fist.cs" />
+    <Compile Include="OrbItProcs\Components\Items\ItemPayload.cs" />
+    <Compile Include="OrbItProcs\Components\Items\LineSpinner.cs" />
+    <Compile Include="OrbItProcs\Components\Items\LinkGun.cs" />
+    <Compile Include="OrbItProcs\Components\Items\MagicTorch.cs" />
+    <Compile Include="OrbItProcs\Components\Items\NodeGun.cs" />
+    <Compile Include="OrbItProcs\Components\Items\Shooter.cs" />
+    <Compile Include="OrbItProcs\Components\Items\Shovel.cs" />
+    <Compile Include="OrbItProcs\Components\Items\Sword.cs" />
+    <Compile Include="OrbItProcs\Components\Items\Symmetry.cs" />
+    <Compile Include="OrbItProcs\Components\Linkers\Flow.cs" />
+    <Compile Include="OrbItProcs\Components\Linkers\ILinkable.cs" />
+    <Compile Include="OrbItProcs\Components\Linkers\Orbiter.cs" />
+    <Compile Include="OrbItProcs\Components\Linkers\RelativeMotion.cs" />
+    <Compile Include="OrbItProcs\Components\Linkers\Tether.cs" />
+    <Compile Include="OrbItProcs\Components\Meta\Delegator.cs" />
+    <Compile Include="OrbItProcs\Components\Meta\Diode.cs" />
+    <Compile Include="OrbItProcs\Components\Meta\Lifetime.cs" />
+    <Compile Include="OrbItProcs\Components\Meta\Modifier.cs" />
+    <Compile Include="OrbItProcs\Components\Meta\Scheduler.cs" />
+    <Compile Include="OrbItProcs\Components\Meta\Swap.cs" />
+    <Compile Include="OrbItProcs\Components\Meta\Tree.cs" />
+    <Compile Include="OrbItProcs\Components\Movement\Circler.cs" />
+    <Compile Include="OrbItProcs\Components\Movement\Conveyor.cs" />
+    <Compile Include="OrbItProcs\Components\Movement\Friction.cs" />
+    <Compile Include="OrbItProcs\Components\Movement\RandVelChange.cs" />
+    <Compile Include="OrbItProcs\Components\Tracers\Laser.cs" />
+    <Compile Include="OrbItProcs\Components\Tracers\PhaseOrb.cs" />
+    <Compile Include="OrbItProcs\Components\Tracers\Queuer.cs" />
+    <Compile Include="OrbItProcs\Components\Tracers\Waver.cs" />
+    <Compile Include="OrbItProcs\Components\Tracers\WideRay.cs" />
+    <Compile Include="OrbItProcs\Framework\Camera.cs" />
+    <Compile Include="OrbItProcs\Framework\CameraBase.cs" />
+    <Compile Include="OrbItProcs\Framework\Controller.cs" />
+    <Compile Include="OrbItProcs\Framework\DelegateManager.cs" />
+    <Compile Include="OrbItProcs\Framework\Formation.cs" />
+    <Compile Include="OrbItProcs\Framework\FPInfo.cs" />
+    <Compile Include="OrbItProcs\Framework\FrameRateCounter.cs" />
+    <Compile Include="OrbItProcs\Framework\Gametypes\BigTony.cs" />
+    <Compile Include="OrbItProcs\Framework\Gametypes\Gametype.cs" />
+    <Compile Include="OrbItProcs\Framework\GlobalGameMode.cs" />
+    <Compile Include="OrbItProcs\Framework\GridSystem.cs" />
+    <Compile Include="OrbItProcs\Framework\Group.cs" />
+    <Compile Include="OrbItProcs\Framework\IndexArray.cs" />
+    <Compile Include="OrbItProcs\Framework\Input.cs" />
+    <Compile Include="OrbItProcs\Framework\Input\MonoGameInput.cs" />
+    <Compile Include="OrbItProcs\Framework\KeyManager.cs" />
+    <Compile Include="OrbItProcs\Framework\Level.cs" />
+    <Compile Include="OrbItProcs\Framework\LevelSave.cs" />
+    <Compile Include="OrbItProcs\Framework\Link.cs" />
+    <Compile Include="OrbItProcs\Framework\ModifierInfo.cs" />
+    <Compile Include="OrbItProcs\Framework\ObservableHashSetOfT.cs" />
+    <Compile Include="OrbItProcs\Framework\Player.cs" />
+    <Compile Include="OrbItProcs\Framework\ProcessManager.cs" />
+    <Compile Include="OrbItProcs\Framework\QueueInfo.cs" />
+    <Compile Include="OrbItProcs\Framework\Redirector.cs" />
+    <Compile Include="OrbItProcs\Framework\ThreadedCamera.cs" />
+    <Compile Include="OrbItProcs\Framework\Utils.cs" />
+    <Compile Include="OrbItProcs\Framework\VMath.cs" />
+    <Compile Include="OrbItProcs\Interface\InspectorInfo.cs" />
+    <Compile Include="OrbItProcs\Interface\OrbItAttributes.cs" />
+    <Compile Include="OrbItProcs\Interface\Sidebar.cs" />
+    <Compile Include="OrbItProcs\Interface\Toggle.cs" />
+    <Compile Include="OrbItProcs\Interface\UserInterface.cs" />
+    <Compile Include="OrbItProcs\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrbItProcs\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrbItProcs\Node.cs" />
+    <Compile Include="OrbItProcs\OrbIt.cs" />
+    <Compile Include="OrbItProcs\Physics\AABB.cs" />
+    <Compile Include="OrbItProcs\Physics\Body.cs" />
+    <Compile Include="OrbItProcs\Physics\Collider.cs" />
+    <Compile Include="OrbItProcs\Physics\Manifold.cs" />
+    <Compile Include="OrbItProcs\Physics\Shape.cs" />
+    <Compile Include="OrbItProcs\Processes\AffectAll.cs" />
+    <Compile Include="OrbItProcs\Processes\AxisMovement.cs" />
+    <Compile Include="OrbItProcs\Processes\CameraControl.cs" />
+    <Compile Include="OrbItProcs\Processes\DiodeSpawner.cs" />
+    <Compile Include="OrbItProcs\Processes\DirectedSpawn.cs" />
+    <Compile Include="OrbItProcs\Processes\FloodFill.cs" />
+    <Compile Include="OrbItProcs\Processes\GraphData.cs" />
+    <Compile Include="OrbItProcs\Processes\GridSpawn.cs" />
+    <Compile Include="OrbItProcs\Processes\GroupSelect.cs" />
+    <Compile Include="OrbItProcs\Processes\MapEditor.cs" />
+    <Compile Include="OrbItProcs\Processes\PlayerProcess.cs" />
+    <Compile Include="OrbItProcs\Processes\PolygonSpawner.cs" />
+    <Compile Include="OrbItProcs\Processes\Process.cs" />
+    <Compile Include="OrbItProcs\Processes\Randomizer.cs" />
+    <Compile Include="OrbItProcs\Processes\RemoveNodes.cs" />
+    <Compile Include="OrbItProcs\Processes\ResizeRoom.cs" />
+    <Compile Include="OrbItProcs\Processes\SingleSelect.cs" />
+    <Compile Include="OrbItProcs\Processes\SpawnNodes.cs" />
+    <Compile Include="OrbItProcs\Processes\TripSpawnOnCollide.cs" />
+    <Compile Include="OrbItProcs\Program.cs" />
+    <Compile Include="OrbItProcs\PSMove\PSMoveAPI.cs" />
+    <Compile Include="OrbItProcs\PSMove\PSMoveClock.cs" />
+    <Compile Include="OrbItProcs\PSMove\PSMoveController.cs" />
+    <Compile Include="OrbItProcs\PSMove\PSMoveData.cs" />
+    <Compile Include="OrbItProcs\PSMove\PSMoveManager.cs" />
+    <Compile Include="OrbItProcs\PSMove\PSMovePose.cs" />
+    <Compile Include="OrbItProcs\PSMove\PSMoveUtility.cs" />
+    <Compile Include="OrbItProcs\PSMove\Transform.cs" />
+    <Compile Include="OrbItProcs\RiftGame.cs" />
+    <Compile Include="OrbItProcs\Room.cs" />
+    <Compile Include="OrbItProcs\RoomComponents\CollisionManager.cs" />
+    <Compile Include="OrbItProcs\RoomComponents\RoomComponent.cs" />
+    <Compile Include="OrbItProcs\ScrapBox\CollisionDelegates.cs" />
+    <Compile Include="OrbItProcs\ScrapBox\Misc.cs" />
+    <Compile Include="OrbItProcs\ScrapBox\PlayerHealthBars.cs" />
+    <Compile Include="OrbItProcs\ScrapBox\Shirt.cs" />
+    <Compile Include="OrbItProcs\ScrapBox\SpiderScaps.cs" />
+    <Compile Include="OrbItProcs\ScrapBox\Testing.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OrbItProcs\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\" />
+    <Folder Include="OrbItProcs\Screenshots\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+  <Import Project="packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SharpDX.2.6.3\build\SharpDX.targets'))" />
+    <Error Condition="!Exists('packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets'))" />
+  </Target>
+  <Import Project="packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets" Condition="Exists('packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets')" />
+</Project>

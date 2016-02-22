@@ -3,6 +3,7 @@ using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 
+
 namespace OrbItProcs {
   public class FrameRateCounter {
     public TimeSpan elapsedTime = TimeSpan.Zero;
@@ -19,6 +20,7 @@ namespace OrbItProcs {
     }
 
     public void Update(GameTime gameTime) {
+      
       elapsedTime += gameTime.ElapsedGameTime;
       updateCounter++;
 

@@ -358,7 +358,7 @@ namespace OrbItProcs {
           GraphicsDevice.SetDepthStencilState(GraphicsDevice.DepthStencilStates.Default);
           GraphicsDevice.SetRasterizerState(GraphicsDevice.RasterizerStates.CullBack);
 
-          mesh.Draw(GraphicsDevice);
+          mesh.Draw(GraphicsDevice, new Matrix[0]);
         }
       }
     }
