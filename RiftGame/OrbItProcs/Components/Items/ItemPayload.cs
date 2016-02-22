@@ -32,39 +32,39 @@ namespace OrbItProcs {
       NodesCanGrab = false;
       DropParentsComponents = false;
       OnCollision = (s, o) => {
-        if (o.IsPlayer) {
-          if (!PlayersCanGrab) return;
-        }
-        else {
-          if (!NodesCanGrab) return;
-        }
-        if (AlreadyDelivered.Contains(o)) return;
-        Dictionary<Type, Component> dict;
-        if (DropParentsComponents) {
-          dict = parent.comps;
-        }
-        else {
-          dict = payloadNode.comps;
-        }
+                      if (o.IsPlayer) {
+                        if (!PlayersCanGrab) return;
+                      }
+                      else {
+                        if (!NodesCanGrab) return;
+                      }
+                      if (AlreadyDelivered.Contains(o)) return;
+                      Dictionary<Type, Component> dict;
+                      if (DropParentsComponents) {
+                        dict = parent.comps;
+                      }
+                      else {
+                        dict = payloadNode.comps;
+                      }
 
-        foreach (Type t in dict.Keys) {
-          if (dict[t].isEssential()) continue;
-          if (o.HasComp(t) && !OverwriteComponents) continue;
-          Component comp = dict[t];
-          Component clone = comp.CreateClone(o);
-          o.addComponent(clone, true, true);
-          clone.OnSpawn();
-        }
-        if (o.HasComp<ItemPayload>()) {
-          o.Comp<ItemPayload>().AlreadyDelivered.Add(parent);
-        }
-        if (DieOnDelivery) {
-          this.parent.OnDeath(null);
-            //(o); to send the message that the node picking up the payload has 'killed' this payload
-          return;
-        }
-        AlreadyDelivered.Add(o);
-      };
+                      foreach (Type t in dict.Keys) {
+                        if (dict[t].isEssential()) continue;
+                        if (o.HasComp(t) && !OverwriteComponents) continue;
+                        Component comp = dict[t];
+                        Component clone = comp.CreateClone(o);
+                        o.addComponent(clone, true, true);
+                        clone.OnSpawn();
+                      }
+                      if (o.HasComp<ItemPayload>()) {
+                        o.Comp<ItemPayload>().AlreadyDelivered.Add(parent);
+                      }
+                      if (DieOnDelivery) {
+                        this.parent.OnDeath(null);
+                        //(o); to send the message that the node picking up the payload has 'killed' this payload
+                        return;
+                      }
+                      AlreadyDelivered.Add(o);
+                    };
 
       if (parent == null) return;
       payloadNode = new Node(room);

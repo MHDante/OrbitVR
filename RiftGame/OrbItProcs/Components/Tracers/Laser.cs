@@ -153,7 +153,7 @@ namespace OrbItProcs {
         coll = new Color(parent.body.color.R, parent.body.color.G, parent.body.color.B, alpha);
       }
       room.camera.AddPermanentDraw(textures.whitepixel, centerpoint, parent.body.color, scalevect, testangle,
-        laserLength);
+                                   laserLength);
       prevPos = start;
     }
   }

@@ -277,7 +277,7 @@ namespace OrbItProcs {
         Room room = OrbIt.game.room;
         float thickness = (float) room.worldWidth/360f;
         room.camera.DrawLine(new Vector2(thickness*i, 0), new Vector2(thickness*i, room.worldHeight), thickness, col,
-          Layers.Over5);
+                             Layers.Over5);
       }
     }
 
@@ -350,7 +350,7 @@ namespace OrbItProcs {
       int count = 0;
       for (int i = 0; i < 100; i++) {
         Vector2 v = new Vector2((float) Utils.random.Next(10000)/(float) Utils.random.Next(10000),
-          (float) Utils.random.Next(10000)/(float) Utils.random.Next(10000));
+                                (float) Utils.random.Next(10000)/(float) Utils.random.Next(10000));
         Vector2 vv = v;
         v.Normalize();
         VMath.NormalizeSafe(ref vv);
@@ -544,7 +544,7 @@ namespace OrbItProcs {
       MethodInfo testmethod = room.GetType().GetMethod("test");
       Action<Room, int, float, string> del =
         (Action<Room, int, float, string>)
-          Delegate.CreateDelegate(typeof (Action<Room, int, float, string>), testmethod);
+        Delegate.CreateDelegate(typeof (Action<Room, int, float, string>), testmethod);
       del(room, 1, 0.3f, "Action worked.");
 
       Action<int, float, string> del2 =
@@ -609,12 +609,12 @@ namespace OrbItProcs {
 
       ObservableHashSet<int> obints = new ObservableHashSet<int>();
       obints.CollectionChanged += (s, e) => {
-        if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add) {
-          foreach (int i in e.NewItems) {
-            Console.WriteLine("Added:" + i);
-          }
-        }
-      };
+                                    if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add) {
+                                      foreach (int i in e.NewItems) {
+                                        Console.WriteLine("Added:" + i);
+                                      }
+                                    }
+                                  };
       obints.Add(6);
     }
   }

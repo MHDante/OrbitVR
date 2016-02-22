@@ -35,8 +35,8 @@ namespace OrbItProcs {
 
     static Component() {
       compTypes = AppDomain.CurrentDomain.GetAssemblies()
-        .SelectMany(assembly => assembly.GetTypes())
-        .Where(type => type.IsSubclassOf(typeof (Component))).ToHashSet();
+                           .SelectMany(assembly => assembly.GetTypes())
+                           .Where(type => type.IsSubclassOf(typeof (Component))).ToHashSet();
 
 
       compInfos = new Dictionary<Type, Info>();

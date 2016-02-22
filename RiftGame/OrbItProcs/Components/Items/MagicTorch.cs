@@ -141,27 +141,27 @@ namespace OrbItProcs {
       torchNode.OnSpawn();
       torchNode.body.AddExclusionCheck(parent.body);
       torchNode.body.OnCollisionEnter += (p, o) => {
-        Node otherparent = null;
-        if (o.dataStore.ContainsKey("swordnodeparent")) {
-          otherparent = o.dataStore["swordnodeparent"];
-        }
-        else if (o.dataStore.ContainsKey("fistnodeparent")) {
-          otherparent = o.dataStore["fistnodeparent"];
-        }
-        else if (o.dataStore.ContainsKey("magictorchnodeparent")) {
-          otherparent = o.dataStore["magictorchnodeparent"];
-        }
-        if (otherparent != null) {
-          Vector2 f = otherparent.body.pos - parent.body.pos;
-          VMath.NormalizeSafe(ref f);
-          f *= 10;
-          otherparent.body.ApplyForce(f);
-        }
-        //if (o.player != null)
-        //{
-        //    //o.player.node.meta.CalculateDamage(parent, damageMultiplier);
-        //}
-      };
+                                           Node otherparent = null;
+                                           if (o.dataStore.ContainsKey("swordnodeparent")) {
+                                             otherparent = o.dataStore["swordnodeparent"];
+                                           }
+                                           else if (o.dataStore.ContainsKey("fistnodeparent")) {
+                                             otherparent = o.dataStore["fistnodeparent"];
+                                           }
+                                           else if (o.dataStore.ContainsKey("magictorchnodeparent")) {
+                                             otherparent = o.dataStore["magictorchnodeparent"];
+                                           }
+                                           if (otherparent != null) {
+                                             Vector2 f = otherparent.body.pos - parent.body.pos;
+                                             VMath.NormalizeSafe(ref f);
+                                             f *= 10;
+                                             otherparent.body.ApplyForce(f);
+                                           }
+                                           //if (o.player != null)
+                                           //{
+                                           //    //o.player.node.meta.CalculateDamage(parent, damageMultiplier);
+                                           //}
+                                         };
       //sword.body.exclusionList.Add(parent.body);
       //
       //parent.body.exclusionList.Add(sword.body);
@@ -209,7 +209,7 @@ namespace OrbItProcs {
       torchNode.body.color = col;
       room.camera.Draw(textures.ring, position, Color.Black, torchNode.body.scale, torchNode.body.orient, Layers.Over4);
       room.camera.Draw(MagicToRune[magicType], position, col, torchNode.body.scale,
-        VMath.VectorToAngle(position - parent.body.pos) + GMath.PIbyTwo, Layers.Over3);
+                       VMath.VectorToAngle(position - parent.body.pos) + GMath.PIbyTwo, Layers.Over3);
     }
 
 

@@ -8,7 +8,7 @@ namespace OrbItProcs {
     public float Scale = 1;
 
     public Matrix getMatrix() {
-      var ret = Matrix.AffineTransformation(Scale,rotation,-position);
+      var ret = Matrix.AffineTransformation(Scale, rotation, -position);
       if (parent != null) ret *= parent.getMatrix();
       return ret;
     }

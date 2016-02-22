@@ -232,7 +232,7 @@ namespace OrbItProcs {
         throw new InvalidOperationException();
 
       return PlatformSetVibration(index, MathHelper.Clamp(leftMotor, 0.0f, 1.0f),
-        MathHelper.Clamp(rightMotor, 0.0f, 1.0f));
+                                  MathHelper.Clamp(rightMotor, 0.0f, 1.0f));
     }
   }
 
@@ -414,13 +414,13 @@ namespace OrbItProcs {
         rightValue: ConvertToButtonState(gamepad.Buttons, SharpDX.XInput.GamepadButtonFlags.DPadRight));
 
       var buttons = ConvertToButtons(
-        buttonFlags: gamepad.Buttons,
-        leftThumbX: gamepad.LeftThumbX,
-        leftThumbY: gamepad.LeftThumbY,
-        rightThumbX: gamepad.RightThumbX,
-        rightThumbY: gamepad.RightThumbY,
-        leftTrigger: gamepad.LeftTrigger,
-        rightTrigger: gamepad.RightTrigger);
+                                     buttonFlags: gamepad.Buttons,
+                                     leftThumbX: gamepad.LeftThumbX,
+                                     leftThumbY: gamepad.LeftThumbY,
+                                     rightThumbX: gamepad.RightThumbX,
+                                     rightThumbY: gamepad.RightThumbY,
+                                     leftTrigger: gamepad.LeftTrigger,
+                                     rightTrigger: gamepad.RightTrigger);
 
       var state = new GamePadState(
         thumbSticks: thumbSticks,
@@ -467,10 +467,10 @@ namespace OrbItProcs {
     }
 
     private static GamePadButtons ConvertToButtons(SharpDX.XInput.GamepadButtonFlags buttonFlags,
-      short leftThumbX, short leftThumbY,
-      short rightThumbX, short rightThumbY,
-      byte leftTrigger,
-      byte rightTrigger) {
+                                                   short leftThumbX, short leftThumbY,
+                                                   short rightThumbX, short rightThumbY,
+                                                   byte leftTrigger,
+                                                   byte rightTrigger) {
       var ret = (Buttons) 0;
       ret |= AddButtonIfPressed(buttonFlags, GBF.A, Buttons.A);
       ret |= AddButtonIfPressed(buttonFlags, GBF.B, Buttons.B);
@@ -488,18 +488,18 @@ namespace OrbItProcs {
       ret |= AddButtonIfPressed(buttonFlags, GBF.Y, Buttons.Y);
 
       ret |= AddThumbstickButtons(leftThumbX, leftThumbY,
-        SharpDX.XInput.Gamepad.LeftThumbDeadZone,
-        Buttons.LeftThumbstickLeft,
-        Buttons.LeftThumbstickRight,
-        Buttons.LeftThumbstickUp,
-        Buttons.LeftThumbstickDown);
+                                  SharpDX.XInput.Gamepad.LeftThumbDeadZone,
+                                  Buttons.LeftThumbstickLeft,
+                                  Buttons.LeftThumbstickRight,
+                                  Buttons.LeftThumbstickUp,
+                                  Buttons.LeftThumbstickDown);
 
       ret |= AddThumbstickButtons(rightThumbX, rightThumbY,
-        SharpDX.XInput.Gamepad.RightThumbDeadZone,
-        Buttons.RightThumbstickLeft,
-        Buttons.RightThumbstickRight,
-        Buttons.RightThumbstickUp,
-        Buttons.RightThumbstickDown);
+                                  SharpDX.XInput.Gamepad.RightThumbDeadZone,
+                                  Buttons.RightThumbstickLeft,
+                                  Buttons.RightThumbstickRight,
+                                  Buttons.RightThumbstickUp,
+                                  Buttons.RightThumbstickDown);
 
       if (leftTrigger >= SharpDX.XInput.Gamepad.TriggerThreshold)
         ret |= Buttons.LeftTrigger;
@@ -700,7 +700,7 @@ namespace OrbItProcs {
     //   dPad:
     //     Initial directional pad state.
     public GamePadState(GamePadThumbSticks thumbSticks, GamePadTriggers triggers, GamePadButtons buttons,
-      GamePadDPad dPad)
+                        GamePadDPad dPad)
       : this() {
       ThumbSticks = thumbSticks;
       Triggers = triggers;
@@ -732,7 +732,7 @@ namespace OrbItProcs {
     //   buttons:
     //     Array or parameter list of Buttons to initialize as pressed.
     public GamePadState(Vector2 leftThumbStick, Vector2 rightThumbStick, float leftTrigger, float rightTrigger,
-      params Buttons[] buttons)
+                        params Buttons[] buttons)
       : this(
         new GamePadThumbSticks(leftThumbStick, rightThumbStick), new GamePadTriggers(leftTrigger, rightTrigger),
         new GamePadButtons(buttons), new GamePadDPad(buttons)) {}

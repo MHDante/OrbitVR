@@ -8,7 +8,7 @@
       //addProcessKeyAction("StartLink", KeyCodes.MiddleClick, OnPress: StartLink);
 
       addProcessKeyAction("PickupNode", KeyCodes.RightClick, OnPress: PickupNode, OnHold: DragNode,
-        OnRelease: ReleaseNode);
+                          OnRelease: ReleaseNode);
     }
 
     public void SingleSel() {

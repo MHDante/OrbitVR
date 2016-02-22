@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using SharpDX;
-using SharpDX.Direct2D1;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.Toolkit.Graphics;
@@ -31,7 +30,7 @@ namespace OrbItProcs {
     }
 
     public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
-      TKey key, Func<TValue> valueCreator) {
+                                                TKey key, Func<TValue> valueCreator) {
       TValue value;
       if (!dictionary.TryGetValue(key, out value)) {
         value = valueCreator();
@@ -41,7 +40,7 @@ namespace OrbItProcs {
     }
 
     public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
-      TKey key) where TValue : new() {
+                                                TKey key) where TValue : new() {
       return dictionary.GetOrAdd(key, () => new TValue());
     }
 
@@ -338,7 +337,7 @@ namespace OrbItProcs {
 
     public static Color randomColor() {
       return new Color((float) Utils.random.Next(255)/(float) 255, (float) Utils.random.Next(255)/(float) 255,
-        (float) Utils.random.Next(255)/(float) 255);
+                       (float) Utils.random.Next(255)/(float) 255);
     }
 
     public static void printDictionary(Dictionary<dynamic, dynamic> dict, string s = "") {
@@ -355,6 +354,7 @@ namespace OrbItProcs {
     public static Vector3 MultiplyPoint3x4(this Matrix m, Vector3 v) {
       return Vector3.TransformCoordinate(v, m);
     }
+
     //public static void DrawLine(Room room, Vector2 start, Vector2 end, float thickness, Color color, Layers Layer)
     //{
     //    if (thickness * room.zoom < 1) thickness = 1 / room.zoom;
@@ -407,7 +407,7 @@ namespace OrbItProcs {
         difference = difference/length; //get the unit vector
         //fix the below statement to get the radius' from the orb objects
         length = (o1.body.radius + o2.body.radius) - length;
-          //get the length that the two orbs must be moved away from eachother
+        //get the length that the two orbs must be moved away from eachother
         difference = difference*length; // produce the vector from the length and the unit vector
         if (o1.movement.active && o1.movement.pushable
             && o2.movement.active && o2.movement.pushable) {
@@ -429,19 +429,19 @@ namespace OrbItProcs {
         newNode.body.color = Color.Red;
         Action<Node, Node> evil = null;
         Action<Node> doAfter = delegate(Node n) {
-          n.body.color = Color.Red;
-          n.body.OnCollisionStay += evil;
-        };
+                                 n.body.color = Color.Red;
+                                 n.body.OnCollisionStay += evil;
+                               };
 
 
         evil = delegate(Node source, Node target) {
-          if (target == null) return;
-          if (target.CheckData<bool>("infected")) return;
-          if (target.HasComp<Scheduler>()) {
-            target.Comp<Scheduler>().doAfterXMilliseconds(doAfter, Utils.random.Next(5000));
-            target.SetData("infected", true);
-          }
-        };
+                 if (target == null) return;
+                 if (target.CheckData<bool>("infected")) return;
+                 if (target.HasComp<Scheduler>()) {
+                   target.Comp<Scheduler>().doAfterXMilliseconds(doAfter, Utils.random.Next(5000));
+                   target.SetData("infected", true);
+                 }
+               };
         newNode.body.OnCollisionStay += evil;
       }
     }

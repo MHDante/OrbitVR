@@ -95,7 +95,7 @@ namespace OrbItProcs {
         float singleScaleDifference = totalScaleDifference/shadowCount.value;
         for (int i = 0; i < shadowCount.value; i++) {
           room.camera.Draw(textures.whitecircle, parent.body.pos, color*(transparencyPercent/100f),
-            scale*(1f - (singleScaleDifference*(i + 1))), drawLayer);
+                           scale*(1f - (singleScaleDifference*(i + 1))), drawLayer);
         }
       }
     }

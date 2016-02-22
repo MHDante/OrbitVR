@@ -126,10 +126,10 @@ namespace OrbItProcs {
       }
       else {
         room.camera.AddPermanentDraw(parent.texture, metaposfinal, parent.body.color, parent.body.scale*waveScale, 0,
-          Length);
+                                     Length);
         if (reflective) {
           room.camera.AddPermanentDraw(parent.texture, reflectfinal, parent.body.color, parent.body.scale*waveScale, 0,
-            Length);
+                                       Length);
         }
       }
     }

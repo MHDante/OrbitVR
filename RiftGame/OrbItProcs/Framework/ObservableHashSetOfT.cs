@@ -13,7 +13,7 @@ namespace OrbItProcs {
   /// </summary>
   /// <typeparam name="T">The type of elements in the hash set.</typeparam>    
   public sealed class ObservableHashSet<T> : ISet<T>, System.Collections.ICollection, INotifyCollectionChanged,
-    INotifyPropertyChanged, IDisposable {
+                                             INotifyPropertyChanged, IDisposable {
     public HashSet<T> hashSet;
     private SimpleMonitor monitor = new SimpleMonitor();
 
@@ -271,7 +271,7 @@ namespace OrbItProcs {
 
       if (removedItems.Count > 0) {
         this.RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
-          removedItems));
+                                                                         removedItems));
         this.RaisePropertyChanged(PropertyNames.Count);
       }
     }
@@ -301,7 +301,7 @@ namespace OrbItProcs {
 
       if (removedItems.Count > 0) {
         this.RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
-          removedItems));
+                                                                         removedItems));
         this.RaisePropertyChanged(PropertyNames.Count);
       }
     }
@@ -398,7 +398,7 @@ namespace OrbItProcs {
 
       if (removedItems.Count > 0) {
         this.RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
-          removedItems));
+                                                                         removedItems));
         this.RaisePropertyChanged(PropertyNames.Count);
       }
 

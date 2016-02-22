@@ -28,11 +28,11 @@ namespace OrbItProcs {
     }
 
     public Formation(Link link,
-      formationtype FormationType = formationtype.AllToAll,
-      bool Uninhabited = false,
-      int UpdateFrequency = -1,
-      int NearestNValue = 1,
-      bool InitializeFormation = true) {
+                     formationtype FormationType = formationtype.AllToAll,
+                     bool Uninhabited = false,
+                     int UpdateFrequency = -1,
+                     int NearestNValue = 1,
+                     bool InitializeFormation = true) {
       this.room = OrbIt.game.room;
       this.link = link;
       //this.FormationType = FormationType;
@@ -45,8 +45,8 @@ namespace OrbItProcs {
     }
 
     public Formation(Link link,
-      Formation form,
-      bool InitializeFormation = true) {
+                     Formation form,
+                     bool InitializeFormation = true) {
       this.room = OrbIt.game.room;
       this.link = link;
       //this.FormationType = FormationType;
@@ -146,62 +146,71 @@ namespace OrbItProcs {
         HashSet<Node> AlreadyInhabited = new HashSet<Node>();
 
         link.sources.ToList().ForEach(delegate(Node source) {
-          AffectionSets[source] = new ObservableHashSet<Node>();
-          ObservableHashSet<Node> set = AffectionSets[source];
+                                        AffectionSets[source] = new ObservableHashSet<Node>();
+                                        ObservableHashSet<Node> set = AffectionSets[source];
 
-          List<Tuple<float, Node>> DistancesList = new List<Tuple<float, Node>>();
-          Comparison<Tuple<float, Node>> comparer;
-          if (FormationType == formationtype.NearestN) {
-            comparer = delegate(Tuple<float, Node> first, Tuple<float, Node> second) {
-              if (first.Item1 < second.Item1) return -1;
-              else if (first.Item1 > second.Item1) return 1;
-              return 0;
-            };
-          }
-          else if (FormationType == formationtype.FurthestN) {
-            comparer = delegate(Tuple<float, Node> first, Tuple<float, Node> second) {
-              if (first.Item1 > second.Item1) return -1;
-              else if (first.Item1 < second.Item1) return 1;
-              return 0;
-            };
-          }
-          else return;
+                                        List<Tuple<float, Node>> DistancesList = new List<Tuple<float, Node>>();
+                                        Comparison<Tuple<float, Node>> comparer;
+                                        if (FormationType == formationtype.NearestN) {
+                                          comparer = delegate(Tuple<float, Node> first, Tuple<float, Node> second) {
+                                                       if (first.Item1 < second.Item1) return -1;
+                                                       else if (first.Item1 > second.Item1) return 1;
+                                                       return 0;
+                                                     };
+                                        }
+                                        else if (FormationType == formationtype.FurthestN) {
+                                          comparer = delegate(Tuple<float, Node> first, Tuple<float, Node> second) {
+                                                       if (first.Item1 > second.Item1) return -1;
+                                                       else if (first.Item1 < second.Item1) return 1;
+                                                       return 0;
+                                                     };
+                                        }
+                                        else return;
 
-          link.targets.ToList().ForEach(delegate(Node target) {
-            if (source == target) return;
-            DistancesList.Add(new Tuple<float, Node>(Vector2.DistanceSquared(source.body.pos, target.body.pos), target));
-          });
+                                        link.targets.ToList().ForEach(delegate(Node target) {
+                                                                        if (source == target) return;
+                                                                        DistancesList.Add(
+                                                                                          new Tuple<float, Node>(
+                                                                                            Vector2.DistanceSquared(
+                                                                                                                    source
+                                                                                                                      .body
+                                                                                                                      .pos,
+                                                                                                                    target
+                                                                                                                      .body
+                                                                                                                      .pos),
+                                                                                            target));
+                                                                      });
 
-          DistancesList.Sort(comparer);
+                                        DistancesList.Sort(comparer);
 
-          int min = Math.Min(NearestNValue, DistancesList.Count);
+                                        int min = Math.Min(NearestNValue, DistancesList.Count);
 
-          /*
+                                        /*
                     for (int i = 0; i < min; i++)
                     {
                         set.Add(DistancesList.ElementAt(i).Item2);
                     }
                     */
-          int count = 0;
-          int it = 0;
-          while (count < min) {
-            if (it >= DistancesList.Count) break;
-            Node nn = DistancesList.ElementAt(it).Item2;
-            if (Uninhabited) {
-              if (AlreadyInhabited.Contains(nn)) {
-                it++;
-                continue;
-              }
-              else {
-                AlreadyInhabited.Add(nn);
-              }
-            }
+                                        int count = 0;
+                                        int it = 0;
+                                        while (count < min) {
+                                          if (it >= DistancesList.Count) break;
+                                          Node nn = DistancesList.ElementAt(it).Item2;
+                                          if (Uninhabited) {
+                                            if (AlreadyInhabited.Contains(nn)) {
+                                              it++;
+                                              continue;
+                                            }
+                                            else {
+                                              AlreadyInhabited.Add(nn);
+                                            }
+                                          }
 
-            set.Add(nn);
-            count++;
-            it++;
-          }
-        });
+                                          set.Add(nn);
+                                          count++;
+                                          it++;
+                                        }
+                                      });
       }
     }
   }

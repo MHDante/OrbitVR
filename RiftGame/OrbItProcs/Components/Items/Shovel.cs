@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SharpDX;
 
@@ -22,6 +23,7 @@ namespace OrbItProcs {
     }
 
     public const mtypes CompType = mtypes.playercontrol | mtypes.draw | mtypes.item; // | mtypes.affectself;
+    public static int counter = 0;
     //Func<Collider, Collider, bool> exclusionDel;
     float compoundedMass = 0f;
     Link rangeLink;
@@ -43,7 +45,7 @@ namespace OrbItProcs {
       throwSpeed = 12;
 
       shovelNode = new Node(room);
-      shovelNode.name = "shovel";
+      shovelNode.name = "shovel" + counter++;
       shovelNode.body.radius = shovelRadius;
       shovelNode.body.ExclusionCheck += (c1, c2) => c2 == parent.body;
       shovelNode.body.mass = 0.001f;
@@ -64,7 +66,6 @@ namespace OrbItProcs {
     /// The shovel node that will be held and swung.
     /// </summary>
     [Info(UserLevel.User, "The shovel node that will be held and swung.")]
-    [CopyNodeProperty]
     public Node shovelNode { get; set; }
 
     public override mtypes compType {
@@ -122,9 +123,12 @@ namespace OrbItProcs {
     public float throwSpeed { get; set; }
     public float physicsDivisor { get; set; }
 
+    //public static List<Shovel> shovels = new List<Shovel>();
+
     public override void AfterCloning() {
-      if (shovelNode == null) return;
-      shovelNode = shovelNode.CreateClone(room);
+      //shovels.Add(this);
+      //if (shovelNode == null) return;
+      //shovelNode = shovelNode.CreateClone(room);
     }
 
     public override void OnSpawn() {
@@ -136,6 +140,7 @@ namespace OrbItProcs {
       shovelNode.AffectExclusionCheck += (node) => node == parent;
 
       room.groups.items.IncludeEntity(shovelNode);
+      Debug.WriteLine(room.groups.items.entities.Count);
       shovelNode.OnSpawn();
       shovelNode.body.AddExclusionCheck(parent.body);
       Spring spring = new Spring();
@@ -239,21 +244,22 @@ namespace OrbItProcs {
           ObservableHashSet<Node> capturedNodes = new ObservableHashSet<Node>();
           int count = 0;
           Action<Collider, Collider> del = delegate(Collider c1, Collider c2) {
-            if (count >= maxShovelCapacity) return;
-            if (c2.parent.dataStore.ContainsKey("shovelnodeparent")) return;
-            if (c2.parent.HasComp<Diode>()) return;
-            if (modePlayers != ModePlayers.GrabBoth && c2.parent.IsPlayer) {
-              if (modePlayers == ModePlayers.GrabNone) return;
-              if (modePlayers == ModePlayers.GrabSelf && c2.parent != parent) return;
-              if (modePlayers == ModePlayers.GrabOtherPlayers && c2.parent == parent) return;
-            }
-            float dist = Vector2.Distance(c1.pos, c2.pos);
-            if (dist <= scoopReach) {
-              count++;
-              capturedNodes.Add(c2.parent);
-              c2.parent.body.color = parent.body.color;
-            }
-          };
+                                             if (count >= maxShovelCapacity) return;
+                                             if (c2.parent.dataStore.ContainsKey("shovelnodeparent")) return;
+                                             if (c2.parent.HasComp<Diode>()) return;
+                                             if (modePlayers != ModePlayers.GrabBoth && c2.parent.IsPlayer) {
+                                               if (modePlayers == ModePlayers.GrabNone) return;
+                                               if (modePlayers == ModePlayers.GrabSelf && c2.parent != parent) return;
+                                               if (modePlayers == ModePlayers.GrabOtherPlayers && c2.parent == parent)
+                                                 return;
+                                             }
+                                             float dist = Vector2.Distance(c1.pos, c2.pos);
+                                             if (dist <= scoopReach) {
+                                               count++;
+                                               capturedNodes.Add(c2.parent);
+                                               c2.parent.body.color = parent.body.color;
+                                             }
+                                           };
           shovelNode.room.gridsystemAffect.retrieveOffsetArraysAffect(shovelNode.body, del, scoopReach*2);
           shovelLink.targets = capturedNodes;
           shovelLink.formation.UpdateFormation();
@@ -279,7 +285,10 @@ namespace OrbItProcs {
     }
 
     public override void OnRemove(Node other) {
+      shovelLink.DeleteLink();
+      rangeLink.DeleteLink();
       shovelNode.OnDeath(other);
+      //Debug.WriteLine("Deleting shovel links");
     }
   }
 }

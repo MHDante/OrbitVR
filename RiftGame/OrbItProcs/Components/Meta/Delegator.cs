@@ -121,9 +121,9 @@ namespace OrbItProcs {
       }
     }
 
-    //DRAW DATASTORE
-
     //DRAW
+
+    //DRAW DATASTORE
   }
 
   /// <summary>

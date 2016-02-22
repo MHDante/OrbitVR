@@ -63,13 +63,13 @@ namespace OrbItProcs {
       if (side == ControlSide.left) {
         stick1 = new Stick(gamePadState.ThumbSticks.Left);
         stick2 = new Stick(gamePadState.DPad.Up,
-          gamePadState.DPad.Down,
-          gamePadState.DPad.Left,
-          gamePadState.DPad.Right);
+                           gamePadState.DPad.Down,
+                           gamePadState.DPad.Left,
+                           gamePadState.DPad.Right);
 
         Btn1 = gamePadState.Buttons.LeftShoulder;
         Btn2 = (gamePadState.Triggers.Left < Controller.deadZone) ? ButtonState.Released : ButtonState.Pressed;
-          //TODO: test
+        //TODO: test
         Btn2AsTrigger = gamePadState.Triggers.Left;
         Btn3 = gamePadState.Buttons.LeftStick;
 
@@ -79,13 +79,13 @@ namespace OrbItProcs {
       {
         stick1 = new Stick(gamePadState.ThumbSticks.Right);
         stick2 = new Stick(gamePadState.Buttons.Y,
-          gamePadState.Buttons.A,
-          gamePadState.Buttons.X,
-          gamePadState.Buttons.B);
+                           gamePadState.Buttons.A,
+                           gamePadState.Buttons.X,
+                           gamePadState.Buttons.B);
 
         Btn1 = gamePadState.Buttons.RightShoulder;
         Btn2 = (gamePadState.Triggers.Right < Controller.deadZone) ? ButtonState.Released : ButtonState.Pressed;
-          //TODO: test
+        //TODO: test
         Btn2AsTrigger = gamePadState.Triggers.Right;
         Btn3 = gamePadState.Buttons.RightStick;
 
@@ -97,9 +97,9 @@ namespace OrbItProcs {
       GamePadState gamePadState = GamePad.GetState(controllerIndex, GamePadDeadZone.Circular);
       if (mode == FullPadMode.mirrorMode) {
         stick1 = new Stick(gamePadState.Buttons.Y,
-          gamePadState.Buttons.A,
-          gamePadState.Buttons.X,
-          gamePadState.Buttons.B);
+                           gamePadState.Buttons.A,
+                           gamePadState.Buttons.X,
+                           gamePadState.Buttons.B);
         if (stick1.isCentered()) {
           stick1 = new Stick(gamePadState.ThumbSticks.Left);
         }
@@ -107,16 +107,16 @@ namespace OrbItProcs {
         stick2 = new Stick(gamePadState.ThumbSticks.Right);
         if (stick2.isCentered()) {
           stick2 = new Stick(gamePadState.DPad.Up,
-            gamePadState.DPad.Down,
-            gamePadState.DPad.Left,
-            gamePadState.DPad.Right);
+                             gamePadState.DPad.Down,
+                             gamePadState.DPad.Left,
+                             gamePadState.DPad.Right);
         }
 
         Btn1 = gamePadState.Buttons.RightShoulder;
         if (Btn1 == ButtonState.Released) Btn1 = gamePadState.Buttons.LeftShoulder;
 
         Btn2 = (gamePadState.Triggers.Right < Controller.deadZone) ? ButtonState.Released : ButtonState.Pressed;
-          //TODO: test
+        //TODO: test
         if (Btn2 == ButtonState.Released)
           Btn2 = (gamePadState.Triggers.Left < Controller.deadZone) ? ButtonState.Released : ButtonState.Pressed;
 
@@ -133,9 +133,9 @@ namespace OrbItProcs {
         stick2 = new Stick(gamePadState.ThumbSticks.Right);
         if (stick2.isCentered()) {
           stick2 = new Stick(gamePadState.DPad.Up,
-            gamePadState.DPad.Down,
-            gamePadState.DPad.Left,
-            gamePadState.DPad.Right);
+                             gamePadState.DPad.Down,
+                             gamePadState.DPad.Left,
+                             gamePadState.DPad.Right);
         }
 
         Btn1 = gamePadState.Buttons.RightShoulder;
@@ -143,7 +143,7 @@ namespace OrbItProcs {
         if (Btn1 == ButtonState.Released) Btn1 = gamePadState.Buttons.A;
 
         Btn2 = (gamePadState.Triggers.Right < Controller.deadZone) ? ButtonState.Released : ButtonState.Pressed;
-          //TODO: test
+        //TODO: test
         if (Btn2 == ButtonState.Released)
           Btn2 = (gamePadState.Triggers.Left < Controller.deadZone) ? ButtonState.Released : ButtonState.Pressed;
         if (Btn2 == ButtonState.Released) Btn2 = gamePadState.Buttons.B;
@@ -357,7 +357,7 @@ namespace OrbItProcs {
     public override void unassign() {
       if (side == ControlSide.right)
         halfControllers.First(x => x.controllerCode == (ControllerCodes) ((int) controllerCode << 1))
-          .fullControllerAvailable = true;
+                       .fullControllerAvailable = true;
       base.unassign();
     }
 
@@ -387,7 +387,7 @@ namespace OrbItProcs {
             side = ControlSide.right;
             fullControllerAvailable = false;
             halfControllers.First(x => x.controllerCode == (ControllerCodes) ((int) controllerCode >> 1))
-              .fullControllerAvailable = false;
+                           .fullControllerAvailable = false;
           }
           assign((ControllerCodes) (1 << i));
           return true;

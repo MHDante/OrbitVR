@@ -34,9 +34,9 @@ namespace OrbItProcs {
     public ModifierInfo() {}
 
     public ModifierInfo(Dictionary<string, FPInfo> fpInfos,
-      Dictionary<string, object> fpInfosObj,
-      Dictionary<string, dynamic> args,
-      ModifierDelegate modifierDelegate) {
+                        Dictionary<string, object> fpInfosObj,
+                        Dictionary<string, dynamic> args,
+                        ModifierDelegate modifierDelegate) {
       this.fpInfos = fpInfos;
       this.fpInfosObj = fpInfosObj;
       this.args = args;
@@ -44,9 +44,9 @@ namespace OrbItProcs {
     }
 
     public ModifierInfo(Dictionary<string, FPInfo> fpInfos,
-      Dictionary<string, object> fpInfosObj,
-      Dictionary<string, dynamic> args,
-      string delegateName) {
+                        Dictionary<string, object> fpInfosObj,
+                        Dictionary<string, dynamic> args,
+                        string delegateName) {
       this.fpInfos = fpInfos;
       this.fpInfosObj = fpInfosObj;
       this.args = args;

@@ -120,7 +120,7 @@ namespace OrbItProcs {
 
   public class Appointment /*: IComparer<Appointment>*/ {
     public Appointment(Action<Node> action, int interval, int repetitions = 1, bool infinite = false,
-      bool playSound = false) {
+                       bool playSound = false) {
       actions = new List<Action<Node>>();
       if (action != null) actions.Add(action);
       this.repetitions = repetitions;

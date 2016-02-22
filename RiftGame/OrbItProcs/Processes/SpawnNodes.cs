@@ -9,9 +9,9 @@ namespace OrbItProcs {
     private Vector2 spawnPos;
 
     public SpawnNodes() : base() {
-//             List<int> a = new List<int>();
-//             List<int> b = new List<int>();
-//             a.
+      //             List<int> a = new List<int>();
+      //             List<int> b = new List<int>();
+      //             a.
 
       batchSpawnNum = 2;
       radiusRange = new Toggle<float>(10f, true);
@@ -115,9 +115,9 @@ namespace OrbItProcs {
 
         if (UserInterface.oldKeyBState.IsKeyDown(Keys.LeftControl)) {
           Action<Node> after = delegate(Node n) {
-            n.body.velocity = diff;
-            if (n.body.velocity.IsFucked()) System.Diagnostics.Debugger.Break();
-          };
+                                 n.body.velocity = diff;
+                                 if (n.body.velocity.IsFucked()) System.Diagnostics.Debugger.Break();
+                               };
           SetRadius(room.spawnNode(userP, after));
         }
         else {

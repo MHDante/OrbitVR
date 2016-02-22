@@ -113,13 +113,14 @@ namespace OrbItProcs {
       basicdraw.active = true;
       IsAI = false;
       affectAction = (source, other) => {
-        //todo: extend to check for every component for finer control if necessary
-        if (source.parent.AffectExclusionCheck != null && source.parent.AffectExclusionCheck(other.parent)) return;
-        foreach (Type t in source.parent.aOtherProps) {
-          if (!source.parent.comps[t].active) continue;
-          source.parent.comps[t].AffectOther(other.parent);
-        }
-      };
+                       //todo: extend to check for every component for finer control if necessary
+                       if (source.parent.AffectExclusionCheck != null &&
+                           source.parent.AffectExclusionCheck(other.parent)) return;
+                       foreach (Type t in source.parent.aOtherProps) {
+                         if (!source.parent.comps[t].active) continue;
+                         source.parent.comps[t].AffectOther(other.parent);
+                       }
+                     };
     }
 
     public Node(Room room, Dictionary<dynamic, dynamic> userProps, ShapeType shapetype = ShapeType.Circle)
@@ -182,11 +183,7 @@ namespace OrbItProcs {
 
     public string name {
       get { return _name; }
-      set {
-        _name = value;
-        if (value.Equals("Group115"))
-          Console.WriteLine("Group115");
-      }
+      set { _name = value; }
     }
 
     public Dictionary<Type, Component> comps {
@@ -332,7 +329,7 @@ namespace OrbItProcs {
     }
 
     public static Node ContructLineWall(Room room, Vector2 start, Vector2 end, int thickness,
-      Dictionary<dynamic, dynamic> props = null, bool addToWallGroup = true) {
+                                        Dictionary<dynamic, dynamic> props = null, bool addToWallGroup = true) {
       float dist = Vector2.Distance(start, end);
       int halfheight = (int) (dist/2);
       int halfwidth = thickness/2;
@@ -725,10 +722,10 @@ namespace OrbItProcs {
 
       var clist = comps.Keys.ToList();
       Comparison<Type> typeComparer = delegate(Type t1, Type t2) {
-        string s1 = t1.ToString().LastWord('.');
-        string s2 = t2.ToString().LastWord('.');
-        return s1.CompareTo(s2);
-      };
+                                        string s1 = t1.ToString().LastWord('.');
+                                        string s2 = t2.ToString().LastWord('.');
+                                        return s1.CompareTo(s2);
+                                      };
       clist.Sort(typeComparer);
 
       foreach (Type c in clist) {
@@ -766,10 +763,10 @@ namespace OrbItProcs {
 
       var clist = comps.Keys.ToList();
       Comparison<Type> typeComparer = delegate(Type t1, Type t2) {
-        string s1 = t1.ToString().LastWord('.');
-        string s2 = t2.ToString().LastWord('.');
-        return s1.CompareTo(s2);
-      };
+                                        string s1 = t1.ToString().LastWord('.');
+                                        string s2 = t2.ToString().LastWord('.');
+                                        return s1.CompareTo(s2);
+                                      };
       clist.Sort(typeComparer);
 
 
@@ -804,7 +801,6 @@ namespace OrbItProcs {
     }
 
     public void OnSpawn() {
-
       Debug.Assert(body.radius != 0);
       foreach (Type key in comps.Keys.ToList()) {
         Component component = comps[key];
@@ -818,6 +814,12 @@ namespace OrbItProcs {
     }
 
     public void OnDeath(Node other, bool delete = true) {
+      foreach (Link l in SourceLinks.ToList()) {
+        l.DeleteLink();
+      }
+      foreach (Link l in TargetLinks.ToList()) {
+        l.DeleteLink();
+      }
       foreach (Type key in comps.Keys.ToList()) {
         if (key == typeof (Meta)) continue;
         Component component = comps[key];
@@ -869,6 +871,7 @@ namespace OrbItProcs {
             //*/
       //do not copy parent field
       foreach (FieldInfo field in fields) {
+        Debug.Assert(!(field.Name == "_name" && field.GetValue(sourceNode).ToString() == "shovel2"));
         if (field.Name.Equals("_comps")) {
           Dictionary<Type, Component> dict = sourceNode.comps;
           foreach (Type key in dict.Keys) {

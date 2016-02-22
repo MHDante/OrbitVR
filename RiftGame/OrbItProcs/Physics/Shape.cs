@@ -36,7 +36,6 @@ namespace OrbItProcs {
 
   public class Circle : Shape {
     public Circle(float r) {
-
       Debug.Assert(r != 0);
       radius = r;
     }
@@ -197,7 +196,7 @@ namespace OrbItProcs {
       DrawPolygon(body.pos, body.color);
       if (testTexture != null)
         body.room.camera.Draw(testTexture, body.pos + (trueOffset.Rotate(body.orient)) + (offset.Rotate(body.orient)),
-          body.color, 1f, body.orient, Layers.Over1);
+                              body.color, 1f, body.orient, Layers.Over1);
     }
 
     public void DrawPolygon(Vector2 position, Color color) {

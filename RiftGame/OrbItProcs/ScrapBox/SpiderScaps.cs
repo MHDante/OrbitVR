@@ -13,7 +13,7 @@ namespace OrbItProcs.ScrapBox {
     }
 
     const string fp = "Textures//SpiderFrames/";
-    public static Texture2D Wait = null;//OrbIt.game.Content.Load<Texture2D>("Textures//SpiderFrames/SpiderAni0001");
+    public static Texture2D Wait = null; //OrbIt.game.Content.Load<Texture2D>("Textures//SpiderFrames/SpiderAni0001");
     public static Texture2D[] Protect = new Texture2D[23];
     public static Texture2D[] Stab = new Texture2D[25];
     public static Texture2D[] Walk = new Texture2D[28];
@@ -60,12 +60,12 @@ namespace OrbItProcs.ScrapBox {
       if (false /*room.loading*/) return;
       finalpos = room.gridsystemAffect.position +
                  new Vector2((room.worldWidth - Wait.Width*scale)/2,
-                   room.gridsystemAffect.gridHeight - (Wait.Height/2) - spiderPos + 400);
+                             room.gridsystemAffect.gridHeight - (Wait.Height/2) - spiderPos + 400);
 
       room.camera.Draw(currentTexture, finalpos, Color.White, scale, Layers.Over4, center: false);
 
       spiderHead = new Vector2(room.gridsystemAffect.gridWidth/2,
-        room.gridsystemAffect.position.Y + room.gridsystemAffect.gridHeight - spiderPos);
+                               room.gridsystemAffect.position.Y + room.gridsystemAffect.gridHeight - spiderPos);
       float radiusReach = 300f;
 
       if (frozen) room.camera.Draw(textures.whitecircle, spiderHead, Color.Red*0.4f, radiusReach/64f, 0, Layers.Under5);
@@ -123,9 +123,9 @@ namespace OrbItProcs.ScrapBox {
             n.body.velocity = new Vector2(0, -30);
             Action<Node, Node> callback = null;
             callback = delegate(Node n1, Node n2) {
-              n.movement.maxVelocity.value = 2;
-              n.body.OnCollisionEnter -= callback;
-            };
+                         n.movement.maxVelocity.value = 2;
+                         n.body.OnCollisionEnter -= callback;
+                       };
             n.body.OnCollisionEnter += callback;
           }
         }
@@ -246,9 +246,9 @@ namespace OrbItProcs.ScrapBox {
           parent.body.velocity = new Vector2(20*sign, 0);
           Action<Node, Node> callback = null;
           callback = delegate(Node n1, Node n2) {
-            parent.movement.maxVelocity.value = 2;
-            parent.body.OnCollisionEnter -= callback;
-          };
+                       parent.movement.maxVelocity.value = 2;
+                       parent.body.OnCollisionEnter -= callback;
+                     };
           parent.body.OnCollisionEnter += callback;
         }
       }

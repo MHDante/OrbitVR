@@ -65,43 +65,43 @@ namespace OrbItProcs {
 
     public override void OnSpawn() {
       collisionAction = (s, t) => {
-        if (t.IsPlayer) {
-          if (damageMode == DamanageMode.Players || damageMode == DamanageMode.Both) {
-            t.meta.CalculateDamage(s, damageMultiplier);
-          }
-          if (pushBack.enabled) {
-            Vector2 f = (t.body.pos - s.body.pos);
-            VMath.NormalizeSafe(ref f);
-            f *= pushBack.value;
-            t.body.velocity += f;
-          }
-          if (stunSeconds.enabled) {
-            if (t.movement.active) {
-              t.movement.active = false;
-              Action<Node> ad = (n) => { t.movement.active = true; };
-              room.scheduler.AddAppointment(new Appointment(ad, (int) (stunSeconds.value*1000)));
-            }
-          }
-        }
-        else {
-          if (damageMode == DamanageMode.Nodes || damageMode == DamanageMode.Both) {
-            t.meta.CalculateDamage(s, damageMultiplier);
-          }
-          if (pushBack.enabled) {
-            Vector2 f = (t.body.pos - s.body.pos);
-            VMath.NormalizeSafe(ref f);
-            f *= pushBack.value;
-            t.body.velocity += f;
-          }
-          if (stunSeconds.enabled) {
-            if (t.movement.active) {
-              t.movement.active = false;
-              Action<Node> ad = (n) => t.movement.active = true;
-              t.scheduler.AddAppointment(new Appointment(ad, (int) (stunSeconds.value*1000)));
-            }
-          }
-        }
-      };
+                          if (t.IsPlayer) {
+                            if (damageMode == DamanageMode.Players || damageMode == DamanageMode.Both) {
+                              t.meta.CalculateDamage(s, damageMultiplier);
+                            }
+                            if (pushBack.enabled) {
+                              Vector2 f = (t.body.pos - s.body.pos);
+                              VMath.NormalizeSafe(ref f);
+                              f *= pushBack.value;
+                              t.body.velocity += f;
+                            }
+                            if (stunSeconds.enabled) {
+                              if (t.movement.active) {
+                                t.movement.active = false;
+                                Action<Node> ad = (n) => { t.movement.active = true; };
+                                room.scheduler.AddAppointment(new Appointment(ad, (int) (stunSeconds.value*1000)));
+                              }
+                            }
+                          }
+                          else {
+                            if (damageMode == DamanageMode.Nodes || damageMode == DamanageMode.Both) {
+                              t.meta.CalculateDamage(s, damageMultiplier);
+                            }
+                            if (pushBack.enabled) {
+                              Vector2 f = (t.body.pos - s.body.pos);
+                              VMath.NormalizeSafe(ref f);
+                              f *= pushBack.value;
+                              t.body.velocity += f;
+                            }
+                            if (stunSeconds.enabled) {
+                              if (t.movement.active) {
+                                t.movement.active = false;
+                                Action<Node> ad = (n) => t.movement.active = true;
+                                t.scheduler.AddAppointment(new Appointment(ad, (int) (stunSeconds.value*1000)));
+                              }
+                            }
+                          }
+                        };
 
 
       Polygon poly = new Polygon();

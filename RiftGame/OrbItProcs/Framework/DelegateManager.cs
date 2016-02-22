@@ -12,7 +12,7 @@ namespace OrbItProcs {
 
     public static void Mod(Dictionary<string, dynamic> args, ModifierInfo mi) {
       float o1;
-        // = (float)mi.fpInfos["o1"].GetValue(); //if you'd like to use output in the calculation, include this call (o1 always exists)
+      // = (float)mi.fpInfos["o1"].GetValue(); //if you'd like to use output in the calculation, include this call (o1 always exists)
       float m1 = Defaultered("m1", mi, 5);
       int mod = (int) (Defaultered("mod", args, 10));
       o1 = m1%mod;
@@ -21,7 +21,7 @@ namespace OrbItProcs {
 
     public static void TriangleArgs(Dictionary<string, dynamic> args, ModifierInfo mi) {
       float o1;
-        // = (float)mi.fpInfos["o1"].GetValue(); //if you'd like to use output in the calculation, include this call (o1 always exists)
+      // = (float)mi.fpInfos["o1"].GetValue(); //if you'd like to use output in the calculation, include this call (o1 always exists)
       float m1 = Defaultered("m1", mi, 5);
       int mod = (int) (Defaultered("mod", args, 10))*10;
       //int mod = 100;

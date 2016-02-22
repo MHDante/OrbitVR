@@ -40,7 +40,7 @@
 
     public override void Draw() {
       room.camera.AddPermanentDraw(parent.texture, parent.body.pos, parent.body.color, parent.body.scale, 0,
-        phaserLength);
+                                   phaserLength);
     }
   }
 }

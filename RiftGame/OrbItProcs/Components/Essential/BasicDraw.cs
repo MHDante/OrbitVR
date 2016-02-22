@@ -157,14 +157,14 @@ namespace OrbItProcs {
 
       if (parent.HasComp<Shader>())
         room.camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
-          parent.body.orient, layer, parent.Comp<Shader>().shaderPack);
+                         parent.body.orient, layer, parent.Comp<Shader>().shaderPack);
       else
         room.camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
-          parent.body.orient, layer);
+                         parent.body.orient, layer);
 
       if (parent.body.texture == textures.boulder1 && DrawSparkles)
         room.camera.Draw(textures.boulderShine, parent.body.pos, Utils.randomColor(), parent.body.scale,
-          parent.body.orient, layer);
+                         parent.body.orient, layer);
     }
   }
 }

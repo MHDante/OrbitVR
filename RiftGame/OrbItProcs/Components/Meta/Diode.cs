@@ -39,39 +39,41 @@ namespace OrbItProcs {
 
     public override void OnSpawn() {
       parent.body.OnCollisionEnter += delegate(Node source, Node dest) {
-        if (PlayersOnly) {
-          if (!dest.IsPlayer) return;
-        }
-        bool happened = IsOnCorrectSide(parent, dest, true);
-        if (happened) {
-          if (semaphore) {
-            if (usedTickets <= maxTickets) {
-              goingThrough.Add(dest);
-              usedTickets++;
-              return;
-            }
-          }
-          goingThrough.Add(dest);
-        }
-      };
+                                        if (PlayersOnly) {
+                                          if (!dest.IsPlayer) return;
+                                        }
+                                        bool happened = IsOnCorrectSide(parent, dest, true);
+                                        if (happened) {
+                                          if (semaphore) {
+                                            if (usedTickets <= maxTickets) {
+                                              goingThrough.Add(dest);
+                                              usedTickets++;
+                                              return;
+                                            }
+                                          }
+                                          goingThrough.Add(dest);
+                                        }
+                                      };
       parent.body.OnCollisionExit += delegate(Node source, Node dest) {
-        if (PlayersOnly) {
-          if (!dest.IsPlayer) return;
-        }
-        bool happened = IsOnCorrectSide(parent, dest, true);
-        if (semaphore && happened && goingThrough.Contains(dest) && usedTickets <= maxTickets) {
-          usedTickets--;
-        }
-        goingThrough.Remove(dest);
-      };
+                                       if (PlayersOnly) {
+                                         if (!dest.IsPlayer) return;
+                                       }
+                                       bool happened = IsOnCorrectSide(parent, dest, true);
+                                       if (semaphore && happened && goingThrough.Contains(dest) &&
+                                           usedTickets <= maxTickets) {
+                                         usedTickets--;
+                                       }
+                                       goingThrough.Remove(dest);
+                                     };
       parent.body.ExclusionCheckResolution += delegate(Collider c1, Collider c2) {
-        if (PlayersOnly) {
-          if (!c2.parent.IsPlayer) return true;
-        }
-        if (semaphore && usedTickets > maxTickets) return false;
+                                                if (PlayersOnly) {
+                                                  if (!c2.parent.IsPlayer) return true;
+                                                }
+                                                if (semaphore && usedTickets > maxTickets) return false;
 
-        return goingThrough.Contains(c2.parent) || IsOnCorrectSide(parent, c2.parent, true);
-      };
+                                                return goingThrough.Contains(c2.parent) ||
+                                                       IsOnCorrectSide(parent, c2.parent, true);
+                                              };
     }
 
     public override void AffectSelf() {

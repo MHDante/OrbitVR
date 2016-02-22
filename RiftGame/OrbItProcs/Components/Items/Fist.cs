@@ -105,24 +105,24 @@ namespace OrbItProcs {
       fistNode.body.AddExclusionCheck(parent.body);
       fistNode.body.ExclusionCheck += delegate(Collider p, Collider o) { return !movingStick; };
       fistNode.body.OnCollisionEnter += (p, o) => {
-        if (o.dataStore.ContainsKey("swordnodeparent")) {
-          Node otherparent = o.dataStore["swordnodeparent"];
-          Vector2 f = otherparent.body.pos - parent.body.pos;
-          VMath.NormalizeSafe(ref f);
-          f *= parryKnockback;
-          otherparent.body.ApplyForce(f);
-        }
-        else if (o.dataStore.ContainsKey("fistnodeparent")) {
-          Node otherparent = o.dataStore["fistnodeparent"];
-          Vector2 f = otherparent.body.pos - parent.body.pos;
-          VMath.NormalizeSafe(ref f);
-          f *= parryKnockback;
-          otherparent.body.ApplyForce(f);
-        }
-        else if (o.IsPlayer) {
-          o.player.node.meta.CalculateDamage(parent, damageMultiplier);
-        }
-      };
+                                          if (o.dataStore.ContainsKey("swordnodeparent")) {
+                                            Node otherparent = o.dataStore["swordnodeparent"];
+                                            Vector2 f = otherparent.body.pos - parent.body.pos;
+                                            VMath.NormalizeSafe(ref f);
+                                            f *= parryKnockback;
+                                            otherparent.body.ApplyForce(f);
+                                          }
+                                          else if (o.dataStore.ContainsKey("fistnodeparent")) {
+                                            Node otherparent = o.dataStore["fistnodeparent"];
+                                            Vector2 f = otherparent.body.pos - parent.body.pos;
+                                            VMath.NormalizeSafe(ref f);
+                                            f *= parryKnockback;
+                                            otherparent.body.ApplyForce(f);
+                                          }
+                                          else if (o.IsPlayer) {
+                                            o.player.node.meta.CalculateDamage(parent, damageMultiplier);
+                                          }
+                                        };
       //sword.body.exclusionList.Add(parent.body);
       //
       //parent.body.exclusionList.Add(sword.body);
@@ -194,7 +194,7 @@ namespace OrbItProcs {
       }
 
       room.camera.Draw(textures.fist, position, Color.White, fistNode.body.scale, fistNode.body.orient, Layers.Over2);
-        //layers don't work
+      //layers don't work
     }
 
     public override void OnRemove(Node other) {

@@ -16,7 +16,7 @@ namespace OrbItProcs {
   [Info(UserLevel.User, "Shoots out damaging lasers that are automatic, single fire or rapid firing.", CompType)]
   public class Shooter : Component {
     public const mtypes CompType = mtypes.playercontrol | mtypes.draw | mtypes.item | mtypes.aicontrol;
-      // | mtypes.affectself;
+    // | mtypes.affectself;
 
     public static Node bulletNode;
     private bool _isTurret = false;
@@ -231,30 +231,30 @@ namespace OrbItProcs {
       }
       room.spawnNode(n, g: room.groups.bullets);
       Action<Node, Node> bulletHit = (n1, n2) => {
-        Node bullet, them;
-        if (n1 == n) {
-          bullet = n1;
-          them = n2;
-        }
-        else if (n2 == n) {
-          bullet = n2;
-          them = n1;
-        }
-        else {
-          return;
-        }
-        if (parent.meta.damageMode == Meta.DamageMode.OnlyPlayers) {
-          if (!them.IsPlayer) return;
-        }
-        else if (parent.meta.damageMode == Meta.DamageMode.OnlyNonPlayers) {
-          if (them.IsPlayer) return;
-        }
-        else if (parent.meta.damageMode == Meta.DamageMode.Nothing) {
-          return;
-        }
-        them.meta.CalculateDamage(parent, damage);
-        bullet.OnDeath(null);
-      };
+                                       Node bullet, them;
+                                       if (n1 == n) {
+                                         bullet = n1;
+                                         them = n2;
+                                       }
+                                       else if (n2 == n) {
+                                         bullet = n2;
+                                         them = n1;
+                                       }
+                                       else {
+                                         return;
+                                       }
+                                       if (parent.meta.damageMode == Meta.DamageMode.OnlyPlayers) {
+                                         if (!them.IsPlayer) return;
+                                       }
+                                       else if (parent.meta.damageMode == Meta.DamageMode.OnlyNonPlayers) {
+                                         if (them.IsPlayer) return;
+                                       }
+                                       else if (parent.meta.damageMode == Meta.DamageMode.Nothing) {
+                                         return;
+                                       }
+                                       them.meta.CalculateDamage(parent, damage);
+                                       bullet.OnDeath(null);
+                                     };
       n.body.OnCollisionEnter += bulletHit;
       //n.body.isSolid = false;
       if (maxAmmo.enabled && ammo <= 0) {

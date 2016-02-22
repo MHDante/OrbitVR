@@ -146,33 +146,33 @@ namespace OrbItProcs {
 
 
       shootNode.body.OnCollisionEnter += (n, other) => {
-        if (other == parent) return;
-        if (linkMode == LinkMode.TargetsToSelf) {
-          if (!attachLink.targets.Contains(other)) {
-            attachLink.targets.Add(other);
-            attachedNodesQueue.Enqueue(other);
-            attachLink.active = true;
-          }
-        }
-        else if (linkMode == LinkMode.TargetsToTargets) {
-          if (!attachLink.sources.Contains(other)) {
-            attachLink.sources.Add(other);
-            attachLink.targets.Add(other);
-            attachedNodesQueue.Enqueue(other);
-            attachLink.active = true;
-          }
-        }
-        else if (linkMode == LinkMode.TargetsChained) {
-          if (!attachLink.sources.Contains(other)) {
-            attachedNodesQueue.Enqueue(other);
-            attachLink.formation.AddChainNode(other);
-            attachLink.active = true;
-          }
-        }
-      };
+                                           if (other == parent) return;
+                                           if (linkMode == LinkMode.TargetsToSelf) {
+                                             if (!attachLink.targets.Contains(other)) {
+                                               attachLink.targets.Add(other);
+                                               attachedNodesQueue.Enqueue(other);
+                                               attachLink.active = true;
+                                             }
+                                           }
+                                           else if (linkMode == LinkMode.TargetsToTargets) {
+                                             if (!attachLink.sources.Contains(other)) {
+                                               attachLink.sources.Add(other);
+                                               attachLink.targets.Add(other);
+                                               attachedNodesQueue.Enqueue(other);
+                                               attachLink.active = true;
+                                             }
+                                           }
+                                           else if (linkMode == LinkMode.TargetsChained) {
+                                             if (!attachLink.sources.Contains(other)) {
+                                               attachedNodesQueue.Enqueue(other);
+                                               attachLink.formation.AddChainNode(other);
+                                               attachLink.active = true;
+                                             }
+                                           }
+                                         };
 
       parent.body.ExclusionCheck += (c1, c2) =>
-        attachLink.targets.Contains(c2.parent);
+                                    attachLink.targets.Contains(c2.parent);
     }
 
     public override void PlayerControl(Input input) {

@@ -57,12 +57,12 @@ namespace OrbItProcs {
         }*/
     //keyboard/mouse
     public InputState(Stick LeftStick_WASD, Stick RightStick_Mouse,
-      ButtonState LeftTrigger_Mouse2, ButtonState RightTrigger_Mouse1,
-      bool A_1, bool X_2, bool B_3, bool Y_4,
-      bool Dpad_UpArrow, bool Dpad_DownArrow, bool Dpad_RightArrow, bool Dpad_LeftArrow,
-      bool Select_TAB, bool Start_ESC,
-      bool LeftBumper_Q, bool RightBumper_E,
-      float LeftTriggerAnalog = 0, float RightTriggerAnalog = 0) {
+                      ButtonState LeftTrigger_Mouse2, ButtonState RightTrigger_Mouse1,
+                      bool A_1, bool X_2, bool B_3, bool Y_4,
+                      bool Dpad_UpArrow, bool Dpad_DownArrow, bool Dpad_RightArrow, bool Dpad_LeftArrow,
+                      bool Select_TAB, bool Start_ESC,
+                      bool LeftBumper_Q, bool RightBumper_E,
+                      float LeftTriggerAnalog = 0, float RightTriggerAnalog = 0) {
       this.LeftStick_WASD = LeftStick_WASD;
       this.RightStick_Mouse = RightStick_Mouse;
       this.LeftTrigger_Mouse2 = LeftTrigger_Mouse2;
@@ -202,16 +202,19 @@ namespace OrbItProcs {
       newKeyState = Keyboard.GetState();
       newMouseState = Mouse.GetState();
       Stick LeftStick_WASD = new Stick(newKeyState.IsKeyDown(Keys.W), newKeyState.IsKeyDown(Keys.S),
-        newKeyState.IsKeyDown(Keys.A), newKeyState.IsKeyDown(Keys.D));
+                                       newKeyState.IsKeyDown(Keys.A), newKeyState.IsKeyDown(Keys.D));
       Stick RightStick_Mouse = new Stick(GetRightStick(mouseStickRadius));
       newInputState = new InputState(LeftStick_WASD, RightStick_Mouse, newMouseState.RightButton,
-        newMouseState.LeftButton,
-        newKeyState.IsKeyDown(Keys.D1), newKeyState.IsKeyDown(Keys.D2), newKeyState.IsKeyDown(Keys.D3),
-        newKeyState.IsKeyDown(Keys.D4),
-        newKeyState.IsKeyDown(Keys.Up), newKeyState.IsKeyDown(Keys.Down), newKeyState.IsKeyDown(Keys.Right),
-        newKeyState.IsKeyDown(Keys.Left),
-        newKeyState.IsKeyDown(Keys.Tab), newKeyState.IsKeyDown(Keys.Escape), newKeyState.IsKeyDown(Keys.Q),
-        newKeyState.IsKeyDown(Keys.E));
+                                     newMouseState.LeftButton,
+                                     newKeyState.IsKeyDown(Keys.D1), newKeyState.IsKeyDown(Keys.D2),
+                                     newKeyState.IsKeyDown(Keys.D3),
+                                     newKeyState.IsKeyDown(Keys.D4),
+                                     newKeyState.IsKeyDown(Keys.Up), newKeyState.IsKeyDown(Keys.Down),
+                                     newKeyState.IsKeyDown(Keys.Right),
+                                     newKeyState.IsKeyDown(Keys.Left),
+                                     newKeyState.IsKeyDown(Keys.Tab), newKeyState.IsKeyDown(Keys.Escape),
+                                     newKeyState.IsKeyDown(Keys.Q),
+                                     newKeyState.IsKeyDown(Keys.E));
       return newInputState;
     }
 
@@ -363,7 +366,7 @@ namespace OrbItProcs {
 
     public Stick(ButtonState up, ButtonState down, ButtonState left, ButtonState right)
       : this(up == ButtonState.Pressed, down == ButtonState.Pressed,
-        left == ButtonState.Pressed, right == ButtonState.Pressed) {}
+             left == ButtonState.Pressed, right == ButtonState.Pressed) {}
 
     public static implicit operator Vector2(Stick s) {
       return s.v2;

@@ -30,41 +30,36 @@
 * POSSIBILITY OF SUCH DAMAGE.
 **/
 
-using System.Collections;
-using System.Diagnostics;
 using System;
+using System.Diagnostics;
 
-public class PSMoveHitchWatchdog : IDisposable
-{
-    public static bool EmitHitchLogging = false;
+public class PSMoveHitchWatchdog : IDisposable {
+  public static bool EmitHitchLogging = false;
 
-    public static long MILLISECONDS_PER_SECOND = 1000;
-    public static long MICROSECONDS_PER_MILLISECOND = 1000;
-    public static long MICROSECONDS_PER_SECOND = MICROSECONDS_PER_MILLISECOND * MILLISECONDS_PER_SECOND;
+  public static long MILLISECONDS_PER_SECOND = 1000;
+  public static long MICROSECONDS_PER_MILLISECOND = 1000;
+  public static long MICROSECONDS_PER_SECOND = MICROSECONDS_PER_MILLISECOND*MILLISECONDS_PER_SECOND;
 
-    public PSMoveHitchWatchdog(string blockName, float microseconds_timeout)
-    {
-        this.blockName = blockName;
-        this.timeout = microseconds_timeout;
-        this.stopWatch = new Stopwatch();
-        this.stopWatch.Start(); 
+  private string blockName;
+  private Stopwatch stopWatch;
+  private float timeout;
+
+  public PSMoveHitchWatchdog(string blockName, float microseconds_timeout) {
+    this.blockName = blockName;
+    this.timeout = microseconds_timeout;
+    this.stopWatch = new Stopwatch();
+    this.stopWatch.Start();
+  }
+
+  public virtual void Dispose() {
+    this.stopWatch.Stop();
+    float TimeDeltaInMicroseconds = (float) ((stopWatch.ElapsedTicks*MICROSECONDS_PER_SECOND)/Stopwatch.Frequency);
+
+    if (TimeDeltaInMicroseconds > timeout) {
+      if (PSMoveHitchWatchdog.EmitHitchLogging) {
+        Debug.WriteLine(
+                        $"PSMoveHitchWatchdog: HITCH DETECTED({blockName})! Section took {TimeDeltaInMicroseconds}us (>={timeout}us)");
+      }
     }
-
-    public virtual void Dispose()
-    {
-        this.stopWatch.Stop();
-        float TimeDeltaInMicroseconds = (float)((stopWatch.ElapsedTicks * MICROSECONDS_PER_SECOND) / Stopwatch.Frequency);
-
-        if (TimeDeltaInMicroseconds > timeout)
-        {
-            if (PSMoveHitchWatchdog.EmitHitchLogging)
-            {
-                Debug.WriteLine($"PSMoveHitchWatchdog: HITCH DETECTED({blockName})! Section took {TimeDeltaInMicroseconds}us (>={timeout}us)");
-            }
-        }
-    }
-
-    private string blockName;
-    private float timeout;
-    private Stopwatch stopWatch;
+  }
 };

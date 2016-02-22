@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SharpDX;
 
@@ -110,27 +111,6 @@ namespace OrbItProcs {
       //angle = Math.Atan2(parent.transform.velocity.Y, parent.transform.velocity.X) + (Math.PI / 2);
       float scaledown = 1.0f - 0.01f;
       parent.body.radius *= scaledown;
-      //if (LeaveTrunk && lifeleft > 0)
-      //{
-      //    if (positions.Count < queuecount)
-      //    {
-      //        positions.Enqueue(parent.body.pos);
-      //        scales.Enqueue(parent.body.scale);
-      //    }
-      //    else
-      //    {
-      //        if (positions.Count > 0)
-      //        {
-      //            positions.Dequeue();
-      //            positions.Enqueue(parent.body.pos);
-      //        }
-      //        if (scales.Count > 0)
-      //        {
-      //            scales.Dequeue();
-      //            scales.Enqueue(parent.body.scale);
-      //        }
-      //    }
-      //}
 
       //branchdeath
       if (lifeleft > randlife) {
@@ -175,12 +155,12 @@ namespace OrbItProcs {
           //Group g = parent.Game1.ui.sidebar.ActiveGroup;
           if (parent.group != null) {
             parent.group.IncludeEntity(newNode);
-            newNode.group = parent.group;
           }
+          newNode.OnSpawn();
+          var shovel = newNode.Comp<Shovel>();
+          var shovelnode = shovel.shovelNode;
+          Debug.Assert(shovelnode.group != null);
         }
-        //parent.nodeState = state.drawOnly;
-
-        HashSet<Node> hs = new HashSet<Node>();
       }
       else {
         lifeleft++;
@@ -190,7 +170,7 @@ namespace OrbItProcs {
     public override void Draw() {
       if (!LeaveTrunk || !original) return;
       room.camera.AddPermanentDraw(parent.texture, parent.body.pos, parent.body.color, parent.body.scale, 0, 200);
-        //trunk doesn't die. (make 500?)
+      //trunk doesn't die. (make 500?)
     }
 
     public void DrawOld() {

@@ -216,7 +216,7 @@ namespace OrbItProcs {
       float x = dist*(float) Math.Cos(angle);
       float y = dist*(float) Math.Sin(angle);
       Vector2 spawnPos = new Vector2((room.worldWidth/4)*playerIndex - (room.worldWidth/8), room.worldHeight - 600);
-        // -new Vector2(x, y);
+      // -new Vector2(x, y);
       Node node = defaultNode.CreateClone(room);
       p.node = node;
 

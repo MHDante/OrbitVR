@@ -113,9 +113,9 @@ namespace OrbItProcs {
       parent.body.ExclusionCheckResolution += excludeParent;
       Action<Node, Node> onExit = null;
       onExit = (n1, n2) => {
-        parent.body.OnCollisionExit -= onExit;
-        parent.body.ExclusionCheckResolution -= excludeParent;
-      };
+                 parent.body.OnCollisionExit -= onExit;
+                 parent.body.ExclusionCheckResolution -= excludeParent;
+               };
       parent.body.OnCollisionExit += onExit;
       lastFired = n;
     }

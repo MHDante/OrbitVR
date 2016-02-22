@@ -20,9 +20,9 @@ namespace OrbItProcs {
       //this.room = ui.game.room;
       this.ui = ui;
       NotImplemented = delegate {
-        Console.WriteLine("Not Implemented. Take a hike.");
-        //throw new NotImplementedException();
-      };
+                         Console.WriteLine("Not Implemented. Take a hike.");
+                         //throw new NotImplementedException();
+                       };
     }
 
     public Room room {

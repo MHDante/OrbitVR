@@ -10,14 +10,16 @@ namespace OrbItProcs {
     public static Action afterFilling;
 
     static Action<Node, Node> add = delegate(Node Source, Node Dest) {
-      if (Source.dataStore.Keys.Contains("Filling") && Dest.dataStore.Keys.Contains("Filling"))
-        spawnPoints[Source.CheckData<Vector2>("Filling")][1]++;
-    };
+                                      if (Source.dataStore.Keys.Contains("Filling") &&
+                                          Dest.dataStore.Keys.Contains("Filling"))
+                                        spawnPoints[Source.CheckData<Vector2>("Filling")][1]++;
+                                    };
 
     static Action<Node, Node> rem = delegate(Node Source, Node Dest) {
-      if (Source.dataStore.Keys.Contains("Filling") && Dest.dataStore.Keys.Contains("Filling"))
-        spawnPoints[Source.CheckData<Vector2>("Filling")][1]--;
-    };
+                                      if (Source.dataStore.Keys.Contains("Filling") &&
+                                          Dest.dataStore.Keys.Contains("Filling"))
+                                        spawnPoints[Source.CheckData<Vector2>("Filling")][1]--;
+                                    };
 
     public FloodFill()
       : base() {

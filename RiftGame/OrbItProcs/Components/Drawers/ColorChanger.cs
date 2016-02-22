@@ -177,7 +177,7 @@ namespace OrbItProcs {
       else if (colormode == ColorMode.velocity) {
         float len = Vector2.Distance(parent.body.velocity, Vector2.Zero)/25;
         parent.body.color = new Color((parent.body.permaColor.R/255f)*len, (parent.body.permaColor.G/255f)*len,
-          (parent.body.permaColor.B/255f)*len);
+                                      (parent.body.permaColor.B/255f)*len);
         //parent.body.color = getColorFromHSV((float)Math.Min(1.0, len / 20) * 360f, (float)Math.Min(1.0, len / 20), (float)Math.Min(1.0, len / 20));
       }
       else if (colormode == ColorMode.hueShifter) {

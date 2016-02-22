@@ -50,8 +50,9 @@ namespace OrbItProcs {
     private DrawType type;
 
     public DrawCommand(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-      Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0, int maxlife = -1,
-      ShaderPack? shaderPack = null) {
+                       Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0,
+                       int maxlife = -1,
+                       ShaderPack? shaderPack = null) {
       this.type = DrawType.standard;
       this.texture = texture;
       this.position = position;
@@ -69,8 +70,9 @@ namespace OrbItProcs {
     }
 
     public DrawCommand(Texture2D texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-      Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0, int maxlife = -1,
-      ShaderPack? shaderPack = null) {
+                       Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0,
+                       int maxlife = -1,
+                       ShaderPack? shaderPack = null) {
       this.type = DrawType.direct;
       this.texture2d = texture;
       this.position = position;
@@ -88,8 +90,9 @@ namespace OrbItProcs {
     }
 
     public DrawCommand(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-      Vector2 origin, Vector2 scalevect, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0,
-      int maxlife = -1, ShaderPack? shaderPack = null) {
+                       Vector2 origin, Vector2 scalevect, SpriteEffects effects = SpriteEffects.None,
+                       float layerDepth = 0,
+                       int maxlife = -1, ShaderPack? shaderPack = null) {
       this.type = DrawType.vectScaled;
       this.texture = texture;
       this.position = position;
@@ -107,7 +110,7 @@ namespace OrbItProcs {
     }
 
     public DrawCommand(string text, Vector2 position, Color color, float scale = 0.5f, int maxlife = -1,
-      ShaderPack? shaderPack = null, float layerDepth = 0) {
+                       ShaderPack? shaderPack = null, float layerDepth = 0) {
       this.type = DrawType.drawString;
       this.position = position;
       this.color = color;
@@ -127,14 +130,14 @@ namespace OrbItProcs {
       switch (type) {
         case DrawType.standard:
           batch.Draw(Assets.textureDict[texture], position, sourceRect, color, rotation, origin, scale, effects,
-            layerDepth);
+                     layerDepth);
           break;
         case DrawType.direct:
           batch.Draw(texture2d, position, sourceRect, color, rotation, origin, scale, effects, layerDepth);
           break;
         case DrawType.vectScaled:
           batch.Draw(Assets.textureDict[texture], position, sourceRect, color, rotation, origin, scalevect, effects,
-            layerDepth);
+                     layerDepth);
           break;
         case DrawType.drawString:
           batch.DrawString(Assets.font, text, position, color, 0f, Vector2.Zero, scale, SpriteEffects.None, layerDepth);
@@ -147,20 +150,19 @@ namespace OrbItProcs {
     }
   }
 
-  public class ThreadedCamera : CameraBase
-  {
+  public class ThreadedCamera : CameraBase {
     public readonly object _locker = new object();
     Queue<string> _tasks = new Queue<string>();
     Thread _worker;
-    ManualResetEventSlim CameraWaiting = new ManualResetEventSlim(false);
-    public ManualResetEventSlim TomShaneWaiting = new ManualResetEventSlim(true);
     Queue<DrawCommand> addPerm = new Queue<DrawCommand>();
+    ManualResetEventSlim CameraWaiting = new ManualResetEventSlim(false);
     Queue<DrawCommand> nextFrame = new Queue<DrawCommand>();
+    List<DrawCommand> permanents = new List<DrawCommand>();
     Queue<DrawCommand> removePerm = new Queue<DrawCommand>();
     Queue<DrawCommand> thisFrame = new Queue<DrawCommand>();
-    List<DrawCommand> permanents = new List<DrawCommand>();
+    public ManualResetEventSlim TomShaneWaiting = new ManualResetEventSlim(true);
 
-    public ThreadedCamera(Room room, float zoom = 0.5f, Vector2? pos = null):base(room, zoom,pos) {
+    public ThreadedCamera(Room room, float zoom = 0.5f, Vector2? pos = null) : base(room, zoom, pos) {
       _worker = new Thread(Work);
       _worker.Name = "CameraThread";
       _worker.IsBackground = true;
@@ -188,26 +190,27 @@ namespace OrbItProcs {
     }
 
 
-    public override void AddPermanentDraw(textures texture, Vector2 position, Color color, float scale, float rotation, int life) {
+    public override void AddPermanentDraw(textures texture, Vector2 position, Color color, float scale, float rotation,
+                                          int life) {
       addPerm.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-        rotation, Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, 0, life));
+                                      rotation, Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, 0, life));
     }
 
-    public override void AddPermanentDraw(textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation,
-      int life) {
+    public override void AddPermanentDraw(textures texture, Vector2 position, Color color, Vector2 scalevect,
+                                          float rotation,
+                                          int life) {
       addPerm.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-        rotation, Assets.textureCenters[texture], scalevect*zoom, SpriteEffects.None, 0, life));
+                                      rotation, Assets.textureCenters[texture], scalevect*zoom, SpriteEffects.None, 0,
+                                      life));
     }
 
     public override void removePermanentDraw(textures texture, Vector2 position, Color color, float scale) {
       removePerm.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color, 0,
-        Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, 0));
+                                         Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, 0));
     }
 
     private void Work(object obj) {
       while (true) {
-
-
         CameraWaiting.Reset();
         lock (_locker) {
           DepthStencilView d = null;
@@ -261,49 +264,58 @@ namespace OrbItProcs {
     }
 
     public override void Draw(textures texture, Vector2 position, Color color, float scale, Layers Layer,
-      ShaderPack? shaderPack = null, bool center = true) {
+                              ShaderPack? shaderPack = null, bool center = true) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color, 0,
-        center ? Assets.textureCenters[texture] : Vector2.Zero, scale*zoom, SpriteEffects.None, (((float) Layer)/10), -1,
-        shaderPack));
+                                        center ? Assets.textureCenters[texture] : Vector2.Zero, scale*zoom,
+                                        SpriteEffects.None, (((float) Layer)/10), -1,
+                                        shaderPack));
     }
 
     public override void Draw(Texture2D texture, Vector2 position, Color color, float scale, Layers Layer,
-      ShaderPack? shaderPack = null, bool center = true) {
+                              ShaderPack? shaderPack = null, bool center = true) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color, 0,
-        center ? new Vector2(texture.Width/2, texture.Height/2) : Vector2.Zero, scale*zoom, SpriteEffects.None,
-        (((float) Layer)/10), -1, shaderPack));
+                                        center ? new Vector2(texture.Width/2, texture.Height/2) : Vector2.Zero,
+                                        scale*zoom, SpriteEffects.None,
+                                        (((float) Layer)/10), -1, shaderPack));
     }
 
     public override void Draw(textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
-      ShaderPack? shaderPack = null) {
+                              ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-        rotation, Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, (((float) Layer)/10), -1, shaderPack));
+                                        rotation, Assets.textureCenters[texture], scale*zoom, SpriteEffects.None,
+                                        (((float) Layer)/10), -1, shaderPack));
     }
 
-    public override void Draw(Texture2D texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
-      ShaderPack? shaderPack = null) {
+    public override void Draw(Texture2D texture, Vector2 position, Color color, float scale, float rotation,
+                              Layers Layer,
+                              ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-        rotation, new Vector2(texture.Width/2, texture.Height/2), scale*zoom, SpriteEffects.None, (((float) Layer)/10),
-        -1, shaderPack));
+                                        rotation, new Vector2(texture.Width/2, texture.Height/2), scale*zoom,
+                                        SpriteEffects.None, (((float) Layer)/10),
+                                        -1, shaderPack));
     }
 
-    public override void Draw(textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, Layers Layer,
-      ShaderPack? shaderPack = null) {
+    public override void Draw(textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation,
+                              Layers Layer,
+                              ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-        rotation, Assets.textureCenters[texture], scalevect*zoom, SpriteEffects.None, (((float) Layer)/10), -1,
-        shaderPack));
+                                        rotation, Assets.textureCenters[texture], scalevect*zoom, SpriteEffects.None,
+                                        (((float) Layer)/10), -1,
+                                        shaderPack));
     }
 
     public override void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-      Vector2 origin, float scale, Layers Layer, ShaderPack? shaderPack = null) {
+                              Vector2 origin, float scale, Layers Layer, ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, sourceRect,
-        color, rotation, origin, scale*zoom, SpriteEffects.None, (((float) Layer)/10), -1, shaderPack));
+                                        color, rotation, origin, scale*zoom, SpriteEffects.None, (((float) Layer)/10),
+                                        -1, shaderPack));
     }
 
     public override void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-      Vector2 origin, Vector2 scalevect, Layers Layer, ShaderPack? shaderPack = null) {
+                              Vector2 origin, Vector2 scalevect, Layers Layer, ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, sourceRect,
-        color, rotation, origin, scalevect*zoom, SpriteEffects.None, (((float) Layer)/10), -1, shaderPack));
+                                        color, rotation, origin, scalevect*zoom, SpriteEffects.None,
+                                        (((float) Layer)/10), -1, shaderPack));
     }
 
 
@@ -317,10 +329,11 @@ namespace OrbItProcs {
       Vector2 scalevect = new Vector2(len, thickness);
       float angle = (float) (Math.Atan2(diff.Y, diff.X));
       Draw(textures.whitepixel, centerpoint, null, color, angle, Assets.textureCenters[textures.whitepixel], scalevect,
-        Layer);
+           Layer);
     }
 
-    public override void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life) //, Layers Layer)
+    public override void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life)
+      //, Layers Layer)
     {
       if (thickness*zoom < 1) thickness = 1/zoom;
       Vector2 diff = (end - start); // *mapzoom;
@@ -334,20 +347,22 @@ namespace OrbItProcs {
       AddPermanentDraw(textures.whitepixel, centerpoint, color, scalevect, angle, life);
     }
 
-    public override void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
-      bool offset = true, Layers Layer = Layers.Over5) {
+    public override void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = null,
+                                         float scale = 0.5f,
+                                         bool offset = true, Layers Layer = Layers.Over5) {
       Color c2 = Color.Red;
       if (color2 != null) c2 = (Color) color2;
       Vector2 pos = position*zoom;
       if (offset) pos += CameraOffsetVect;
       nextFrame.Enqueue(new DrawCommand(text, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, c2, scale,
-        layerDepth: (((float) Layer)/10)));
+                                        layerDepth: (((float) Layer)/10)));
       nextFrame.Enqueue(new DrawCommand(text, ((position - virtualTopLeft)*zoom) + CameraOffsetVect + new Vector2(1, -1),
-        color, scale, layerDepth: (((float) Layer)/10)));
+                                        color, scale, layerDepth: (((float) Layer)/10)));
     }
 
-    public override void DrawStringScreen(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
-      bool offset = true, Layers Layer = Layers.Over5) {
+    public override void DrawStringScreen(string text, Vector2 position, Color color, Color? color2 = null,
+                                          float scale = 0.5f,
+                                          bool offset = true, Layers Layer = Layers.Over5) {
       Color c2 = Color.White;
       if (color2 != null) c2 = (Color) color2;
       Vector2 pos = position;

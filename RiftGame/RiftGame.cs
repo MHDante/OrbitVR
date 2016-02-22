@@ -7,7 +7,7 @@ using SharpOVR;
 
 namespace RiftGame {
   // Use these namespaces here to override SharpDX.Direct3D11
-  
+
   /// <summary>
   /// Simple RiftGame game using SharpDX.Toolkit.
   /// </summary>
@@ -64,9 +64,9 @@ namespace RiftGame {
 
       // Create our render target
       eyeTexture[0] = hmd.CreateSwapTexture(GraphicsDevice, Format.R8G8B8A8_UNorm,
-        hmd.GetFovTextureSize(EyeType.Left, hmd.DefaultEyeFov[0]), true);
+                                            hmd.GetFovTextureSize(EyeType.Left, hmd.DefaultEyeFov[0]), true);
       eyeTexture[1] = hmd.CreateSwapTexture(GraphicsDevice, Format.R8G8B8A8_UNorm,
-        hmd.GetFovTextureSize(EyeType.Right, hmd.DefaultEyeFov[1]), true);
+                                            hmd.GetFovTextureSize(EyeType.Right, hmd.DefaultEyeFov[1]), true);
 
       // Create our layer
       layerEyeFov = new LayerEyeFov {
@@ -93,8 +93,9 @@ namespace RiftGame {
 
       // Configure tracking
       hmd.ConfigureTracking(
-        TrackingCapabilities.Orientation | TrackingCapabilities.Position | TrackingCapabilities.MagYawCorrection,
-        TrackingCapabilities.None);
+                            TrackingCapabilities.Orientation | TrackingCapabilities.Position |
+                            TrackingCapabilities.MagYawCorrection,
+                            TrackingCapabilities.None);
 
       // Set enabled capabilities
       hmd.EnabledCaps = HMDCapabilities.LowPersistence | HMDCapabilities.DynamicPrediction;
@@ -145,7 +146,8 @@ namespace RiftGame {
         GraphicsDevice.SetRenderTargets(swapTexture.DepthStencilView, swapTexture.CurrentView);
         GraphicsDevice.SetViewport(swapTexture.Viewport);
         Device.ImmediateContext.ClearDepthStencilView(swapTexture.DepthStencilView,
-          DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1, 0);
+                                                      DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1,
+                                                      0);
         Device.ImmediateContext.ClearRenderTargetView(swapTexture.CurrentView, Color.CornflowerBlue);
 
         // Perform the actual drawing

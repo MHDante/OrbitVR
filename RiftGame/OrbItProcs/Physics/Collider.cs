@@ -74,9 +74,10 @@ namespace OrbItProcs {
 
     public virtual float radius {
       get { return shape.radius; }
-      set
-      {
-        Debug.Assert(value != 0); shape.radius = value; }
+      set {
+        Debug.Assert(value != 0);
+        shape.radius = value;
+      }
     }
 
     public bool DoExclusionCheck(Collider other) {

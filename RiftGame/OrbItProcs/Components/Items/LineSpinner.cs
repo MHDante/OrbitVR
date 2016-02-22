@@ -85,13 +85,14 @@ namespace OrbItProcs {
       //float angleIncrement = GMath.TwoPI / numberOfNodes;
       int copyCount = Utils.random.Next(maxCopyCount) + 1;
       float? copyOffset = Utils.random.Next(100)%2 == 0
-        ? (float) Utils.random.NextDouble()*GMath.PIbyTwo
-        : (null as float?); //as if
+                            ? (float) Utils.random.NextDouble()*GMath.PIbyTwo
+                            : (null as float?); //as if
 
       int distCopyCount = Utils.random.Next(maxDistCopyCount) + 1;
       for (int i = 0; i < distCopyCount; i++) {
         SpinningLine spin = new SpinningLine(center, rotationSpeed, totalRotationSpeed, minDist, maxDist + minDist,
-          speed, numberOfLines, copyCount, randmaxPermanentDraw, copyOffset, parent.body.color);
+                                             speed, numberOfLines, copyCount, randmaxPermanentDraw, copyOffset,
+                                             parent.body.color);
         spin.dist = maxDist/distCopyCount*i;
         spinningLines.Enqueue(spin);
       }
@@ -106,7 +107,7 @@ namespace OrbItProcs {
     public float rotation, rotationSpeed, totalRotation, totalRotationSpeed, dist, minDist, maxDist, speed;
 
     public SpinningLine(Vector2 center, float rotationSpeed, float totalRotationSpeed, float minDist, float maxDist,
-      float speed, int lineCount, int copyCount, int permDraw, float? copyOffset, Color? color = null) {
+                        float speed, int lineCount, int copyCount, int permDraw, float? copyOffset, Color? color = null) {
       this.center = center;
       this.rotation = 0;
       this.totalRotation = 0;
@@ -152,7 +153,7 @@ namespace OrbItProcs {
 
           //symmetry.room.camera.Draw(textures.whitepixel, dir + symmetry.parent.body.pos, color ?? symmetry.parent.body.color, new Vector2(1f, length), rotationAngle, Layers.Under1);
           lineSpinner.room.camera.AddPermanentDraw(textures.whitepixel, dir + lineSpinner.parent.body.pos, newColor,
-            new Vector2(1f, length), rotationAngle, permDraw);
+                                                   new Vector2(1f, length), rotationAngle, permDraw);
         }
       }
     }

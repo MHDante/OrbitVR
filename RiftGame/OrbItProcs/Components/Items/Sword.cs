@@ -122,17 +122,17 @@ namespace OrbItProcs {
       swordNode.body.AddExclusionCheck(parent.body);
       swordNode.body.ExclusionCheck += delegate(Collider p, Collider o) { return !movingStick; };
       swordNode.body.OnCollisionEnter += (p, o) => {
-        if (o.dataStore.ContainsKey("swordnodeparent")) {
-          Node otherparent = o.dataStore["swordnodeparent"];
-          Vector2 f = otherparent.body.pos - parent.body.pos;
-          VMath.NormalizeSafe(ref f);
-          f *= parryKnockback;
-          otherparent.body.ApplyForce(f);
-        }
-        else if (o.IsPlayer) {
-          o.player.node.meta.CalculateDamage(parent, damageMultiplier);
-        }
-      };
+                                           if (o.dataStore.ContainsKey("swordnodeparent")) {
+                                             Node otherparent = o.dataStore["swordnodeparent"];
+                                             Vector2 f = otherparent.body.pos - parent.body.pos;
+                                             VMath.NormalizeSafe(ref f);
+                                             f *= parryKnockback;
+                                             otherparent.body.ApplyForce(f);
+                                           }
+                                           else if (o.IsPlayer) {
+                                             o.player.node.meta.CalculateDamage(parent, damageMultiplier);
+                                           }
+                                         };
       //sword.body.exclusionList.Add(parent.body);
       //
       //parent.body.exclusionList.Add(sword.body);
@@ -171,7 +171,7 @@ namespace OrbItProcs {
       Vector2 position = swordNode.body.pos;
       if (position == Vector2.Zero) position = parent.body.pos;
       room.camera.Draw(textures.sword, position, parent.body.color, swordNode.body.scale*2, swordNode.body.orient,
-        Layers.Over3);
+                       Layers.Over3);
     }
 
     public override void OnRemove(Node other) {

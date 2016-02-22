@@ -160,7 +160,7 @@ namespace OrbItProcs {
       Type t = parentItem.obj.GetType();
 
       if (t.GetInterfaces()
-        .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (IEnumerable<>))) {
+           .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (IEnumerable<>))) {
         //Console.WriteLine("IEnumerable : {0}", obj.GetType());
         membertype = member_type.collectionentry;
         CheckItemType();
@@ -241,7 +241,7 @@ namespace OrbItProcs {
     }
 
     public static List<InspectorInfo> GenerateList(object parent, InspectorInfo parentItem = null,
-      bool GenerateFields = false, UserLevel? userLevel = null) {
+                                                   bool GenerateFields = false, UserLevel? userLevel = null) {
       UserLevel userlevel = OrbIt.ui.sidebar.userLevel;
       if (userLevel != null) userlevel = (UserLevel) userLevel;
 
@@ -252,7 +252,7 @@ namespace OrbItProcs {
       //if (parentItem != null) space += parentItem.whitespace;
       //List<FieldInfo> fieldInfos = o.GetType().GetFields().ToList(); //just supporting properties for now
       data_type dt = data_type.obj;
-        //if this item is the root, we should give it it's real type in.steam of assuming it's an object
+      //if this item is the root, we should give it it's real type in.steam of assuming it's an object
       if (parentItem != null) dt = parentItem.datatype;
 
       if (dt == data_type.collection) {
@@ -291,8 +291,8 @@ namespace OrbItProcs {
         {
           propertyInfos =
             parent.GetType()
-              .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-              .ToList();
+                  .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                  .ToList();
         }
         else {
           propertyInfos = parent.GetType().GetProperties().ToList();
@@ -348,8 +348,8 @@ namespace OrbItProcs {
         {
           methodInfos =
             parent.GetType()
-              .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-              .ToList();
+                  .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                  .ToList();
         }
         else {
           methodInfos = parent.GetType().GetMethods().ToList();
@@ -605,7 +605,7 @@ namespace OrbItProcs {
         dt = data_type.array;
       }
       else if (obj.GetType().GetInterfaces()
-        .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (IEnumerable<>))) {
+                  .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (IEnumerable<>))) {
         dt = data_type.collection;
       }
       //might need to be more specific than List
@@ -765,68 +765,72 @@ namespace OrbItProcs {
       BuildItemsPath(item, itemspath);
 
       group.ForEachAllSets(delegate(Node n) {
-        if (n == itemspath.ElementAt(0).obj) return;
-        InspectorInfo temp = new InspectorInfo(null, n, sidebar);
-        int count = 0;
-        foreach (InspectorInfo pathitem in itemspath) {
-          if (temp.methodInfo != null) {
-            temp.methodInfo.Invoke(temp.parentobj, null);
-            break;
-          }
-          if (temp.obj.GetType() != pathitem.obj.GetType()) {
-            Console.WriteLine("The paths did not match while applying to all. {0} != {1}", temp.obj.GetType(),
-              pathitem.obj.GetType());
-            break;
-          }
-          if (count == itemspath.Count - 1) //last item
-          {
-            if (pathitem.membertype == member_type.dictentry) {
-              dynamic dict = temp.parentItem.obj;
-              dynamic key = pathitem.key;
-              if (!dict.ContainsKey(key)) break;
-              if (dict[key] is Component) {
-                dict[key].active = ((Component) value).active;
-              }
-              else if (temp.IsPanelType()) {
-                dict[key] = value;
-              }
-            }
-            else {
-              if (value is Component) {
-                ((Component) temp.obj).active = ((Component) value).active;
-              }
-              else if (temp.IsPanelType()) {
-                temp.fpinfo.SetValue(value, temp.parentItem.obj);
-                //temp.SetValue(value);
-              }
-              else if (Utils.isToggle(temp.obj)) {
-                temp.SetValue(value);
-              }
-            }
-          }
-          else {
-            InspectorInfo next = itemspath.ElementAt(count + 1);
-            if (next.membertype == member_type.dictentry) {
-              dynamic dict = temp.obj;
-              dynamic key = next.key;
-              if (!dict.ContainsKey(key)) break;
-              temp = new InspectorInfo(null, temp, dict[key], key);
-            }
-            else if (next.membertype == member_type.method) {
-              temp = new InspectorInfo(null, temp, temp.obj.GetType().GetMethod(next.methodInfo.Name));
-            }
-            else {
-              if (next.fpinfo.propertyInfo == null) {
-                temp = new InspectorInfo(null, temp, next.fpinfo.GetValue(temp.obj), next.fpinfo.fieldInfo);
-              }
-              else {
-                temp = new InspectorInfo(null, temp, next.fpinfo.GetValue(temp.obj), next.fpinfo.propertyInfo);
-              }
-            }
-          }
-          count++;
-        }
-      });
+                             if (n == itemspath.ElementAt(0).obj) return;
+                             InspectorInfo temp = new InspectorInfo(null, n, sidebar);
+                             int count = 0;
+                             foreach (InspectorInfo pathitem in itemspath) {
+                               if (temp.methodInfo != null) {
+                                 temp.methodInfo.Invoke(temp.parentobj, null);
+                                 break;
+                               }
+                               if (temp.obj.GetType() != pathitem.obj.GetType()) {
+                                 Console.WriteLine("The paths did not match while applying to all. {0} != {1}",
+                                                   temp.obj.GetType(),
+                                                   pathitem.obj.GetType());
+                                 break;
+                               }
+                               if (count == itemspath.Count - 1) //last item
+                               {
+                                 if (pathitem.membertype == member_type.dictentry) {
+                                   dynamic dict = temp.parentItem.obj;
+                                   dynamic key = pathitem.key;
+                                   if (!dict.ContainsKey(key)) break;
+                                   if (dict[key] is Component) {
+                                     dict[key].active = ((Component) value).active;
+                                   }
+                                   else if (temp.IsPanelType()) {
+                                     dict[key] = value;
+                                   }
+                                 }
+                                 else {
+                                   if (value is Component) {
+                                     ((Component) temp.obj).active = ((Component) value).active;
+                                   }
+                                   else if (temp.IsPanelType()) {
+                                     temp.fpinfo.SetValue(value, temp.parentItem.obj);
+                                     //temp.SetValue(value);
+                                   }
+                                   else if (Utils.isToggle(temp.obj)) {
+                                     temp.SetValue(value);
+                                   }
+                                 }
+                               }
+                               else {
+                                 InspectorInfo next = itemspath.ElementAt(count + 1);
+                                 if (next.membertype == member_type.dictentry) {
+                                   dynamic dict = temp.obj;
+                                   dynamic key = next.key;
+                                   if (!dict.ContainsKey(key)) break;
+                                   temp = new InspectorInfo(null, temp, dict[key], key);
+                                 }
+                                 else if (next.membertype == member_type.method) {
+                                   temp = new InspectorInfo(null, temp,
+                                                            temp.obj.GetType().GetMethod(next.methodInfo.Name));
+                                 }
+                                 else {
+                                   if (next.fpinfo.propertyInfo == null) {
+                                     temp = new InspectorInfo(null, temp, next.fpinfo.GetValue(temp.obj),
+                                                              next.fpinfo.fieldInfo);
+                                   }
+                                   else {
+                                     temp = new InspectorInfo(null, temp, next.fpinfo.GetValue(temp.obj),
+                                                              next.fpinfo.propertyInfo);
+                                   }
+                                 }
+                               }
+                               count++;
+                             }
+                           });
     }
 
     public bool HasPanelElements() {

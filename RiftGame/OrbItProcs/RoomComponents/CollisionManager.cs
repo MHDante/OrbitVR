@@ -18,32 +18,33 @@ namespace OrbItProcs {
       colIterations = 1;
 
       collideAction = (c1, c2) => {
-        if (c1.parent == c2.parent) return;
-        if (c1 is Body) {
-          Body b = (Body) c1;
+                        if (c1.parent == c2.parent) return;
+                        if (c1 is Body) {
+                          Body b = (Body) c1;
 
-          if (gridsystemCollision.alreadyVisited.Contains(c2)) return;
-          if (c2 is Body) {
-            Body bb = (Body) c2;
-            //if (!b.exclusionList.Contains(bb)) 
-            b.CheckCollisionBody(bb);
-          }
-          else {
-            b.CheckCollisionCollider(c2);
-          }
-        }
-        else {
-          if (gridsystemCollision.alreadyVisited.Contains(c2)) return;
-          if (c2 is Body) {
-            Body bb = (Body) c2;
-            //if (!c1.exclusionList.Contains(bb)) 
-            c1.CheckCollisionBody(bb);
-          }
-        }
-      };
+                          if (gridsystemCollision.alreadyVisited.Contains(c2)) return;
+                          if (c2 is Body) {
+                            Body bb = (Body) c2;
+                            //if (!b.exclusionList.Contains(bb)) 
+                            b.CheckCollisionBody(bb);
+                          }
+                          else {
+                            b.CheckCollisionCollider(c2);
+                          }
+                        }
+                        else {
+                          if (gridsystemCollision.alreadyVisited.Contains(c2)) return;
+                          if (c2 is Body) {
+                            Body bb = (Body) c2;
+                            //if (!c1.exclusionList.Contains(bb)) 
+                            c1.CheckCollisionBody(bb);
+                          }
+                        }
+                      };
 
       gridsystemCollision = new GridSystem(room, room.gridsystemAffect.cellsX,
-        new Vector2(0, room.worldHeight - OrbIt.ScreenHeight), room.worldWidth, OrbIt.ScreenHeight);
+                                           new Vector2(0, room.worldHeight - OrbIt.ScreenHeight), room.worldWidth,
+                                           OrbIt.ScreenHeight);
     }
 
     public int colIterations { get; set; }
@@ -146,7 +147,8 @@ namespace OrbItProcs {
       foreach (Node n in room.masterGroup.fullSet.ToList()) {
         if (room.skipOutsideGrid &&
             n.body.pos.isWithin(gridsystemCollision.position,
-              gridsystemCollision.position + new Vector2(gridsystemCollision.gridWidth, gridsystemCollision.gridHeight)))
+                                gridsystemCollision.position +
+                                new Vector2(gridsystemCollision.gridWidth, gridsystemCollision.gridHeight)))
           continue;
         n.movement.IntegrateVelocity();
         VMath.Set(ref n.body.force, 0, 0);

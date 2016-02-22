@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using SharpDX;
-using SharpDX.DXGI;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 
@@ -20,6 +19,7 @@ namespace OrbItProcs {
     public bool drawCage = true;
     public List<Rectangle> linesToDraw = new List<Rectangle>();
     private Action PendingRoomResize;
+    private Randomizer randomizer;
     public bool scroll = false; //#tojam
 
     public float scrollRate = 1.5f; //0.5f;
@@ -48,7 +48,7 @@ namespace OrbItProcs {
       collisionManager = new CollisionManager(this);
       level = new Level(this, 40, 40, gridsystemAffect.cellWidth, gridsystemAffect.cellHeight);
       roomRenderTarget = RenderTarget2D.New(game.Graphics.GraphicsDevice, OrbIt.ScreenWidth, OrbIt.ScreenHeight,
-        game.pixelFormat.Format);
+                                            game.pixelFormat.Format);
       camera = new ThreadedCamera(this, 1f);
       DrawLinks = true;
       scheduler = new Scheduler();
@@ -131,13 +131,13 @@ namespace OrbItProcs {
     public bool DrawCollisionGrid { get; set; }
     //Events
     public event EventHandler AfterIteration;
-    private Randomizer randomizer ;
+
     public void attatchToSidebar(UserInterface ui) {
       //We put the Procs In OrbItProcs
       processManager = new ProcessManager();
       processManager.SetProcessKeybinds();
       ui.sidebar.ActiveGroupName = "Group1";
-      randomizer =  processManager.GetProcess<Randomizer>();
+      randomizer = processManager.GetProcess<Randomizer>();
 
       //ui.sidebar.UpdateGroupComboBoxes();
     }
@@ -182,11 +182,21 @@ namespace OrbItProcs {
     }
 
     public void Update(GameTime gametime) {
-      testTimer += gametime.ElapsedGameTime.Milliseconds;
-      if (testTimer > 1000) {
-        spawnPos += Vector2.One*10;
-        randomizer.SpawnSemiRandom();
-        testTimer = 0;
+      //testTimer += gametime.ElapsedGameTime.Milliseconds;
+      //if (testTimer > 1000) {
+      //  spawnPos += Vector2.One*10;
+      //  randomizer.SpawnSemiRandom();
+      //  testTimer = 0;
+      //}
+      if (testTimer < 1000) {
+        testTimer = 1000;
+        Node n = spawnNode(0, 0);
+        n.addComponent<Lifetime>(true);
+        n.Comp<Lifetime>().timeUntilDeath.value = 2000;
+        n.Comp<Lifetime>().timeUntilDeath.enabled = true;
+        n.addComponent<Tree>(true);
+        //n.Comp<Tree>().branchStages = 1;
+        n.addComponent<Shovel>(true);
       }
 
       Player.CheckForPlayers(this);
@@ -195,7 +205,6 @@ namespace OrbItProcs {
       long elapsed = 0;
       if (gametime != null) elapsed = (long) Math.Round(gametime.ElapsedGameTime.TotalMilliseconds);
       totalElapsedMilliseconds += elapsed;
-
 
       HashSet<Node> toDelete = new HashSet<Node>();
       //if (affectAlgorithm == 1)//OLD for testing
@@ -247,7 +256,7 @@ namespace OrbItProcs {
       }
 
       Draw();
-      ((ThreadedCamera)camera).CatchUp();
+      ((ThreadedCamera) camera).CatchUp();
     }
 
 
@@ -330,13 +339,13 @@ namespace OrbItProcs {
       Node left = ConstructWallPoly(props, (int) WallWidth/2, worldHeight/2, new Vector2(WallWidth/2, worldHeight/2));
       left.name = "left wall";
       Node right = ConstructWallPoly(props, (int) WallWidth/2, worldHeight/2,
-        new Vector2(worldWidth - WallWidth/2, worldHeight/2));
+                                     new Vector2(worldWidth - WallWidth/2, worldHeight/2));
       right.name = "right wall";
       Node top = ConstructWallPoly(props, (worldWidth + (int) WallWidth*2)/2, (int) WallWidth/2,
-        new Vector2(worldWidth/2, (int) WallWidth/2));
+                                   new Vector2(worldWidth/2, (int) WallWidth/2));
       top.name = "top wall";
       Node bottom = ConstructWallPoly(props, (worldWidth + (int) WallWidth*2)/2, (int) WallWidth/2,
-        new Vector2(worldWidth/2, worldHeight - WallWidth/2));
+                                      new Vector2(worldWidth/2, worldHeight - WallWidth/2));
       bottom.name = "bottom wall";
     }
 
@@ -405,7 +414,7 @@ namespace OrbItProcs {
     }
 
     public Node spawnNode(Dictionary<dynamic, dynamic> userProperties, Action<Node> afterSpawnAction = null,
-      bool blank = false, int lifetime = -1) {
+                          bool blank = false, int lifetime = -1) {
       Group activegroup = OrbIt.ui.sidebar.GetActiveGroup();
       if (activegroup == null || !activegroup.Spawnable) return null;
 
@@ -446,20 +455,24 @@ namespace OrbItProcs {
 
     internal void resize(Vector2 resizeVect, bool fillWithGrid = false) {
       PendingRoomResize = delegate {
-        worldWidth = (int) resizeVect.X;
-        worldHeight = (int) resizeVect.Y;
-        int newCellsX = worldWidth/gridsystemAffect.cellWidth;
-        int gridHeight = fillWithGrid ? worldHeight : OrbIt.ScreenHeight;
-        gridsystemAffect = new GridSystem(this, newCellsX, new Vector2(0, worldHeight - gridHeight), worldWidth,
-          gridHeight);
-        level = new Level(this, newCellsX, newCellsX, gridsystemAffect.cellWidth, gridsystemAffect.cellHeight);
-        //roomRenderTarget = new RenderTarget2D(game.GraphicsDevice, worldWidth, worldHeight);
-        collisionManager.gridsystemCollision = new GridSystem(this, newCellsX, new Vector2(0, worldHeight - gridHeight),
-          worldWidth, gridHeight);
-        fillWithGrid = false;
+                            worldWidth = (int) resizeVect.X;
+                            worldHeight = (int) resizeVect.Y;
+                            int newCellsX = worldWidth/gridsystemAffect.cellWidth;
+                            int gridHeight = fillWithGrid ? worldHeight : OrbIt.ScreenHeight;
+                            gridsystemAffect = new GridSystem(this, newCellsX, new Vector2(0, worldHeight - gridHeight),
+                                                              worldWidth,
+                                                              gridHeight);
+                            level = new Level(this, newCellsX, newCellsX, gridsystemAffect.cellWidth,
+                                              gridsystemAffect.cellHeight);
+                            //roomRenderTarget = new RenderTarget2D(game.GraphicsDevice, worldWidth, worldHeight);
+                            collisionManager.gridsystemCollision = new GridSystem(this, newCellsX,
+                                                                                  new Vector2(0,
+                                                                                              worldHeight - gridHeight),
+                                                                                  worldWidth, gridHeight);
+                            fillWithGrid = false;
 
-        camera.pos = new Vector2(worldWidth/2, worldHeight/2);
-      };
+                            camera.pos = new Vector2(worldWidth/2, worldHeight/2);
+                          };
     }
 
 

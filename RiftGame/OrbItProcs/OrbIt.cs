@@ -5,11 +5,8 @@ using SharpDX.Direct2D1;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.Toolkit;
-using SharpDX.Toolkit.Content;
 using SharpDX.Toolkit.Graphics;
 using SharpOVR;
-using Buffer = SharpDX.Toolkit.Graphics.Buffer;
-using PixelFormat = SharpDX.Toolkit.Graphics.PixelFormat;
 using Rectangle = System.Drawing.Rectangle;
 using SColor = System.Drawing.Color;
 using sc = System.Console;
@@ -39,31 +36,36 @@ namespace OrbItProcs {
     private static GlobalGameMode _globalGameMode = null;
     public static Action OnUpdate;
     public BlendStateCollection BlendStates;
-    private FrameRateCounter frameRateCounter;
-    public SharpDX.Direct2D1.PixelFormat pixelFormat = new SharpDX.Direct2D1.PixelFormat(Format.R8G8B8A8_UNorm, AlphaMode.Premultiplied);
-    public GraphicsDeviceManager Graphics;
-    
-    public SharpSerializer serializer = new SharpSerializer();
 
     /////////////////VR///////////////////
     private float bodyYaw = 3.141592f;
     private EyeRenderDesc[] eyeRenderDesc = new EyeRenderDesc[2];
     private PoseF[] eyeRenderPose = new PoseF[2];
     private SwapTexture[] eyeTexture = new SwapTexture[2];
+    private FrameRateCounter frameRateCounter;
+    private GeometricPrimitive gameScreenQuad;
+    public GraphicsDeviceManager Graphics;
     private Vector3 headPos = new Vector3(0f, 50f, -5f);
     public HMD hmd;
     private Vector3[] hmdToEyeViewOffset = new Vector3[2];
+    Model landscape;
     private LayerEyeFov layerEyeFov;
     private SharpDX.Direct3D11.Texture2D mirrorTexture;
-    Model landscape;
     private Model model;
+
+    public SharpDX.Direct2D1.PixelFormat pixelFormat = new SharpDX.Direct2D1.PixelFormat(Format.R8G8B8A8_UNorm,
+                                                                                         AlphaMode.Premultiplied);
+
     private Matrix projection;
-    private Matrix view;
-    private GeometricPrimitive gameScreenQuad;
 
     public PSMoveController PsMoveController;
-    private Model wand;
+
+    public SharpSerializer serializer = new SharpSerializer();
     private Model ship;
+    private Matrix view;
+    private Model wand;
+    private Vector3 worldOrigin = new Vector3(0, 0, 1);
+    private float worldRotationY = 0f; //MathHelper.Pi;
 
     private OrbIt() {
       // Creates a graphics manager. This is mandatory.
@@ -84,7 +86,7 @@ namespace OrbItProcs {
       Graphics.PreferredBackBufferHeight = hmd.Resolution.Height;
       Graphics.PreferredFullScreenOutputIndex = 1;
     }
-    
+
 
     public static int ScreenWidth {
       get { return game.Graphics.PreferredBackBufferWidth; }
@@ -138,7 +140,10 @@ namespace OrbItProcs {
       room = new Room(this, ScreenWidth, ScreenHeight);
       globalGameMode = new GlobalGameMode(this);
       frameRateCounter = new FrameRateCounter(this);
-      gameScreenQuad = GeometricPrimitive.Cylinder.New(GraphicsDevice,2,2,32,true);
+
+      gameScreenQuad = GeometricPrimitive.Plane.New(GraphicsDevice, 2, 2, 32, true);
+      //gameScreenQuad = GeometricPrimitive.Sphere.New(GraphicsDevice, 5, 32, true);
+      //gameScreenQuad = GeometricPrimitive.Cylinder.New(GraphicsDevice,2,2,32,true);
 
       Player.CreatePlayers(room);
       ui = UserInterface.Start();
@@ -147,19 +152,16 @@ namespace OrbItProcs {
       GlobalKeyBinds(ui);
       new PSMoveManager().Initialize();
       PsMoveController = new PSMoveController();
-      
-      
     }
 
     private void InitializeVR() {
       eyeTexture[0] = hmd.CreateSwapTexture(GraphicsDevice, Format.B8G8R8A8_UNorm,
-        hmd.GetFovTextureSize(EyeType.Left, hmd.DefaultEyeFov[0]), true);
+                                            hmd.GetFovTextureSize(EyeType.Left, hmd.DefaultEyeFov[0]), true);
       eyeTexture[1] = hmd.CreateSwapTexture(GraphicsDevice, Format.B8G8R8A8_UNorm,
-        hmd.GetFovTextureSize(EyeType.Right, hmd.DefaultEyeFov[1]), true);
+                                            hmd.GetFovTextureSize(EyeType.Right, hmd.DefaultEyeFov[1]), true);
 
       // Create our layer
-      layerEyeFov = new LayerEyeFov
-      {
+      layerEyeFov = new LayerEyeFov {
         Header = new LayerHeader(LayerType.EyeFov, LayerFlags.None),
         ColorTextureLeft = eyeTexture[0].TextureSet,
         ColorTextureRight = eyeTexture[1].TextureSet,
@@ -183,30 +185,31 @@ namespace OrbItProcs {
 
       // Configure tracking
       hmd.ConfigureTracking(
-        TrackingCapabilities.Orientation | TrackingCapabilities.Position | TrackingCapabilities.MagYawCorrection,
-        TrackingCapabilities.None);
+                            TrackingCapabilities.Orientation | TrackingCapabilities.Position |
+                            TrackingCapabilities.MagYawCorrection,
+                            TrackingCapabilities.None);
 
       // Set enabled capabilities
       //hmd.EnabledCaps = HMDCapabilities.LowPersistence | HMDCapabilities.DynamicPrediction;
-
     }
+
     protected override void Update(GameTime gameTime) {
       base.Update(gameTime);
       OrbIt.gametime = gameTime;
       frameRateCounter.Update(gameTime);
       if (IsActive) ui.Update(gameTime);
-      
+
       if (!ui.IsPaused) room.Update(gameTime);
       else if (redrawWhenPaused) room.drawOnly();
-      
-      
+
+
       if (GraphicsReset) {
         Graphics.ApplyChanges();
         room.roomRenderTarget = RenderTarget2D.New(GraphicsDevice,
-                                                     ScreenWidth,
-                                                     ScreenHeight
-                                                   ,pixelFormat.Format);
-      
+                                                   ScreenWidth,
+                                                   ScreenHeight,
+                                                   pixelFormat.Format);
+
         GraphicsReset = false;
       }
       if (OnUpdate != null) OnUpdate.Invoke();
@@ -215,8 +218,7 @@ namespace OrbItProcs {
       PsMoveController.Update();
     }
 
-    protected override void Draw(GameTime gameTime)
-    {
+    protected override void Draw(GameTime gameTime) {
       var rollPitchYaw = Matrix.RotationY(bodyYaw);
 
       // Get eye poses
@@ -224,14 +226,13 @@ namespace OrbItProcs {
       layerEyeFov.RenderPoseLeft = eyeRenderPose[0];
       layerEyeFov.RenderPoseRight = eyeRenderPose[1];
 
-      for (int eyeIndex = 0; eyeIndex < 2; eyeIndex++)
-      {
+      for (int eyeIndex = 0; eyeIndex < 2; eyeIndex++) {
         var eye = hmd.EyeRenderOrder[eyeIndex];
-        var renderDesc = eyeRenderDesc[(int)eye];
-        var renderPose = eyeRenderPose[(int)eye];
+        var renderDesc = eyeRenderDesc[(int) eye];
+        var renderPose = eyeRenderPose[(int) eye];
 
         // Calculate view matrix  
-        Matrix finalRollPitchYaw = rollPitchYaw * renderPose.Orientation.GetMatrix();
+        Matrix finalRollPitchYaw = rollPitchYaw*renderPose.Orientation.GetMatrix();
         var finalUp = finalRollPitchYaw.Transform(Vector3.UnitY);
         var finalForward = finalRollPitchYaw.Transform(-Vector3.UnitZ);
         var shiftedEyePos = headPos + rollPitchYaw.Transform(renderPose.Position);
@@ -242,48 +243,51 @@ namespace OrbItProcs {
         projection.Transpose();
 
         // Get render target
-        var swapTexture = eyeTexture[(int)eye];
+        var swapTexture = eyeTexture[(int) eye];
         swapTexture.AdvanceToNextView();
 
         // Clear the screen
         GraphicsDevice.SetRenderTargets(swapTexture.DepthStencilView, swapTexture.CurrentView);
         GraphicsDevice.SetViewport(swapTexture.Viewport);
-        ((SharpDX.Direct3D11.Device)GraphicsDevice).ImmediateContext.ClearDepthStencilView(swapTexture.DepthStencilView,
-          DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1, 0);
-        ((SharpDX.Direct3D11.Device)GraphicsDevice).ImmediateContext.ClearRenderTargetView(swapTexture.CurrentView, Color.CornflowerBlue);
+        ((SharpDX.Direct3D11.Device) GraphicsDevice).ImmediateContext.ClearDepthStencilView(
+                                                                                            swapTexture.DepthStencilView,
+                                                                                            DepthStencilClearFlags.Depth |
+                                                                                            DepthStencilClearFlags
+                                                                                              .Stencil, 1, 0);
+        ((SharpDX.Direct3D11.Device) GraphicsDevice).ImmediateContext.ClearRenderTargetView(swapTexture.CurrentView,
+                                                                                            Color.CornflowerBlue);
 
         // Perform the actual drawing
         DrawScene(gameTime);
       }
     }
+
     protected void DrawScene(GameTime gameTime) {
       Rectangle frame = new Rectangle(0, 0, ScreenWidth, ScreenHeight);
       var quadEffect = new BasicEffect(GraphicsDevice) {
-        World = Matrix.RotationY(MathHelper.Pi) * Matrix.Translation(headPos + new Vector3(0,0,0)),
+        World = Matrix.RotationY(worldRotationY)*Matrix.Translation(headPos + worldOrigin),
         View = view,
         Projection = projection,
         TextureEnabled = true,
         Texture = room.roomRenderTarget
       };
-      //foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes)
-      //{
-      //  pass.Apply();
-      //
-      //  gameScreenQuad.Draw();
-      //}
-      //GraphicsDevice.Draw(PrimitiveType.TriangleStrip, 4);
-      //DrawLandscape(gameTime);
+      foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes) {
+        pass.Apply();
+
+        gameScreenQuad.Draw();
+      }
+      GraphicsDevice.Draw(PrimitiveType.TriangleStrip, 4);
+      DrawLandscape(gameTime);
       PsMoveController.Draw(GraphicsDevice, view, projection);
-      
-      
+
+
       if (room.camera.TakeScreenshot) {
         room.camera.Screenshot();
         room.camera.TakeScreenshot = false;
       }
-      
     }
-    protected override void EndDraw()
-    {
+
+    protected override void EndDraw() {
       // Cancel original EndDraw() as the Present call is made through hmd.SubmitFrame().
       hmd.SubmitFrame(0, ref layerEyeFov.Header);
 
@@ -297,14 +301,12 @@ namespace OrbItProcs {
       Dispose(true);
     }
 
-    protected override void Dispose(bool disposeManagedResources)
-    {
+    protected override void Dispose(bool disposeManagedResources) {
       base.Dispose(disposeManagedResources);
       PsMoveController.OnDestroy();
       PSMoveManager.GetManagerInstance().OnApplicationQuit();
 
-      if (disposeManagedResources)
-      {
+      if (disposeManagedResources) {
         // Release the eye textures
         eyeTexture[0].Dispose();
         eyeTexture[1].Dispose();
@@ -316,6 +318,7 @@ namespace OrbItProcs {
         OVR.Shutdown();
       }
     }
+
     public static void Start() {
       if (game != null) throw new SystemException("Game was already Started");
       game = new OrbIt();
@@ -328,19 +331,15 @@ namespace OrbItProcs {
       //ui.keyManager.addGlobalKeyAction("switchview", KeyCodes.PageDown, OnPress: ui.SwitchView);
       //TODO: ui.keyManager.addGlobalKeyAction("removeall", KeyCodes.Delete, OnPress: () => ui.sidebar.btnRemoveAllNodes_Click(null, null));
     }
-    public void DrawLandscape(GameTime gameTime)
-    {
 
+    public void DrawLandscape(GameTime gameTime) {
       Vector3 lightDirection = Vector3.Normalize(new Vector3(3, -1, 1));
       Vector3 lightColor = new Vector3(0.3f, 0.4f, 0.2f);
 
       // First we draw the ground geometry using BasicEffect.
-      foreach (ModelMesh mesh in landscape.Meshes)
-      {
-        if (mesh.Name != "Billboards")
-        {
-          foreach (BasicEffect effect in mesh.Effects)
-          {
+      foreach (ModelMesh mesh in landscape.Meshes) {
+        if (mesh.Name != "Billboards") {
+          foreach (BasicEffect effect in mesh.Effects) {
             effect.View = game.view;
             effect.Projection = game.projection;
 
@@ -361,6 +360,4 @@ namespace OrbItProcs {
       }
     }
   }
-
-
 }

@@ -31,94 +31,85 @@
 **/
 
 using System;
-using System.Collections;
 using OrbItProcs;
 using SharpDX;
 
-public class PSMovePose
-{
-    public Vector3 WorldPosition;
-    public Vector3 ZeroPosition;
-    public Vector3 UncorrectedWorldPosition;
-    public Quaternion WorldOrientation;
-    public Quaternion ZeroYaw;
-    public Quaternion UncorrectedWorldOrientation;
+public class PSMovePose {
+  public Quaternion UncorrectedWorldOrientation;
+  public Vector3 UncorrectedWorldPosition;
+  public Quaternion WorldOrientation;
+  public Vector3 WorldPosition;
+  public Vector3 ZeroPosition;
+  public Quaternion ZeroYaw;
 
-    public PSMovePose()
-    {
-        Clear();
+  public PSMovePose() {
+    Clear();
+  }
+
+  public void Clear() {
+    WorldPosition = Vector3.Zero;
+    ZeroPosition = Vector3.Zero;
+    UncorrectedWorldPosition = Vector3.Zero;
+    WorldOrientation = Quaternion.Identity;
+    ZeroYaw = Quaternion.Identity;
+    UncorrectedWorldOrientation = Quaternion.Identity;
+  }
+
+  public void PoseUpdate(PSMoveDataContext DataContext, Transform ParentGameObjectTransform) {
+    Matrix TrackingSpaceToWorldSpacePosition = Matrix.Identity;
+    Quaternion OrientationTransform = Quaternion.Identity;
+
+    PSMoveUtility.ComputeTrackingToWorldTransforms(
+                                                   ParentGameObjectTransform,
+                                                   ref TrackingSpaceToWorldSpacePosition,
+                                                   ref OrientationTransform);
+
+    if (DataContext.GetIsSeenByTracker()) {
+      // The PSMove position is given in the space of the rift camera in centimeters
+      Vector3 PSMPosTrackingSpace = DataContext.GetTrackingSpacePosition();
+      // Transform to world space
+      Vector3 PSMPosWorldSpace =
+        Vector3.TransformCoordinate(PSMoveUtility.PSMoveCSToUnityCSPosition(PSMPosTrackingSpace),
+                                    TrackingSpaceToWorldSpacePosition);
+
+      // Save the resulting position, updating for internal offset
+      UncorrectedWorldPosition = PSMPosWorldSpace;
+      WorldPosition = PSMPosWorldSpace - ZeroPosition;
     }
 
-    public void Clear()
-    {
-        WorldPosition = Vector3.Zero;
-        ZeroPosition = Vector3.Zero;
-        UncorrectedWorldPosition = Vector3.Zero;
-        WorldOrientation = Quaternion.Identity;
-        ZeroYaw = Quaternion.Identity;
-        UncorrectedWorldOrientation = Quaternion.Identity;
-    }
+    // The PSMove orientation is given in its native coordinate system
+    Quaternion PSMOriNative = DataContext.GetTrackingSpaceOrientation();
+    // Apply controller orientation first, then apply orientation transform
+    Quaternion PSMOriWorld =
+      OrientationTransform*PSMoveUtility.PSMoveQuatToUnityQuat(PSMOriNative);
 
-    public void PoseUpdate(PSMoveDataContext DataContext, Transform ParentGameObjectTransform)
-    {
-        Matrix TrackingSpaceToWorldSpacePosition = Matrix.Identity;
-        Quaternion OrientationTransform= Quaternion.Identity;
+    // Save the resulting pose, updating for internal zero yaw
+    UncorrectedWorldOrientation = PSMOriWorld;
+    WorldOrientation = ZeroYaw*PSMOriWorld;
+  }
 
-        PSMoveUtility.ComputeTrackingToWorldTransforms(
-            ParentGameObjectTransform,
-            ref TrackingSpaceToWorldSpacePosition,
-            ref OrientationTransform);
+  public void ResetYawSnapshot() {
+    ZeroYaw = Quaternion.Identity;
+  }
 
-        if (DataContext.GetIsSeenByTracker())
-        {
-            // The PSMove position is given in the space of the rift camera in centimeters
-            Vector3 PSMPosTrackingSpace = DataContext.GetTrackingSpacePosition();
-            // Transform to world space
-            Vector3 PSMPosWorldSpace = Vector3.TransformCoordinate(PSMoveUtility.PSMoveCSToUnityCSPosition(PSMPosTrackingSpace), TrackingSpaceToWorldSpacePosition);
+  public void SnapshotOrientationYaw() {
+    float Magnitude =
+      (float) Math.Sqrt(UncorrectedWorldOrientation.Y*UncorrectedWorldOrientation.Y +
+                        UncorrectedWorldOrientation.W*UncorrectedWorldOrientation.W);
 
-            // Save the resulting position, updating for internal offset
-            UncorrectedWorldPosition = PSMPosWorldSpace;
-            WorldPosition = PSMPosWorldSpace - ZeroPosition;
-        }
+    // Strip out the x and z (pitch and roll) components of rotation and negate the yaw-axis
+    // Then normalize the resulting quaternion
+    ZeroYaw.X = 0;
+    ZeroYaw.Y = -UncorrectedWorldOrientation.Y/Magnitude;
+    ZeroYaw.Z = 0;
+    ZeroYaw.W = UncorrectedWorldOrientation.W/Magnitude;
+  }
 
-        // The PSMove orientation is given in its native coordinate system
-        Quaternion PSMOriNative = DataContext.GetTrackingSpaceOrientation();
-        // Apply controller orientation first, then apply orientation transform
-        Quaternion PSMOriWorld =
-            OrientationTransform * PSMoveUtility.PSMoveQuatToUnityQuat(PSMOriNative);
+  public void ResetPositionSnapshot() {
+    ZeroPosition = Vector3.Zero;
+  }
 
-        // Save the resulting pose, updating for internal zero yaw
-        UncorrectedWorldOrientation = PSMOriWorld;
-        WorldOrientation = ZeroYaw * PSMOriWorld;
-    }
-
-    public void ResetYawSnapshot()
-    {
-        ZeroYaw = Quaternion.Identity;
-    }
-
-    public void SnapshotOrientationYaw()
-    {
-
-        float Magnitude =
-            (float)Math.Sqrt(UncorrectedWorldOrientation.Y * UncorrectedWorldOrientation.Y +
-                        UncorrectedWorldOrientation.W * UncorrectedWorldOrientation.W);
-
-        // Strip out the x and z (pitch and roll) components of rotation and negate the yaw-axis
-        // Then normalize the resulting quaternion
-        ZeroYaw.X = 0;
-        ZeroYaw.Y = -UncorrectedWorldOrientation.Y / Magnitude;
-        ZeroYaw.Z = 0;
-        ZeroYaw.W = UncorrectedWorldOrientation.W / Magnitude;
-    }
-
-    public void ResetPositionSnapshot()
-    {
-        ZeroPosition = Vector3.Zero;
-    }
-
-    public void SnapshotPosition()
-    {
-        ZeroPosition = UncorrectedWorldPosition;
-    }
+  public void SnapshotPosition() {
+    ZeroPosition = UncorrectedWorldPosition;
+  }
 };

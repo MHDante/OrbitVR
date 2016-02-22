@@ -105,7 +105,7 @@ namespace OrbItProcs {
       double k_slop = 0.05;
       double percent = 0.4;
       Vector2 correction = VMath.MultVectDouble(normal,
-        Math.Max(penetration - k_slop, 0.0)/(a.invmass + b.invmass)*percent);
+                                                Math.Max(penetration - k_slop, 0.0)/(a.invmass + b.invmass)*percent);
       a.pos -= VMath.MultVectDouble(correction, a.invmass);
       b.pos += VMath.MultVectDouble(correction, b.invmass);
     }

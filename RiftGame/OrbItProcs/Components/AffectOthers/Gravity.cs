@@ -152,7 +152,7 @@ namespace OrbItProcs {
         if (deadZone.enabled && distVects < deadZone.value) return;
         if (distVects < lowerbound) distVects = lowerbound;
         double angletemp = Math.Atan2((affector.body.pos.Y - affected.body.pos.Y),
-          (affector.body.pos.X - affected.body.pos.X));
+                                      (affector.body.pos.X - affected.body.pos.X));
 
         float gravForce = (multiplier*affector.body.mass*affected.body.mass);
 
@@ -171,7 +171,7 @@ namespace OrbItProcs {
 
         if (angle != 0) {
           angletemp = (angletemp + Math.PI + (Math.PI*(float) (angle/180.0f))%(Math.PI*2)) - Math.PI;
-            //test for validity
+          //test for validity
         }
 
         //float gravForce = gnode1.GravMultiplier;

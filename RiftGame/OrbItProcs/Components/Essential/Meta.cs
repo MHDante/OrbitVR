@@ -211,18 +211,18 @@ namespace OrbItProcs {
 
         room.camera.Draw(A, parent.body.pos, Color.ForestGreen, parent.body.scale*1.7f, lightRotation, Layers.Under2);
         room.camera.Draw(B, parent.body.pos, Color.Crimson, parent.body.scale*1.7f, lightRotation + GMath.PIbyTwo,
-          Layers.Under2);
+                         Layers.Under2);
         room.camera.Draw(X, parent.body.pos, Color.CornflowerBlue, parent.body.scale*1.7f, lightRotation + GMath.PI,
-          Layers.Under2);
+                         Layers.Under2);
         room.camera.Draw(Y, parent.body.pos, Color.Gold, parent.body.scale*1.7f,
-          lightRotation + GMath.PI + GMath.PIbyTwo, Layers.Under2);
+                         lightRotation + GMath.PI + GMath.PIbyTwo, Layers.Under2);
 
         lightRotation += 0.1f;
       }
     }
 
     public static void drawBar(Node node, float scale, float Ratio, bool Rotate, Color full, Color? threeQuarters = null,
-      Color? half = null, Color? oneQuarter = null) {
+                               Color? half = null, Color? oneQuarter = null) {
       float baseRotation = Rotate ? node.body.orient : 0f;
       float rotation = baseRotation + (1f - Ratio)*GMath.TwoPI;
       float rotation2 = baseRotation;
@@ -244,7 +244,7 @@ namespace OrbItProcs {
       }
       node.room.camera.Draw(textures.outerL, node.body.pos, Color.Black, node.body.scale*scale, baseRotation, hideLayer);
       node.room.camera.Draw(textures.outerR, node.body.pos, Color.Black, node.body.scale*scale, baseRotation,
-        Layers.Over1);
+                            Layers.Over1);
       node.room.camera.Draw(textures.innerL, node.body.pos, c, node.body.scale*scale, rotation, Layers.Over2);
       node.room.camera.Draw(textures.innerR, node.body.pos, c, node.body.scale*scale, rotation2, Layers.Over2);
     }

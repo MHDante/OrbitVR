@@ -36,15 +36,16 @@ namespace OrbItProcs {
     public BigTony() : base() {
       //OrbIt.ui.SetSidebarActive(false);
       onCollisionEnter = delegate(Node s, Node t) {
-        if (t != null && !room.playerNodes.Contains(t)) {
-          t.body.color = Add(s.body.color, new Color(colorChange, colorChange, colorChange)); //changed node to s
-        }
-      };
+                           if (t != null && !room.playerNodes.Contains(t)) {
+                             t.body.color = Add(s.body.color, new Color(colorChange, colorChange, colorChange));
+                               //changed node to s
+                           }
+                         };
       onCollisionExit = delegate(Node s, Node t) {
-        if (t != null && !room.playerNodes.Contains(t)) {
-          t.body.color = Color.White;
-        }
-      };
+                          if (t != null && !room.playerNodes.Contains(t)) {
+                            t.body.color = Color.White;
+                          }
+                        };
       accel = new Vector2(0, 0);
       absaccel = 0.2f;
       friction = 0.01f;
@@ -99,14 +100,14 @@ namespace OrbItProcs {
       };
       Node tony = new Node(room, tonyProps);
       room.scheduler.doEveryXMilliseconds(delegate {
-        //if (OrbIt.soundEnabled) Scheduler.end.Play(0.3f, -0.5f, 0f);
-        int rad = 100;
-        for (int i = 0; i < 10; i++) {
-          int rx = Utils.random.Next(rad*2) - rad;
-          int ry = Utils.random.Next(rad*2) - rad;
-          //room.spawnNode(room.worldWidth / 2 + rx, room.worldHeight / 2 + ry);
-        }
-      }, 2000);
+                                            //if (OrbIt.soundEnabled) Scheduler.end.Play(0.3f, -0.5f, 0f);
+                                            int rad = 100;
+                                            for (int i = 0; i < 10; i++) {
+                                              int rx = Utils.random.Next(rad*2) - rad;
+                                              int ry = Utils.random.Next(rad*2) - rad;
+                                              //room.spawnNode(room.worldWidth / 2 + rx, room.worldHeight / 2 + ry);
+                                            }
+                                          }, 2000);
       //tony.body.pos = new Vector2(room.worldWidth / 2, room.worldHeight / 2);
       tony.body.radius = 64;
       tony.body.mass = tonymass;
@@ -119,23 +120,23 @@ namespace OrbItProcs {
 
       EventHandler updateScores = null;
       updateScores = (ooo, eee) => {
-        foreach (var p in room.players) {
-          if (p.node == bigtony) {
-            p.node.meta.score += OrbIt.gametime.ElapsedGameTime.Milliseconds;
-            if (p.node.meta.score >= maxScore) {
-              p.node.body.radius += 500;
-              p.node.body.mass += 100;
-              foreach (var pp in room.players) {
-                //pp.node.body.ClearHandlers();
-                //pp.nodeCollision.body.ClearHandlers();
-                pp.node.collision.AllHandlersEnabled = false;
-              }
-              //if (OrbIt.soundEnabled) Scheduler.fanfare.Play();
-              bigtony.OnAffectOthers -= updateScores;
-            }
-          }
-        }
-      };
+                       foreach (var p in room.players) {
+                         if (p.node == bigtony) {
+                           p.node.meta.score += OrbIt.gametime.ElapsedGameTime.Milliseconds;
+                           if (p.node.meta.score >= maxScore) {
+                             p.node.body.radius += 500;
+                             p.node.body.mass += 100;
+                             foreach (var pp in room.players) {
+                               //pp.node.body.ClearHandlers();
+                               //pp.nodeCollision.body.ClearHandlers();
+                               pp.node.collision.AllHandlersEnabled = false;
+                             }
+                             //if (OrbIt.soundEnabled) Scheduler.fanfare.Play();
+                             bigtony.OnAffectOthers -= updateScores;
+                           }
+                         }
+                       }
+                     };
       bigtony.OnAffectOthers += updateScores;
 
       room.masterGroup.fullSet.Add(bigtony); //#bigtony

@@ -60,22 +60,22 @@ namespace OrbItProcs {
       parent.collision.isSolid = false;
       parent.basicdraw.DrawLayer = Layers.Under4;
       parent.body.OnCollisionStay += (c1, c2) => {
-        if (!active || c2 == null) return;
+                                       if (!active || c2 == null) return;
 
-        if (directionMode == DirectionMode.Relative) {
-          int sign = 1;
-          if (slowdown) sign = -1;
+                                       if (directionMode == DirectionMode.Relative) {
+                                         int sign = 1;
+                                         if (slowdown) sign = -1;
 
-          //float tempAngle = (float)Math.Atan2(c2.body.velocity.Y, c2.body.velocity.X); //todo:implement
+                                         //float tempAngle = (float)Math.Atan2(c2.body.velocity.Y, c2.body.velocity.X); //todo:implement
 
 
-          c2.body.velocity *= 1f + (multiplier/100f*sign);
-        }
-        else if (directionMode == DirectionMode.Absolute) {
-          Vector2 force = new Vector2(absoluteX, absoulteY)*(multiplier/100f);
-          c2.body.velocity += force;
-        }
-      };
+                                         c2.body.velocity *= 1f + (multiplier/100f*sign);
+                                       }
+                                       else if (directionMode == DirectionMode.Absolute) {
+                                         Vector2 force = new Vector2(absoluteX, absoulteY)*(multiplier/100f);
+                                         c2.body.velocity += force;
+                                       }
+                                     };
     }
   }
 }

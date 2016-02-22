@@ -92,7 +92,7 @@ namespace OrbItProcs {
     }
 
     public void AssignObjectToPropertiesAll(object o, bool OnlyUninhabited = false, bool AssignGetters = true,
-      bool AssignSetters = true) {
+                                            bool AssignSetters = true) {
       Type targetType = o.GetType();
       if (!getters.ContainsKey(targetType) || !setters.ContainsKey(targetType)) {
         PopulateDelegates(targetType);
@@ -160,7 +160,7 @@ namespace OrbItProcs {
     static Func<object, object> MagicFunc(MethodInfo method) {
       // First fetch the generic form
       MethodInfo genericHelper = typeof (Redirector).GetMethod("MagicFuncHelper",
-        BindingFlags.Static | BindingFlags.NonPublic);
+                                                               BindingFlags.Static | BindingFlags.NonPublic);
 
       // Now supply the type arguments
       //ParameterInfo[] parameters = method.GetParameters();
@@ -177,7 +177,7 @@ namespace OrbItProcs {
     static Func<object, object> MagicFuncHelper<TTarget, TReturn>(MethodInfo method) {
       // Convert the slow MethodInfo into a fast, strongly typed, open delegate
       Func<TTarget, TReturn> func = (Func<TTarget, TReturn>) Delegate.CreateDelegate
-        (typeof (Func<TTarget, TReturn>), method);
+                                                               (typeof (Func<TTarget, TReturn>), method);
       // Now create a more weakly typed delegate which will call the strongly typed one
       Func<object, object> ret = (object target) => func((TTarget) target);
       return ret;
@@ -187,7 +187,7 @@ namespace OrbItProcs {
     static Action<object, object> MagicAction(MethodInfo method) {
       // First fetch the generic form
       MethodInfo genericHelper = typeof (Redirector).GetMethod("MagicActionHelper",
-        BindingFlags.Static | BindingFlags.NonPublic);
+                                                               BindingFlags.Static | BindingFlags.NonPublic);
 
       // Now supply the type arguments
       //ParameterInfo[] parameters = method.GetParameters();
@@ -204,7 +204,7 @@ namespace OrbItProcs {
     static Action<object, object> MagicActionHelper<TTarget, TParam>(MethodInfo method) {
       // Convert the slow MethodInfo into a fast, strongly typed, open delegate
       Action<TTarget, TParam> action = (Action<TTarget, TParam>) Delegate.CreateDelegate
-        (typeof (Action<TTarget, TParam>), method);
+                                                                   (typeof (Action<TTarget, TParam>), method);
 
       // Now create a more weakly typed delegate which will call the strongly typed one
       Action<object, object> ret = (object target, object value) => action((TTarget) target, (TParam) value);

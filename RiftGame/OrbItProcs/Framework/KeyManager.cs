@@ -728,13 +728,13 @@ namespace OrbItProcs {
       this.bundles = bundles;
     }
 
-    //    this.bundles.Add(bundle);
-    //    this.bundles = new HashSet<KeyBundle>();
-    //    this.pressAction = action;
-    //    this.name = name;
-    //{
-
     //public KeyAction(string name, Action action, KeyBundle bundle)
+    //{
+    //    this.name = name;
+    //    this.pressAction = action;
+    //    this.bundles = new HashSet<KeyBundle>();
+
+    //    this.bundles.Add(bundle);
     //}
     //public KeyAction(HashSet<KeyBundle> bundles, string name, Action pressAction = null, Action releaseAction = null, Action holdAction = null)
     //{
@@ -846,7 +846,7 @@ namespace OrbItProcs {
             //store previous keyaction in replacedbundles
             if (Keybinds.ContainsKey(p.processKeyActions[a])) {
               ReplacedBundles[p].Add(new Tuple<KeyBundle, KeyAction>(p.processKeyActions[a],
-                Keybinds[p.processKeyActions[a]]));
+                                                                     Keybinds[p.processKeyActions[a]]));
             }
             //insert new keybind
             Keybinds[p.processKeyActions[a]] = a;
@@ -1132,7 +1132,7 @@ namespace OrbItProcs {
 
 
     public void addGlobalKeyAction(String name, KeyCodes k1, KeyCodes? k2 = null, KeyCodes? k3 = null,
-      Action OnPress = null, Action OnRelease = null, Action OnHold = null) {
+                                   Action OnPress = null, Action OnRelease = null, Action OnHold = null) {
       KeyBundle keyBundle;
       if (k2 == null) keyBundle = new KeyBundle(k1);
       else if (k3 == null) keyBundle = new KeyBundle((KeyCodes) k2, k1);

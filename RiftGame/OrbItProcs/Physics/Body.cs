@@ -75,7 +75,7 @@ namespace OrbItProcs {
     public override float radius {
       get { return shape.radius; }
       set {
-        Debug.Assert(value!=0);
+        Debug.Assert(value != 0);
         shape.radius = value;
         EvaluateScale();
       }

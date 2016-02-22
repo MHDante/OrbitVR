@@ -67,11 +67,11 @@ namespace OrbItProcs {
       //string filename = "Presets//Nodes//" + name + ".xml";
       string filename = Assets.levelsFilepath + "/" + name + ".xml";
       Action completeSave = delegate {
-        LevelSave levelSave = new LevelSave(group, levelWidth, levelHeight, name);
-        OrbIt.game.serializer = new Polenter.Serialization.SharpSerializer();
-        OrbIt.game.serializer.Serialize(levelSave, filename);
-        //Assets.NodePresets.Add(serializenode);
-      };
+                              LevelSave levelSave = new LevelSave(group, levelWidth, levelHeight, name);
+                              OrbIt.game.serializer = new Polenter.Serialization.SharpSerializer();
+                              OrbIt.game.serializer.Serialize(levelSave, filename);
+                              //Assets.NodePresets.Add(serializenode);
+                            };
 
       if (File.Exists(filename)) {
         //we must be overwriting, therefore don't update the live presetList

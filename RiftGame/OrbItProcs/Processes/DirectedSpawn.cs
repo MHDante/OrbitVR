@@ -11,7 +11,7 @@ namespace OrbItProcs {
     public DirectedSpawn() : base() {
       addProcessKeyAction("DirectedLaunch", KeyCodes.LeftClick, OnHold: DirectedLaunch);
       addProcessKeyAction("SetSpawnPosition", KeyCodes.RightClick, OnPress: SetSpawnPosition,
-        OnRelease: UnsetSpawnPosition);
+                          OnRelease: UnsetSpawnPosition);
     }
 
     public void SetSpawnPosition() {

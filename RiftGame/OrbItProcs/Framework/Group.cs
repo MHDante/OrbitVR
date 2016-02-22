@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SharpDX;
 
@@ -43,7 +44,7 @@ namespace OrbItProcs {
       : this(null) {}
 
     public Group(Room room, Node defaultNode = null, Group parentGroup = null, string Name = "", bool Spawnable = true,
-      ObservableHashSet<Node> entities = null) {
+                 ObservableHashSet<Node> entities = null) {
       if (parentGroup != null) room = parentGroup.room;
       this.room = room ?? OrbIt.game.room;
 
@@ -175,8 +176,10 @@ namespace OrbItProcs {
       else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove) {
         foreach (Node n in e.OldItems) {
           if (sender != fullSet) {
-            if (!entities.Contains(n) && !inherited.Contains(n))
+            if (!entities.Contains(n) && !inherited.Contains(n)) {
+              Debug.WriteLine("Removing from fullset of " + Name);
               fullSet.Remove(n);
+            }
           }
           if (parentGroup != null && parentGroup.inherited.Contains(n)) {
             parentGroup.inherited.Remove(n);
@@ -393,15 +396,15 @@ namespace OrbItProcs {
       //dict.Values.ToList().Select(x => x.entities).Aggregate((x, y) => (ObservableCollection<object>)x.Union(y)).ToList().ForEach(action);
       HashSet<object> hashset = new HashSet<object>();
       dict.Keys.ToList().ForEach(delegate(string key) {
-        Group g = dict[key];
+                                   Group g = dict[key];
 
-        g.entities.ToList().ForEach(delegate(Node o) {
-          if (!hashset.Contains(o)) {
-            hashset.Add(o);
-            action(o);
-          }
-        });
-      });
+                                   g.entities.ToList().ForEach(delegate(Node o) {
+                                                                 if (!hashset.Contains(o)) {
+                                                                   hashset.Add(o);
+                                                                   action(o);
+                                                                 }
+                                                               });
+                                 });
     }
   }
 }
