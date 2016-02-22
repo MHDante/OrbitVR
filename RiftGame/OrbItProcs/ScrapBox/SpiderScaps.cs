@@ -13,7 +13,7 @@ namespace OrbItProcs.ScrapBox {
     }
 
     const string fp = "Textures//SpiderFrames/";
-    public static Texture2D Wait = OrbIt.game.Content.Load<Texture2D>("Textures//SpiderFrames/SpiderAni0001");
+    public static Texture2D Wait = null;//OrbIt.game.Content.Load<Texture2D>("Textures//SpiderFrames/SpiderAni0001");
     public static Texture2D[] Protect = new Texture2D[23];
     public static Texture2D[] Stab = new Texture2D[25];
     public static Texture2D[] Walk = new Texture2D[28];

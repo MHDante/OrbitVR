@@ -214,8 +214,8 @@ namespace OrbItProcs {
           var oldTargets = batch.GraphicsDevice.GetRenderTargets(out d);
           batch.GraphicsDevice.SetRenderTargets(room.roomRenderTarget);
           batch.GraphicsDevice.Clear(backgroundColor);
-          //batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, Game1.shaderEffect); //tran
-          batch.Begin(SpriteSortMode.FrontToBack, null); //TODO: BlendState
+          //After a lot of messing around, found some settings that worked. From: http://robjsoftware.org/2013/02/07/goodbye-xna-helloooo-sharpdx/
+          batch.Begin(SpriteSortMode.Deferred, batch.GraphicsDevice.BlendStates.NonPremultiplied);
           for (int i = 0; i < 5; i++) {
             int count = thisFrame.Count;
             for (int j = 0; j < count; j++) {

@@ -36,6 +36,8 @@ namespace OrbItProcs {
 
   public class Circle : Shape {
     public Circle(float r) {
+
+      Debug.Assert(r != 0);
       radius = r;
     }
 
@@ -73,6 +75,7 @@ namespace OrbItProcs {
 
 
     public Polygon() {
+      if (radius == 0) radius = 1;
       LineThickness = 1f;
       RecurseDrawEnabled = false;
       RecurseCount = 1;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SharpDX;
 
@@ -73,7 +74,9 @@ namespace OrbItProcs {
 
     public virtual float radius {
       get { return shape.radius; }
-      set { shape.radius = value; }
+      set
+      {
+        Debug.Assert(value != 0); shape.radius = value; }
     }
 
     public bool DoExclusionCheck(Collider other) {

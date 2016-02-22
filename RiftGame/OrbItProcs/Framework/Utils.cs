@@ -5,7 +5,9 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using SharpDX;
+using SharpDX.Direct2D1;
 using SharpDX.Direct3D11;
+using SharpDX.DXGI;
 using SharpDX.Toolkit.Graphics;
 using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 
@@ -74,7 +76,7 @@ namespace OrbItProcs {
 
     public static Texture2D Crop(this Texture2D image, Rectangle source) {
       var graphics = image.GraphicsDevice;
-      var ret = RenderTarget2D.New(graphics, new Texture2DDescription() {Width = source.Width, Height = source.Height});
+      var ret = RenderTarget2D.New(graphics, source.Width, source.Height, OrbIt.game.pixelFormat.Format);
       DepthStencilView d = null;
       var oldTargets = graphics.GetRenderTargets(out d);
 
@@ -89,7 +91,7 @@ namespace OrbItProcs {
       sb.End();
 
       graphics.SetRenderTargets(oldTargets); // set back to main window
-      Texture2D ret2 = Texture2D.New(graphics, source.Width, source.Height, PixelFormat.R32G32B32A32.SInt);
+      Texture2D ret2 = Texture2D.New(graphics, source.Width, source.Height, Format.B8G8R8A8_UNorm);
       Color[] q = new Color[source.Width*source.Height];
       ret.GetData(q);
 

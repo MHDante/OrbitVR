@@ -1,6 +1,7 @@
 using System;
 using Polenter.Serialization;
 using SharpDX;
+using SharpDX.Direct2D1;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.Toolkit;
@@ -8,6 +9,7 @@ using SharpDX.Toolkit.Content;
 using SharpDX.Toolkit.Graphics;
 using SharpOVR;
 using Buffer = SharpDX.Toolkit.Graphics.Buffer;
+using PixelFormat = SharpDX.Toolkit.Graphics.PixelFormat;
 using Rectangle = System.Drawing.Rectangle;
 using SColor = System.Drawing.Color;
 using sc = System.Console;
@@ -38,7 +40,7 @@ namespace OrbItProcs {
     public static Action OnUpdate;
     public BlendStateCollection BlendStates;
     private FrameRateCounter frameRateCounter;
-
+    public SharpDX.Direct2D1.PixelFormat pixelFormat = new SharpDX.Direct2D1.PixelFormat(Format.R8G8B8A8_UNorm, AlphaMode.Premultiplied);
     public GraphicsDeviceManager Graphics;
     
     public SharpSerializer serializer = new SharpSerializer();
@@ -63,7 +65,7 @@ namespace OrbItProcs {
     private OrbIt() {
       // Creates a graphics manager. This is mandatory.
       Graphics = new GraphicsDeviceManager(this);
-
+      Graphics.DeviceCreationFlags |= DeviceCreationFlags.BgraSupport;
       // Setup the relative directory to the executable directory 
       // for loading contents with the ContentManager
       Content.RootDirectory = "Content";
@@ -140,9 +142,9 @@ namespace OrbItProcs {
     }
 
     private void InitializeVR() {
-      eyeTexture[0] = hmd.CreateSwapTexture(GraphicsDevice, Format.R8G8B8A8_UNorm,
+      eyeTexture[0] = hmd.CreateSwapTexture(GraphicsDevice, Format.B8G8R8A8_UNorm,
         hmd.GetFovTextureSize(EyeType.Left, hmd.DefaultEyeFov[0]), true);
-      eyeTexture[1] = hmd.CreateSwapTexture(GraphicsDevice, Format.R8G8B8A8_UNorm,
+      eyeTexture[1] = hmd.CreateSwapTexture(GraphicsDevice, Format.B8G8R8A8_UNorm,
         hmd.GetFovTextureSize(EyeType.Right, hmd.DefaultEyeFov[1]), true);
 
       // Create our layer
@@ -175,7 +177,7 @@ namespace OrbItProcs {
         TrackingCapabilities.None);
 
       // Set enabled capabilities
-      hmd.EnabledCaps = HMDCapabilities.LowPersistence | HMDCapabilities.DynamicPrediction;
+      //hmd.EnabledCaps = HMDCapabilities.LowPersistence | HMDCapabilities.DynamicPrediction;
 
     }
     protected override void Update(GameTime gameTime) {
@@ -191,10 +193,9 @@ namespace OrbItProcs {
       if (GraphicsReset) {
         Graphics.ApplyChanges();
         room.roomRenderTarget = RenderTarget2D.New(GraphicsDevice,
-                                                   new Texture2DDescription() {
-                                                     Width = ScreenWidth,
-                                                     Height = ScreenHeight
-                                                   });
+                                                     ScreenWidth,
+                                                     ScreenHeight
+                                                   ,pixelFormat.Format);
       
         GraphicsReset = false;
       }

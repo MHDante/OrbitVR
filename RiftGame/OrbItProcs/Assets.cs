@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using SharpDX;
+using SharpDX.DXGI;
 using SharpDX.Toolkit.Content;
 using SharpDX.Toolkit.Graphics;
 using Color = SharpDX.Color;
@@ -77,52 +78,52 @@ namespace OrbItProcs {
     public static ObservableCollection<object> NodePresets = new ObservableCollection<object>();
     //public static Effect shaderEffect; // Shader code
 
-    public static void LoadAssets(ContentManager content) {
+    public static void LoadAssets(ContentManager 						content) {
       if (!Directory.Exists(filepath)) Directory.CreateDirectory(filepath);
       textureDict = new Dictionary<textures, Texture2D>() {
-        {textures.blueorb, content.Load<Texture2D>("Textures/bluesphere")},
-        {textures.whiteorb, content.Load<Texture2D>("Textures/whiteorb")},
-        {textures.colororb, content.Load<Texture2D>("Textures/colororb")},
-        {textures.whitepixel, content.Load<Texture2D>("Textures/whitepixel")},
-        {textures.whitepixeltrans, content.Load<Texture2D>("Textures/whitepixeltrans")},
-        {textures.whitecircle, content.Load<Texture2D>("Textures/whitecircle")},
-        {textures.whitesphere, content.Load<Texture2D>("Textures/whitesphere")},
-        {textures.blackorb, content.Load<Texture2D>("Textures/blackorb")},
-        {textures.ring, content.Load<Texture2D>("Textures/ring")},
-        {textures.orientedcircle, content.Load<Texture2D>("Textures/orientedcircle")},
-        {textures.sword, content.Load<Texture2D>("Textures/sword")},
-        {textures.randompixels, content.Load<Texture2D>("Textures/randompixels")},
-        {textures.innerL, content.Load<Texture2D>("Textures/innerL")},
-        {textures.innerR, content.Load<Texture2D>("Textures/innerR")},
-        {textures.outerL, content.Load<Texture2D>("Textures/outerL")},
-        {textures.outerR, content.Load<Texture2D>("Textures/outerR")},
-        {textures.pointer, content.Load<Texture2D>("Textures/pointer")},
-        {textures.itemLight, content.Load<Texture2D>("Textures/itemLight")},
-        {textures.itemWhisper, content.Load<Texture2D>("Textures/itemWhisper")},
-        {textures.cage, content.Load<Texture2D>("Textures/cage")},
-        {textures.fist, content.Load<Texture2D>("Textures/fist")},
-        {textures.goat, content.Load<Texture2D>("Textures/Boulder_3")},
-        {textures.robot1, content.Load<Texture2D>("Textures/Robot1")},
-        {textures.shoveltip, content.Load<Texture2D>("Textures/ShovelTip")},
-        {textures.spiderhead, content.Load<Texture2D>("Textures/SpiderHead")},
-        {textures.spiderleg1, content.Load<Texture2D>("Textures/SpiderLeg1")},
-        {textures.rock1, content.Load<Texture2D>("Textures/RockTexture1")},
-        {textures.boulder1, content.Load<Texture2D>("Textures/Bolders")},
-        {textures.gradient1, content.Load<Texture2D>("Textures/gradient")},
-        {textures.gradient2, content.Load<Texture2D>("Textures/gradient2")},
-        {textures.ridgesL, content.Load<Texture2D>("Textures/RidgesL")},
-        {textures.ridgesR, content.Load<Texture2D>("Textures/RidgesR")},
-        {textures.boulderShine, content.Load<Texture2D>("Textures/boulderShine")},
-        {textures.endLight, content.Load<Texture2D>("Textures/endLight")},
-        {textures.leaf, content.Load<Texture2D>("Textures/leaf")},
-        {textures.whiteorb2, content.Load<Texture2D>("Textures/whiteorb2")},
+        {textures.blueorb, 				   /**/content.Load<Texture2D>("Textures/bluesphere")},
+        {textures.whiteorb, 			   /**/content.Load<Texture2D>("Textures/whiteorb")},
+        {textures.colororb, 			   /**/content.Load<Texture2D>("Textures/colororb")},
+        {textures.whitepixel, 		   /**/content.Load<Texture2D>("Textures/whitepixel")},
+        {textures.whitepixeltrans,   /**/content.Load<Texture2D>("Textures/whitepixeltrans")},
+        {textures.whitecircle, 		   /**/content.Load<Texture2D>("Textures/whitecircle")},
+        {textures.whitesphere, 		   /**/content.Load<Texture2D>("Textures/whitesphere")},
+        {textures.blackorb, 			   /**/content.Load<Texture2D>("Textures/blackorb")},
+        {textures.ring, 					   /**/content.Load<Texture2D>("Textures/ring")},
+        {textures.orientedcircle,    /**/content.Load<Texture2D>("Textures/orientedcircle")},
+        {textures.sword, 					   /**/content.Load<Texture2D>("Textures/sword")},
+        {textures.randompixels, 	   /**/content.Load<Texture2D>("Textures/randompixels")},
+        {textures.innerL, 				   /**/content.Load<Texture2D>("Textures/innerL")},
+        {textures.innerR, 				   /**/content.Load<Texture2D>("Textures/innerR")},
+        {textures.outerL, 				   /**/content.Load<Texture2D>("Textures/outerL")},
+        {textures.outerR, 				   /**/content.Load<Texture2D>("Textures/outerR")},
+        {textures.pointer, 				   /**/content.Load<Texture2D>("Textures/pointer")},
+        {textures.itemLight, 			   /**/content.Load<Texture2D>("Textures/itemLight")},
+        {textures.itemWhisper, 		   /**/content.Load<Texture2D>("Textures/itemWhisper")},
+        {textures.cage, 					   /**/content.Load<Texture2D>("Textures/cage")},
+        {textures.fist, 					   /**/content.Load<Texture2D>("Textures/fist")},
+        {textures.goat, 					   /**/content.Load<Texture2D>("Textures/Boulder_3")},
+        {textures.robot1, 				   /**/content.Load<Texture2D>("Textures/Robot1")},
+        {textures.shoveltip, 			   /**/content.Load<Texture2D>("Textures/ShovelTip")},
+        {textures.spiderhead, 		   /**/content.Load<Texture2D>("Textures/SpiderHead")},
+        {textures.spiderleg1, 		   /**/content.Load<Texture2D>("Textures/SpiderLeg1")},
+        {textures.rock1, 					   /**/content.Load<Texture2D>("Textures/RockTexture1")},
+        {textures.boulder1, 			   /**/content.Load<Texture2D>("Textures/Bolders")},
+        {textures.gradient1, 			   /**/content.Load<Texture2D>("Textures/gradient")},
+        {textures.gradient2, 			   /**/content.Load<Texture2D>("Textures/gradient2")},
+        {textures.ridgesL, 				   /**/content.Load<Texture2D>("Textures/RidgesL")},
+        {textures.ridgesR, 				   /**/content.Load<Texture2D>("Textures/RidgesR")},
+        {textures.boulderShine, 	   /**/content.Load<Texture2D>("Textures/boulderShine")},
+        {textures.endLight, 			   /**/content.Load<Texture2D>("Textures/endLight")},
+        {textures.leaf, 					   /**/content.Load<Texture2D>("Textures/leaf")},
+        {textures.whiteorb2, 			   /**/content.Load<Texture2D>("Textures/whiteorb2")},
       };
 
 
       for (int i = 0; i < 16; i++) {
         textures rune = (textures) i;
         string s = "Textures/Runes/" + (i + 1) + " symboli";
-        textureDict.Add(rune, content.Load<Texture2D>(s));
+        textureDict.Add(rune, 						content.Load<Texture2D>(s));
       }
 
       textureCenters = new Dictionary<textures, Vector2>();
@@ -131,9 +132,9 @@ namespace OrbItProcs {
         textureCenters[tex] = new Vector2(t.Width/2f, t.Height/2f);
       }
 
-      font = content.Load<SpriteFont>("Courier New");
-      // shaderEffect = content.Load<Effect>("Effects/Shader");
-      //TODO: btnTextures = content.Load<Texture2D>("Textures/buttons").sliceSpriteSheet(2, 5);
+      font = 						content.Load<SpriteFont>("Courier New");
+      // shaderEffect = 						content.Load<Effect>("Effects/Shader");
+      //TODO: btnTextures = 						content.Load<Texture2D>("Textures/buttons").sliceSpriteSheet(2, 5);
     }
 
 
@@ -209,7 +210,7 @@ namespace OrbItProcs {
       Texture2D myTex = Texture2D.New(
         OrbIt.game.GraphicsDevice,
         bmp.Width,
-        bmp.Height, PixelFormat.B8G8R8A8.Typeless);
+        bmp.Height, Format.B8G8R8A8_UNorm);
 
       myTex.SetData<Color>(pixels);
       return myTex;

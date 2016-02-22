@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using SharpDX;
@@ -803,6 +804,8 @@ namespace OrbItProcs {
     }
 
     public void OnSpawn() {
+
+      Debug.Assert(body.radius != 0);
       foreach (Type key in comps.Keys.ToList()) {
         Component component = comps[key];
         //MethodInfo mInfo = component.GetType().GetMethod("OnSpawn");

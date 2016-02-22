@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SharpDX;
+using SharpDX.DXGI;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 
@@ -47,7 +48,7 @@ namespace OrbItProcs {
       collisionManager = new CollisionManager(this);
       level = new Level(this, 40, 40, gridsystemAffect.cellWidth, gridsystemAffect.cellHeight);
       roomRenderTarget = RenderTarget2D.New(game.Graphics.GraphicsDevice, OrbIt.ScreenWidth, OrbIt.ScreenHeight,
-        PixelFormat.R32G32B32A32.SInt);
+        game.pixelFormat.Format);
       camera = new ThreadedCamera(this, 1f);
       DrawLinks = true;
       scheduler = new Scheduler();
@@ -182,7 +183,7 @@ namespace OrbItProcs {
 
     public void Update(GameTime gametime) {
       testTimer += gametime.ElapsedGameTime.Milliseconds;
-      if (testTimer > 2000) {
+      if (testTimer > 1000) {
         spawnPos += Vector2.One*10;
         randomizer.SpawnSemiRandom();
         testTimer = 0;
