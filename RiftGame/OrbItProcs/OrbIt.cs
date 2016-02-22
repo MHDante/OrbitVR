@@ -33,7 +33,6 @@ namespace OrbItProcs {
     public static OrbIt game;
     public static UserInterface ui;
     public static GameTime gametime;
-    public static bool soundEnabled = false;
     public static bool isFullScreen = false;
     private static bool GraphicsReset = false;
     private static bool redrawWhenPaused = false;
