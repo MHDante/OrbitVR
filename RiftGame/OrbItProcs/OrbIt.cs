@@ -68,7 +68,7 @@ namespace OrbItProcs {
     private Model ship;
     private Matrix view;
     private Model wand;
-    private Vector3 worldOrigin = new Vector3(0, 0, 1);
+    private Vector3 worldOrigin = new Vector3(0, 0, 2);
     private float worldRotationY = 0f; //MathHelper.Pi;
 
     private OrbIt() {
@@ -146,6 +146,7 @@ namespace OrbItProcs {
       frameRateCounter = new FrameRateCounter(this);
 
       gameScreenQuad = GeometricPrimitive.Plane.New(GraphicsDevice, 2, 2, 32, true);
+
       //gameScreenQuad = GeometricPrimitive.Sphere.New(GraphicsDevice, 5, 32, true);
       //gameScreenQuad = GeometricPrimitive.Cylinder.New(GraphicsDevice,2,2,32,true);
 
@@ -277,10 +278,9 @@ namespace OrbItProcs {
       };
       foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes) {
         pass.Apply();
-
+      
         gameScreenQuad.Draw();
       }
-      GraphicsDevice.Draw(PrimitiveType.TriangleStrip, 4);
       DrawLandscape(gameTime);
       PsMoveController.Draw(GraphicsDevice, view, projection);
 

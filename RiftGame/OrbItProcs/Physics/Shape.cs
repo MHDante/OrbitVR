@@ -36,7 +36,7 @@ namespace OrbItProcs {
 
   public class Circle : Shape {
     public Circle(float r) {
-      Debug.Assert(r != 0);
+      //Debug.Assert(r != 0);
       radius = r;
     }
 
@@ -435,7 +435,7 @@ namespace OrbItProcs {
         Vector2 face = vertices[i2] - vertices[i1];
 
         // Ensure no zero-length edges, because that's bad
-        Debug.Assert(face.LengthSquared() > GMath.EPSILON*GMath.EPSILON);
+        //Debug.Assert(face.LengthSquared() > GMath.EPSILON*GMath.EPSILON);
 
         // Calculate normal with 2D cross product between vector and scalar
         normals[i1] = new Vector2(face.Y, -face.X);
@@ -552,7 +552,7 @@ namespace OrbItProcs {
       Mat22 B = new Mat22();
       float det = a*d - b*c;
       //Box2DXDebug.Assert(det != 0.0f);
-      Debug.Assert(det != 0.0f);
+      //Debug.Assert(det != 0.0f);
       det = 1.0f/det;
       B.Col1.X = det*d;
       B.Col2.X = -det*b;
@@ -569,7 +569,7 @@ namespace OrbItProcs {
       float a11 = Col1.X, a12 = Col2.X, a21 = Col1.Y, a22 = Col2.Y;
       float det = a11*a22 - a12*a21;
       //Box2DXDebug.Assert(det != 0.0f);
-      Debug.Assert(det != 0.0f);
+      //Debug.Assert(det != 0.0f);
       det = 1.0f/det;
       Vector2 x = new Vector2();
       x.X = det*(a22*b.X - a12*b.Y);

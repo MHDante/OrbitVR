@@ -157,9 +157,6 @@ namespace OrbItProcs {
             parent.group.IncludeEntity(newNode);
           }
           newNode.OnSpawn();
-          var shovel = newNode.Comp<Shovel>();
-          var shovelnode = shovel.shovelNode;
-          Debug.Assert(shovelnode.group != null);
         }
       }
       else {
