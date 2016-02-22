@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SharpDX;
+using System.Diagnostics;
 
 namespace OrbItProcs {
   /// <summary>
@@ -29,7 +30,7 @@ namespace OrbItProcs {
     Link shovelLink;
 
     public Shovel() : this(null) {}
-
+    public static int counter = 0;
     public Shovel(Node parent) {
       this.parent = parent;
       shovelRadius = 15;
@@ -43,7 +44,7 @@ namespace OrbItProcs {
       throwSpeed = 12;
 
       shovelNode = new Node(room);
-      shovelNode.name = "shovel";
+      shovelNode.name = "shovel" + counter++;
       shovelNode.body.radius = shovelRadius;
       shovelNode.body.ExclusionCheck += (c1, c2) => c2 == parent.body;
       shovelNode.body.mass = 0.001f;
@@ -64,7 +65,6 @@ namespace OrbItProcs {
     /// The shovel node that will be held and swung.
     /// </summary>
     [Info(UserLevel.User, "The shovel node that will be held and swung.")]
-    [CopyNodeProperty]
     public Node shovelNode { get; set; }
 
     public override mtypes compType {
@@ -122,9 +122,12 @@ namespace OrbItProcs {
     public float throwSpeed { get; set; }
     public float physicsDivisor { get; set; }
 
+    //public static List<Shovel> shovels = new List<Shovel>();
+    
     public override void AfterCloning() {
-      if (shovelNode == null) return;
-      shovelNode = shovelNode.CreateClone(room);
+      //shovels.Add(this);
+      //if (shovelNode == null) return;
+      //shovelNode = shovelNode.CreateClone(room);
     }
 
     public override void OnSpawn() {
@@ -136,6 +139,7 @@ namespace OrbItProcs {
       shovelNode.AffectExclusionCheck += (node) => node == parent;
 
       room.groups.items.IncludeEntity(shovelNode);
+      Debug.WriteLine(room.groups.items.entities.Count);
       shovelNode.OnSpawn();
       shovelNode.body.AddExclusionCheck(parent.body);
       Spring spring = new Spring();
@@ -279,7 +283,11 @@ namespace OrbItProcs {
     }
 
     public override void OnRemove(Node other) {
+      shovelLink.DeleteLink();
+      rangeLink.DeleteLink();
       shovelNode.OnDeath(other);
+      //Debug.WriteLine("Deleting shovel links");
+      
     }
   }
 }

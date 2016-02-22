@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SharpDX;
+using System.Diagnostics;
 
 namespace OrbItProcs {
   public enum GroupState {
@@ -176,7 +177,10 @@ namespace OrbItProcs {
         foreach (Node n in e.OldItems) {
           if (sender != fullSet) {
             if (!entities.Contains(n) && !inherited.Contains(n))
+            {
+              Debug.WriteLine("Removing from fullset of " + Name);
               fullSet.Remove(n);
+            }
           }
           if (parentGroup != null && parentGroup.inherited.Contains(n)) {
             parentGroup.inherited.Remove(n);

@@ -87,6 +87,9 @@ namespace OrbItProcs {
         if (counter++ > allComps.Count) break;
         int compNum = random.Next(allComps.Count - 1);
         Type newcomp = allComps[compNum];
+        
+        //if (newcomp == typeof(Tree)) continue; //test
+
         if (comps.Contains(newcomp)) {
           continue;
         }
@@ -101,6 +104,15 @@ namespace OrbItProcs {
 
       Node n = room.spawnNode(userP, blank: true, lifetime: 5000);
       if (n != null) {
+
+        foreach(Type t in n.comps.Keys.ToList())
+        {
+          if ((n.comps[t].compType & mtypes.item) == mtypes.item)
+          {
+            n.RemoveComponent(t);
+          } 
+        }
+
         //savedDicts.Enqueue(userP);
         savedNodes.Enqueue(n);
         Group p = room.masterGroup.childGroups["Link Groups"];

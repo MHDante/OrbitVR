@@ -131,7 +131,7 @@ namespace OrbItProcs {
     public bool DrawCollisionGrid { get; set; }
     //Events
     public event EventHandler AfterIteration;
-    private Randomizer randomizer ;
+    private Randomizer randomizer;
     public void attatchToSidebar(UserInterface ui) {
       //We put the Procs In OrbItProcs
       processManager = new ProcessManager();
@@ -182,11 +182,23 @@ namespace OrbItProcs {
     }
 
     public void Update(GameTime gametime) {
-      testTimer += gametime.ElapsedGameTime.Milliseconds;
-      if (testTimer > 1000) {
-        spawnPos += Vector2.One*10;
-        randomizer.SpawnSemiRandom();
-        testTimer = 0;
+      
+      //testTimer += gametime.ElapsedGameTime.Milliseconds;
+      //if (testTimer > 1000) {
+      //  spawnPos += Vector2.One*10;
+      //  randomizer.SpawnSemiRandom();
+      //  testTimer = 0;
+      //}
+      if (testTimer < 1000)
+      {
+        testTimer = 1000;
+        Node n = spawnNode(0,0);
+        n.addComponent<Lifetime>(true);
+        n.Comp<Lifetime>().timeUntilDeath.value = 2000;
+        n.Comp<Lifetime>().timeUntilDeath.enabled = true;
+        n.addComponent<Tree>(true);
+        //n.Comp<Tree>().branchStages = 1;
+        n.addComponent<Shovel>(true);
       }
 
       Player.CheckForPlayers(this);
@@ -195,7 +207,6 @@ namespace OrbItProcs {
       long elapsed = 0;
       if (gametime != null) elapsed = (long) Math.Round(gametime.ElapsedGameTime.TotalMilliseconds);
       totalElapsedMilliseconds += elapsed;
-
 
       HashSet<Node> toDelete = new HashSet<Node>();
       //if (affectAlgorithm == 1)//OLD for testing

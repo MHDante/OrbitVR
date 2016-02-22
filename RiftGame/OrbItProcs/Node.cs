@@ -184,8 +184,6 @@ namespace OrbItProcs {
       get { return _name; }
       set {
         _name = value;
-        if (value.Equals("Group115"))
-          Console.WriteLine("Group115");
       }
     }
 
@@ -818,6 +816,14 @@ namespace OrbItProcs {
     }
 
     public void OnDeath(Node other, bool delete = true) {
+      foreach(Link l in SourceLinks.ToList())
+      {
+        l.DeleteLink();
+      }
+      foreach (Link l in TargetLinks.ToList())
+      {
+        l.DeleteLink();
+      }
       foreach (Type key in comps.Keys.ToList()) {
         if (key == typeof (Meta)) continue;
         Component component = comps[key];
@@ -832,6 +838,7 @@ namespace OrbItProcs {
       if (group != null && delete) {
         group.DeleteEntity(this);
       }
+      
     }
 
     public void OnDelete() {
@@ -869,6 +876,7 @@ namespace OrbItProcs {
             //*/
       //do not copy parent field
       foreach (FieldInfo field in fields) {
+        Debug.Assert(!(field.Name == "_name" && field.GetValue(sourceNode).ToString() == "shovel2"));
         if (field.Name.Equals("_comps")) {
           Dictionary<Type, Component> dict = sourceNode.comps;
           foreach (Type key in dict.Keys) {

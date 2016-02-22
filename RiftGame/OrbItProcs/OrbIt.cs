@@ -51,6 +51,8 @@ namespace OrbItProcs {
     private PoseF[] eyeRenderPose = new PoseF[2];
     private SwapTexture[] eyeTexture = new SwapTexture[2];
     private Vector3 headPos = new Vector3(0f, 50f, -5f);
+    private Vector3 worldOrigin = new Vector3(0, 0, 1);
+    private float worldRotationY = 0f; //MathHelper.Pi;
     private HMD hmd;
     private Vector3[] hmdToEyeViewOffset = new Vector3[2];
     private LayerEyeFov layerEyeFov;
@@ -132,7 +134,10 @@ namespace OrbItProcs {
       room = new Room(this, ScreenWidth, ScreenHeight);
       globalGameMode = new GlobalGameMode(this);
       frameRateCounter = new FrameRateCounter(this);
-      gameScreenQuad = GeometricPrimitive.Cylinder.New(GraphicsDevice,2,2,32,true);
+
+      gameScreenQuad = GeometricPrimitive.Plane.New(GraphicsDevice, 2, 2, 32, true);
+      //gameScreenQuad = GeometricPrimitive.Sphere.New(GraphicsDevice, 5, 32, true);
+      //gameScreenQuad = GeometricPrimitive.Cylinder.New(GraphicsDevice,2,2,32,true);
 
       Player.CreatePlayers(room);
       ui = UserInterface.Start();
@@ -193,9 +198,9 @@ namespace OrbItProcs {
       if (GraphicsReset) {
         Graphics.ApplyChanges();
         room.roomRenderTarget = RenderTarget2D.New(GraphicsDevice,
-                                                     ScreenWidth,
-                                                     ScreenHeight
-                                                   ,pixelFormat.Format);
+                                                    ScreenWidth,
+                                                    ScreenHeight,
+                                                    pixelFormat.Format);
       
         GraphicsReset = false;
       }
@@ -246,7 +251,7 @@ namespace OrbItProcs {
     protected void DrawScene(GameTime gameTime) {
       Rectangle frame = new Rectangle(0, 0, ScreenWidth, ScreenHeight);
       var quadEffect = new BasicEffect(GraphicsDevice) {
-        World = Matrix.RotationY(MathHelper.Pi) * Matrix.Translation(headPos + new Vector3(0,0,0)),
+        World = Matrix.RotationY(worldRotationY) * Matrix.Translation(headPos + worldOrigin),
         View = view,
         Projection = projection,
         TextureEnabled = true,
