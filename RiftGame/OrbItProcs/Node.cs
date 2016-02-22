@@ -801,7 +801,7 @@ namespace OrbItProcs {
     }
 
     public void OnSpawn() {
-      Debug.Assert(body.radius != 0);
+      //Debug.Assert(body.radius != 0);
       foreach (Type key in comps.Keys.ToList()) {
         Component component = comps[key];
         //MethodInfo mInfo = component.GetType().GetMethod("OnSpawn");
@@ -871,7 +871,7 @@ namespace OrbItProcs {
             //*/
       //do not copy parent field
       foreach (FieldInfo field in fields) {
-        Debug.Assert(!(field.Name == "_name" && field.GetValue(sourceNode).ToString() == "shovel2"));
+        //Debug.Assert(!(field.Name == "_name" && field.GetValue(sourceNode).ToString() == "shovel2"));
         if (field.Name.Equals("_comps")) {
           Dictionary<Type, Component> dict = sourceNode.comps;
           foreach (Type key in dict.Keys) {

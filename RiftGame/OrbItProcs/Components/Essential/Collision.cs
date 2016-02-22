@@ -451,7 +451,7 @@ namespace OrbItProcs {
       face[1] = outV[1];
 
       //assert( sp != 3 );
-      System.Diagnostics.Debug.Assert(sp != 3);
+      //System.Diagnostics.Debug.Assert(sp != 3);
 
 
       return sp;

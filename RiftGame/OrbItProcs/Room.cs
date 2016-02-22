@@ -182,21 +182,31 @@ namespace OrbItProcs {
     }
 
     public void Update(GameTime gametime) {
-      //testTimer += gametime.ElapsedGameTime.Milliseconds;
+      testTimer += gametime.ElapsedGameTime.Milliseconds;
       //if (testTimer > 1000) {
       //  spawnPos += Vector2.One*10;
       //  randomizer.SpawnSemiRandom();
+      //  //randomizer.SpawnFullyRandom();
       //  testTimer = 0;
       //}
+
+      //if (testTimer < 1000) {
+      //  testTimer = 1000;
+      //  Node n = spawnNode(0, 0);
+      //  n.addComponent<Lifetime>(true);
+      //  n.Comp<Lifetime>().timeUntilDeath.value = 2000;
+      //  n.Comp<Lifetime>().timeUntilDeath.enabled = true;
+      //  n.addComponent<Tree>(true);
+      //  //n.Comp<Tree>().branchStages = 1;
+      //  n.addComponent<Shovel>(true);
+      //}
+
       if (testTimer < 1000) {
         testTimer = 1000;
-        Node n = spawnNode(0, 0);
-        n.addComponent<Lifetime>(true);
-        n.Comp<Lifetime>().timeUntilDeath.value = 2000;
-        n.Comp<Lifetime>().timeUntilDeath.enabled = true;
-        n.addComponent<Tree>(true);
-        //n.Comp<Tree>().branchStages = 1;
-        n.addComponent<Shovel>(true);
+        for(int i = 0; i < 500; i++)
+        {
+          Node n = spawnNode(0, 0);
+        }
       }
 
       Player.CheckForPlayers(this);

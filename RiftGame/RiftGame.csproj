@@ -247,13 +247,13 @@
     <Content Include="Content\Effects\Shader.fx" />
     <Content Include="Content\Effects\SpriteEffect.fx" />
     <Content Include="Content\fanfare.wav" />
-    <Content Include="OrbItProcs\Includes\psmoveapi.dll">
+    <Content Include="psmoveapi.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\psmoveapi_tracker.dll">
+    <Content Include="psmoveapi_tracker.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\SDL2.dll">
+    <Content Include="SDL2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="OrbItProcs\Includes\SharpDX.DirectSound.dll">
