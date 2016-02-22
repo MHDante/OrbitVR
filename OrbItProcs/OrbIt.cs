@@ -26,7 +26,7 @@ namespace OrbItProcs {
   }
 
   public abstract class VRGame : Game {
-    
+    public bool UsePsMove { get; } = false;
   }
 
   public class OrbIt : VRGame {
@@ -129,10 +129,10 @@ namespace OrbItProcs {
       base.LoadContent();
 
       landscape = Content.Load<Model>("landscape");
-      wand = Content.Load<Model>("PSMove");
+      if(UsePsMove)wand = Content.Load<Model>("PSMove");
       ship = Content.Load<Model>("Ship");
 
-      PsMoveController.Initialize(Vector3.Zero, wand);
+      if (UsePsMove) PsMoveController.Initialize(Vector3.Zero, wand);
     }
 
     protected override void Initialize() {
@@ -154,8 +154,8 @@ namespace OrbItProcs {
       ui.Initialize();
       room.attatchToSidebar(ui);
       GlobalKeyBinds(ui);
-      new PSMoveManager().Initialize();
-      PsMoveController = new PSMoveController();
+      if (UsePsMove) new PSMoveManager().Initialize();
+      if (UsePsMove) PsMoveController = new PSMoveController();
     }
 
     private void InitializeVR() {
@@ -218,8 +218,8 @@ namespace OrbItProcs {
       }
       if (OnUpdate != null) OnUpdate.Invoke();
 
-      PSMoveManager.GetManagerInstance().Update();
-      PsMoveController.Update();
+      if (UsePsMove) PSMoveManager.GetManagerInstance().Update();
+      if (UsePsMove) PsMoveController.Update();
     }
 
     protected override void Draw(GameTime gameTime) {
@@ -281,7 +281,7 @@ namespace OrbItProcs {
         gameScreenQuad.Draw();
       }
       DrawLandscape(gameTime);
-      PsMoveController.Draw(GraphicsDevice, view, projection);
+      if (UsePsMove) PsMoveController.Draw(GraphicsDevice, view, projection);
 
 
       if (room.camera.TakeScreenshot) {
@@ -306,8 +306,8 @@ namespace OrbItProcs {
 
     protected override void Dispose(bool disposeManagedResources) {
       base.Dispose(disposeManagedResources);
-      PsMoveController.OnDestroy();
-      PSMoveManager.GetManagerInstance().OnApplicationQuit();
+      if (UsePsMove) PsMoveController.OnDestroy();
+      if (UsePsMove) PSMoveManager.GetManagerInstance().OnApplicationQuit();
 
       if (disposeManagedResources) {
         // Release the eye textures
