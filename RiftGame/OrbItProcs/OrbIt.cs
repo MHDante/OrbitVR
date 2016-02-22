@@ -59,7 +59,7 @@ namespace OrbItProcs {
     private Model model;
     private Matrix projection;
     private Matrix view;
-    private PrimitiveQuad gameScreenQuad;
+    private GeometricPrimitive gameScreenQuad;
 
 
     private OrbIt() {
@@ -132,7 +132,7 @@ namespace OrbItProcs {
       room = new Room(this, ScreenWidth, ScreenHeight);
       globalGameMode = new GlobalGameMode(this);
       frameRateCounter = new FrameRateCounter(this);
-      gameScreenQuad = new PrimitiveQuad(GraphicsDevice);
+      gameScreenQuad = GeometricPrimitive.Cylinder.New(GraphicsDevice,2,2,32,true);
 
       Player.CreatePlayers(room);
       ui = UserInterface.Start();
@@ -246,7 +246,7 @@ namespace OrbItProcs {
     protected void DrawScene(GameTime gameTime) {
       Rectangle frame = new Rectangle(0, 0, ScreenWidth, ScreenHeight);
       var quadEffect = new BasicEffect(GraphicsDevice) {
-        World = Matrix.RotationY(MathHelper.Pi) * Matrix.Translation(headPos + new Vector3(0,0,2)),
+        World = Matrix.RotationY(MathHelper.Pi) * Matrix.Translation(headPos + new Vector3(0,0,0)),
         View = view,
         Projection = projection,
         TextureEnabled = true,
@@ -256,7 +256,7 @@ namespace OrbItProcs {
       {
         pass.Apply();
 
-        gameScreenQuad.DrawRaw(false);
+        gameScreenQuad.Draw();
       }
       //GraphicsDevice.Draw(PrimitiveType.TriangleStrip, 4);
       DrawLandscape(gameTime);
