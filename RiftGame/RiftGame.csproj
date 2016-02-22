@@ -210,8 +210,8 @@
     <Compile Include="PSMove\PSMovePose.cs" />
     <Compile Include="PSMove\PSMoveUtility.cs" />
     <Compile Include="PSMove\Transform.cs" />
-    <Compile Include="RiftGame.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="OrbItProcs\RiftGame.cs" />
+    <Compile Include="OrbItProcs\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,10 +229,7 @@
     <ToolkitModel Include="Content\landscape.x" />
     <None Include="Content\Effects\Macros.fxh" />
     <None Include="Content\OrbItProcsContent.contentproj" />
-    <None Include="Content\PSMoveMaterial.mat" />
-    <ToolkitModel Include="Content\PSMoveModel.fbx" />
-    <None Include="Content\Skins\Default.skin" />
-    <None Include="Content\Skins\Green.skin" />
+    <ToolkitModel Include="Content\PSMove.fbx" />
     <None Include="OrbItProcs\snippets\ctyp.snippet" />
     <None Include="OrbItProcs\snippets\usra.snippet" />
     <None Include="OrbItProcs\snippets\usrd.snippet" />
@@ -247,31 +244,31 @@
     <Content Include="Content\Effects\Shader.fx" />
     <Content Include="Content\Effects\SpriteEffect.fx" />
     <Content Include="Content\fanfare.wav" />
-    <Content Include="OrbItProcs\Includes\psmoveapi.dll">
+    <Content Include="psmoveapi.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\psmoveapi_tracker.dll">
+    <Content Include="psmoveapi_tracker.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\SDL2.dll">
+    <Content Include="SDL2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\SharpDX.DirectSound.dll">
+    <Content Include="SharpDX.DirectSound.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\SharpDX.DirectSound.xml">
+    <Content Include="SharpDX.DirectSound.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\SharpDX.RawInput.dll">
+    <Content Include="SharpDX.RawInput.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\SharpDX.RawInput.xml">
+    <Content Include="SharpDX.RawInput.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\SharpDX.XInput.dll">
+    <Content Include="SharpDX.XInput.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OrbItProcs\Includes\SharpDX.XInput.xml">
+    <Content Include="SharpDX.XInput.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <ToolkitTexture Include="Content\Textures\blackorb.png" />
@@ -336,7 +333,7 @@
     <ToolkitTexture Include="Content\Textures\whitesphere.png" />
     <Content Include="Content\TomShane.Neoforce.Importers.dll" />
     <Content Include="OrbItProcs\Game.ico" />
-    <Content Include="OrbItProcs\Includes\Polenter.SharpSerializer.dll" />
+    <Content Include="Polenter.SharpSerializer.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OrbItProcs\Screenshots\" />

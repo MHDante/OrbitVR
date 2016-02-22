@@ -25,7 +25,11 @@ namespace OrbItProcs {
     FHD_1920x1080,
   }
 
-  public class OrbIt : Game {
+  public abstract class VRGame : Game {
+    
+  }
+
+  public class OrbIt : VRGame {
     public static OrbIt game;
     public static UserInterface ui;
     public static GameTime gametime;
@@ -126,7 +130,7 @@ namespace OrbItProcs {
       base.LoadContent();
 
       landscape = Content.Load<Model>("landscape");
-      wand = Content.Load<Model>("PSMoveModel");
+      wand = Content.Load<Model>("PSMove");
       ship = Content.Load<Model>("Ship");
 
       PsMoveController.Initialize(Vector3.Zero, wand);
