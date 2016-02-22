@@ -51,7 +51,7 @@ namespace OrbItProcs {
     private PoseF[] eyeRenderPose = new PoseF[2];
     private SwapTexture[] eyeTexture = new SwapTexture[2];
     private Vector3 headPos = new Vector3(0f, 50f, -5f);
-    private HMD hmd;
+    public HMD hmd;
     private Vector3[] hmdToEyeViewOffset = new Vector3[2];
     private LayerEyeFov layerEyeFov;
     private SharpDX.Direct3D11.Texture2D mirrorTexture;
@@ -61,6 +61,9 @@ namespace OrbItProcs {
     private Matrix view;
     private GeometricPrimitive gameScreenQuad;
 
+    public PSMoveController PsMoveController;
+    private Model wand;
+    private Model ship;
 
     private OrbIt() {
       // Creates a graphics manager. This is mandatory.
@@ -121,7 +124,10 @@ namespace OrbItProcs {
       base.LoadContent();
 
       landscape = Content.Load<Model>("landscape");
+      wand = Content.Load<Model>("PSMoveModel");
+      ship = Content.Load<Model>("Ship");
 
+      PsMoveController.Initialize(Vector3.Zero, wand);
     }
 
     protected override void Initialize() {
@@ -139,6 +145,10 @@ namespace OrbItProcs {
       ui.Initialize();
       room.attatchToSidebar(ui);
       GlobalKeyBinds(ui);
+      new PSMoveManager().Initialize();
+      PsMoveController = new PSMoveController();
+      
+      
     }
 
     private void InitializeVR() {
@@ -200,6 +210,9 @@ namespace OrbItProcs {
         GraphicsReset = false;
       }
       if (OnUpdate != null) OnUpdate.Invoke();
+
+      PSMoveManager.GetManagerInstance().Update();
+      PsMoveController.Update();
     }
 
     protected override void Draw(GameTime gameTime)
@@ -252,15 +265,15 @@ namespace OrbItProcs {
         TextureEnabled = true,
         Texture = room.roomRenderTarget
       };
-      foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes)
-      {
-        pass.Apply();
-
-        gameScreenQuad.Draw();
-      }
+      //foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes)
+      //{
+      //  pass.Apply();
+      //
+      //  gameScreenQuad.Draw();
+      //}
       //GraphicsDevice.Draw(PrimitiveType.TriangleStrip, 4);
-      DrawLandscape(gameTime);
-      
+      //DrawLandscape(gameTime);
+      PsMoveController.Draw(GraphicsDevice, view, projection);
       
       
       if (room.camera.TakeScreenshot) {
@@ -279,9 +292,17 @@ namespace OrbItProcs {
       GraphicsDevice.Present();
     }
 
+    protected override void OnExiting(object sender, EventArgs args) {
+      base.OnExiting(sender, args);
+      Dispose(true);
+    }
+
     protected override void Dispose(bool disposeManagedResources)
     {
       base.Dispose(disposeManagedResources);
+      PsMoveController.OnDestroy();
+      PSMoveManager.GetManagerInstance().OnApplicationQuit();
+
       if (disposeManagedResources)
       {
         // Release the eye textures

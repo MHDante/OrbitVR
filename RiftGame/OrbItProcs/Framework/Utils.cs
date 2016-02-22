@@ -352,6 +352,9 @@ namespace OrbItProcs {
       }
     }
 
+    public static Vector3 MultiplyPoint3x4(this Matrix m, Vector3 v) {
+      return Vector3.TransformCoordinate(v, m);
+    }
     //public static void DrawLine(Room room, Vector2 start, Vector2 end, float thickness, Color color, Layers Layer)
     //{
     //    if (thickness * room.zoom < 1) thickness = 1 / room.zoom;

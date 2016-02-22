@@ -173,7 +173,6 @@ namespace RiftGame {
                   Matrix.RotationY(time)*
                   Matrix.Translation(0, -1.5f, 2.0f);
       model.Draw(GraphicsDevice, world, view, projection);
-
       base.Draw(gameTime);
     }
 
