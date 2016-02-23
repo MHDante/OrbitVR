@@ -47,7 +47,7 @@ namespace OrbitVR.Processes {
       newNode.movement.mode = movemode.free;
       newNode.body.restitution = 1f;
       newNode.meta.maxHealth.enabled = false;
-      room.spawnNode(newNode, g: room.MasterGroup.childGroups["Wall Group"]);
+      room.SpawnNode(newNode, g: room.MasterGroup.childGroups["Wall Group"]);
       verts = new List<Vector2>();
     }
 

@@ -18,7 +18,7 @@ namespace OrbitVR.Processes {
       int x = (int) (dx*room.Level.cellWidth*mult + room.Level.cellWidth*(mult/2f));
       int y = (int) (dy*room.Level.cellHeight*mult + room.Level.cellHeight*(mult/2f));
 
-      Node n = room.spawnNode(x, y);
+      Node n = room.SpawnNode(x, y);
       n.movement.active = false;
       n.movement.pushable = false;
     }

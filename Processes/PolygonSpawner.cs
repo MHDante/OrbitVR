@@ -44,7 +44,7 @@ namespace OrbitVR.Processes {
       poly.SetCenterOfMass(vertices);
 
       //newNode.body.shape = poly;
-      room.spawnNode(newNode);
+      room.SpawnNode(newNode);
       verts = new List<Vector2>();
     }
 
@@ -67,7 +67,7 @@ namespace OrbitVR.Processes {
       //poly.Set(vertices, vertices.Length);
       newNode.body.shape = poly;
       newNode.body.pos = mp;
-      room.spawnNode(newNode);
+      room.SpawnNode(newNode);
 
       verts = new List<Vector2>();
     }
@@ -85,7 +85,7 @@ namespace OrbitVR.Processes {
       poly.SetBox(Utils.random.Next(100), Utils.random.Next(100));
       newNode.body.shape = poly;
       newNode.body.pos = mp;
-      room.spawnNode(newNode);
+      room.SpawnNode(newNode);
 
       //verts = new List<Vector2>();
     }

@@ -73,14 +73,14 @@ namespace OrbitVR.Components.Items {
       centerNode.body.color = color;
       centerNode.collision.active = false;
       centerNode.body.pos = center;
-      room.spawnNode(centerNode, lifetime: -1, g: group);
+      room.SpawnNode(centerNode, lifetime: -1, g: group);
       HashSet<Node> outerNodes = new HashSet<Node>();
       for (int i = 0; i < numberOfNodes; i++) {
         Node n = centerNode.CreateClone(room);
         float angleFromCenter = angleIncrement*i;
         Vector2 spawnPosition = (VMath.AngleToVector(angleFromCenter)*dist) + center;
         Vector2 spawnVelocity = VMath.AngleToVector(angleFromCenter + angle)*speed;
-        room.spawnNode(n, lifetime: -1, g: group);
+        room.SpawnNode(n, lifetime: -1, g: group);
         n.body.pos = spawnPosition;
         n.body.velocity = spawnVelocity;
         n.body.radius = 5f;

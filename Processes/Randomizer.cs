@@ -29,7 +29,7 @@ namespace OrbitVR.Processes {
       if (queuePos >= savedNodes.Count) return;
       Node saved = savedNodes.ElementAt(savedNodes.Count - queuePos - 1);
       Group g = savedGroups.ElementAt(savedNodes.Count - queuePos - 1);
-      Node n = room.spawnNode(saved.CreateClone(saved.room), lifetime: 5000, g: g);
+      Node n = room.SpawnNode(saved.CreateClone(saved.room), lifetime: 5000, g: g);
       n.body.pos = UserInterface.WorldMousePos;
     }
 
@@ -106,7 +106,7 @@ namespace OrbitVR.Processes {
       }
 
 
-      Node n = room.spawnNode(userP, blank: true, lifetime: 5000);
+      Node n = room.SpawnNode(userP, blank: true, lifetime: 5000);
       if (n != null) {
         foreach (Type t in n.comps.Keys.ToList()) {
           if ((n.comps[t].compType & mtypes.item) == mtypes.item) {

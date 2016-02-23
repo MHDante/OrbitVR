@@ -65,14 +65,8 @@ namespace OrbitVR.Framework {
 
     public abstract void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                               Vector2 origin, float scale, Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
-
-    public  void DrawLines(List<Line> linesToDraw, Color color)
-    {
-      foreach (Line line in linesToDraw)
-      {
-        DrawLine(line.Start, line.End, 2, color, Layers.Under5);
-      }
-    }
+    
+    
     
     public abstract void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, Layers Layer);
     public abstract void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life);
@@ -92,6 +86,14 @@ namespace OrbitVR.Framework {
         backgroundHue = (backgroundHue + ((float) Math.Sin(x) + 1)/10f)%360;
         backgroundColor = ColorChanger.getColorFromHSV(backgroundHue, value: 0.2f);
       }
+    }
+
+    public void DrawRect(Vector2 min, Vector2 max, Color borderColor) {
+
+      DrawLine(min, new Vector2(max.X, min.Y), 2, borderColor, Layers.Under5);
+      DrawLine(min, new Vector2(min.X, max.Y), 2, borderColor, Layers.Under5);
+      DrawLine(new Vector2(min.X, max.Y), max, 2, borderColor, Layers.Under5);
+      DrawLine(new Vector2(max.X, min.Y), max, 2, borderColor, Layers.Under5);
     }
   }
 

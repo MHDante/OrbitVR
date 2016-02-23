@@ -12,7 +12,7 @@ namespace OrbitVR {
 
     protected override void Initialize() {
       base.Initialize();
-      randomizer = Game.processManager.GetProcess<Randomizer>();
+      randomizer = Game.ProcessManager.GetProcess<Randomizer>();
     }
     
     protected override void Update(GameTime gt) {
@@ -42,7 +42,7 @@ namespace OrbitVR {
         spawned = true;
         for (int i = 0; i < 500; i++)
         {
-          Node n = Room.spawnNode(0, 0);
+          Node n = Room.SpawnNode(0, 0);
         }
       }
     }

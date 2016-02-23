@@ -155,7 +155,7 @@ namespace OrbitVR.Physics {
         m.PositionalCorrection();
 
       if (contacts.Count > 0) contacts = new List<Manifold>();
-      gridsystemCollision.addGridSystemLines();
+      if (DebugFlags.drawCollisionGrid)gridsystemCollision.addGridSystemLines();
     }
 
     public void Draw() {

@@ -236,7 +236,7 @@ namespace OrbitVR.Components.Items {
         n.Comp<ColorChanger>().colormode = ColorChanger.ColorMode.none;
         n.SetColor(parent.player.pColor);
       }
-      room.spawnNode(n, g: room.Groups.Bullets);
+      room.SpawnNode(n, g: room.Groups.Bullets);
       Action<Node, Node> bulletHit = (n1, n2) => {
                                        Node bullet, them;
                                        if (n1 == n) {

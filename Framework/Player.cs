@@ -237,7 +237,7 @@ namespace OrbitVR.Framework {
       //node.body.mass = 0.1f;
       node.movement.maxVelocity.value = 6f;
       //node.addComponent<LinkGun>(true);
-      room.spawnNode(node, g: room.Groups.Player);
+      room.SpawnNode(node, g: room.Groups.Player);
       //node.OnSpawn();
       node.texture = textures.robot1;
 

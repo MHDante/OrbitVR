@@ -45,7 +45,6 @@ namespace OrbitVR {
     private bool DrawLinks { get; }
     public Node TargetNode { get; set; }
     private Color BorderColor { get; }
-    private bool DrawAffectGrid = true;
     //Events
     public event EventHandler AfterIteration;
     
@@ -121,16 +120,14 @@ namespace OrbitVR {
         {nodeE.texture, textures.ring}
       };
 
-      TargetNodeGraphic = new Node(this, userPropsTarget);
-
-      TargetNodeGraphic.name = "TargetNodeGraphic";
-
-      //MakeWalls(WallWidth);
+      TargetNodeGraphic = new Node(this, userPropsTarget) {name = "TargetNodeGraphic"};
+      if (DebugFlags.addRoomWalls)MakeWalls(10);
 
       MakePresetGroups();
       MakeItemGroups();
     }
-    public void MakePresetGroups() {
+
+    private void MakePresetGroups() {
       var infos = Component.compInfos;
       int runenum = 0;
       foreach (Type t in infos.Keys) {
@@ -150,7 +147,7 @@ namespace OrbitVR {
       }
     }
 
-    public void MakeItemGroups() {
+    private void MakeItemGroups() {
       Node itemDef = DefaultNode.CreateClone(this);
       itemDef.addComponent(typeof (ItemPayload), true);
       itemDef.movement.active = false;
@@ -161,7 +158,7 @@ namespace OrbitVR {
         if ((info.compType & mtypes.item) != mtypes.item) continue;
         if (t == typeof (ItemPayload)) continue;
         //if (info.userLevel == UserLevel.Developer || info.userLevel == UserLevel.Advanced) continue;
-        Node nodeDef = itemDef.CreateClone(this); ///
+        Node nodeDef = itemDef.CreateClone(this);
         //nodeDef.addComponent(t, true);
         Component c = Node.MakeComponent(t, true, nodeDef);
         nodeDef.Comp<ItemPayload>().AddComponentItem(c);
@@ -176,8 +173,7 @@ namespace OrbitVR {
       long elapsed = 0;
       if (gametime != null) elapsed = (long) Math.Round(gametime.ElapsedGameTime.TotalMilliseconds);
       TotalElapsedMilliseconds += elapsed;
-
-      HashSet<Node> toDelete = new HashSet<Node>();
+      
 
       //AffectAlgorithm #2 See Souce History in this file for AffectAlgorithm 1
       GridsystemAffect.clearBuckets();
@@ -185,6 +181,7 @@ namespace OrbitVR {
         if (MasterGroup.childGroups["Wall Group"].fullSet.Contains(n)) continue;
         GridsystemAffect.insertToBuckets(n.body);
       }
+      if (DebugFlags.drawAffectGrid) GridsystemAffect.addGridSystemLines();
 
       CollisionManager.Update();
 
@@ -193,9 +190,8 @@ namespace OrbitVR {
           n.Update(gametime);
         }
       }
-      if (AfterIteration != null) AfterIteration(this, null);
+      AfterIteration?.Invoke(this, null);
 
-      GridsystemAffect.addGridSystemLines();
       Level.addLevelLines();
 
       UpdateTargetNodeGraphic();
@@ -216,18 +212,16 @@ namespace OrbitVR {
         UpdateTargetNodeGraphic();
         TargetNodeGraphic.Draw();
       }
-      foreach (var n in MasterGroup.fullSet.ToList()) //todo:wtfuck threading?
+      foreach (var n in MasterGroup.fullSet.ToList())
       {
         //Node n = (Node)o;
         n.Draw();
       }
-      
-      Camera.DrawLine(Vector2.Zero, new Vector2(WorldWidth, 0), 2, BorderColor, Layers.Under5);
-      Camera.DrawLine(Vector2.Zero, new Vector2(0, WorldHeight), 2, BorderColor, Layers.Under5);
-      Camera.DrawLine(new Vector2(0, WorldHeight), new Vector2(WorldWidth, WorldHeight), 2, BorderColor, Layers.Under5);
-      Camera.DrawLine(new Vector2(WorldWidth, 0), new Vector2(WorldWidth, WorldHeight), 2, BorderColor, Layers.Under5);
-
-      if (DrawAffectGrid) GridsystemAffect.DrawGrid(this, Color.LightBlue);
+      if (DebugFlags.drawRoomBorder) {
+        Camera.DrawRect(Vector2.Zero, new Vector2(WorldWidth, WorldHeight), BorderColor);
+      }
+      if (DebugFlags.drawAffectGrid) GridsystemAffect.DrawGrid(this, Color.LightBlue);
+      if (DebugFlags.drawCollisionGrid) CollisionManager.Draw();
 
       if (DrawLinks) {
         foreach (Link link in AllActiveLinks) {
@@ -257,28 +251,26 @@ namespace OrbitVR {
       }
     }
 
-    public void MakeWalls(float wallWidth) {
+    private void MakeWalls(float wallWidth) {
       Dictionary<dynamic, dynamic> props = new Dictionary<dynamic, dynamic>() {
         {nodeE.position, new Vector2(0, 0)},
       };
-      Node left = ConstructWallPoly(props, (int) wallWidth/2, WorldHeight/2, new Vector2(wallWidth/2, WorldHeight/2));
+      var v = wallWidth / 2f;
+      var v1 = WorldHeight / 2f;
+      Node left = ConstructWallPoly(props, v, v1, new Vector2(v, v1));
+      Node right = ConstructWallPoly(props, v, v1,new Vector2(WorldWidth - v, v1));
+      Node top = ConstructWallPoly(props, (WorldWidth + wallWidth*2)/2f, v, new Vector2(WorldWidth / 2f, v));
+      Node bottom = ConstructWallPoly(props, (WorldWidth + wallWidth*2)/2f, v,new Vector2(WorldWidth / 2f, WorldHeight - v));
       left.name = "left wall";
-      Node right = ConstructWallPoly(props, (int) wallWidth/2, WorldHeight/2,
-                                     new Vector2(WorldWidth - wallWidth/2, WorldHeight/2));
       right.name = "right wall";
-      Node top = ConstructWallPoly(props, (WorldWidth + (int) wallWidth*2)/2, (int) wallWidth/2,
-                                   new Vector2(WorldWidth/2, (int) wallWidth/2));
       top.name = "top wall";
-      Node bottom = ConstructWallPoly(props, (WorldWidth + (int) wallWidth*2)/2, (int) wallWidth/2,
-                                      new Vector2(WorldWidth/2, WorldHeight - wallWidth/2));
       bottom.name = "bottom wall";
     }
 
-    public Node ConstructWallPoly(Dictionary<dynamic, dynamic> props, int hw, int hh, Vector2 pos) {
+    private Node ConstructWallPoly(Dictionary<dynamic, dynamic> props, float hw, float hh, Vector2 pos) {
       Node n = new Node(this, props);
       n.Comp<BasicDraw>().active = false;
-      Polygon poly = new Polygon();
-      poly.body = n.body;
+      Polygon poly = new Polygon {body = n.body};
       poly.body.pos = pos;
       poly.SetBox(hw, hh);
       //poly.SetOrient(0f);
@@ -295,23 +287,20 @@ namespace OrbitVR {
     }
 
 
-    public void UpdateTargetNodeGraphic() {
+    private void UpdateTargetNodeGraphic() {
       if (TargetNode != null) {
         TargetNodeGraphic.Comp<ColorChanger>().AffectSelf();
         TargetNodeGraphic.body.pos = TargetNode.body.pos;
         TargetNodeGraphic.body.radius = TargetNode.body.radius*1.5f;
       }
     }
-
-    public void AddRectangleLines(float x, float y, float width, float height) {
-      AddRectangleLines((int) x, (int) y, (int) width, (int) height);
-    }
+    
 
     public Node SelectNodeAt(Vector2 pos) {
       Node found = null;
       float shortedDistance = Int32.MaxValue;
       for (int i = MasterGroup.fullSet.Count - 1; i >= 0; i--) {
-        Node n = (Node) MasterGroup.fullSet.ElementAt(i);
+        Node n = MasterGroup.fullSet.ElementAt(i);
         // find node that has been clicked, starting from the most recently placed nodes
         float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
         if (distsquared < n.body.radius*n.body.radius) {
@@ -324,21 +313,21 @@ namespace OrbitVR {
       return found;
     }
 
-    public Node spawnNode(int worldMouseX, int worldMouseY) {
+    public Node SpawnNode(int worldMouseX, int worldMouseY) {
       Dictionary<dynamic, dynamic> userP = new Dictionary<dynamic, dynamic>() {
         {nodeE.position, new Vector2(worldMouseX, worldMouseY)},
       };
-      return spawnNode(userP);
+      return SpawnNode(userP);
     }
 
-    public Node spawnNode(Node newNode, Action<Node> afterSpawnAction = null, int lifetime = -1, Group g = null) {
+    public Node SpawnNode(Node newNode, Action<Node> afterSpawnAction = null, int lifetime = -1, Group g = null) {
       Group spawngroup = g ?? OrbIt.UI.sidebar.GetActiveGroup();
       if (spawngroup == null || !spawngroup.Spawnable) return null;
       //newNode.name = "bullet" + Node.nodeCounter;
       return SpawnNodeHelper(newNode, afterSpawnAction, spawngroup, lifetime);
     }
 
-    public Node spawnNode(Dictionary<dynamic, dynamic> userProperties, Action<Node> afterSpawnAction = null,
+    public Node SpawnNode(Dictionary<dynamic, dynamic> userProperties, Action<Node> afterSpawnAction = null,
                           bool blank = false, int lifetime = -1) {
       Group activegroup = OrbIt.UI.sidebar.GetActiveGroup();
       if (activegroup == null || !activegroup.Spawnable) return null;
@@ -354,26 +343,26 @@ namespace OrbitVR {
       return SpawnNodeHelper(newNode, afterSpawnAction, activegroup, lifetime);
     }
 
-    public Node spawnNode(Group group, Dictionary<dynamic, dynamic> userProperties = null) {
+    public Node SpawnNode(Group group, Dictionary<dynamic, dynamic> userProperties = null) {
       if (group == null) return null;
       Node newNode = group.defaultNode.CreateClone(this);
       newNode.group = group;
       newNode.name = group.Name + Node.nodeCounter;
       if (userProperties != null) newNode.acceptUserProps(userProperties);
-      return SpawnNodeHelper(newNode, null, group, -1);
+      return SpawnNodeHelper(newNode, null, group);
     }
 
     private Node SpawnNodeHelper(Node newNode, Action<Node> afterSpawnAction = null, Group g = null, int lifetime = -1) {
       //newNode.addComponent(comp.itempayload, true);
       newNode.OnSpawn();
-      if (afterSpawnAction != null) afterSpawnAction(newNode);
+      afterSpawnAction?.Invoke(newNode);
       if (lifetime != -1) {
         newNode.addComponent<Lifetime>(true);
         newNode.Comp<Lifetime>().timeUntilDeath.value = lifetime;
         newNode.Comp<Lifetime>().timeUntilDeath.enabled = true;
       }
 
-      g.IncludeEntity(newNode);
+      g?.IncludeEntity(newNode);
       newNode.spawned = true;
       return newNode;
     }
@@ -396,59 +385,29 @@ namespace OrbitVR {
                                                                                   WorldWidth, gridHeight);
                             fillWithGrid = false;
 
-                            Camera.pos = new Vector2(WorldWidth/2, WorldHeight/2);
+                            Camera.pos = new Vector2(WorldWidth/2f, WorldHeight/2f);
                           };
     }
 
 
     public class RoomGroups {
-      private Room _room;
+      private readonly Room _room;
 
       public RoomGroups(Room room) {
         _room = room;
       }
 
-      public Group General {
-        get {
-          if (_room.MasterGroup == null) return null;
-          return _room.MasterGroup.childGroups["General Groups"];
-        }
-      }
+      public Group General => _room.MasterGroup?.childGroups["General Groups"];
 
-      public Group Preset {
-        get {
-          if (_room.MasterGroup == null) return null;
-          return _room.MasterGroup.childGroups["Preset Groups"];
-        }
-      }
+      public Group Preset => _room.MasterGroup?.childGroups["Preset Groups"];
 
-      public Group Player {
-        get {
-          if (_room.MasterGroup == null) return null;
-          return _room.MasterGroup.childGroups["Player Group"];
-        }
-      }
+      public Group Player => _room.MasterGroup?.childGroups["Player Group"];
 
-      public Group Items {
-        get {
-          if (_room.MasterGroup == null) return null;
-          return _room.MasterGroup.childGroups["Item Group"];
-        }
-      }
+      public Group Items => _room.MasterGroup?.childGroups["Item Group"];
 
-      public Group Bullets {
-        get {
-          if (_room.MasterGroup == null) return null;
-          return _room.MasterGroup.childGroups["Bullet Group"];
-        }
-      }
+      public Group Bullets => _room.MasterGroup?.childGroups["Bullet Group"];
 
-      public Group Walls {
-        get {
-          if (_room.MasterGroup == null) return null;
-          return _room.MasterGroup.childGroups["Wall Group"];
-        }
-      }
+      public Group Walls => _room.MasterGroup?.childGroups["Wall Group"];
     }
   }
 }

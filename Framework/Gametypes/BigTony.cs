@@ -76,7 +76,7 @@ namespace OrbitVR.Framework.Gametypes {
         spawnPos = new Vector2(room.WorldWidth/2, room.WorldHeight/2) - new Vector2(x, y);
 
         //add //{ nodeE.position, spawnPos },
-        p.node = room.spawnNode(playerProps);
+        p.node = room.SpawnNode(playerProps);
         p.node.name = "player" + p.playerIndex;
         
 

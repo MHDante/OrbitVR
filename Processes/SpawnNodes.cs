@@ -40,7 +40,7 @@ namespace OrbitVR.Processes {
     }
 
     public void SpawnNode() {
-      SetRadius(room.spawnNode((int) UserInterface.WorldMousePos.X, (int) UserInterface.WorldMousePos.Y));
+      SetRadius(room.SpawnNode((int) UserInterface.WorldMousePos.X, (int) UserInterface.WorldMousePos.Y));
     }
     
 
@@ -53,7 +53,7 @@ namespace OrbitVR.Processes {
       for (int i = 0; i < batchSpawnNum; i++) {
         int rx = Utils.random.Next(rad*2) - rad;
         int ry = Utils.random.Next(rad*2) - rad;
-        SetRadius(room.spawnNode((int) UserInterface.WorldMousePos.X + rx, (int) UserInterface.WorldMousePos.Y + ry));
+        SetRadius(room.SpawnNode((int) UserInterface.WorldMousePos.X + rx, (int) UserInterface.WorldMousePos.Y + ry));
       }
     }
 
@@ -81,10 +81,10 @@ namespace OrbitVR.Processes {
                                  n.body.velocity = diff;
                                  if (n.body.velocity.IsFucked()) System.Diagnostics.Debugger.Break();
                                };
-          SetRadius(room.spawnNode(userP, after));
+          SetRadius(room.SpawnNode(userP, after));
         }
         else {
-          SetRadius(room.spawnNode(userP));
+          SetRadius(room.SpawnNode(userP));
         }
         rightClickCount = 0;
       }

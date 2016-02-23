@@ -38,7 +38,7 @@ namespace OrbitVR.Processes {
           {nodeE.velocity, diff},
         };
         Action<Node> after = delegate(Node n) { n.body.velocity = diff; };
-        room.spawnNode(userP, after);
+        room.SpawnNode(userP, after);
         rightClickCount = 0;
       }
     }

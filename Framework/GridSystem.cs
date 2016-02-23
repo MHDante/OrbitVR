@@ -558,7 +558,10 @@ namespace OrbitVR.Framework {
     }
 
     public void DrawGrid(Room room, Color color) {
-      room.Camera.DrawLines(linesToDraw, color);
+      foreach (Line line in linesToDraw)
+      {
+        room.Camera.DrawLine(line.Start, line.End, 2, color, Layers.Under5);
+      }
       linesToDraw = new List<Line>();
     }
 
@@ -582,5 +585,6 @@ namespace OrbitVR.Framework {
       linesToDraw.Add(new Line(x, height, width, height));
       linesToDraw.Add(new Line(width, y, width, height));
     }
+    
   }
 }

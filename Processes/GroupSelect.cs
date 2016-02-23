@@ -23,8 +23,9 @@ namespace OrbitVR.Processes {
       float upperx = Math.Max(mousePos.X, groupSelectionBoxOrigin.X);
       float lowery = Math.Min(mousePos.Y, groupSelectionBoxOrigin.Y);
       float uppery = Math.Max(mousePos.Y, groupSelectionBoxOrigin.Y);
-
-      room.AddRectangleLines(lowerx, lowery, upperx, uppery);
+      
+      room.Camera.DrawRect(new Vector2(lowerx, lowery), new Vector2(upperx, uppery), Color.White);
+      //Todo: don't draw on update.
       //Console.WriteLine(mousePos.X + " " + glob.X);
     }
 
@@ -81,7 +82,8 @@ namespace OrbitVR.Processes {
       }
       //System.Console.WriteLine(groupSelectSet.Count);
 
-      room.AddRectangleLines(lowerx, lowery, upperx, uppery);
+      //Todo: don't draw on update. Also, is this line ncessary?
+      room.Camera.DrawRect(new Vector2(lowerx, lowery), new Vector2(upperx, uppery), Color.White);
     }
   }
 }

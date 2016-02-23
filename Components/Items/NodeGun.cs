@@ -106,7 +106,7 @@ namespace OrbitVR.Components.Items {
 
     public void FireNode(Vector2 dir) {
       if (currentGroup == null) return;
-      Node n = room.spawnNode(currentGroup);
+      Node n = room.SpawnNode(currentGroup);
       if (n == null) return;
       n.body.velocity = dir*nodeSpeed;
       n.body.pos = parent.body.pos + parent.body.velocity*Math.Sign(nodeSpeed);
