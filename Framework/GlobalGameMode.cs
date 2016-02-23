@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public enum GameModes {
     t2vs2,
     tAllvs1,

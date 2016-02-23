@@ -1,6 +1,8 @@
-﻿using SharpDX;
+﻿using OrbitVR.Framework;
+using OrbitVR.Interface;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Drawers {
   /// <summary>
   /// Draws a rune image after the node's basic draw.
   /// </summary>

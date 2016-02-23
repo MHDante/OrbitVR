@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Meta {
   public class MethodEntry {
     private bool _enabled = false;
     public Delegator delegator;

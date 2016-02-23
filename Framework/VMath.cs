@@ -1,7 +1,7 @@
 ﻿using System;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public static class GMath {
     public const float PI = (float) Math.PI;
     public const float TwoPI = (float) (Math.PI*2);

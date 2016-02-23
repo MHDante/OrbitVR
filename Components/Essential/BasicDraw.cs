@@ -1,6 +1,10 @@
-﻿using SharpDX;
+﻿using OrbitVR.Components.Drawers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Essential {
   /// <summary>
   /// Basic Draw Component, ensures that you can see the node.
   /// </summary>

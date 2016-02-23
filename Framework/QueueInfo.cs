@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class QueueInfo {
     private Type _elementType = typeof (object);
 

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class SpawnNodes : Process {
     int rightClickCount = 0; //
     int rightClickMax = 1; //

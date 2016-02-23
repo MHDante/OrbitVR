@@ -1,5 +1,6 @@
 ﻿using System;
-namespace OrbItProcs
+
+namespace OrbitVR
 {
   /// <summary>
   /// Simple RiftGame application using SharpDX.Toolkit.

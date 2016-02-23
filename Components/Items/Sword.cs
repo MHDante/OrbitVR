@@ -1,6 +1,9 @@
-﻿using SharpDX;
+﻿using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   /// <summary>
   /// This node has a nifty sword the node can swing to attack enemies. 
   /// </summary>

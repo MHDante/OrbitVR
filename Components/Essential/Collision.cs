@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Essential {
   /// <summary>
   /// Nodes with this component bounce away from each other upon contact
   /// </summary>

@@ -1,7 +1,7 @@
 ﻿using System;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public enum InputButtons {
     A_1,
     X_2,

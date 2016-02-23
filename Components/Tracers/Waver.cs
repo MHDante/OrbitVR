@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Tracers {
   /// <summary>
   /// Draws one or two waves behind the node in a trail. The wave is customizable in terms of amplitude, period, wave size, and so on.
   /// </summary>

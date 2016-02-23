@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
+using OrbitVR.Framework;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using Point = System.Drawing.Point;
 
-namespace OrbItProcs {
+namespace OrbitVR.Physics {
   public enum ShapeType {
     Circle,
     Polygon,

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SharpDX.Toolkit;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework.Gametypes {
   public class Gametype {
     public Room room;
 

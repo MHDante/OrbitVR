@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Components.Essential;
+using OrbitVR.Components.Items;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class PlayerData {
     public PlayerData() {}
   }

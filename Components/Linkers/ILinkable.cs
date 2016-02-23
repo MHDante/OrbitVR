@@ -1,4 +1,6 @@
-﻿namespace OrbItProcs {
+﻿using OrbitVR.Framework;
+
+namespace OrbitVR.Components.Linkers {
   public interface ILinkable {
     Link link { get; set; }
     Node parent { get; set; }

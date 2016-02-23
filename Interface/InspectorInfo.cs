@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Processes;
 using SharpDX;
-using SysColor = System.Drawing.Color;
 
-namespace OrbItProcs {
+namespace OrbitVR.Interface {
   public enum member_type {
     none,
     field,

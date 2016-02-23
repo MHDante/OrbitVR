@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using OrbitVR.Components.AffectOthers;
+using OrbitVR.Components.Linkers;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   /// <summary>
   /// The shovel allows you to pick up nodes, hold them, and throw them away.
   /// </summary>

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.AffectOthers {
   /// <summary>
   /// The Obstructor will create walls in the direction of surrounding nodes (Obstructor by default.)
   /// </summary>

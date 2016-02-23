@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Meta {
   /// <summary>
   /// Modifies the values of component fields by using arbitrary functions.
   /// </summary>

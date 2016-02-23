@@ -7,7 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   /// <summary>
   /// Represents an observable set of values.
   /// </summary>

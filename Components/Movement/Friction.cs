@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using OrbitVR.Interface;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Movement {
   /// <summary>
   /// Adds a friction force to the node, slowing it down.
   /// </summary>

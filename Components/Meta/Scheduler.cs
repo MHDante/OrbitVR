@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Meta {
   public enum ResumeType {
     Forget,
     Stack,

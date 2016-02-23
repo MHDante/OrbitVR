@@ -11,7 +11,7 @@ using SharpDX.Toolkit.Graphics;
 using Color = SharpDX.Color;
 using Point = System.Drawing.Point;
 
-namespace OrbItProcs {
+namespace OrbitVR {
   public enum textures {
     rune1,
     rune2,

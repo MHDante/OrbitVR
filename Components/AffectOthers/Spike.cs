@@ -1,7 +1,11 @@
 ﻿using System;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.AffectOthers {
   /// <summary>
   /// The spike hurts nodes.
   /// </summary>

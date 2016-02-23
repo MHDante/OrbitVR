@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Linkers {
   /// <summary>
   /// Use logic (circuit) gates to affect the flow of component affection control
   /// </summary>

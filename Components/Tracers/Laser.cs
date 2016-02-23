@@ -1,7 +1,11 @@
 ﻿using System;
+using OrbitVR.Components.Drawers;
+using OrbitVR.Components.Essential;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Tracers {
   /// <summary>
   /// Replaces the Basic Circle drawing with a thin and long laser that trails behind the node's current position.
   /// </summary>

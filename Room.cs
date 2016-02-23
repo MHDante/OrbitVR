@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Components.Drawers;
+using OrbitVR.Components.Essential;
+using OrbitVR.Components.Items;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
+using OrbitVR.Processes;
+using OrbitVR.PSMove;
+using OrbitVR.RoomComponents;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 
-namespace OrbItProcs {
+namespace OrbitVR {
   public enum RenderShape
 {
     Plane,

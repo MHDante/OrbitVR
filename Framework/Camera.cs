@@ -1,7 +1,7 @@
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class Camera // : CameraBase
   {
     private static int _CameraOffset = 0;

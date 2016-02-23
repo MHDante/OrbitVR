@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.AffectOthers {
   /// <summary>
   /// The follow component causes this node to follow other nodes. If it is following two nodes, it will go in the average direction of the two.
   /// </summary>

@@ -1,6 +1,8 @@
-﻿using SharpDX;
+﻿using OrbitVR.Framework;
+using OrbitVR.Interface;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class GridSpawn : Process {
     public GridSpawn() : base() {
       addProcessKeyAction("SpawnNodeGrid", KeyCodes.LeftClick, OnPress: SpawnNodeGrid);

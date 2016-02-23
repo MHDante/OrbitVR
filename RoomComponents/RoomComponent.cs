@@ -1,4 +1,4 @@
-﻿namespace OrbItProcs {
+﻿namespace OrbitVR.RoomComponents {
   public abstract class RoomComponent {
     public abstract void Draw();
 

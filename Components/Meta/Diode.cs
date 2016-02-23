@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using OrbitVR.Framework;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Meta {
   public class Diode : Component {
     public enum Mode {
       firstBlocked,

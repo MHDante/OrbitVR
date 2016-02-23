@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Tracers {
   /// <summary>
   /// Replaces the basic draw with a set of lines that trail behind the node, perpendicular to its direction. is said to look like a caterpillar.
   /// </summary>

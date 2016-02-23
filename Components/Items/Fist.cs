@@ -1,7 +1,10 @@
 ﻿using System;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   /// <summary>
   /// The fist allows you to punch other players and nodes.
   /// </summary>

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class PolygonSpawner : Process {
     //int clickCount = 0;
     List<Vector2> verts = new List<Vector2>();

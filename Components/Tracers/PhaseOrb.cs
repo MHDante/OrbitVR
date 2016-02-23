@@ -1,4 +1,6 @@
-﻿namespace OrbItProcs {
+﻿using OrbitVR.Interface;
+
+namespace OrbitVR.Components.Tracers {
   /// <summary>
   /// Nodes will leave behind a trail consisting of fading images of themselves.
   /// </summary>

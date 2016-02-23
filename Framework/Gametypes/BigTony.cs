@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Meta;
+using OrbitVR.Components.Tracers;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework.Gametypes {
   public class BigTonyData : PlayerData {
     public bool switchAvailable = true;
   }

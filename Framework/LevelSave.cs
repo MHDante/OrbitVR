@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using OrbitVR.Components.Meta;
+using OrbitVR.Physics;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class DiodeData {
     public DiodeData(Diode d) {
       this.start = d.start.toFloatArray();

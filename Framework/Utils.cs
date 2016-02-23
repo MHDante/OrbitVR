@@ -4,13 +4,15 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
+using OrbitVR.Components.Meta;
+using OrbitVR.Interface;
 using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.Toolkit.Graphics;
 using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public static class Utils {
     public static Random random = new Random((int) DateTime.Now.Millisecond);
 

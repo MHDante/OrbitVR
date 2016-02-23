@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Drawers;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public abstract class CameraBase {
     protected static System.Drawing.Pen pen;
     public Color backgroundColor = Color.Black;

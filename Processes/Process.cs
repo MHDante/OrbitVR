@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Framework;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public delegate void ProcessMethod(Dictionary<dynamic, dynamic> args); // to be 'classoverloaded' later
 
 

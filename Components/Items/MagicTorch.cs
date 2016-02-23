@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.AffectOthers;
+using OrbitVR.Components.Essential;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
+using Collision = OrbitVR.Components.Essential.Collision;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   /// <summary>
   /// The magic torch lets you hold a torch that can have any affect others component attached to it.
   /// </summary>

@@ -1,7 +1,11 @@
 ﻿using System.Reflection;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
+using OrbitVR.Processes;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Essential {
   public enum movemode {
     free,
     wallbounce,

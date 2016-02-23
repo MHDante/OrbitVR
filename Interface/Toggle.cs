@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrbItProcs {
+namespace OrbitVR.Interface {
   public class Toggle<T> {
     public Toggle(T Value, bool Enabled = true) {
       value = Value;

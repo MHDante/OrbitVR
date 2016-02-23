@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Processes;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class ProcessManager {
     public HashSet<Process> activeProcesses;
 

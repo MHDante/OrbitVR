@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class IndexArray<T> {
     public T[] array;
     public int index;

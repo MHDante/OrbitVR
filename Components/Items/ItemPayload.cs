@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Components.Essential;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
+using Collision = OrbitVR.Components.Essential.Collision;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   /// <summary>
   /// A payload of items or components to add to the node that picks up this payload.
   /// </summary>
@@ -68,10 +72,10 @@ namespace OrbItProcs {
 
       if (parent == null) return;
       payloadNode = new Node(room);
-      payloadNode.comps.Remove(typeof (Movement));
+      payloadNode.comps.Remove(typeof (Essential.Movement));
       payloadNode.comps.Remove(typeof (Collision));
       payloadNode.comps.Remove(typeof (BasicDraw));
-      payloadNode.comps.Remove(typeof (Meta));
+      payloadNode.comps.Remove(typeof (Essential.Meta));
       //testing
       //Gravity grav = new Gravity();
       //grav.mode = Gravity.Mode.Strong;

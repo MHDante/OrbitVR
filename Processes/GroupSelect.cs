@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class GroupSelect : Process {
     private Vector2 groupSelectionBoxOrigin;
     public HashSet<Node> groupSelectSet;

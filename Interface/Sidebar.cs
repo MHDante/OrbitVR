@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using OrbitVR.Framework;
 
-namespace OrbItProcs {
+namespace OrbitVR.Interface {
   public partial class Sidebar {
     private UserLevel _userLevel = UserLevel.Debug;
     public string ActiveGroupName;

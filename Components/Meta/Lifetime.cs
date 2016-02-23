@@ -1,4 +1,6 @@
-﻿namespace OrbItProcs {
+﻿using OrbitVR.Interface;
+
+namespace OrbitVR.Components.Meta {
   /// <summary>
   /// This node will only exist for a short time.
   /// </summary>

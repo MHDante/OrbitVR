@@ -1,4 +1,6 @@
-﻿namespace OrbItProcs {
+﻿using OrbitVR.Framework;
+
+namespace OrbitVR.Processes {
   public class PlayerProcess : Process {
     public PlayerProcess() {}
 

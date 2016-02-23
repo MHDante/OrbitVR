@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using SharpDX;
+using Collision = OrbitVR.Components.Essential.Collision;
 
-namespace OrbItProcs {
+namespace OrbitVR.Physics {
   public class Collider {
     protected bool _HandlersEnabled = true;
     public HashSet<Collider> collisions1 = new HashSet<Collider>();

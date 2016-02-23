@@ -1,6 +1,7 @@
-﻿using SharpDX;
+﻿using OrbitVR.Interface;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Drawers {
   public struct ShaderPack {
     // Shader variables
     public float[] colour;

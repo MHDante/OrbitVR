@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using OrbitVR.Components.Essential;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
-namespace OrbItProcs {
+namespace OrbitVR {
   [Flags]
   public enum mtypes {
     none = 0,

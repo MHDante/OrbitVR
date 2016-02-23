@@ -1,6 +1,9 @@
-﻿using SharpDX;
+﻿using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.AffectOthers {
   /// <summary>
   /// Pushes all affected nodes in a globally set direction
   /// </summary>

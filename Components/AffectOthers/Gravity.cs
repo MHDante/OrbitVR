@@ -1,7 +1,10 @@
 ﻿using System;
+using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.AffectOthers {
   public enum AffectDirection {
     AffectsOthers,
     OthersAffectThis,

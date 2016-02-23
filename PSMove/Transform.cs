@@ -1,6 +1,6 @@
 ﻿using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.PSMove {
   public class Transform {
     public Transform parent;
     public Vector3 position = Vector3.Zero;

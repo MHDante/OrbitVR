@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public delegate void ModifierDelegate(Dictionary<string, dynamic> args, ModifierInfo modifierInfo);
 
   /// <summary>

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Linkers {
   /// <summary>
   /// Linked nodes will orbit around the source node at a cosntant random distance and speed
   /// </summary>

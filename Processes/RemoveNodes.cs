@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class RemoveNodes : Process {
     public RemoveNodes()
       : base() {

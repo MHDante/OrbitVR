@@ -1,7 +1,9 @@
 ﻿using System;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Essential {
   public enum AIMode {
     Agro,
     Friendly,

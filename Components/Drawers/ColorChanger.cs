@@ -1,7 +1,10 @@
 ﻿using System;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Drawers {
   /// <summary>
   /// Constantly changes the color of nodes depending on a variety of modes
   /// </summary>

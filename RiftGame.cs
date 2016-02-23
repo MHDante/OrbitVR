@@ -5,7 +5,7 @@ using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpOVR;
 
-namespace RiftGame {
+namespace OrbitVR {
   // Use these namespaces here to override SharpDX.Direct3D11
 
   /// <summary>

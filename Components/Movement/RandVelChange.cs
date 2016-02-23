@@ -1,4 +1,7 @@
-﻿namespace OrbItProcs {
+﻿using OrbitVR.Framework;
+using OrbitVR.Interface;
+
+namespace OrbitVR.Components.Movement {
   /// <summary>
   /// Node will move in a seemingly random pattern.
   /// </summary>

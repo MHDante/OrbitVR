@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class FPInfo {
     private FieldInfo _fieldInfo;
 

@@ -1,7 +1,10 @@
 ﻿using System;
+using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Drawers {
   /// <summary>
   /// Modifies the color of affected nodes by using a distance equation. This can be based on their spacial position or an "Imaginary color position"
   /// </summary>

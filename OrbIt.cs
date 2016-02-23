@@ -1,7 +1,9 @@
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 
-namespace OrbItProcs {
+namespace OrbitVR {
   public class OrbIt : VRGame {
     public static OrbIt Game;
     public static UserInterface UI;

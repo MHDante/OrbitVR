@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Linkers {
   /// <summary>
   /// The position of linked nodes is controlled to stay at a particular distance from the source node.
   /// </summary>

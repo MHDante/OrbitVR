@@ -1,6 +1,8 @@
-﻿using SharpDX;
+﻿using OrbitVR.Framework;
+using OrbitVR.Interface;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Drawers {
   /// <summary>
   /// Shows a transparent light that can shift in size.
   /// </summary>

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
+using Collision = OrbitVR.Components.Essential.Collision;
 
-namespace OrbItProcs {
+namespace OrbitVR.Physics {
   /// <summary>
   /// The Body holds the node's size, position and other properties used in physics and gravity calculations.
   /// </summary>

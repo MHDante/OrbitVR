@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Meta;
 using SharpDX;
 
 //
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class DelegateManager {
     //fuck, we are doing way too many checks. short shit out upon adding modInfo/args?
     public DelegateManager() {}

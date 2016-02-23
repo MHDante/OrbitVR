@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Components.Linkers;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public enum linktype {
     none,
     NodeToNode,

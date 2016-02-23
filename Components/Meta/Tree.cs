@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Meta {
   /// <summary>
   /// After a short interval, this node spawns smaller nodes that share it's characteristics.
   /// </summary>

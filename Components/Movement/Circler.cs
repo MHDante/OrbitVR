@@ -1,7 +1,8 @@
 ﻿using System;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Movement {
   /// <summary>
   /// This node will now move in circles or spirals.
   /// </summary>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrbItProcs {
+namespace OrbitVR.Interface {
   //[System.AttributeUsage(System.AttributeTargets.Field |
   //                       System.AttributeTargets.Property)
   //]

@@ -1,8 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Components.AffectOthers;
+using OrbitVR.Components.Drawers;
+using OrbitVR.Components.Essential;
+using OrbitVR.Components.Linkers;
+using OrbitVR.Components.Tracers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   /// <summary>
   /// The symmetry component allows you to spawn a set of nodes than move in a pattern, based on the symmetry to their starting conditions... and a link.
   /// </summary>

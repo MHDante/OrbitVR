@@ -75,7 +75,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>OrbItProcs.Program</StartupObject>
+    <StartupObject>OrbitVR.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -270,7 +270,7 @@
     <Compile Include="Framework\Group.cs" />
     <Compile Include="Framework\IndexArray.cs" />
     <Compile Include="Framework\Input.cs" />
-    <Compile Include="Framework\Input\MonoGameInput.cs" />
+    <Compile Include="Framework\MonoGameInput.cs" />
     <Compile Include="Framework\KeyManager.cs" />
     <Compile Include="Framework\Level.cs" />
     <Compile Include="Framework\LevelSave.cs" />

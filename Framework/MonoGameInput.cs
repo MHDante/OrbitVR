@@ -69,7 +69,7 @@ using PointF = CoreGraphics.CGPoint;
 #endif
 #endif
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   /// <summary>
   /// Defines a button state for buttons of mouse, gamepad or joystick.
   /// </summary>
@@ -752,33 +752,33 @@ namespace OrbItProcs {
       var sticks = ThumbSticks;
 
       if (sticks.Left.X < 0)
-        result |= OrbItProcs.Buttons.LeftThumbstickLeft;
+        result |= Framework.Buttons.LeftThumbstickLeft;
       else if (sticks.Left.X > 0)
-        result |= OrbItProcs.Buttons.LeftThumbstickRight;
+        result |= Framework.Buttons.LeftThumbstickRight;
 
       if (sticks.Left.Y < 0)
-        result |= OrbItProcs.Buttons.LeftThumbstickDown;
+        result |= Framework.Buttons.LeftThumbstickDown;
       else if (sticks.Left.Y > 0)
-        result |= OrbItProcs.Buttons.LeftThumbstickUp;
+        result |= Framework.Buttons.LeftThumbstickUp;
 
       if (sticks.Right.X < 0)
-        result |= OrbItProcs.Buttons.RightThumbstickLeft;
+        result |= Framework.Buttons.RightThumbstickLeft;
       else if (sticks.Right.X > 0)
-        result |= OrbItProcs.Buttons.RightThumbstickRight;
+        result |= Framework.Buttons.RightThumbstickRight;
 
       if (sticks.Right.Y < 0)
-        result |= OrbItProcs.Buttons.RightThumbstickDown;
+        result |= Framework.Buttons.RightThumbstickDown;
       else if (sticks.Right.Y > 0)
-        result |= OrbItProcs.Buttons.RightThumbstickUp;
+        result |= Framework.Buttons.RightThumbstickUp;
 
       if (DPad.Down == ButtonState.Pressed)
-        result |= OrbItProcs.Buttons.DPadDown;
+        result |= Framework.Buttons.DPadDown;
       if (DPad.Up == ButtonState.Pressed)
-        result |= OrbItProcs.Buttons.DPadUp;
+        result |= Framework.Buttons.DPadUp;
       if (DPad.Left == ButtonState.Pressed)
-        result |= OrbItProcs.Buttons.DPadLeft;
+        result |= Framework.Buttons.DPadLeft;
       if (DPad.Right == ButtonState.Pressed)
-        result |= OrbItProcs.Buttons.DPadRight;
+        result |= Framework.Buttons.DPadRight;
 
       return result;
     }

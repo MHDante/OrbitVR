@@ -1,4 +1,6 @@
-﻿namespace OrbItProcs {
+﻿using OrbitVR.Framework;
+
+namespace OrbitVR.Processes {
   public class AxisMovement : Process {
     public AxisMovement(Player player, float speed = 10f) : base() {
       this.player = player;

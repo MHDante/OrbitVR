@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Physics;
 using SharpDX;
 
 //using C3.XNA;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class GridSystem {
     public HashSet<Collider> alreadyVisited;
     public IndexArray<Collider>[][] arrayGrid;

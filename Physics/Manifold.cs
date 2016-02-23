@@ -1,7 +1,9 @@
 ﻿using System;
+using OrbitVR.Framework;
 using SharpDX;
+using Collision = OrbitVR.Components.Essential.Collision;
 
-namespace OrbItProcs {
+namespace OrbitVR.Physics {
   public class Manifold {
     public Body a;
     public Body b;

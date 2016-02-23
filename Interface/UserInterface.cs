@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Framework;
 using SharpDX;
 using SharpDX.Toolkit;
 
-namespace OrbItProcs {
+namespace OrbitVR.Interface {
   public class UserInterface {
     public enum selection {
       placeNode,

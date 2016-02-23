@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using OrbitVR.Components.Essential;
+using OrbitVR.Components.Meta;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
+using Collision = OrbitVR.Components.Essential.Collision;
 
-namespace OrbItProcs {
+namespace OrbitVR {
   public enum nodeE {
     active,
     position,

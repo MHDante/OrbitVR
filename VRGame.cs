@@ -1,3 +1,4 @@
+using OrbitVR.PSMove;
 using Polenter.Serialization;
 using SharpDX;
 using SharpDX.Direct2D1;
@@ -7,7 +8,7 @@ using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpOVR;
 
-namespace OrbItProcs {
+namespace OrbitVR {
   public abstract class VRGame : Game {
     public bool UsePsMove { get; } = false;
     private float bodyYaw = 3.141592f;

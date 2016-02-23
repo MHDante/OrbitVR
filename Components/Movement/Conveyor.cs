@@ -1,6 +1,8 @@
-﻿using SharpDX;
+﻿using OrbitVR.Framework;
+using OrbitVR.Interface;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Movement {
   /// <summary>
   /// The conveyor will speed up / slow down nodes that are on top of this node. (or push them in an absolute direction)
   /// </summary>

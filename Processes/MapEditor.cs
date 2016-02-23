@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Essential;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class MapEditor : Process {
     public List<Vector2> verts;
 

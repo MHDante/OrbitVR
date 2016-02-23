@@ -1,7 +1,10 @@
 ﻿using System;
+using OrbitVR.Framework;
+using OrbitVR.Framework.Gametypes;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Meta {
   public class Swap : Component {
     public Action<Node> OnSwapAfter;
     public Action<Node> OnSwapBefore;

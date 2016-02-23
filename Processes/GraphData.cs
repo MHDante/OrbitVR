@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Drawers;
+using OrbitVR.Framework;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class GraphData : Process {
     static bool drawing = false;
     static bool activated = false;

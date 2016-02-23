@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Drawers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   /// <summary>
   /// LineSpinner is an item that deploys lines that rotate randomly from the center of the node, upon pressing the trigger. (Bumpers to remove lines.)
   /// </summary>

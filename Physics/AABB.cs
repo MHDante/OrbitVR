@@ -1,4 +1,4 @@
-﻿namespace OrbItProcs {
+﻿namespace OrbitVR.Physics {
   public class AABB {
     //Vector2 min;
     //Vector2 max;

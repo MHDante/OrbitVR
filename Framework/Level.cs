@@ -2,7 +2,7 @@
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class Level {
     public List<Rectangle> linesToDraw = new List<Rectangle>();
     public Room room;

@@ -1,6 +1,7 @@
 ﻿using System;
+using OrbitVR.Framework;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class TripSpawnOnCollide : Process {
     public int colCount = 0;
 

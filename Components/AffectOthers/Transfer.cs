@@ -1,6 +1,9 @@
-﻿using SharpDX;
+﻿using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.AffectOthers {
   /// <summary>
   /// When another node enters the radius of this node, it gets teleported to the opposite side of this node, relative to this node's origin. 
   /// </summary>

@@ -1,7 +1,10 @@
 ﻿using System;
+using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.AffectOthers {
   /// <summary>
   /// When another node enters this radius, it is displaced in the direction of the angle without affecting its velocity.
   /// </summary>

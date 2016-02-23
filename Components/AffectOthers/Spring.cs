@@ -1,6 +1,9 @@
-﻿using SharpDX;
+﻿using OrbitVR.Components.Linkers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.AffectOthers {
   /// <summary>
   /// Pushes away nodes that are within the radius, can also pull in nodes that beyond the radius. 
   /// </summary>

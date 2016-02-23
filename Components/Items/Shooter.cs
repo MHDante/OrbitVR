@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrbitVR.Components.Drawers;
+using OrbitVR.Components.Essential;
+using OrbitVR.Components.Meta;
+using OrbitVR.Components.Tracers;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 using SharpDX;
+using Collision = OrbitVR.Components.Essential.Collision;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   public enum ShootMode {
     Rapid,
     Single,
@@ -146,7 +153,7 @@ namespace OrbItProcs {
       bulletNode.Comp<Lifetime>().timeUntilDeath.enabled = true;
       bulletNode.Comp<Laser>().thickness = 5f;
       bulletNode.Comp<Laser>().laserLength = 20;
-      bulletNode.Comp<Movement>().randInitialVel.enabled = false;
+      bulletNode.Comp<Essential.Movement>().randInitialVel.enabled = false;
       bulletNode.group = room.groups.bullets;
     }
 
@@ -209,7 +216,7 @@ namespace OrbItProcs {
     }
 
     public override void Draw() {
-      Meta.drawBar(parent, 0.5f, (float) ammo/(float) maxAmmo, true, Color.Goldenrod);
+      Essential.Meta.drawBar(parent, 0.5f, (float) ammo/(float) maxAmmo, true, Color.Goldenrod);
     }
 
     public void FireNode(Vector2 dir) {
@@ -243,13 +250,13 @@ namespace OrbItProcs {
                                        else {
                                          return;
                                        }
-                                       if (parent.meta.damageMode == Meta.DamageMode.OnlyPlayers) {
+                                       if (parent.meta.damageMode == Essential.Meta.DamageMode.OnlyPlayers) {
                                          if (!them.IsPlayer) return;
                                        }
-                                       else if (parent.meta.damageMode == Meta.DamageMode.OnlyNonPlayers) {
+                                       else if (parent.meta.damageMode == Essential.Meta.DamageMode.OnlyNonPlayers) {
                                          if (them.IsPlayer) return;
                                        }
-                                       else if (parent.meta.damageMode == Meta.DamageMode.Nothing) {
+                                       else if (parent.meta.damageMode == Essential.Meta.DamageMode.Nothing) {
                                          return;
                                        }
                                        them.meta.CalculateDamage(parent, damage);

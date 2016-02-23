@@ -1,4 +1,8 @@
-﻿namespace OrbItProcs {
+﻿using OrbitVR.Components.Essential;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+
+namespace OrbitVR.Components.Linkers {
   /// <summary>
   /// Affected nodes are not only driven by their own velocity, but are also subject to this nodes' velocity.
   /// </summary>

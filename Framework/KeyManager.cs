@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OrbitVR.Interface;
+using OrbitVR.Processes;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
 
   #region do not click i repeat
 

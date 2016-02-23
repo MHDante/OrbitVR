@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public enum formationtype {
     AllToAll,
     NearestN,

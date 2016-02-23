@@ -1,6 +1,8 @@
 ﻿using System;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
 
-namespace OrbItProcs {
+namespace OrbitVR.Processes {
   public class CameraControl : Process {
     public float velocity = 20f;
 

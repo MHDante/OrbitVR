@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
+using OrbitVR.Framework;
+using OrbitVR.Interface;
+using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbItProcs {
+namespace OrbitVR.Components.Items {
   /// <summary>
   /// The NodeGun allows players to shoot nodes outwards. The player can use the bumpers the cycle through the custom groups to shoot different types of nodes.
   /// </summary>

@@ -3,8 +3,7 @@ using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 
-
-namespace OrbItProcs {
+namespace OrbitVR.Framework {
   public class FrameRateCounter {
     public TimeSpan elapsedTime = TimeSpan.Zero;
     int frameCounter = 0;
