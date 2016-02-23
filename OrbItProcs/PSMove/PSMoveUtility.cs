@@ -52,8 +52,8 @@ public class PSMoveUtility {
     Vector3 ParentGameObjectLocation =
       (parentGameObjectTransform != null) ? parentGameObjectTransform.position : Vector3.Zero;
 
-    TrackingState trackingState = OrbIt.game.hmd.GetTrackingState(0.0);
-    if ((OrbIt.game.hmd.TrackingCaps | TrackingCapabilities.None) != 0)
+    TrackingState trackingState = OrbIt.Game.hmd.GetTrackingState(0.0);
+    if ((OrbIt.Game.hmd.TrackingCaps | TrackingCapabilities.None) != 0)
       //TODO: trackingState.RawSensorD != null && OVRManager.tracker.isPresent && OVRManager.tracker.isEnabled)
     {
       Vector3 TrackingCameraOrigin = Vector3.Zero;
@@ -120,7 +120,7 @@ public class PSMoveUtility {
     ref float cameraVFov,
     ref float cameraNearZ,
     ref float cameraFarZ) {
-    TrackingState ss = OrbIt.game.hmd.GetTrackingState(0.0);
+    TrackingState ss = OrbIt.Game.hmd.GetTrackingState(0.0);
 
     rotation = new Quaternion(ss.HeadPose.ThePose.Orientation.X,
                               ss.HeadPose.ThePose.Orientation.Y,
@@ -135,77 +135,5 @@ public class PSMoveUtility {
     cameraVFov = 54; // degrees
     cameraNearZ = 0.4f; // meters
     cameraFarZ = 2.5f; // meters
-  }
-
-  // Debug Rendering
-  public static void DebugDrawHMDFrustum(Transform parentGameObjectTransform) {
-    Matrix TrackingToWorldTransform = Matrix.Identity;
-    Quaternion OrientationTransform = Quaternion.Identity;
-    float TrackingCameraNearPlane = 0.0f;
-    float TrackingCameraFarPlane = 0.0f;
-    float TrackingCameraHHalfRadians = 0.0f;
-    float TrackingCameraVHalfRadians = 0.0f;
-
-    ComputeTrackingToWorldTransformsAndFrustum(
-                                               parentGameObjectTransform,
-                                               ref TrackingToWorldTransform,
-                                               ref OrientationTransform,
-                                               ref TrackingCameraNearPlane,
-                                               ref TrackingCameraFarPlane,
-                                               ref TrackingCameraHHalfRadians,
-                                               ref TrackingCameraVHalfRadians);
-
-    float HorizontalRatio = (float) Math.Tan(TrackingCameraHHalfRadians);
-    float VerticalRatio = (float) Math.Tan(TrackingCameraVHalfRadians);
-
-    float HalfNearWidth = TrackingCameraNearPlane*HorizontalRatio;
-    float HalfNearHeight = TrackingCameraNearPlane*VerticalRatio;
-
-    float HalfFarWidth = TrackingCameraFarPlane*HorizontalRatio;
-    float HalfFarHeight = TrackingCameraFarPlane*VerticalRatio;
-
-    Func<Vector4, Vector3> v3 = (v) => new Vector3(v.X, v.Y, v.Z);
-    Vector3 Origin = v3(TrackingToWorldTransform.Column4);
-    Vector3 XAxis = v3(TrackingToWorldTransform.Column1);
-    Vector3 YAxis = v3(TrackingToWorldTransform.Column2);
-    Vector3 ZAxis = v3(TrackingToWorldTransform.Column3);
-
-
-    Vector3 NearV0 =
-      TrackingToWorldTransform.MultiplyPoint3x4(new Vector3(HalfNearWidth, HalfNearHeight, TrackingCameraNearPlane));
-    Vector3 NearV1 =
-      TrackingToWorldTransform.MultiplyPoint3x4(new Vector3(-HalfNearWidth, HalfNearHeight, TrackingCameraNearPlane));
-    Vector3 NearV2 =
-      TrackingToWorldTransform.MultiplyPoint3x4(new Vector3(-HalfNearWidth, -HalfNearHeight, TrackingCameraNearPlane));
-    Vector3 NearV3 =
-      TrackingToWorldTransform.MultiplyPoint3x4(new Vector3(HalfNearWidth, -HalfNearHeight, TrackingCameraNearPlane));
-
-    Vector3 FarV0 =
-      TrackingToWorldTransform.MultiplyPoint3x4(new Vector3(HalfFarWidth, HalfFarHeight, TrackingCameraFarPlane));
-    Vector3 FarV1 =
-      TrackingToWorldTransform.MultiplyPoint3x4(new Vector3(-HalfFarWidth, HalfFarHeight, TrackingCameraFarPlane));
-    Vector3 FarV2 =
-      TrackingToWorldTransform.MultiplyPoint3x4(new Vector3(-HalfFarWidth, -HalfFarHeight, TrackingCameraFarPlane));
-    Vector3 FarV3 =
-      TrackingToWorldTransform.MultiplyPoint3x4(new Vector3(HalfFarWidth, -HalfFarHeight, TrackingCameraFarPlane));
-
-    //Debug.DrawLine(Origin, FarV0, Color.yellow);
-    //Debug.DrawLine(Origin, FarV1, Color.yellow);
-    //Debug.DrawLine(Origin, FarV2, Color.yellow);
-    //Debug.DrawLine(Origin, FarV3, Color.yellow);
-    //
-    //Debug.DrawLine(NearV0, NearV1, Color.yellow);
-    //Debug.DrawLine(NearV1, NearV2, Color.yellow);
-    //Debug.DrawLine(NearV2, NearV3, Color.yellow);
-    //Debug.DrawLine(NearV3, NearV0, Color.yellow);
-    //
-    //Debug.DrawLine(FarV0, FarV1, Color.yellow);
-    //Debug.DrawLine(FarV1, FarV2, Color.yellow);
-    //Debug.DrawLine(FarV2, FarV3, Color.yellow);
-    //Debug.DrawLine(FarV3, FarV0, Color.yellow);
-    //
-    //Debug.DrawLine(Origin, Origin + XAxis, Color.red);
-    //Debug.DrawLine(Origin, Origin + YAxis, Color.green);
-    //Debug.DrawLine(Origin, Origin + ZAxis, Color.blue);
   }
 }

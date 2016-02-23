@@ -187,7 +187,7 @@ namespace OrbItProcs {
 
     public override void AIControl(AIMode aiMode) {
       //if (aiMode == AIMode.)
-      tempTurretTimer += OrbIt.gametime.ElapsedGameTime.Milliseconds;
+      tempTurretTimer += OrbIt.Game.Time.ElapsedGameTime.Milliseconds;
       if (tempTurretTimer > TurretTimerSeconds*1000) {
         float nearest = float.MaxValue;
         Node nearNode = null;

@@ -6,14 +6,16 @@ using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 
 namespace OrbItProcs {
+  public enum RenderShape
+{
+    Plane,
+    Sphere,
+    Cylinder
+}
   public class Room {
-    ////Room
-    //consts
+
     public const float WallWidth = 10;
-    //Fields
     public static long totalElapsedMilliseconds = 0;
-
-
     public int affectAlgorithm = 2;
     public bool ColorNodesInReach = false;
     public bool drawCage = true;
@@ -30,9 +32,24 @@ namespace OrbItProcs {
     public int testTimer = 0;
     public int waitTime = 5000;
     public int waitTimeCounter = 0;
+    private GeometricPrimitive renderQuad;
+    public Transform Transform;
+    private RenderShape renderShape = RenderShape.Cylinder;
 
     public Room(OrbIt game, int worldWidth, int worldHeight, bool Groups = true) {
-      groups = new RoomGroups(this);
+      Transform = new Transform();
+      switch (renderShape) {
+        case RenderShape.Plane:
+          renderQuad = GeometricPrimitive.Plane.New(OrbIt.Game.GraphicsDevice, 2, 2, 32, true);
+          break;
+        case RenderShape.Sphere:
+          renderQuad = GeometricPrimitive.Sphere.New(OrbIt.Game.GraphicsDevice, 5, 32, true);
+          break;
+        case RenderShape.Cylinder:
+          renderQuad = GeometricPrimitive.Cylinder.New(OrbIt.Game.GraphicsDevice, 2, 2, 32, true);
+          break;
+      }
+    groups = new RoomGroups(this);
       AllActiveLinks = new ObservableHashSet<Link>();
       AllInactiveLinks = new ObservableHashSet<Link>();
 
@@ -323,23 +340,28 @@ namespace OrbItProcs {
           link.GenericDraw();
         }
       }
-      OrbIt.globalGameMode.Draw();
-      //if (linkTest != null) linkTest.GenericDraw(spritebatch);
-
-
-      //player1.Draw(spritebatch);
-      //level.Draw(spritebatch);
-
+      OrbIt.GlobalGameMode.Draw();
       processManager.Draw(); //find out why we needed this and generalize later
-
       GraphData.DrawGraph();
-      //Testing.TestHues();
     }
 
-    public void drawOnly() {
-      //camera.RenderAsync();
-      //Draw();
-      //camera.CatchUp();
+    public void Draw3D() {
+      var quadEffect = new BasicEffect(OrbIt.Game.GraphicsDevice) {
+        World = Transform.getMatrix(),
+        View = OrbIt.Game.view,
+        Projection = OrbIt.Game.projection,
+        TextureEnabled = true,
+        Texture = roomRenderTarget
+      };
+      foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes) {
+        pass.Apply();
+
+        renderQuad.Draw();
+      }
+      if (camera.TakeScreenshot) {
+        camera.Screenshot();
+        camera.TakeScreenshot = false;
+      }
     }
 
     public void MakeWalls(float WallWidth) {
@@ -417,7 +439,7 @@ namespace OrbItProcs {
     }
 
     public Node spawnNode(Node newNode, Action<Node> afterSpawnAction = null, int lifetime = -1, Group g = null) {
-      Group spawngroup = g ?? OrbIt.ui.sidebar.GetActiveGroup();
+      Group spawngroup = g ?? OrbIt.UI.sidebar.GetActiveGroup();
       if (spawngroup == null || !spawngroup.Spawnable) return null;
       //newNode.name = "bullet" + Node.nodeCounter;
       return SpawnNodeHelper(newNode, afterSpawnAction, spawngroup, lifetime);
@@ -425,12 +447,12 @@ namespace OrbItProcs {
 
     public Node spawnNode(Dictionary<dynamic, dynamic> userProperties, Action<Node> afterSpawnAction = null,
                           bool blank = false, int lifetime = -1) {
-      Group activegroup = OrbIt.ui.sidebar.GetActiveGroup();
+      Group activegroup = OrbIt.UI.sidebar.GetActiveGroup();
       if (activegroup == null || !activegroup.Spawnable) return null;
 
       Node newNode = new Node(this, ShapeType.Circle);
       if (!blank) {
-        Node.cloneNode(OrbIt.ui.sidebar.ActiveDefaultNode, newNode);
+        Node.cloneNode(OrbIt.UI.sidebar.ActiveDefaultNode, newNode);
       }
       newNode.group = activegroup;
       newNode.name = activegroup.Name + Node.nodeCounter;

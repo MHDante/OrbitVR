@@ -73,7 +73,6 @@ namespace OrbItProcs {
     }
 
     public override void Update() {
-      Testing.modInc();
       if (algorithm >= 5) {
         gridsystemCollision.clearBuckets();
         foreach (var c in CollisionSetCircle) //.ToList()
@@ -85,9 +84,6 @@ namespace OrbItProcs {
           gridsystemCollision.insertToBuckets(c);
         }
       }
-
-      Testing.PrintTimer("insertion"); //oh, mama.
-
       gridsystemCollision.alreadyVisited = new HashSet<Collider>();
 
       foreach (var c in CollisionSetPolygon.ToList()) {

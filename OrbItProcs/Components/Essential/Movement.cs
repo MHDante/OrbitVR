@@ -32,7 +32,7 @@ namespace OrbItProcs {
       if (parent != null) this.parent = parent;
       randInitialVel = new Toggle<float>(8f);
       pushable = true;
-      mode = movemode.wallbounce;
+      mode = movemode.screenwrap;
       effvelocityMode = false;
     }
 

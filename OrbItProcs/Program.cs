@@ -1,7 +1,6 @@
 ﻿using System;
-using OrbItProcs;
-
-namespace RiftGame {
+namespace OrbItProcs
+{
   /// <summary>
   /// Simple RiftGame application using SharpDX.Toolkit.
   /// </summary>
@@ -15,9 +14,8 @@ namespace RiftGame {
     [STAThread]
 #endif
     static void Main() {
-      //using (var program = new RiftGame())
-      //  program.Run();
-      OrbIt.Start();
+      using (var orbit = new OrbIt())
+        orbit.Run();
     }
   }
 }

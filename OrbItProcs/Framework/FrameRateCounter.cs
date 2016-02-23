@@ -55,11 +55,11 @@ namespace OrbItProcs {
       string ups = string.Format("ups: {0}", updateRate);
       string process = "";
       //string fpsups = string.Format("fps:{0} ups:{1}", frameRate, updateRate);
-      Room room = OrbIt.game.room;
-      bool hasProcess = room != null && OrbIt.ui.keyManager.TemporaryProcess != null;
+      Room room = OrbIt.Game.Room;
+      bool hasProcess = room != null && OrbIt.UI.keyManager.TemporaryProcess != null;
       if (hasProcess) {
         y1 += 30;
-        process = OrbIt.ui.keyManager.TemporaryProcess.GetType().ToString().LastWord('.');
+        process = OrbIt.UI.keyManager.TemporaryProcess.GetType().ToString().LastWord('.');
       }
 
       room.camera.DrawStringScreen(fps, new Vector2(0, OrbIt.ScreenHeight - y1), Color.Black);

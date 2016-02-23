@@ -6,7 +6,7 @@
     <ProjectGuid>{AD7BE0BF-D32A-4C57-89D0-DB411E68EB0F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>WindowsApplication</AssemblyName>
+    <AssemblyName>OrbitVR</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -73,6 +73,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>OrbItProcs.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -190,6 +193,7 @@
     <Content Include="Includes\SDL2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="license.txt" />
     <Content Include="OrbItProcs\Game.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -257,7 +261,6 @@
     <Compile Include="OrbItProcs\Components\Movement\RandVelChange.cs" />
     <Compile Include="OrbItProcs\Components\Tracers\Laser.cs" />
     <Compile Include="OrbItProcs\Components\Tracers\PhaseOrb.cs" />
-    <Compile Include="OrbItProcs\Components\Tracers\Queuer.cs" />
     <Compile Include="OrbItProcs\Components\Tracers\Waver.cs" />
     <Compile Include="OrbItProcs\Components\Tracers\WideRay.cs" />
     <Compile Include="OrbItProcs\Framework\Camera.cs" />
@@ -338,12 +341,7 @@
     <Compile Include="OrbItProcs\Room.cs" />
     <Compile Include="OrbItProcs\RoomComponents\CollisionManager.cs" />
     <Compile Include="OrbItProcs\RoomComponents\RoomComponent.cs" />
-    <Compile Include="OrbItProcs\ScrapBox\CollisionDelegates.cs" />
-    <Compile Include="OrbItProcs\ScrapBox\Misc.cs" />
-    <Compile Include="OrbItProcs\ScrapBox\PlayerHealthBars.cs" />
-    <Compile Include="OrbItProcs\ScrapBox\Shirt.cs" />
-    <Compile Include="OrbItProcs\ScrapBox\SpiderScaps.cs" />
-    <Compile Include="OrbItProcs\ScrapBox\Testing.cs" />
+    <Compile Include="OrbItProcs\VRGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="OrbItProcs\MainForm.resx">

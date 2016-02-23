@@ -74,7 +74,6 @@ namespace OrbItProcs {
     public static SpriteFont font;
     public static Dictionary<textures, Texture2D> textureDict;
     public static Dictionary<textures, Vector2> textureCenters;
-    public static Texture2D[,] btnTextures;
     public static ObservableCollection<object> NodePresets = new ObservableCollection<object>();
     //public static Effect shaderEffect; // Shader code
 
@@ -137,50 +136,6 @@ namespace OrbItProcs {
       //TODO: btnTextures = 						content.Load<Texture2D>("Textures/buttons").sliceSpriteSheet(2, 5);
     }
 
-
-    public static void LoadNodes() {
-      throw new NotImplementedException("We need to Rework Serialization.");
-      foreach (string file in Directory.GetFiles(filepath, "*.xml")) {
-        try {
-          Node presetnode = (Node) OrbIt.game.serializer.Deserialize(file);
-          NodePresets.Add(presetnode);
-        }
-        catch (Exception e) {
-          Console.WriteLine("Failed to deserialize node: {0}", e.Message);
-        }
-      }
-    }
-
-    public static void saveNode(Node node, string name, bool overWrite = false) {
-      throw new NotImplementedException("We need to Rework Serialization.");
-      if (name.Equals("") || node == null) return;
-      name = name.Trim();
-      string filename = "Presets//Nodes//" + name + ".xml";
-      Action completeSave = delegate {
-                              //OrbIt.ui.sidebar.inspectorArea.editNode.name = name;
-                              Node serializenode = new Node(node.room);
-                              //Node.cloneNode(OrbIt.ui.sidebar.inspectorArea.editNode, serializenode);
-                              OrbIt.game.serializer.Serialize(serializenode, filename);
-                              Assets.NodePresets.Add(serializenode);
-                            };
-
-      if (File.Exists(filename)) {
-        //we must be overwriting, therefore don't update the live presetList
-        //PopUp.Prompt("OverWrite?", "O/W?", delegate(bool c, object a) { if (c) { completeSave(); PopUp.Toast("Node was overridden"); } return true; });
-      }
-      else {
-        //PopUp.Toast("Node Saved"); completeSave();
-      }
-    }
-
-    internal static void deletePreset(Node p) {
-      throw new NotImplementedException("We need to Rework Serialization.");
-      Console.WriteLine("Deleting file: " + p);
-      File.Delete(Assets.filepath + p.name + ".xml");
-      Assets.NodePresets.Remove(p);
-    }
-
-
     public static Texture2D ClippedBitmap(Texture2D t2d, Point[] pointsArray, out Point position) {
       MemoryStream mStream = new MemoryStream();
       t2d.Save(mStream, ImageFileType.Png);
@@ -208,7 +163,7 @@ namespace OrbItProcs {
       }
 
       Texture2D myTex = Texture2D.New(
-                                      OrbIt.game.GraphicsDevice,
+                                      OrbIt.Game.GraphicsDevice,
                                       bmp.Width,
                                       bmp.Height, Format.B8G8R8A8_UNorm);
 

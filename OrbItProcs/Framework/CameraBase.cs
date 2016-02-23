@@ -20,7 +20,7 @@ namespace OrbItProcs {
 
     protected CameraBase(Room room, float zoom, Vector2? pos) {
       this.room = room;
-      this.batch = new SpriteBatch(OrbIt.game.GraphicsDevice);
+      this.batch = new SpriteBatch(OrbIt.Game.GraphicsDevice);
       this.zoom = zoom;
       this.pos = pos ??
                  new Vector2(room.gridsystemAffect.position.X + room.gridsystemAffect.gridWidth/2,

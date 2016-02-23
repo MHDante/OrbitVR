@@ -58,7 +58,7 @@ namespace OrbItProcs {
         */
 
     public Player(int playerIndex) {
-      this.room = OrbIt.game.room;
+      this.room = OrbIt.Game.Room;
       this.playerIndex = playerIndex;
       if (playerIndex == 0) {
         this.input = new PcFullInput(this);
@@ -197,7 +197,7 @@ namespace OrbItProcs {
 
     public static void TryCreatePcPlayer() {
       if (players[0] == null) {
-        TryCreatePlayer(OrbIt.game.room, OrbIt.game.room.groups.player.defaultNode, 0, true);
+        TryCreatePlayer(OrbIt.Game.Room, OrbIt.Game.Room.groups.player.defaultNode, 0, true);
       }
     }
 

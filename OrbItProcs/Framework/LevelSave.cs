@@ -68,8 +68,8 @@ namespace OrbItProcs {
       string filename = Assets.levelsFilepath + "/" + name + ".xml";
       Action completeSave = delegate {
                               LevelSave levelSave = new LevelSave(group, levelWidth, levelHeight, name);
-                              OrbIt.game.serializer = new Polenter.Serialization.SharpSerializer();
-                              OrbIt.game.serializer.Serialize(levelSave, filename);
+                              OrbIt.Game.serializer = new Polenter.Serialization.SharpSerializer();
+                              OrbIt.Game.serializer.Serialize(levelSave, filename);
                               //Assets.NodePresets.Add(serializenode);
                             };
 

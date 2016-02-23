@@ -104,7 +104,7 @@ namespace OrbItProcs {
         //    }
         //}
         _active = value;
-        if (OrbIt.ui != null)
+        if (OrbIt.UI != null)
           UpdateCollisionSet();
       }
     }

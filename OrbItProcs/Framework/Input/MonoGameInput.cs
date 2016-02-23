@@ -237,7 +237,8 @@ namespace OrbItProcs {
   }
 
   static partial class GamePad {
-    internal static bool Back;
+    //Const not necessary.
+    internal const bool Back = false;
 
     private static readonly SharpDX.XInput.Controller[] _controllers = new[] {
       new SharpDX.XInput.Controller(SharpDX.XInput.UserIndex.One),
@@ -389,7 +390,7 @@ namespace OrbItProcs {
         packetNumber = xistate.PacketNumber;
         gamepad = xistate.Gamepad;
       }
-      catch (Exception ex) {}
+      catch (Exception) {}
 
       // If the device is disconnected retry it after the
       // timeout period has elapsed to avoid the overhead.
@@ -508,8 +509,8 @@ namespace OrbItProcs {
         ret |= Buttons.RightTrigger;
 
       // Check for the hardware back button.
-      if (Back)
-        ret |= Buttons.Back;
+      //if (Back)
+      // Todo: ret |= Buttons.Back;
 
       return new GamePadButtons(ret);
     }

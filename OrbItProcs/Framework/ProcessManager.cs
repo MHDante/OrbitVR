@@ -31,12 +31,12 @@ namespace OrbItProcs {
 
 
     Action enableKeyBinds<T>() where T : Process, new() {
-      return delegate { OrbIt.ui.keyManager.AddProcess(this, GetProcess<T>()); };
+      return delegate { OrbIt.UI.keyManager.AddProcess(this, GetProcess<T>()); };
     }
 
     public void SetProcessKeybinds() {
       //ToolWindow toolbar = OrbIt.ui.sidebar.toolWindow;
-      KeyManager Keybindset = OrbIt.ui.keyManager;
+      KeyManager Keybindset = OrbIt.UI.keyManager;
 
 
       Keybindset.Add("spawnnodes", new KeyBundle(KeyCodes.D1, KeyCodes.LeftShift), enableKeyBinds<SpawnNodes>());
@@ -60,10 +60,10 @@ namespace OrbItProcs {
       //toolbar.AddButton("static", enableKeyBinds<GridSpawn>(), "Spawn nodes statically to the grid.");
       //toolbar.AddButton("resize", enableKeyBinds<ResizeRoom>(), "Change the size of the Room");
 
-      Keybindset.Add("resetplayers", new KeyBundle(KeyCodes.Home), delegate { Player.ResetPlayers(OrbIt.game.room); });
+      Keybindset.Add("resetplayers", new KeyBundle(KeyCodes.Home), delegate { Player.ResetPlayers(OrbIt.Game.Room); });
 
       Keybindset.Add("pausegame", new KeyBundle(KeyCodes.F, KeyCodes.LeftShift),
-                     delegate { OrbIt.ui.IsPaused = !OrbIt.ui.IsPaused; });
+                     delegate { OrbIt.UI.IsPaused = !OrbIt.UI.IsPaused; });
 
 
       Keybindset.Add("graphdata", new KeyBundle(KeyCodes.D6, KeyCodes.LeftShift), enableKeyBinds<GraphData>());
@@ -71,7 +71,7 @@ namespace OrbItProcs {
       Keybindset.Add("polygonspawner", new KeyBundle(KeyCodes.D9, KeyCodes.LeftShift), enableKeyBinds<PolygonSpawner>());
       //Keybindset.Add("diodespawner", new KeyBundle(KeyCodes.D8, KeyCodes.LeftShift), enableKeyBinds(proc.diodeSpawner));
       Keybindset.Add("screenshot", new KeyBundle(KeyCodes.PrintScreen),
-                     () => { OrbIt.game.room.camera.TakeScreenshot = true; });
+                     () => { OrbIt.Game.Room.camera.TakeScreenshot = true; });
 
 
       Keybindset.AddProcess(this, GetProcess<CameraControl>(), false);

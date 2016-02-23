@@ -46,7 +46,7 @@
     }
 
     public override void AffectSelf() {
-      int mill = OrbIt.gametime.ElapsedGameTime.Milliseconds;
+      int mill = OrbIt.Game.Time.ElapsedGameTime.Milliseconds;
       lifetime += mill;
       if (timeUntilDeath.enabled) {
         lifeLeft += mill;

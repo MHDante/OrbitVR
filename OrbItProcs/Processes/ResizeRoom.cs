@@ -10,7 +10,7 @@ namespace OrbItProcs {
     public void resize() {
       Vector2 pos = UserInterface.WorldMousePos;
       if (pos.X < 0 || pos.Y < 0) return;
-      OrbIt.game.room.resize(pos);
+      OrbIt.Game.Room.resize(pos);
     }
 
     public override void Update() {

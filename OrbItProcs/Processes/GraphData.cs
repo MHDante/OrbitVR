@@ -82,7 +82,7 @@ namespace OrbItProcs {
       ShowFloatGraph();
       float xRange = max.X - min.X;
       float yRange = max.Y - min.Y;
-      Room room = OrbIt.game.room;
+      Room room = OrbIt.Game.Room;
       float datapoints = 0;
       foreach (float f in floatData.Keys) {
         float ratio = (f - min.X)/(max.X - min.X);

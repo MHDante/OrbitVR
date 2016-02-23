@@ -21,8 +21,7 @@ namespace OrbItProcs {
       //addProcessKeyAction("SetSpawnPosition", KeyCodes.LeftShift, OnPress: SetSpawnPosition);
       addProcessKeyAction("BatchSpawn", KeyCodes.RightClick, OnHold: BatchSpawn);
       //addProcessKeyAction("DirectionalLaunch", KeyCodes.LeftShift, KeyCodes.RightClick, OnHold: DirectionalLaunch);
-
-      addProcessKeyAction("testing", KeyCodes.OemPipe, OnPress: TestingStuff);
+      
     }
 
     public int batchSpawnNum { get; set; }
@@ -40,46 +39,7 @@ namespace OrbItProcs {
     public void SpawnNode() {
       SetRadius(room.spawnNode((int) UserInterface.WorldMousePos.X, (int) UserInterface.WorldMousePos.Y));
     }
-
-    #region Testing Region
-
-    public void TestingStuff() {
-      //
-      //room.game.testing.TestOnClick();
-      //room.game.testing.TestHashSet();
-      //room.game.testing.WhereTest();
-      //room.game.testing.ForLoops();
-      //room.game.testing.ColorsTest();
-      //room.game.testing.NormalizeTest();
-      //DateTime before = DateTime.Now;
-      //room.game.testing.LoopTesting();
-      //
-      //int diff = DateTime.Now.Millisecond - before.Millisecond;
-      //if (diff < 0)  diff += 1000;
-      //Console.WriteLine("DIFF:" + diff);
-      //
-
-      //testing.TriangleTest2();
-      //testing.TestRedirect();
-      //room.game.testing.Gridsystem();
-      //room.gridsystem.GenerateReachOffsets();
-      //room.gridsystem.PrintOffsets(10);
-      //long totalMemory = GC.GetTotalMemory(true);
-      //Console.WriteLine(totalMemory);
-      //room.gridsystem.GenerateAllReachOffsetsPerCoord(300);
-      //long totalMemoryNew = GC.GetTotalMemory(true);
-      //Console.WriteLine(totalMemoryNew);
-      //
-      //float m1 = Testing.ByteToMegabyte((int)totalMemory);
-      //float m2 = Testing.ByteToMegabyte((int)totalMemoryNew);
-      //Console.WriteLine("{0} - {1} = {2}", m2, m1, m2 - m1);
-      //room.gridsystem.PrintOffsets(max: 300, x: 0, y: 0);
-      //Testing.IndexsGridsystem();
-      //Testing.TestCountArray();
-      Testing.shittest();
-    }
-
-    #endregion
+    
 
     public void SetSpawnPosition() {
       spawnPos = UserInterface.WorldMousePos;

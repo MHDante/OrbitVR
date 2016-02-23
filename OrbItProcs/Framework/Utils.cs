@@ -75,7 +75,7 @@ namespace OrbItProcs {
 
     public static Texture2D Crop(this Texture2D image, Rectangle source) {
       var graphics = image.GraphicsDevice;
-      var ret = RenderTarget2D.New(graphics, source.Width, source.Height, OrbIt.game.pixelFormat.Format);
+      var ret = RenderTarget2D.New(graphics, source.Width, source.Height, OrbIt.Game.pixelFormat.Format);
       DepthStencilView d = null;
       var oldTargets = graphics.GetRenderTargets(out d);
 

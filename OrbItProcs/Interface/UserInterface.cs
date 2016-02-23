@@ -23,10 +23,6 @@ namespace OrbItProcs {
 
     public static string Checkmark = "\u2714";
     public static string Cross = "\u2718";
-
-
-    private int refreshCount = 0;
-
     public Action<int> ScrollAction;
     public Sidebar sidebar;
 
@@ -134,10 +130,10 @@ namespace OrbItProcs {
       //if (mouseState.XButton2 == ButtonState.Pressed)
       //    System.Console.WriteLine("X2");
 
-      MousePos = new Vector2(mouseState.X, mouseState.Y) - OrbIt.game.room.camera.CameraOffsetVect;
+      MousePos = new Vector2(mouseState.X, mouseState.Y) - OrbIt.Game.Room.camera.CameraOffsetVect;
       WorldMousePos = (MousePos/room.camera.zoom) + room.camera.virtualTopLeft;
       //ignore mouse clicks outside window
-      if (!OrbIt.isFullScreen) {
+      if (!IsPaused) {
         if (mouseState.X >= OrbIt.ScreenWidth || mouseState.X < 0 || mouseState.Y >= OrbIt.ScreenHeight ||
             mouseState.Y < 0)
           return;
@@ -200,11 +196,11 @@ namespace OrbItProcs {
     #region /// Fields ///
 
     public OrbIt game {
-      get { return OrbIt.game; }
+      get { return OrbIt.Game; }
     }
 
     public Room room {
-      get { return game.room; }
+      get { return game.Room; }
     }
 
 

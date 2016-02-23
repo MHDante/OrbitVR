@@ -6,7 +6,7 @@ namespace OrbItProcs {
     public Room room;
 
     public Gametype() {
-      room = OrbIt.game.room;
+      room = OrbIt.Game.Room;
       players = new HashSet<Player>();
     }
 

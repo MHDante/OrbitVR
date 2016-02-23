@@ -227,8 +227,8 @@ namespace OrbItProcs {
               // ----- Shader Set Parameter Code ---------
               float[] f;
               f = new float[2];
-              f[0] = OrbIt.game.GraphicsDevice.Viewport.Width;
-              f[1] = OrbIt.game.GraphicsDevice.Viewport.Height;
+              f[0] = OrbIt.Game.GraphicsDevice.Viewport.Width;
+              f[1] = OrbIt.Game.GraphicsDevice.Viewport.Height;
 
               //Assets.shaderEffect.Parameters["Viewport"].SetValue(f);
               //Assets.shaderEffect.Parameters["colour"].SetValue(gg.shaderPack.colour);

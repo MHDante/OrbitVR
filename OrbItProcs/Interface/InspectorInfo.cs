@@ -242,7 +242,7 @@ namespace OrbItProcs {
 
     public static List<InspectorInfo> GenerateList(object parent, InspectorInfo parentItem = null,
                                                    bool GenerateFields = false, UserLevel? userLevel = null) {
-      UserLevel userlevel = OrbIt.ui.sidebar.userLevel;
+      UserLevel userlevel = OrbIt.UI.sidebar.userLevel;
       if (userLevel != null) userlevel = (UserLevel) userLevel;
 
       List<InspectorInfo> list = new List<InspectorInfo>();

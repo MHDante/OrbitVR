@@ -123,10 +123,10 @@ namespace OrbItProcs {
 
     public void Deviate() {
       if (parent != null) {
-        if (OrbIt.globalGameMode != null) {
-          parent.body.color = Color.Lerp(OrbIt.globalGameMode.globalColor, Utils.randomColor(), 0.1f);
+        if (OrbIt.GlobalGameMode != null) {
+          parent.body.color = Color.Lerp(OrbIt.GlobalGameMode.globalColor, Utils.randomColor(), 0.1f);
           parent.body.permaColor = parent.body.color;
-          OrbIt.globalGameMode.globalColor = parent.body.color;
+          OrbIt.GlobalGameMode.globalColor = parent.body.color;
         }
       }
       else SetColor();

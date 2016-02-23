@@ -17,7 +17,6 @@ namespace OrbItProcs {
 
     public const mtypes CompType = mtypes.playercontrol | mtypes.item | mtypes.draw;
     Group currentGroup;
-    float deadZone = 0.5f;
     Node lastFired = null;
 
     private int shootingDelayCount = 0;

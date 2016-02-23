@@ -81,7 +81,7 @@ namespace OrbItProcs {
 
     public void CaluclateDecay() {
       if (!IsDecaying) return;
-      timePassed += OrbIt.gametime.ElapsedGameTime.Milliseconds;
+      timePassed += OrbIt.Game.Time.ElapsedGameTime.Milliseconds;
       if (timePassed > maxTime) {
         parent.RemoveComponent(this.GetType());
       }

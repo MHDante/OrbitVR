@@ -47,7 +47,7 @@ public enum PSMoveTrackingColor {
   green = 4
 };
 
-public class PSMoveManager {
+public class PSMoveManager : IDisposable {
   private static PSMoveManager ManagerInstance;
   public bool EmitHitchLogging = false;
   public PSMoveTracker_Smoothing_Type Filter3DType = PSMoveTracker_Smoothing_Type.Smoothing_LowPass;
@@ -93,10 +93,9 @@ public class PSMoveManager {
     PSMoveWorker.GetWorkerInstance().WorkerSettings.PSMoveOffset = this.PSMoveOffset;
   }
 
-  public void OnApplicationQuit() {
+  public void Dispose() {
     if (ManagerInstance != null) {
       PSMoveWorker.GetWorkerInstance().OnGameEnded();
-
       ManagerInstance = null;
     }
   }
@@ -183,7 +182,7 @@ class PSMoveWorker {
   private IntPtr psmoveapiTrackerHandle;
 
   // Number of controllers currently active
-  private int PSMoveCount;
+  //private int PSMoveCount;
   private ManualResetEvent ThreadExitedSignal;
 
   // Thread local version of the concurrent controller data

@@ -240,7 +240,7 @@ namespace OrbItProcs {
       }
       if (drawRing) {
         float scale = (radius*2f)/Assets.textureDict[textures.ring].Width;
-        float alpha = (((float) Math.Sin(OrbIt.gametime.TotalGameTime.TotalMilliseconds/300f) + 1f)/4f) + 0.25f;
+        float alpha = (((float) Math.Sin(OrbIt.Game.Time.TotalGameTime.TotalMilliseconds/300f) + 1f)/4f) + 0.25f;
         player.room.camera.Draw(textures.ring, player.node.body.pos, player.pColor*alpha, scale, Layers.Under2);
       }
       return dir;

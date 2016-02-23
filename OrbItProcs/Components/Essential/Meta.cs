@@ -163,7 +163,7 @@ namespace OrbItProcs {
 
     public void CalculateDamage(Node other, float damage) {
       if (maxHealth.enabled) {
-        float resultingDamage = OrbIt.globalGameMode.DetermineDamage(other, parent, damage)*damageMultiplier;
+        float resultingDamage = OrbIt.GlobalGameMode.DetermineDamage(other, parent, damage)*damageMultiplier;
         currentHealth = (float) Math.Max(currentHealth - resultingDamage, 0);
         currentHealth = (float) Math.Min(currentHealth, maxHealth.value);
         float percent = 0.65f;

@@ -48,7 +48,7 @@ namespace OrbItProcs {
       get { return _HandlersEnabled; }
       set {
         _HandlersEnabled = value;
-        if (parent != null && OrbIt.ui != null && parent.collision.active) {
+        if (parent != null && OrbIt.UI != null && parent.collision.active) {
           parent.collision.UpdateCollisionSet();
         }
       }
@@ -62,7 +62,7 @@ namespace OrbItProcs {
       get { return _ResolveCollision; }
       set {
         _ResolveCollision = value;
-        if (parent != null && OrbIt.ui != null && parent.collision.active) {
+        if (parent != null && OrbIt.UI != null && parent.collision.active) {
           parent.collision.UpdateCollisionSet();
         }
       }

@@ -50,7 +50,7 @@ namespace OrbItProcs {
             //{ typeof(gravity, true },
           };
           spawnPoints[v][0]++;
-          Node n = OrbIt.game.room.spawnNode(standardDictionary);
+          Node n = OrbIt.Game.Room.spawnNode(standardDictionary);
           spawnedNodes.GetOrAdd(v).Add(n);
           n.SetData("Filling", v);
           n.body.OnCollisionEnter += add;

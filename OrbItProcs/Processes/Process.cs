@@ -25,7 +25,7 @@ namespace OrbItProcs {
     }
 
     public Room room {
-      get { return OrbIt.game.room; }
+      get { return OrbIt.Game.Room; }
     }
 
     public virtual bool active {

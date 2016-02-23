@@ -74,8 +74,7 @@ namespace OrbItProcs {
         //add //{ nodeE.position, spawnPos },
         p.node = room.spawnNode(playerProps);
         p.node.name = "player" + p.playerIndex;
-
-        p.node.Comp<Queuer>().queuecount = 100;
+        
 
         Collider collider = new Collider(new Circle(25));
         p.node.collision.AddCollider("trigger", collider);
@@ -114,7 +113,6 @@ namespace OrbItProcs {
       tony.body.velocity *= 100;
       tony.name = "bigTony";
       tony.body.texture = textures.blackorb;
-      tony.Comp<Queuer>().queuecount = 100;
 
       bigtony = tony;
 
@@ -122,7 +120,7 @@ namespace OrbItProcs {
       updateScores = (ooo, eee) => {
                        foreach (var p in room.players) {
                          if (p.node == bigtony) {
-                           p.node.meta.score += OrbIt.gametime.ElapsedGameTime.Milliseconds;
+                           p.node.meta.score += OrbIt.Game.Time.ElapsedGameTime.Milliseconds;
                            if (p.node.meta.score >= maxScore) {
                              p.node.body.radius += 500;
                              p.node.body.mass += 100;

@@ -46,7 +46,7 @@ namespace OrbItProcs {
     public Group(Room room, Node defaultNode = null, Group parentGroup = null, string Name = "", bool Spawnable = true,
                  ObservableHashSet<Node> entities = null) {
       if (parentGroup != null) room = parentGroup.room;
-      this.room = room ?? OrbIt.game.room;
+      this.room = room ?? OrbIt.Game.Room;
 
       GroupId = -1;
       this.defaultNode = defaultNode ?? this.room.defaultNode;

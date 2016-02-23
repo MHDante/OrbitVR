@@ -26,7 +26,7 @@ namespace OrbItProcs {
     }
 
     public Room room {
-      get { return game.room; }
+      get { return game.Room; }
     }
 
     public UserLevel userLevel {
@@ -80,7 +80,7 @@ namespace OrbItProcs {
         //consoletextbox.Text = "";
         return;
       }
-      object currentObj = game.room;
+      object currentObj = game.Room;
 
 
       List<String> args = text.Split(' ').ToList();

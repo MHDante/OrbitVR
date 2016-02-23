@@ -42,9 +42,6 @@ namespace OrbItProcs {
     public int laserLength {
       get { return _laserLength; }
       set {
-        if (parent != null && parent.HasComp<Queuer>() && parent.Comp<Queuer>().queuecount < value) {
-          parent.Comp<Queuer>().queuecount = value;
-        }
         _laserLength = value;
       }
     }
