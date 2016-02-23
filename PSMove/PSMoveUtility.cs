@@ -1,5 +1,4 @@
-﻿using System;
-using OrbItProcs;
+﻿using OrbItProcs;
 using SharpDX;
 using SharpOVR;
 

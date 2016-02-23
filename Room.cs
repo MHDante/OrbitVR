@@ -13,8 +13,6 @@ namespace OrbItProcs {
     Cylinder
 }
   public class Room {
-
-    public const float WallWidth = 10;
     public static long totalElapsedMilliseconds = 0;
     public int affectAlgorithm = 2;
     public bool ColorNodesInReach = false;

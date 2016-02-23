@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 

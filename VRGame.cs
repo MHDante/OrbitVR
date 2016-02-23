@@ -153,5 +153,14 @@ namespace OrbItProcs {
         PsMoveController.Update();
       }
     }
+
+    protected override void Dispose(bool disposeManagedResources)
+    {
+      base.Dispose(disposeManagedResources);
+      if (disposeManagedResources)
+      {
+        OVR.Shutdown();
+      }
+    }
   }
 }
