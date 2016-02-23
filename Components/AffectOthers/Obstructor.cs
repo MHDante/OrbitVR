@@ -17,21 +17,6 @@ namespace OrbitVR.Components.AffectOthers {
     List<KeyValuePair<float, Node>> nodeDistances;
 
     public Node[] walls;
-    public Obstructor() : this(null) {}
-
-    public Obstructor(Node parent) {
-      this.parent = parent;
-      nodeDistances = new List<KeyValuePair<float, Node>>();
-      maxWalls = 5;
-      thickness = 10;
-      radius = 500;
-      onlyObstructors = true;
-
-      walls = new Node[maxWalls];
-      for (int i = 0; i < maxWalls; i++) {
-        walls[i] = CreateBlankWallPoly();
-      }
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -79,6 +64,22 @@ namespace OrbitVR.Components.AffectOthers {
     /// </summary>
     [Info(UserLevel.User, "No Half walls.")]
     public bool onlyAvailableObs { get; set; }
+
+    public Obstructor() : this(null) {}
+
+    public Obstructor(Node parent) {
+      this.parent = parent;
+      nodeDistances = new List<KeyValuePair<float, Node>>();
+      maxWalls = 5;
+      thickness = 10;
+      radius = 500;
+      onlyObstructors = true;
+
+      walls = new Node[maxWalls];
+      for (int i = 0; i < maxWalls; i++) {
+        walls[i] = CreateBlankWallPoly();
+      }
+    }
 
     public Node CreateBlankWallPoly() {
       Node wall = Node.ContructLineWall(room, parent.body.pos, parent.body.pos, thickness, addToWallGroup: false);

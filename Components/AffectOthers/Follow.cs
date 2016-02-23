@@ -29,16 +29,6 @@ namespace OrbitVR.Components.AffectOthers {
     List<Vector2> directions = new List<Vector2>();
     float nearestDistSqrd = float.MaxValue;
     Node nearestNode = null;
-    public Follow() : this(null) {}
-
-    public Follow(Node parent) {
-      this.parent = parent;
-      radius = 600;
-      flee = false;
-      LerpPercent = 10f;
-      FollowMode = followMode.FollowNearest;
-      LeadMode = leadMode.LeadNone;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -61,6 +51,17 @@ namespace OrbitVR.Components.AffectOthers {
     public float LerpPercent { get; set; }
     public followMode FollowMode { get; set; }
     public leadMode LeadMode { get; set; }
+    public Follow() : this(null) {}
+
+    public Follow(Node parent) {
+      this.parent = parent;
+      radius = 600;
+      flee = false;
+      LerpPercent = 10f;
+      FollowMode = followMode.FollowNearest;
+      LeadMode = leadMode.LeadNone;
+    }
+
     public Link link { get; set; }
 
     public override void AffectOther(Node other) {

@@ -87,6 +87,19 @@ namespace OrbitVR.Interface {
 
     public string ToolTip = "";
     public String whitespace = "";
+
+    public object parentobj {
+      get { return parentItem.obj; }
+    }
+
+    public InspectorInfo parentItem {
+      get { return _parentItem; }
+      set {
+        _parentItem = value;
+        if (value != null) showValueToString = parentItem.showValueToString;
+      }
+    }
+
     //root item
     public InspectorInfo(IList<object> masterList, object obj, Sidebar sidebar, bool showValueToString = false) {
       this.showValueToString = showValueToString;
@@ -189,18 +202,6 @@ namespace OrbitVR.Interface {
       prefix = "" + ((char) 164);
       //this.inspectorArea = parentItem.inspectorArea;
       this.sidebar = parentItem.sidebar;
-    }
-
-    public object parentobj {
-      get { return parentItem.obj; }
-    }
-
-    public InspectorInfo parentItem {
-      get { return _parentItem; }
-      set {
-        _parentItem = value;
-        if (value != null) showValueToString = parentItem.showValueToString;
-      }
     }
 
     private void FieldOrPropertyInitilize(IList<object> masterList, InspectorInfo parentItem, object obj) {

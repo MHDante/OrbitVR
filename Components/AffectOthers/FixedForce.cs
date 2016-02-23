@@ -14,14 +14,6 @@ namespace OrbitVR.Components.AffectOthers {
 
     private Vector2 _force = new Vector2(0, 1);
 
-    public FixedForce() : this(null) {}
-
-    public FixedForce(Node parent) {
-      if (parent != null) this.parent = parent;
-      multiplier = 1f;
-      terminal = new Toggle<float>(5f, true);
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -58,6 +50,14 @@ namespace OrbitVR.Components.AffectOthers {
       "Determine if we should stop pushing the other node after his velocity exceeds this value in the direction of the force we are applying."
       )]
     public Toggle<float> terminal { get; set; }
+
+    public FixedForce() : this(null) {}
+
+    public FixedForce(Node parent) {
+      if (parent != null) this.parent = parent;
+      multiplier = 1f;
+      terminal = new Toggle<float>(5f, true);
+    }
 
     [Info(UserLevel.Developer)]
     public Link link { get; set; }

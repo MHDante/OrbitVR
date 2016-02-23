@@ -5,14 +5,14 @@ namespace OrbitVR.Processes {
   public class TripSpawnOnCollide : Process {
     public int colCount = 0;
 
+    public Node triggerNode { get; set; }
+
     public TripSpawnOnCollide(Node node) : base() {
       this.triggerNode = node;
 
       OnCollision += CollisionEvent;
       triggerNode.body.OnCollisionStay += InvokeOnCollision;
     }
-
-    public Node triggerNode { get; set; }
 
 
     public void CollisionEvent(Node me, Node it) {

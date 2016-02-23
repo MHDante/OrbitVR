@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace OrbitVR
-{
+namespace OrbitVR {
   [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
   [SuppressMessage("ReSharper", "ConvertToConstant.Global")]
   internal static class DebugFlags {

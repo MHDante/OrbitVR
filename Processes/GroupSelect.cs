@@ -23,7 +23,7 @@ namespace OrbitVR.Processes {
       float upperx = Math.Max(mousePos.X, groupSelectionBoxOrigin.X);
       float lowery = Math.Min(mousePos.Y, groupSelectionBoxOrigin.Y);
       float uppery = Math.Max(mousePos.Y, groupSelectionBoxOrigin.Y);
-      
+
       room.Camera.DrawRect(new Vector2(lowerx, lowery), new Vector2(upperx, uppery), Color.White);
       //Todo: don't draw on update.
       //Console.WriteLine(mousePos.X + " " + glob.X);
@@ -34,16 +34,13 @@ namespace OrbitVR.Processes {
     }
 
     public override void Draw() {
-      if (Manager.processDict.ContainsKey(typeof(GroupSelect)))
-      {
+      if (Manager.processDict.ContainsKey(typeof (GroupSelect))) {
         HashSet<Node> groupset = Manager.GetProcess<GroupSelect>().groupSelectSet;
-        if (groupset != null)
-        {
+        if (groupset != null) {
           room.TargetNodeGraphic.body.color = Color.LimeGreen;
-          foreach (Node n in groupset.ToList())
-          {
+          foreach (Node n in groupset.ToList()) {
             room.TargetNodeGraphic.body.pos = n.body.pos;
-            room.TargetNodeGraphic.body.radius = n.body.radius * 1.5f;
+            room.TargetNodeGraphic.body.radius = n.body.radius*1.5f;
             room.TargetNodeGraphic.Draw();
           }
         }

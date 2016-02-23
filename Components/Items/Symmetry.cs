@@ -21,15 +21,15 @@ namespace OrbitVR.Components.Items {
 
     Queue<Link> links = new Queue<Link>();
 
+    public override mtypes compType {
+      get { return CompType; }
+      set { }
+    }
+
     public Symmetry() : this(null) {}
 
     public Symmetry(Node parent) {
       this.parent = parent;
-    }
-
-    public override mtypes compType {
-      get { return CompType; }
-      set { }
     }
 
     public override void PlayerControl(Input input) {

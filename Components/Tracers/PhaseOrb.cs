@@ -9,15 +9,6 @@ namespace OrbitVR.Components.Tracers {
     public const mtypes CompType = mtypes.draw | mtypes.tracer;
 
     private int _phaserLength = 10;
-    public PhaseOrb() : this(null) {}
-
-    public PhaseOrb(Node parent = null) {
-      if (parent != null) {
-        this.parent = parent;
-      }
-      InitializeLists();
-      fade = new Toggle<int>(phaserLength);
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -34,6 +25,15 @@ namespace OrbitVR.Components.Tracers {
     }
 
     public Toggle<int> fade { get; set; }
+    public PhaseOrb() : this(null) {}
+
+    public PhaseOrb(Node parent = null) {
+      if (parent != null) {
+        this.parent = parent;
+      }
+      InitializeLists();
+      fade = new Toggle<int>(phaserLength);
+    }
 
     public override void AfterCloning() {
       //if (!parent.HasComp<Queuer>()) parent.addComponent(comp.queuer, true);

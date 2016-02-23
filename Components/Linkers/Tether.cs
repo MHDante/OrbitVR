@@ -26,15 +26,6 @@ namespace OrbitVR.Components.Linkers {
 
     private Dictionary<Node, int> lockedVals;
 
-    public Tether() : this(null) {}
-
-    public Tether(Node parent = null) {
-      activated = true;
-      if (parent != null) {
-        this.parent = parent;
-      }
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -106,6 +97,15 @@ namespace OrbitVR.Components.Linkers {
       set {
         _mindist = value;
         if (_mindist > _maxdist) _mindist = _maxdist;
+      }
+    }
+
+    public Tether() : this(null) {}
+
+    public Tether(Node parent = null) {
+      activated = true;
+      if (parent != null) {
+        this.parent = parent;
       }
     }
 

@@ -30,16 +30,6 @@ namespace OrbitVR.Components.Essential {
     public float friction = 0.01f;
     private float v = 0.0f;
 
-    public Movement() : this(null) {}
-
-    public Movement(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      randInitialVel = new Toggle<float>(8f);
-      pushable = true;
-      mode = movemode.screenwrap;
-      effvelocityMode = false;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -94,6 +84,16 @@ namespace OrbitVR.Components.Essential {
     }
 
     public bool effvelocityMode { get; set; }
+
+    public Movement() : this(null) {}
+
+    public Movement(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      randInitialVel = new Toggle<float>(8f);
+      pushable = true;
+      mode = movemode.screenwrap;
+      effvelocityMode = false;
+    }
 
     public override void OnSpawn() {
       if (randInitialVel) RandomizeVelocity();

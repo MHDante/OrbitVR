@@ -10,20 +10,6 @@ namespace OrbitVR.Components.Movement {
   public class Circler : Component {
     public const mtypes CompType = mtypes.affectself;
 
-    public Circler() : this(null) {}
-
-    public Circler(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      angleVelocity = 0.01f;
-      angleAcceleration = 0.001f;
-      maxVel = 0.3f;
-      minVel = 0f;
-      angle = 0f;
-      maxAngle = 3.14f;
-      minAngle = -3.14f;
-      loop = true;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -82,6 +68,20 @@ namespace OrbitVR.Components.Movement {
       "if enabled, minAngle and maxAngle will no longer invert the angleChange, but will now reset the angle to produce a trippy effect."
       )]
     public bool loop { get; set; }
+
+    public Circler() : this(null) {}
+
+    public Circler(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      angleVelocity = 0.01f;
+      angleAcceleration = 0.001f;
+      maxVel = 0.3f;
+      minVel = 0f;
+      angle = 0f;
+      maxAngle = 3.14f;
+      minAngle = -3.14f;
+      loop = true;
+    }
 
     public override void OnSpawn() {
       //base.OnSpawn();

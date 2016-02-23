@@ -21,21 +21,6 @@ namespace OrbitVR.Framework {
         //*/
     private int _queuecount = 10;
 
-    public QueueInfo(
-      FPInfo fpInfo,
-      object obj,
-      int queuecount,
-      string id = ""
-      //Type type = typeof(object)
-      ) {
-      this.fpInfo = fpInfo;
-      this.obj = obj;
-      this.queuecount = queuecount;
-      this.id = id;
-      //this.elementType = type;
-      this.queue = new Queue<object>();
-    }
-
     public int queuecount {
       get { return _queuecount; }
       set { _queuecount = value; }
@@ -64,6 +49,21 @@ namespace OrbitVR.Framework {
     public object obj {
       get { return obj; }
       set { obj = value; }
+    }
+
+    public QueueInfo(
+      FPInfo fpInfo,
+      object obj,
+      int queuecount,
+      string id = ""
+      //Type type = typeof(object)
+      ) {
+      this.fpInfo = fpInfo;
+      this.obj = obj;
+      this.queuecount = queuecount;
+      this.id = id;
+      //this.elementType = type;
+      this.queue = new Queue<object>();
     }
 
     public void TriggerQueueify() {

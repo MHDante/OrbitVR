@@ -12,7 +12,6 @@ namespace OrbitVR.Framework {
 
     public Room room;
     public float zoom;
-    public Camera(Room room, float zoom = 0.5f, Vector2? pos = null) {} // : base(room, zoom, pos) {}
 
     public static int CameraOffset {
       get { return _CameraOffset; }
@@ -21,6 +20,8 @@ namespace OrbitVR.Framework {
         CameraOffsetVect = new Vector2(value, 0);
       }
     }
+
+    public Camera(Room room, float zoom = 0.5f, Vector2? pos = null) {} // : base(room, zoom, pos) {}
 
     public virtual void Draw(textures texture, Vector2 position, Color color, float scale) {
       color *= ((float) color.A/255f);

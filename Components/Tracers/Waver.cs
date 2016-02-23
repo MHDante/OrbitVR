@@ -21,21 +21,6 @@ namespace OrbitVR.Components.Tracers {
 
     private float vshift = 0f;
     private float yval = 0f;
-    public Waver() : this(null) {}
-
-    public Waver(Node parent = null) {
-      if (parent != null) {
-        this.parent = parent;
-      }
-      amp = 20;
-      period = 1000;
-      composite = 1;
-      waveScale = 0.3f;
-      Length = 50;
-      reflective = true;
-      drawLines = true;
-      drawSpin = false;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -83,6 +68,21 @@ namespace OrbitVR.Components.Tracers {
 
     public bool drawLines { get; set; }
     public bool drawSpin { get; set; }
+    public Waver() : this(null) {}
+
+    public Waver(Node parent = null) {
+      if (parent != null) {
+        this.parent = parent;
+      }
+      amp = 20;
+      period = 1000;
+      composite = 1;
+      waveScale = 0.3f;
+      Length = 50;
+      reflective = true;
+      drawLines = true;
+      drawSpin = false;
+    }
 
     public override void AfterCloning() {
       parent.addComponent(typeof (Lifetime), true);

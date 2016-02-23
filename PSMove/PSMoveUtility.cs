@@ -75,7 +75,8 @@ namespace OrbitVR.PSMove {
 
         // Compute the tracking camera location in world space
         Vector3 TrackingCameraWorldSpaceOrigin = Vector3.Transform(TrackingCameraOrigin,
-                                                                   ParentGameObjectOrientation) + ParentGameObjectLocation;
+                                                                   ParentGameObjectOrientation) +
+                                                 ParentGameObjectLocation;
 
         // Compute the Transform to go from Tracking Camera Space to World Space
         TrackingSpaceToWorldSpacePosition = Matrix.RotationQuaternion(TrackingCameraToGameRotation)*

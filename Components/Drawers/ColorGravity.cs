@@ -37,24 +37,6 @@ namespace OrbitVR.Components.Drawers {
 
     private float r;
 
-
-    //public bool inverse
-
-    public ColorGravity() : this(null) {}
-
-    public ColorGravity(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      colvelocity = new Vector3(0f, 0f, 0f);
-      multiplier = 1f;
-      distancemod = DistanceMod.color;
-      mode = Mode.rgb;
-      huevelocity = 0f;
-      hue = 0f;
-      divisor = 1000f;
-      maxhuevel = 10f;
-      friction = 0.9f;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -103,6 +85,24 @@ namespace OrbitVR.Components.Drawers {
     /// </summary>
     [Info(UserLevel.Advanced, "Maximum Color velocity")]
     public float maxhuevel { get; set; }
+
+
+    //public bool inverse
+
+    public ColorGravity() : this(null) {}
+
+    public ColorGravity(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      colvelocity = new Vector3(0f, 0f, 0f);
+      multiplier = 1f;
+      distancemod = DistanceMod.color;
+      mode = Mode.rgb;
+      huevelocity = 0f;
+      hue = 0f;
+      divisor = 1000f;
+      maxhuevel = 10f;
+      friction = 0.9f;
+    }
 
     [Info(UserLevel.Developer)]
     public Link link { get; set; }

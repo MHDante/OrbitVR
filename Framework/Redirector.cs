@@ -21,16 +21,6 @@ namespace OrbitVR.Framework {
     public Dictionary<string, Action<object, object>> setDelegates = new Dictionary<string, Action<object, object>>();
     public Dictionary<string, object> SetPropertyToObject = new Dictionary<string, object>();
 
-    public Redirector() {
-      /*
-            List<PropertyInfo> pinfos = typeof(Redirector).GetProperties().ToList();
-            foreach (PropertyInfo pinfo in pinfos)
-            {
-                
-            }
-            */
-    }
-
     public object Parent {
       get { return _Parent; }
       set {
@@ -90,6 +80,16 @@ namespace OrbitVR.Framework {
           throw e;
         }
       }
+    }
+
+    public Redirector() {
+      /*
+            List<PropertyInfo> pinfos = typeof(Redirector).GetProperties().ToList();
+            foreach (PropertyInfo pinfo in pinfos)
+            {
+                
+            }
+            */
     }
 
     public void AssignObjectToPropertiesAll(object o, bool OnlyUninhabited = false, bool AssignGetters = true,

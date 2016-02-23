@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using OrbitVR.Components.Drawers;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
@@ -15,6 +14,16 @@ namespace OrbitVR.Framework {
     public Room room;
     private double x = 0;
 
+    public bool TakeScreenshot { get; set; }
+
+    public Vector2 virtualTopLeft {
+      get { return pos - new Vector2(room.GridsystemAffect.gridWidth/2, room.GridsystemAffect.gridHeight/2)*1/zoom; }
+    }
+
+    public float zoom { get; set; }
+    public Vector2 CameraOffsetVect { get; set; }
+    public Vector2 pos { get; set; }
+
     static CameraBase() {
       pen = new System.Drawing.Pen(new System.Drawing.Color());
     }
@@ -27,16 +36,6 @@ namespace OrbitVR.Framework {
                  new Vector2(room.GridsystemAffect.position.X + room.GridsystemAffect.gridWidth/2,
                              10 + room.GridsystemAffect.position.Y + room.GridsystemAffect.gridHeight/2);
     }
-
-    public bool TakeScreenshot { get; set; }
-
-    public Vector2 virtualTopLeft {
-      get { return pos - new Vector2(room.GridsystemAffect.gridWidth/2, room.GridsystemAffect.gridHeight/2)*1/zoom; }
-    }
-
-    public float zoom { get; set; }
-    public Vector2 CameraOffsetVect { get; set; }
-    public Vector2 pos { get; set; }
 
     public abstract void AddPermanentDraw(textures texture, Vector2 position, Color color, Vector2 scalevect,
                                           float rotation, int life);
@@ -65,9 +64,8 @@ namespace OrbitVR.Framework {
 
     public abstract void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                               Vector2 origin, float scale, Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
-    
-    
-    
+
+
     public abstract void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, Layers Layer);
     public abstract void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life);
 
@@ -89,7 +87,6 @@ namespace OrbitVR.Framework {
     }
 
     public void DrawRect(Vector2 min, Vector2 max, Color borderColor) {
-
       DrawLine(min, new Vector2(max.X, min.Y), 2, borderColor, Layers.Under5);
       DrawLine(min, new Vector2(min.X, max.Y), 2, borderColor, Layers.Under5);
       DrawLine(new Vector2(min.X, max.Y), max, 2, borderColor, Layers.Under5);
@@ -100,10 +97,10 @@ namespace OrbitVR.Framework {
   public struct Line {
     public Vector2 Start;
     public Vector2 End;
-    public Line(int x1, int y1, int x2, int y2) : this()
-    {
-      Start = new Vector2(x1,y1);
-      End = new Vector2(x2,y2);
+
+    public Line(int x1, int y1, int x2, int y2) : this() {
+      Start = new Vector2(x1, y1);
+      End = new Vector2(x2, y2);
     }
   }
 }

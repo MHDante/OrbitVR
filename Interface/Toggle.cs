@@ -2,14 +2,14 @@
 
 namespace OrbitVR.Interface {
   public class Toggle<T> {
+    //create an OnChanged event here in replacement for properties for declarers of toggles
+    public T value { get; set; }
+    public bool enabled { get; set; }
+
     public Toggle(T Value, bool Enabled = true) {
       value = Value;
       enabled = Enabled;
     }
-
-    //create an OnChanged event here in replacement for properties for declarers of toggles
-    public T value { get; set; }
-    public bool enabled { get; set; }
 
     public override string ToString() {
       if (value == null) return "";

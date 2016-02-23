@@ -10,13 +10,6 @@ namespace OrbitVR.Components.Meta {
     private Toggle<int> _timeUntilDeath;
     //amount of 'dying time' contributed to the timeUntilDead, before the node dies. (if timeUntildead is not enabled, this stays at 0.)
     private int lifeLeft = 0;
-    public Lifetime() : this(null) {}
-
-    public Lifetime(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      timeUntilDeath = new Toggle<int>(5000, false);
-      lifetime = 0;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -41,6 +34,14 @@ namespace OrbitVR.Components.Meta {
     /// </summary>
     [Info(UserLevel.Developer, "How many milliseconds have passed since this node was spawned")]
     public int lifetime { get; set; }
+
+    public Lifetime() : this(null) {}
+
+    public Lifetime(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      timeUntilDeath = new Toggle<int>(5000, false);
+      lifetime = 0;
+    }
 
     public override void OnSpawn() {
       lifetime = 0;

@@ -249,11 +249,13 @@ namespace OrbitVR.PSMove { /* The following functions are bindings to Thomas Per
 
     [DllImport("psmoveapi_tracker.dll")]
     public static extern void psmove_tracker_get_smoothing_settings(IntPtr tracker,
-                                                                    ref PSMoveTrackerSmoothingSettings smoothing_settings);
+                                                                    ref PSMoveTrackerSmoothingSettings
+                                                                      smoothing_settings);
 
     [DllImport("psmoveapi_tracker.dll")]
     public static extern void psmove_tracker_set_smoothing_settings(IntPtr tracker,
-                                                                    ref PSMoveTrackerSmoothingSettings smoothing_settings);
+                                                                    ref PSMoveTrackerSmoothingSettings
+                                                                      smoothing_settings);
 
     [DllImport("psmoveapi_tracker.dll")]
     public static extern void psmove_tracker_set_exposure(IntPtr tracker, PSMoveTracker_Exposure exposure);
@@ -287,7 +289,8 @@ namespace OrbitVR.PSMove { /* The following functions are bindings to Thomas Per
     public static extern void psmove_fusion_free(IntPtr psmove_fusion);
 
     [DllImport("psmoveapi_tracker.dll")]
-    public static extern void psmove_fusion_get_position(IntPtr psmove_fusion, IntPtr psmove, ref float xcm, ref float ycm,
+    public static extern void psmove_fusion_get_position(IntPtr psmove_fusion, IntPtr psmove, ref float xcm,
+                                                         ref float ycm,
                                                          ref float zcm);
 
     [DllImport("psmoveapi_tracker.dll")]

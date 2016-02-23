@@ -16,8 +16,6 @@ namespace OrbitVR.Physics {
 
     public Body body; //{ get; set; }
     public Mat22 u; // { get; set; }
-
-    public Shape() {}
     public float radius { get; set; }
 
     //public Body bodyP { get { return body; } set { body = value; } }
@@ -25,6 +23,8 @@ namespace OrbitVR.Physics {
       get { return u; }
       set { u = value; }
     }
+
+    public Shape() {}
 
     public abstract Shape Clone();
     public abstract void Initialize();
@@ -72,19 +72,6 @@ namespace OrbitVR.Physics {
     private Vector2 trueOffset;
     public Vector2[] vertices = new Vector2[MaxPolyVertexCount];
 
-
-    public Polygon() {
-      if (radius == 0) radius = 1;
-      LineThickness = 1f;
-      RecurseDrawEnabled = false;
-      RecurseCount = 1;
-      RecurseScaleReduction = 0.2f;
-      FillEnabled = false;
-      if (body != null) {
-        body.orient = body.orient;
-      }
-    }
-
     public int vertexCount { get; set; }
 
     public float LineThickness { get; set; }
@@ -125,6 +112,19 @@ namespace OrbitVR.Physics {
           normals[i].X = value[i, 0];
           normals[i].Y = value[i, 1];
         }
+      }
+    }
+
+
+    public Polygon() {
+      if (radius == 0) radius = 1;
+      LineThickness = 1f;
+      RecurseDrawEnabled = false;
+      RecurseCount = 1;
+      RecurseScaleReduction = 0.2f;
+      FillEnabled = false;
+      if (body != null) {
+        body.orient = body.orient;
       }
     }
 

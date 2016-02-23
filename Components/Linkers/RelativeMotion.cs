@@ -11,6 +11,12 @@ namespace OrbitVR.Components.Linkers {
   ]
   public class RelativeMotion : Component, ILinkable {
     public const mtypes CompType = mtypes.affectself;
+
+    public override mtypes compType {
+      get { return CompType; }
+      set { }
+    }
+
     //public int _maxdist = 300;
     //public int maxdist { get { return _maxdist; } set { _maxdist = value; if (_maxdist < _mindist) _maxdist = _mindist; } }
     //public int _mindist = 100;
@@ -22,11 +28,6 @@ namespace OrbitVR.Components.Linkers {
       if (parent != null) {
         this.parent = parent;
       }
-    }
-
-    public override mtypes compType {
-      get { return CompType; }
-      set { }
     }
 
     public Link link { get; set; }

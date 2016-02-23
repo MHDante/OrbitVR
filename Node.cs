@@ -91,63 +91,6 @@ namespace OrbitVR {
 
     private bool triggerSortComponentsUpdate = false, triggerSortComponentsDraw = false, triggerRemoveComponent = false;
 
-    public Node(Room room) : this(room, ShapeType.Circle) {}
-
-    public Node(Room room, ShapeType shapetype) {
-      this.room = room;
-      //("Everyone else must use the Parameterized constructor and pass a room reference.");
-      name = name + nodeCounter;
-      nodeCounter++;
-      meta = new Meta(this);
-      movement = new Movement(this);
-
-      Shape shape = null;
-      if (shapetype == ShapeType.Circle) {
-        shape = new Circle(defaultNodeSize);
-      }
-      else if (shapetype == ShapeType.Polygon) {
-        shape = new Polygon();
-      }
-
-      body = new Body(shape: shape, parent: this);
-      body.radius = defaultNodeSize;
-      collision = new Collision(this);
-      basicdraw = new BasicDraw(this);
-      movement.active = true;
-      collision.active = true;
-      basicdraw.active = true;
-      IsAI = false;
-      affectAction = (source, other) => {
-                       //todo: extend to check for every component for finer control if necessary
-                       if (source.parent.AffectExclusionCheck != null &&
-                           source.parent.AffectExclusionCheck(other.parent)) return;
-                       foreach (Type t in source.parent.aOtherProps) {
-                         if (!source.parent.comps[t].active) continue;
-                         source.parent.comps[t].AffectOther(other.parent);
-                       }
-                     };
-    }
-
-    public Node(Room room, Dictionary<dynamic, dynamic> userProps, ShapeType shapetype = ShapeType.Circle)
-      : this(room, shapetype) {
-      if (userProps != null) {
-        // add the userProps to the props
-        foreach (dynamic p in userProps.Keys) {
-          // if the key is a Type, we need to add the component to comps dict
-          if (p is Type) {
-            Type c = (Type) p;
-            fetchComponent(c, userProps[c]);
-          }
-          // if the key is a nodeE, we need to update the instance variable value
-          else if (p is nodeE) {
-            nodeE nn = (nodeE) p;
-            storeInInstance(nn, userProps);
-          }
-        }
-      }
-      SortComponentLists();
-    }
-
     public state nodeState {
       get { return _nodeState; }
       set { _nodeState = value; }
@@ -320,6 +263,63 @@ namespace OrbitVR {
       }
     }
 
+    public Node(Room room) : this(room, ShapeType.Circle) {}
+
+    public Node(Room room, ShapeType shapetype) {
+      this.room = room;
+      //("Everyone else must use the Parameterized constructor and pass a room reference.");
+      name = name + nodeCounter;
+      nodeCounter++;
+      meta = new Meta(this);
+      movement = new Movement(this);
+
+      Shape shape = null;
+      if (shapetype == ShapeType.Circle) {
+        shape = new Circle(defaultNodeSize);
+      }
+      else if (shapetype == ShapeType.Polygon) {
+        shape = new Polygon();
+      }
+
+      body = new Body(shape: shape, parent: this);
+      body.radius = defaultNodeSize;
+      collision = new Collision(this);
+      basicdraw = new BasicDraw(this);
+      movement.active = true;
+      collision.active = true;
+      basicdraw.active = true;
+      IsAI = false;
+      affectAction = (source, other) => {
+                       //todo: extend to check for every component for finer control if necessary
+                       if (source.parent.AffectExclusionCheck != null &&
+                           source.parent.AffectExclusionCheck(other.parent)) return;
+                       foreach (Type t in source.parent.aOtherProps) {
+                         if (!source.parent.comps[t].active) continue;
+                         source.parent.comps[t].AffectOther(other.parent);
+                       }
+                     };
+    }
+
+    public Node(Room room, Dictionary<dynamic, dynamic> userProps, ShapeType shapetype = ShapeType.Circle)
+      : this(room, shapetype) {
+      if (userProps != null) {
+        // add the userProps to the props
+        foreach (dynamic p in userProps.Keys) {
+          // if the key is a Type, we need to add the component to comps dict
+          if (p is Type) {
+            Type c = (Type) p;
+            fetchComponent(c, userProps[c]);
+          }
+          // if the key is a nodeE, we need to update the instance variable value
+          else if (p is nodeE) {
+            nodeE nn = (nodeE) p;
+            storeInInstance(nn, userProps);
+          }
+        }
+      }
+      SortComponentLists();
+    }
+
     public event EventHandler OnAffectOthers;
 
     public void storeInInstance(nodeE val, Dictionary<dynamic, dynamic> dict) {
@@ -426,7 +426,6 @@ namespace OrbitVR {
         else {
           room.GridsystemAffect.retrieveOffsetArraysAffect(body, affectAction, affectionReach);
         }
-        
       }
       if (OnAffectOthers != null) OnAffectOthers.Invoke(this, null);
 

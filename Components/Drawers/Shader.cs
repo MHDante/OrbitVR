@@ -30,19 +30,6 @@ namespace OrbitVR.Components.Drawers {
     public const mtypes CompType = mtypes.draw;
     public ShaderPack shaderPack;
 
-    //public static float startx;
-    //public static float endx;
-
-    public Shader() : this(null) {}
-
-    public Shader(Node parent = null) {
-      shaderPack.enabled = 1;
-
-      if (parent != null) this.parent = parent;
-      // On creation, shader is enabled
-      diffuse = new Toggle<int>(128, false);
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -61,6 +48,19 @@ namespace OrbitVR.Components.Drawers {
     /// 
     [Info(UserLevel.User, "If enabled, the color's diffuse changes to this value (0-255).")]
     public Toggle<int> diffuse { get; set; }
+
+    //public static float startx;
+    //public static float endx;
+
+    public Shader() : this(null) {}
+
+    public Shader(Node parent = null) {
+      shaderPack.enabled = 1;
+
+      if (parent != null) this.parent = parent;
+      // On creation, shader is enabled
+      diffuse = new Toggle<int>(128, false);
+    }
 
     public override void Draw() {
       Color c = this.parent.body.color;

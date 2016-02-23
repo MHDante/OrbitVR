@@ -31,19 +31,6 @@ namespace OrbitVR.Components.Items {
     private int ammo;
     private int shootingRateCount = 0;
     private float tempTurretTimer = 0;
-    public Shooter() : this(null) {}
-
-    public Shooter(Node parent) {
-      this.parent = parent;
-      bulletLife = 700;
-      shootingDelay = 50;
-      speed = 15f;
-      damage = 10f;
-      shootMode = ShootMode.Single;
-      useStickVelocity = false;
-      maxAmmo = new Toggle<int>(50, false);
-      TurretTimerSeconds = 1;
-    }
 
     public override bool active {
       get { return base.active; }
@@ -132,6 +119,20 @@ namespace OrbitVR.Components.Items {
     /// </summary>
     [Info(UserLevel.User, "The time interval between which the AI will shoot a bullet from the turret.")]
     public float TurretTimerSeconds { get; set; }
+
+    public Shooter() : this(null) {}
+
+    public Shooter(Node parent) {
+      this.parent = parent;
+      bulletLife = 700;
+      shootingDelay = 50;
+      speed = 15f;
+      damage = 10f;
+      shootMode = ShootMode.Single;
+      useStickVelocity = false;
+      maxAmmo = new Toggle<int>(50, false);
+      TurretTimerSeconds = 1;
+    }
 
     public override void OnSpawn() {
       Action<Node> ap = (n) => { if (maxAmmo.enabled && ammo < maxAmmo) ammo++; };

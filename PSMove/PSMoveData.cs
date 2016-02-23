@@ -34,6 +34,7 @@ using System;
 using SharpDX;
 
 namespace OrbitVR.PSMove { // Per-Move Controller data needed by the worker.
+
   public class PSMoveRawControllerData_Base {
     public UInt32 Buttons;
     public bool CycleColourRequest; // Please change to the next available color.
@@ -163,6 +164,9 @@ namespace OrbitVR.PSMove { // Per-Move Controller data needed by the worker.
     UInt32 RawControllerPreviousButtons;
     byte RawControllerPreviousTriggerValue;
 
+    public int PSMoveID { get; private set; }
+    public PSMovePose Pose { get; private set; }
+
     public PSMoveDataContext(
       int moveID,
       PSMoveRawControllerData_Concurrent controllerConcurrentData) {
@@ -170,9 +174,6 @@ namespace OrbitVR.PSMove { // Per-Move Controller data needed by the worker.
       Pose = new PSMovePose();
       RawControllerData = new PSMoveRawControllerData_TLS(controllerConcurrentData);
     }
-
-    public int PSMoveID { get; private set; }
-    public PSMovePose Pose { get; private set; }
 
     public void Clear() {
       PSMoveID = -1;

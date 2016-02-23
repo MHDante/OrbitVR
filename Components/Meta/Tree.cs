@@ -23,22 +23,6 @@ namespace OrbitVR.Components.Meta {
     private Queue<Vector2> positions;
     private float r1, g1, b1;
     private Queue<float> scales;
-    public Tree() : this(null) {}
-
-    public Tree(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      InitializeLists();
-      r1 = Utils.random.Next(255)/255f;
-      g1 = Utils.random.Next(255)/255f;
-      b1 = Utils.random.Next(255)/255f;
-      queuecount = 100;
-      fade = new Toggle<int>(queuecount);
-      branchStages = 4;
-      angleRange = 45;
-      randlife = 20;
-      maxChilds = 3;
-      LeaveTrunk = true;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -82,6 +66,22 @@ namespace OrbitVR.Components.Meta {
     }
 
     public Toggle<int> fade { get; set; }
+    public Tree() : this(null) {}
+
+    public Tree(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      InitializeLists();
+      r1 = Utils.random.Next(255)/255f;
+      g1 = Utils.random.Next(255)/255f;
+      b1 = Utils.random.Next(255)/255f;
+      queuecount = 100;
+      fade = new Toggle<int>(queuecount);
+      branchStages = 4;
+      angleRange = 45;
+      randlife = 20;
+      maxChilds = 3;
+      LeaveTrunk = true;
+    }
 
     public override void InitializeLists() {
       positions = new Queue<Vector2>();

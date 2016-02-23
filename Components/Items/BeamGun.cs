@@ -18,20 +18,6 @@ namespace OrbitVR.Components.Items {
     private float minLength, currentLength;
     Vector2 stick = Vector2.Zero;
     private int tempColorVal = 0;
-    public BeamGun() : this(null) {}
-
-    public BeamGun(Node parent) {
-      this.parent = parent;
-      goThrough = false;
-      growing = true;
-      maxLength = 300f;
-      beamThickness = 20;
-      growthRate = 10f;
-      minLength = 15f;
-      currentLength = minLength;
-      maxColorVal = 5;
-      colorValSpeed = 2;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -46,6 +32,20 @@ namespace OrbitVR.Components.Items {
     public int beamThickness { get; set; }
     public int maxColorVal { get; set; }
     public int colorValSpeed { get; set; }
+    public BeamGun() : this(null) {}
+
+    public BeamGun(Node parent) {
+      this.parent = parent;
+      goThrough = false;
+      growing = true;
+      maxLength = 300f;
+      beamThickness = 20;
+      growthRate = 10f;
+      minLength = 15f;
+      currentLength = minLength;
+      maxColorVal = 5;
+      colorValSpeed = 2;
+    }
 
     public override void OnSpawn() {
       beamNode = Node.ContructLineWall(room, parent.body.pos, parent.body.pos, beamThickness, addToWallGroup: false);

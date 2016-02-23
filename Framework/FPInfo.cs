@@ -8,6 +8,33 @@ namespace OrbitVR.Framework {
     private PropertyInfo _propertyInfo;
     public object ob;
 
+    public FieldInfo fieldInfo {
+      get { return _fieldInfo; }
+      set { _fieldInfo = value; }
+    }
+
+    public PropertyInfo propertyInfo {
+      get { return _propertyInfo; }
+      set { _propertyInfo = value; }
+    }
+
+    public string DeclaringTypeName { get; set; }
+
+    public string Name { get; set; }
+
+    public Type FPType {
+      get {
+        if (propertyInfo != null) {
+          return propertyInfo.PropertyType;
+        }
+        else if (fieldInfo != null) {
+          return fieldInfo.FieldType;
+        }
+        return null;
+      }
+      set { }
+    }
+
     public FPInfo(FieldInfo fieldInfo) {
       this.fieldInfo = fieldInfo;
       this.DeclaringTypeName = this.fieldInfo.DeclaringType.ToString();
@@ -83,33 +110,6 @@ namespace OrbitVR.Framework {
           DeclaringTypeName = null;
         }
       }
-    }
-
-    public FieldInfo fieldInfo {
-      get { return _fieldInfo; }
-      set { _fieldInfo = value; }
-    }
-
-    public PropertyInfo propertyInfo {
-      get { return _propertyInfo; }
-      set { _propertyInfo = value; }
-    }
-
-    public string DeclaringTypeName { get; set; }
-
-    public string Name { get; set; }
-
-    public Type FPType {
-      get {
-        if (propertyInfo != null) {
-          return propertyInfo.PropertyType;
-        }
-        else if (fieldInfo != null) {
-          return fieldInfo.FieldType;
-        }
-        return null;
-      }
-      set { }
     }
 
     public static FPInfo GetNew(string name, object obj) {

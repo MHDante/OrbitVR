@@ -31,19 +31,19 @@ namespace OrbitVR.Components.Movement {
       {material.rubber, 50},
     };
 
-    public Friction() : this(null) {}
-
-    public Friction(Node parent) {
-      this.parent = parent;
-      force = 0.01f;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
     }
 
     public float force { get; set; }
+
+    public Friction() : this(null) {}
+
+    public Friction(Node parent) {
+      this.parent = parent;
+      force = 0.01f;
+    }
 
     public override void AffectSelf() {
       parent.body.velocity *= 1 - force*parent.body.mass;

@@ -31,6 +31,10 @@ namespace OrbitVR {
 
     public Matrix view;
 
+    protected SharpDX.Direct3D11.Device Device {
+      get { return (SharpDX.Direct3D11.Device) GraphicsDevice; }
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="RiftGame" /> class.
     /// </summary>
@@ -52,10 +56,6 @@ namespace OrbitVR {
       graphicsDeviceManager.PreferredBackBufferWidth = hmd.Resolution.Width;
       graphicsDeviceManager.PreferredBackBufferHeight = hmd.Resolution.Height;
       graphicsDeviceManager.PreferredFullScreenOutputIndex = 1;
-    }
-
-    protected SharpDX.Direct3D11.Device Device {
-      get { return (SharpDX.Direct3D11.Device) GraphicsDevice; }
     }
 
     protected override void Initialize() {

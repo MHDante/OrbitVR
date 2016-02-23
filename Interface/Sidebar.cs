@@ -14,17 +14,6 @@ namespace OrbitVR.Interface {
     EventHandler NotImplemented;
 
     public UserInterface ui;
-    //public InspectorInfo ActiveInspectorParent;
-
-    public Sidebar(UserInterface ui) {
-      this.game = ui.game;
-      //this.room = ui.game.room;
-      this.ui = ui;
-      NotImplemented = delegate {
-                         Console.WriteLine("Not Implemented. Take a hike.");
-                         //throw new NotImplementedException();
-                       };
-    }
 
     public Room room {
       get { return game.Room; }
@@ -45,6 +34,18 @@ namespace OrbitVR.Interface {
           return g.defaultNode;
         return null;
       }
+    }
+
+    //public InspectorInfo ActiveInspectorParent;
+
+    public Sidebar(UserInterface ui) {
+      this.game = ui.game;
+      //this.room = ui.game.room;
+      this.ui = ui;
+      NotImplemented = delegate {
+                         Console.WriteLine("Not Implemented. Take a hike.");
+                         //throw new NotImplementedException();
+                       };
     }
 
     public Group GetActiveGroup() {

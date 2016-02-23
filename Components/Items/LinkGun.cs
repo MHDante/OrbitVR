@@ -25,23 +25,6 @@ namespace OrbitVR.Components.Items {
     private Link shootLink;
     Spring spring;
     GunState state = GunState.inactive;
-    public LinkGun() : this(null) {}
-
-    public LinkGun(Node parent) {
-      this.parent = parent;
-      //this.com = comp.shovel;
-      shootNodeRadius = 25; //fill in property later
-      linkToPlayers = true;
-      shootNodeSpeed = 5f;
-      linkMode = LinkMode.TargetsChained;
-
-      shootNode = new Node(room);
-      shootNode.name = "linknode";
-      shootNode.body.radius = shootNodeRadius;
-      shootNode.body.ExclusionCheck += (c1, c2) => c2 == parent.body;
-      shootNode.body.mass = 2f;
-      shootNode.body.texture = textures.cage;
-    }
 
     public override bool active {
       get { return base.active; }
@@ -81,6 +64,24 @@ namespace OrbitVR.Components.Items {
         if (value != _linkMode) UpdateAttachLink();
         _linkMode = value;
       }
+    }
+
+    public LinkGun() : this(null) {}
+
+    public LinkGun(Node parent) {
+      this.parent = parent;
+      //this.com = comp.shovel;
+      shootNodeRadius = 25; //fill in property later
+      linkToPlayers = true;
+      shootNodeSpeed = 5f;
+      linkMode = LinkMode.TargetsChained;
+
+      shootNode = new Node(room);
+      shootNode.name = "linknode";
+      shootNode.body.radius = shootNodeRadius;
+      shootNode.body.ExclusionCheck += (c1, c2) => c2 == parent.body;
+      shootNode.body.mass = 2f;
+      shootNode.body.texture = textures.cage;
     }
 
     private void UpdateAttachLink() {

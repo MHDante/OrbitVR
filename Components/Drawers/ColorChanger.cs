@@ -47,21 +47,6 @@ namespace OrbitVR.Components.Drawers {
     private float permaHue = 0;
     private bool schedulerModerated;
 
-    public ColorChanger() : this(null) {}
-
-    public ColorChanger(Node parent = null) {
-      //smartshifting = true;
-      if (parent != null) this.parent = parent;
-      colormode = ColorMode.hueShifter;
-      inc = 1;
-      phaseSpeed = 10;
-      phasePercent = 100;
-      schedulerModerated = false;
-      msInterval = 20;
-      useMsInterval = false;
-      appt = new Appointment(managedUpdate, msInterval, infinite: true);
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -142,6 +127,21 @@ namespace OrbitVR.Components.Drawers {
     /// </summary>
     [Info(UserLevel.User, "The percentage that the color will phase towards it's color destination.")]
     public float phasePercent { get; set; }
+
+    public ColorChanger() : this(null) {}
+
+    public ColorChanger(Node parent = null) {
+      //smartshifting = true;
+      if (parent != null) this.parent = parent;
+      colormode = ColorMode.hueShifter;
+      inc = 1;
+      phaseSpeed = 10;
+      phasePercent = 100;
+      schedulerModerated = false;
+      msInterval = 20;
+      useMsInterval = false;
+      appt = new Appointment(managedUpdate, msInterval, infinite: true);
+    }
 
     public override void OnSpawn() {
       if (!active) return;

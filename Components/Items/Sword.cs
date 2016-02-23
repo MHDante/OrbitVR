@@ -25,22 +25,6 @@ namespace OrbitVR.Components.Items {
     private bool movingStick = false;
 
     Vector2 target;
-    public Sword() : this(null) {}
-
-    public Sword(Node parent) {
-      this.parent = parent;
-      distance = 60;
-      swordLength = 40;
-      swordWidth = 5;
-      //swingRate = 5;
-      //speed = 3;
-      damageMultiplier = 10f;
-      nodeKnockback = 500f;
-      parryKnockback = 20f;
-
-      swordNode = new Node(room);
-      swordNode.name = "sword";
-    }
 
     public override bool active {
       get { return base.active; }
@@ -99,6 +83,23 @@ namespace OrbitVR.Components.Items {
     /// </summary>
     [Info(UserLevel.User, "The force at which to push the other node back after a direct hit to the other node.")]
     public float nodeKnockback { get; set; }
+
+    public Sword() : this(null) {}
+
+    public Sword(Node parent) {
+      this.parent = parent;
+      distance = 60;
+      swordLength = 40;
+      swordWidth = 5;
+      //swingRate = 5;
+      //speed = 3;
+      damageMultiplier = 10f;
+      nodeKnockback = 500f;
+      parryKnockback = 20f;
+
+      swordNode = new Node(room);
+      swordNode.name = "sword";
+    }
 
     public override void AfterCloning() {
       if (swordNode == null) return;

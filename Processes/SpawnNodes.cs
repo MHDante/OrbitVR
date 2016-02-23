@@ -11,6 +11,11 @@ namespace OrbitVR.Processes {
     int rightClickMax = 1; //
     private Vector2 spawnPos;
 
+    public int batchSpawnNum { get; set; }
+
+    public Toggle<float> radiusRange { get; set; }
+    public float radiusCenter { get; set; }
+
     public SpawnNodes() : base() {
       //             List<int> a = new List<int>();
       //             List<int> b = new List<int>();
@@ -24,13 +29,7 @@ namespace OrbitVR.Processes {
       //addProcessKeyAction("SetSpawnPosition", KeyCodes.LeftShift, OnPress: SetSpawnPosition);
       addProcessKeyAction("BatchSpawn", KeyCodes.RightClick, OnHold: BatchSpawn);
       //addProcessKeyAction("DirectionalLaunch", KeyCodes.LeftShift, KeyCodes.RightClick, OnHold: DirectionalLaunch);
-      
     }
-
-    public int batchSpawnNum { get; set; }
-
-    public Toggle<float> radiusRange { get; set; }
-    public float radiusCenter { get; set; }
 
     public void SetRadius(Node n) {
       n.body.radius = radiusCenter;
@@ -42,7 +41,7 @@ namespace OrbitVR.Processes {
     public void SpawnNode() {
       SetRadius(room.SpawnNode((int) UserInterface.WorldMousePos.X, (int) UserInterface.WorldMousePos.Y));
     }
-    
+
 
     public void SetSpawnPosition() {
       spawnPos = UserInterface.WorldMousePos;

@@ -12,19 +12,6 @@ namespace OrbitVR.Components.Drawers {
     private Color _color;
     private float scale;
     private float scaleRateTemp;
-    public Light() : this(null) {}
-
-    public Light(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      scaleRange = 0.1f;
-      scaleMiddle = 1f;
-      scaleRate = 0.01f;
-      transparencyPercent = 25f;
-      scaleRateTemp = scaleRate;
-      randomColor = true;
-      shadowCount = new Toggle<int>(1, false);
-      drawLayer = Layers.Under5;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -74,6 +61,19 @@ namespace OrbitVR.Components.Drawers {
     public Toggle<int> shadowCount { get; set; }
 
     public Layers drawLayer { get; set; }
+    public Light() : this(null) {}
+
+    public Light(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      scaleRange = 0.1f;
+      scaleMiddle = 1f;
+      scaleRate = 0.01f;
+      transparencyPercent = 25f;
+      scaleRateTemp = scaleRate;
+      randomColor = true;
+      shadowCount = new Toggle<int>(1, false);
+      drawLayer = Layers.Under5;
+    }
 
     public override void OnSpawn() {
       _color = Utils.randomColor();

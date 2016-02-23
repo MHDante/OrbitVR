@@ -21,16 +21,6 @@ namespace OrbitVR.Components.AffectOthers {
 
     public const mtypes CompType = mtypes.none;
     public Action<Node, Node> collisionAction;
-    public Spike() : this(null) {}
-
-    public Spike(Node parent) {
-      this.parent = parent;
-      spikeActivated = true;
-      damageMultiplier = 1f;
-      pushBack = new Toggle<float>(10f, true);
-      stunSeconds = new Toggle<float>(1f, true);
-      damageMode = DamanageMode.Players;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -66,6 +56,17 @@ namespace OrbitVR.Components.AffectOthers {
     /// </summary>
     [Info(UserLevel.User, "The damage mode of the spike.")]
     public DamanageMode damageMode { get; set; }
+
+    public Spike() : this(null) {}
+
+    public Spike(Node parent) {
+      this.parent = parent;
+      spikeActivated = true;
+      damageMultiplier = 1f;
+      pushBack = new Toggle<float>(10f, true);
+      stunSeconds = new Toggle<float>(1f, true);
+      damageMode = DamanageMode.Players;
+    }
 
     public override void OnSpawn() {
       collisionAction = (s, t) => {

@@ -6,6 +6,12 @@ using OrbitVR.Physics;
 
 namespace OrbitVR.Framework {
   public class DiodeData {
+    public float[] start { get; set; }
+    public float[] end { get; set; }
+    public float orientation { get; set; }
+    public int tickets { get; set; }
+    public bool isSemaphore { get; set; }
+
     public DiodeData(Diode d) {
       this.start = d.start.toFloatArray();
       this.end = d.end.toFloatArray();
@@ -15,14 +21,15 @@ namespace OrbitVR.Framework {
     }
 
     public DiodeData() {}
-    public float[] start { get; set; }
-    public float[] end { get; set; }
-    public float orientation { get; set; }
-    public int tickets { get; set; }
-    public bool isSemaphore { get; set; }
   }
 
   public class LevelSave {
+    public int levelHeight { get; set; }
+    public int levelWidth { get; set; }
+    public List<float[]> polygonVertices { get; set; }
+    public List<float[]> polygonPositions { get; set; }
+    public string name { get; set; }
+    public List<DiodeData> Diodes { get; set; }
     public LevelSave() {}
 
     public LevelSave(Group group, int levelWidth, int levelHeight, string name) {
@@ -51,13 +58,6 @@ namespace OrbitVR.Framework {
         }
       }
     }
-
-    public int levelHeight { get; set; }
-    public int levelWidth { get; set; }
-    public List<float[]> polygonVertices { get; set; }
-    public List<float[]> polygonPositions { get; set; }
-    public string name { get; set; }
-    public List<DiodeData> Diodes { get; set; }
 
     public override string ToString() {
       return name;

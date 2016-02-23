@@ -792,6 +792,12 @@ namespace OrbitVR.Framework {
 
     public UserInterface ui;
 
+    //20 references
+    public Dictionary<KeyBundle, KeyAction> Keybinds {
+      get { return _Keybinds; }
+      set { _Keybinds = value; }
+    }
+
     public KeyManager(UserInterface ui, Dictionary<KeyBundle, KeyAction> Keybinds = null) {
       this.ui = ui;
       //this.newKeyboardState = Keyboard.GetState();
@@ -801,12 +807,6 @@ namespace OrbitVR.Framework {
       if (Keybinds != null) {
         this.Keybinds = Keybinds;
       }
-    }
-
-    //20 references
-    public Dictionary<KeyBundle, KeyAction> Keybinds {
-      get { return _Keybinds; }
-      set { _Keybinds = value; }
     }
 
     public void Add(string name, KeyBundle bundle, Action action, Action holdAction = null) {

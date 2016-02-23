@@ -20,11 +20,6 @@ namespace OrbitVR.Processes {
 
     public Dictionary<KeyAction, KeyBundle> processKeyActions = new Dictionary<KeyAction, KeyBundle>();
 
-    public Process() {
-      // / // / //
-      //active = true;
-    }
-
     public Room room {
       get { return OrbIt.Game.Room; }
     }
@@ -36,8 +31,14 @@ namespace OrbitVR.Processes {
         if (value) OnActivate();
       }
     }
+
     //Todo: Local Reference.
     public ProcessManager Manager => OrbIt.Game.ProcessManager;
+
+    public Process() {
+      // / // / //
+      //active = true;
+    }
 
     //public event Action OnUpdate;
     //public event Action OnDraw;

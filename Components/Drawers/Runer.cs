@@ -10,14 +10,6 @@ namespace OrbitVR.Components.Drawers {
   public class Rune : Component {
     public const mtypes CompType = mtypes.draw;
 
-    public Rune() : this(null) {}
-
-    public Rune(Node parent) {
-      this.parent = parent;
-      randomRune = false;
-      runeTexture = textures.rune1;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -34,6 +26,14 @@ namespace OrbitVR.Components.Drawers {
     /// </summary>
     [Info(UserLevel.User, "Toggles whether runes are randomly generated upon spawning.")]
     public bool randomRune { get; set; }
+
+    public Rune() : this(null) {}
+
+    public Rune(Node parent) {
+      this.parent = parent;
+      randomRune = false;
+      runeTexture = textures.rune1;
+    }
 
     public override void OnSpawn() {
       if (!randomRune) return;

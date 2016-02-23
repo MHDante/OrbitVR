@@ -23,17 +23,6 @@ namespace OrbitVR.Components.Items {
     Node lastFired = null;
 
     private int shootingDelayCount = 0;
-    public NodeGun() : this(null) {}
-
-    public NodeGun(Node parent) {
-      this.parent = parent;
-      this.fireMode = mode.SingleFire;
-      this.shootingDelay = 2;
-      this.nodeSpeed = 5f;
-      this.nodeRadius = 10f;
-      this.steerNode = true;
-      this.drawCenterNode = true;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -46,6 +35,17 @@ namespace OrbitVR.Components.Items {
     public int shootingDelay { get; set; }
     public bool steerNode { get; set; }
     public bool drawCenterNode { get; set; }
+    public NodeGun() : this(null) {}
+
+    public NodeGun(Node parent) {
+      this.parent = parent;
+      this.fireMode = mode.SingleFire;
+      this.shootingDelay = 2;
+      this.nodeSpeed = 5f;
+      this.nodeRadius = 10f;
+      this.steerNode = true;
+      this.drawCenterNode = true;
+    }
 
     public override void OnSpawn() {
       currentGroup = room.Groups.General.childGroups.ElementAt(0).Value;

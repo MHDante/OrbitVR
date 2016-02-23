@@ -50,6 +50,9 @@ namespace OrbitVR.Framework {
 
     private DrawType type;
 
+
+    public Texture2D texture2d { get; set; }
+
     public DrawCommand(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                        Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0,
                        int maxlife = -1,
@@ -123,9 +126,6 @@ namespace OrbitVR.Framework {
       this.life = maxlife;
       this.shaderPack = shaderPack ?? ShaderPack.Default;
     }
-
-
-    public Texture2D texture2d { get; set; }
 
     public void Draw(SpriteBatch batch) {
       switch (type) {

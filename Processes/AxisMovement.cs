@@ -2,6 +2,11 @@
 
 namespace OrbitVR.Processes {
   public class AxisMovement : Process {
+    public Player player { get; set; }
+    public float speed { get; set; }
+
+    public bool constantMovement { get; set; }
+
     public AxisMovement(Player player, float speed = 10f) : base() {
       this.player = player;
       this.speed = speed;
@@ -13,11 +18,6 @@ namespace OrbitVR.Processes {
       addProcessKeyAction("a", KeyCodes.A, OnHold: MoveA);
       addProcessKeyAction("x", KeyCodes.X, OnPress: ToggleMode);
     }
-
-    public Player player { get; set; }
-    public float speed { get; set; }
-
-    public bool constantMovement { get; set; }
 
     public void ToggleMode() {
       constantMovement = !constantMovement;

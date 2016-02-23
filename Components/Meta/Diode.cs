@@ -18,16 +18,6 @@ namespace OrbitVR.Components.Meta {
 
     public Vector2 start;
     private int usedTickets;
-    public Diode() : this(null) {}
-
-    public Diode(Node parent) {
-      this.parent = parent;
-      mode = Mode.neitherBlocked;
-      maxTickets = 4;
-      usedTickets = 0;
-      semaphore = false;
-      PlayersOnly = true;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -38,6 +28,16 @@ namespace OrbitVR.Components.Meta {
     public int maxTickets { get; set; }
     public bool PlayersOnly { get; set; }
     public Mode mode { get; set; }
+    public Diode() : this(null) {}
+
+    public Diode(Node parent) {
+      this.parent = parent;
+      mode = Mode.neitherBlocked;
+      maxTickets = 4;
+      usedTickets = 0;
+      semaphore = false;
+      PlayersOnly = true;
+    }
 
     public override void OnSpawn() {
       parent.body.OnCollisionEnter += delegate(Node source, Node dest) {

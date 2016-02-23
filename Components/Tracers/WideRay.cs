@@ -15,14 +15,6 @@ namespace OrbitVR.Components.Tracers {
 
     public int _rayLength = 10;
 
-    public WideRay() : this(null) {}
-
-    public WideRay(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      rayscale = 20;
-      width = 3;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -54,6 +46,14 @@ namespace OrbitVR.Components.Tracers {
     /// </summary>
     [Info(UserLevel.User, "Sets the width (length) of each ray line.")]
     public int width { get; set; }
+
+    public WideRay() : this(null) {}
+
+    public WideRay(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      rayscale = 20;
+      width = 3;
+    }
 
     //public override void AfterCloning()
     //{

@@ -19,21 +19,6 @@ namespace OrbitVR.Components.Tracers {
     private int counter = 0;
     private Vector2 prevPos = Vector2.Zero;
 
-    public Laser() : this(null) {}
-
-    public Laser(Node parent = null) {
-      if (parent != null) {
-        this.parent = parent;
-      }
-      InitializeLists();
-      brightness = new Toggle<float>(1f, false);
-      thickness = 5f;
-      beamRatio = 0.7f;
-      onceEveryAmount = 1;
-      IsColorByAngle = true;
-      beamCount = 1;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -45,9 +30,7 @@ namespace OrbitVR.Components.Tracers {
     [Info(UserLevel.User, "Sets the length of the laser. ")]
     public int laserLength {
       get { return _laserLength; }
-      set {
-        _laserLength = value;
-      }
+      set { _laserLength = value; }
     }
 
     /// <summary>
@@ -88,6 +71,21 @@ namespace OrbitVR.Components.Tracers {
     /// </summary>
     [Info(UserLevel.User, "The amount of laser beams to draw beside eachother, resulting in a thicker beam.")]
     public int beamCount { get; set; }
+
+    public Laser() : this(null) {}
+
+    public Laser(Node parent = null) {
+      if (parent != null) {
+        this.parent = parent;
+      }
+      InitializeLists();
+      brightness = new Toggle<float>(1f, false);
+      thickness = 5f;
+      beamRatio = 0.7f;
+      onceEveryAmount = 1;
+      IsColorByAngle = true;
+      beamCount = 1;
+    }
 
     public override void AfterCloning() {
       //if (!parent.HasComp<Queuer>()) parent.addComponent(comp.queuer, true);

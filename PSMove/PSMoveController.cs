@@ -14,6 +14,28 @@ namespace OrbitVR.PSMove {
     public Transform transform;
     public bool useInterpolation;
 
+
+    /// <summary>
+    /// NOTE! This function does NOT pair the controller by Bluetooth.
+    /// If the controller is not already paired, it can only be connected by USB.
+    /// See README for more information.
+    /// </summary>
+    public PSMoveController(Vector3 Position, Model m = null) {
+      model = m ?? OrbIt.Game.Content.Load<Model>("PSMove");
+      transform = new Transform();
+      transform.parent = new Transform() {position = Position};
+      if (PSMoveManager.GetManagerInstance() != null) {
+        dataContext = PSMoveManager.GetManagerInstance().AcquirePSMove(this.PSMoveID);
+      }
+      model = m;
+    }
+
+    public void Dispose() {
+      if (PSMoveManager.GetManagerInstance() != null) {
+        PSMoveManager.GetManagerInstance().ReleasePSMove(dataContext);
+      }
+    }
+
     // Pressed This Frame
     public event EventHandler OnButtonTrianglePressed;
     public event EventHandler OnButtonCirclePressed;
@@ -90,33 +112,6 @@ namespace OrbitVR.PSMove {
     private Model model;
 
     #endregion
-
-
-    /// <summary>
-    /// NOTE! This function does NOT pair the controller by Bluetooth.
-    /// If the controller is not already paired, it can only be connected by USB.
-    /// See README for more information.
-    /// </summary>
-    public PSMoveController(Vector3 Position, Model m = null)
-    {
-      model = m ??  OrbIt.Game.Content.Load<Model>("PSMove");
-      transform = new Transform();
-      transform.parent = new Transform() { position = Position };
-      if (PSMoveManager.GetManagerInstance() != null)
-      {
-        dataContext = PSMoveManager.GetManagerInstance().AcquirePSMove(this.PSMoveID);
-      }
-      model = m;
-    }
-
-    public void Dispose()
-    {
-      if (PSMoveManager.GetManagerInstance() != null)
-      {
-        PSMoveManager.GetManagerInstance().ReleasePSMove(dataContext);
-      }
-    }
-
 
     #region Controller Actions
 

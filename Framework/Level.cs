@@ -7,16 +7,6 @@ namespace OrbitVR.Framework {
     public List<Rectangle> linesToDraw = new List<Rectangle>();
     public Room room;
 
-    public Level() {}
-
-    public Level(Room room, int cellsX, int cellsY, int cellWidth, int? cellHeight = null) {
-      this.room = room;
-      this.cellsX = cellsX;
-      this.cellsY = cellsY;
-      this.cellWidth = cellWidth;
-      this.cellHeight = cellHeight ?? cellWidth;
-    }
-
     public int cellsX { get; set; }
     public int cellsY { get; set; }
 
@@ -29,6 +19,16 @@ namespace OrbitVR.Framework {
 
     public int gridHeight {
       get { return cellsY*cellWidth; }
+    }
+
+    public Level() {}
+
+    public Level(Room room, int cellsX, int cellsY, int cellWidth, int? cellHeight = null) {
+      this.room = room;
+      this.cellsX = cellsX;
+      this.cellsY = cellsY;
+      this.cellWidth = cellWidth;
+      this.cellHeight = cellHeight ?? cellWidth;
     }
 
     public void Update() {}

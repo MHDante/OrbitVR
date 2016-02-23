@@ -24,28 +24,6 @@ namespace OrbitVR.Physics {
 
     public Shape shape;
 
-    //public void AddExclusion(Collider other)
-    //{
-    //    exclusionList.Add(other);
-    //    other.exclusionList.Add(this);
-    //}
-
-    public Collider() : this(shape: null) {}
-
-    public Collider(Shape shape = null, Node parent = null) {
-      float rad = 25;
-      if (parent != null) {
-        this.parent = parent;
-        rad = parent.body.radius;
-      }
-      if (shape != null) {
-        this.shape = shape;
-      }
-      else {
-        this.shape = new Circle(rad);
-      }
-    }
-
     public HashSet<Collider> currentCollision {
       get { return currentIsCol1 ? collisions1 : collisions2; }
       set { } //maybe we should make [DoNotClone]...
@@ -77,6 +55,28 @@ namespace OrbitVR.Physics {
       set {
         //Debug.Assert(value != 0);
         shape.radius = value;
+      }
+    }
+
+    //public void AddExclusion(Collider other)
+    //{
+    //    exclusionList.Add(other);
+    //    other.exclusionList.Add(this);
+    //}
+
+    public Collider() : this(shape: null) {}
+
+    public Collider(Shape shape = null, Node parent = null) {
+      float rad = 25;
+      if (parent != null) {
+        this.parent = parent;
+        rad = parent.body.radius;
+      }
+      if (shape != null) {
+        this.shape = shape;
+      }
+      else {
+        this.shape = new Circle(rad);
       }
     }
 

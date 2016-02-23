@@ -15,22 +15,6 @@ namespace OrbitVR.Components.Items {
   public class LineSpinner : Component {
     public const mtypes CompType = mtypes.item | mtypes.playercontrol;
     Queue<SpinningLine> spinningLines = new Queue<SpinningLine>();
-    public LineSpinner() : this(null) {}
-
-    public LineSpinner(Node parent) {
-      this.parent = parent;
-      minDist = 50f;
-      distRange = 100;
-      minSpeed = 0f;
-      speedRange = 2f;
-      randRotationSpeed = 10f;
-      totalRotationSpeedRange = 20f;
-      minNumberOfLines = 2;
-      numberOfLinesRange = 10;
-      maxCopyCount = 4;
-      maxDistCopyCount = 4;
-      maxPermanentDraw = 200;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -48,6 +32,22 @@ namespace OrbitVR.Components.Items {
     public int maxCopyCount { get; set; }
     public int maxDistCopyCount { get; set; }
     public int maxPermanentDraw { get; set; }
+    public LineSpinner() : this(null) {}
+
+    public LineSpinner(Node parent) {
+      this.parent = parent;
+      minDist = 50f;
+      distRange = 100;
+      minSpeed = 0f;
+      speedRange = 2f;
+      randRotationSpeed = 10f;
+      totalRotationSpeedRange = 20f;
+      minNumberOfLines = 2;
+      numberOfLinesRange = 10;
+      maxCopyCount = 4;
+      maxDistCopyCount = 4;
+      maxPermanentDraw = 200;
+    }
 
     public override void PlayerControl(Input input) {
       if (input.BtnClicked(InputButtons.RightTrigger_Mouse1)) {

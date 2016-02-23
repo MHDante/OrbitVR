@@ -23,6 +23,27 @@ namespace OrbitVR.Framework {
     private Dictionary<string, object> _fpInfosObj = new Dictionary<string, object>();
 
     public ModifierDelegate modifierDelegate; //will not be serialzied, therefore anon methods lost.
+
+    public Dictionary<string, FPInfo> fpInfos {
+      get { return _fpInfos; }
+      set { _fpInfos = value; }
+    }
+
+    public Dictionary<string, object> fpInfosObj {
+      get { return _fpInfosObj; }
+      set { _fpInfosObj = value; }
+    }
+
+    public Dictionary<string, dynamic> args {
+      get { return _args; }
+      set { _args = value; }
+    }
+
+    public string delegateName {
+      get { return _delegateName; }
+      set { _delegateName = value; }
+    }
+
     /*
         public ModifierDelegate modifierDelegate
         {
@@ -51,26 +72,6 @@ namespace OrbitVR.Framework {
       this.fpInfosObj = fpInfosObj;
       this.args = args;
       this.delegateName = delegateName;
-    }
-
-    public Dictionary<string, FPInfo> fpInfos {
-      get { return _fpInfos; }
-      set { _fpInfos = value; }
-    }
-
-    public Dictionary<string, object> fpInfosObj {
-      get { return _fpInfosObj; }
-      set { _fpInfosObj = value; }
-    }
-
-    public Dictionary<string, dynamic> args {
-      get { return _args; }
-      set { _args = value; }
-    }
-
-    public string delegateName {
-      get { return _delegateName; }
-      set { _delegateName = value; }
     }
 
     public void RebuildInfo(object obj) {

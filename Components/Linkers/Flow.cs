@@ -31,16 +31,6 @@ namespace OrbitVR.Components.Linkers {
 
     private HashSet<Node> _outgoing = new HashSet<Node>();
 
-    public Flow() : this(null) {}
-
-    public Flow(Node parent = null) {
-      if (parent != null) {
-        this.parent = parent;
-      }
-
-      //InitializeLists();
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -69,6 +59,16 @@ namespace OrbitVR.Components.Linkers {
     public gate gatetype {
       get { return _gatetype; }
       set { _gatetype = value; }
+    }
+
+    public Flow() : this(null) {}
+
+    public Flow(Node parent = null) {
+      if (parent != null) {
+        this.parent = parent;
+      }
+
+      //InitializeLists();
     }
 
     public Link link { get; set; }

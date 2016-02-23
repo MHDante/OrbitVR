@@ -27,21 +27,6 @@ namespace OrbitVR.Components.AffectOthers {
     public const mtypes CompType = mtypes.affectother | mtypes.draw;
 
     private float drawscale;
-    public Gravity() : this(null) {}
-
-    public Gravity(Node parent) {
-      if (parent != null) this.parent = parent;
-      affectDirection = AffectDirection.AffectsOthers;
-      multiplier = 40f;
-      radius = 800f;
-      lowerbound = 20;
-      angle = 0;
-      mode = Mode.Strong;
-      Repulsive = false;
-      deadZone = new Toggle<float>(10, true);
-      ShowForceLines = false;
-      ShowRings = true;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -125,6 +110,22 @@ namespace OrbitVR.Components.AffectOthers {
     /// </summary>
     [Info(UserLevel.User, "If the distance to the node is less than the deadZone, no gravity is applied.")]
     public Toggle<float> deadZone { get; set; }
+
+    public Gravity() : this(null) {}
+
+    public Gravity(Node parent) {
+      if (parent != null) this.parent = parent;
+      affectDirection = AffectDirection.AffectsOthers;
+      multiplier = 40f;
+      radius = 800f;
+      lowerbound = 20;
+      angle = 0;
+      mode = Mode.Strong;
+      Repulsive = false;
+      deadZone = new Toggle<float>(10, true);
+      ShowForceLines = false;
+      ShowRings = true;
+    }
 
     [Info(UserLevel.Developer)]
     public Link link { get; set; }

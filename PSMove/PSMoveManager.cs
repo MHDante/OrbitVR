@@ -58,6 +58,13 @@ namespace OrbitVR.PSMove {
     public bool TrackerEnabled = true;
     public bool UseManualExposure = true;
 
+    public void Dispose() {
+      if (ManagerInstance != null) {
+        PSMoveWorker.GetWorkerInstance().OnGameEnded();
+        ManagerInstance = null;
+      }
+    }
+
     // Public API
     public static PSMoveManager GetManagerInstance() {
       return ManagerInstance;
@@ -91,13 +98,6 @@ namespace OrbitVR.PSMove {
 
     public void Update() {
       PSMoveWorker.GetWorkerInstance().WorkerSettings.PSMoveOffset = this.PSMoveOffset;
-    }
-
-    public void Dispose() {
-      if (ManagerInstance != null) {
-        PSMoveWorker.GetWorkerInstance().OnGameEnded();
-        ManagerInstance = null;
-      }
     }
   }
 
@@ -371,7 +371,8 @@ namespace OrbitVR.PSMove {
 
         // Renew the image on camera, if tracking is enabled
         if (WorkerContextIsTrackingSetup(Context)) {
-          using (new PSMoveHitchWatchdog("PSMoveWorker_UpdateImage", 33*PSMoveHitchWatchdog.MICROSECONDS_PER_MILLISECOND)) {
+          using (
+            new PSMoveHitchWatchdog("PSMoveWorker_UpdateImage", 33*PSMoveHitchWatchdog.MICROSECONDS_PER_MILLISECOND)) {
             PSMoveAPI.psmove_tracker_update_image(Context.PSMoveTracker); // Sometimes libusb crashes here.
           }
         }

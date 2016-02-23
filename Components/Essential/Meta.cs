@@ -43,23 +43,6 @@ namespace OrbitVR.Components.Essential {
 
     public const mtypes CompType = mtypes.essential | mtypes.draw | mtypes.playercontrol;
     private float lightRotation = 0f;
-    public Meta() : this(null) {}
-
-    public Meta(Node parent) {
-      this.parent = parent;
-      score = new Toggle<float>(0, false);
-      maxHealth = new Toggle<float>(100, true);
-      currentHealth = maxHealth.value;
-      worth = new Toggle<float>(1, false);
-      armour = new Toggle<float>(1, false);
-      damageMode = DamageMode.OnlyPlayers;
-      AImode = AIMode.None;
-      deadly = false;
-      active = true;
-      IgnoreAffectGrid = false;
-      damageMultiplier = 1f;
-      itemSwitching = true;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -153,6 +136,23 @@ namespace OrbitVR.Components.Essential {
     public Action<Node, Node> OnDeath { get; set; }
     public Action<Node, Node, int> OnTakeDamage { get; set; }
     public bool itemSwitching { get; set; }
+    public Meta() : this(null) {}
+
+    public Meta(Node parent) {
+      this.parent = parent;
+      score = new Toggle<float>(0, false);
+      maxHealth = new Toggle<float>(100, true);
+      currentHealth = maxHealth.value;
+      worth = new Toggle<float>(1, false);
+      armour = new Toggle<float>(1, false);
+      damageMode = DamageMode.OnlyPlayers;
+      AImode = AIMode.None;
+      deadly = false;
+      active = true;
+      IgnoreAffectGrid = false;
+      damageMultiplier = 1f;
+      itemSwitching = true;
+    }
 
     public override void PlayerControl(Input input) {
       if (itemSwitching) {

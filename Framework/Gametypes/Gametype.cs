@@ -5,12 +5,12 @@ namespace OrbitVR.Framework.Gametypes {
   public class Gametype {
     public Room room;
 
+    public HashSet<Player> players { get; set; }
+
     public Gametype() {
       room = OrbIt.Game.Room;
       players = new HashSet<Player>();
     }
-
-    public HashSet<Player> players { get; set; }
 
     public virtual void Update(GameTime gameTime) {
       //foreach(Player p in players)

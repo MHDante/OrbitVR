@@ -40,41 +40,6 @@ namespace OrbitVR.Framework {
     private ObservableHashSet<Link> _TargetLinks = new ObservableHashSet<Link>();
     public Room room;
 
-    public Group()
-      : this(null) {}
-
-    public Group(Room room, Node defaultNode = null, string Name = "", bool Spawnable = true,
-                 ObservableHashSet<Node> entities = null) {
-      this.room = room ?? OrbIt.Game.Room;
-
-      GroupId = -1;
-      this.defaultNode = defaultNode ?? this.room.DefaultNode;
-      this.entities = entities ?? new ObservableHashSet<Node>();
-      this.inherited = new ObservableHashSet<Node>();
-      this.fullSet = new ObservableHashSet<Node>();
-      if (entities != null) {
-        foreach (Node e in entities) {
-          fullSet.Add(e);
-        }
-      }
-
-      //this.groupState = groupState;
-      this.Spawnable = Spawnable;
-      this.childGroups = new Dictionary<string, Group>();
-      this.entities.CollectionChanged += entities_CollectionChanged;
-      this.inherited.CollectionChanged += entities_CollectionChanged;
-
-      if (Name.Equals("")) {
-        this.GroupId = GroupNumber;
-        Name = "Group" + GroupNumber; //maybe a check that the name is unique
-        GroupNumber++;
-      }
-      this.Name = Name;
-
-      groupPath = new List<Group>();
-
-    }
-
     public int GroupId { get; set; }
     public Group ParentGroup { get; set; }
     //
@@ -151,6 +116,40 @@ namespace OrbitVR.Framework {
     }
 
     public List<Group> groupPath { get; set; }
+
+    public Group()
+      : this(null) {}
+
+    public Group(Room room, Node defaultNode = null, string Name = "", bool Spawnable = true,
+                 ObservableHashSet<Node> entities = null) {
+      this.room = room ?? OrbIt.Game.Room;
+
+      GroupId = -1;
+      this.defaultNode = defaultNode ?? this.room.DefaultNode;
+      this.entities = entities ?? new ObservableHashSet<Node>();
+      this.inherited = new ObservableHashSet<Node>();
+      this.fullSet = new ObservableHashSet<Node>();
+      if (entities != null) {
+        foreach (Node e in entities) {
+          fullSet.Add(e);
+        }
+      }
+
+      //this.groupState = groupState;
+      this.Spawnable = Spawnable;
+      this.childGroups = new Dictionary<string, Group>();
+      this.entities.CollectionChanged += entities_CollectionChanged;
+      this.inherited.CollectionChanged += entities_CollectionChanged;
+
+      if (Name.Equals("")) {
+        this.GroupId = GroupNumber;
+        Name = "Group" + GroupNumber; //maybe a check that the name is unique
+        GroupNumber++;
+      }
+      this.Name = Name;
+
+      groupPath = new List<Group>();
+    }
 
 
     void entities_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
@@ -329,8 +328,7 @@ namespace OrbitVR.Framework {
         */
 
     public void AddGroup(Group group) {
-      if (childGroups.ContainsKey(group.Name))
-      {
+      if (childGroups.ContainsKey(group.Name)) {
         return;
         //throw new SystemException("Error: One of the childGroups with the same key was already present in this Group.");
       }
@@ -341,13 +339,12 @@ namespace OrbitVR.Framework {
         inherited.Add(n);
       }
 
-        Group g = this;
-        while (g != null)
-        {
-          group.groupPath = new List<Group>();
-          group.groupPath.Add(g);
-          g = g.ParentGroup;
-        }
+      Group g = this;
+      while (g != null) {
+        group.groupPath = new List<Group>();
+        group.groupPath.Add(g);
+        g = g.ParentGroup;
+      }
     }
 
     public void DetatchFromParent() {

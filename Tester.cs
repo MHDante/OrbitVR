@@ -6,15 +6,15 @@ using SharpDX.Toolkit;
 namespace OrbitVR {
   internal class Tester : OrbIt {
     private Randomizer randomizer;
-    private int testTimer;
     private bool spawned;
     private Vector2 spawnPos;
+    private int testTimer;
 
     protected override void Initialize() {
       base.Initialize();
       randomizer = Game.ProcessManager.GetProcess<Randomizer>();
     }
-    
+
     protected override void Update(GameTime gt) {
       base.Update(gt);
 
@@ -40,8 +40,7 @@ namespace OrbitVR {
 
       if (!spawned) {
         spawned = true;
-        for (int i = 0; i < 500; i++)
-        {
+        for (int i = 0; i < 500; i++) {
           Node n = Room.SpawnNode(0, 0);
         }
       }

@@ -35,6 +35,14 @@ namespace OrbitVR.Framework {
     public int[] reachIndexs;
     public Room room;
 
+    public int cellsX { get; set; }
+    public int cellsY { get; set; }
+
+    public int cellWidth { get; set; }
+    public int cellHeight { get; set; }
+    public int gridWidth { get; set; }
+    public int gridHeight { get; set; }
+
     public GridSystem(Room room, int cellsX, Vector2 position, int? GridWidth = null, int? GridHeight = null) {
       linesToDraw = new List<Line>();
       this.position = position;
@@ -87,14 +95,6 @@ namespace OrbitVR.Framework {
       ///new attempt
       GenerateReachOffsetsArray();
     }
-
-    public int cellsX { get; set; }
-    public int cellsY { get; set; }
-
-    public int cellWidth { get; set; }
-    public int cellHeight { get; set; }
-    public int gridWidth { get; set; }
-    public int gridHeight { get; set; }
 
 
     public IndexArray<IndexArray<Collider>> retrieveBucketBags(Collider collider) {
@@ -558,8 +558,7 @@ namespace OrbitVR.Framework {
     }
 
     public void DrawGrid(Room room, Color color) {
-      foreach (Line line in linesToDraw)
-      {
+      foreach (Line line in linesToDraw) {
         room.Camera.DrawLine(line.Start, line.End, 2, color, Layers.Under5);
       }
       linesToDraw = new List<Line>();
@@ -585,6 +584,5 @@ namespace OrbitVR.Framework {
       linesToDraw.Add(new Line(x, height, width, height));
       linesToDraw.Add(new Line(width, y, width, height));
     }
-    
   }
 }

@@ -23,6 +23,59 @@ namespace OrbitVR.Components.Items {
     [Info(UserLevel.User, "The amount of particle packs to draw beneath the payload.")] public int packCount = 1;
 
     public List<ParticlePack> particlePacks;
+
+    public override mtypes compType {
+      get { return CompType; }
+      set { }
+    }
+
+    //public Dictionary<Type, Component> payload { get; set; }
+    /// <summary>
+    /// The payload node contains all the components that will be picked up by the colliding player/node.
+    /// </summary>
+    [Info(UserLevel.User,
+      "The payload node contains all the components that will be picked up by the colliding player/node.")]
+    [CopyNodeProperty]
+    public Node payloadNode { get; set; }
+
+    /// <summary>
+    /// If enabled, components picked up will overwrite existing components.
+    /// </summary>
+    [Info(UserLevel.User, "If enabled, components picked up will overwrite existing components.")]
+    public bool OverwriteComponents { get; set; }
+
+    /// <summary>
+    /// If enabled, the payload node will be erased after it is picked up.
+    /// </summary>
+    [Info(UserLevel.User, "If enabled, the payload node will be erased after it is picked up.")]
+    public bool DieOnDelivery { get; set; }
+
+    /// <summary>
+    /// The amount of time in seconds until the items in the payload disappear.
+    /// </summary>
+    [Info(UserLevel.User, "The amount of time in seconds until the items in the payload disappear.")]
+    public Toggle<int> timeLimit { get; set; }
+
+    /// <summary>
+    /// If enabled, players can pick up the item payload.
+    /// </summary>
+    [Info(UserLevel.User, "If enabled, players can pick up the item payload.")]
+    public bool PlayersCanGrab { get; set; }
+
+    /// <summary>
+    /// If enabled, nodes can grab the item payload.
+    /// </summary>
+    [Info(UserLevel.User, "If enabled, nodes can grab the item payload.")]
+    public bool NodesCanGrab { get; set; }
+
+    /// <summary>
+    /// If enabled, when the payload is picked up, the reciever will instead get the components on the parent node instead of the payload node.
+    /// </summary>
+    [Info(UserLevel.User,
+      "If enabled, when the payload is picked up, the reciever will instead get the components on the parent node instead of the payload node."
+      )]
+    public bool DropParentsComponents { get; set; }
+
     public ItemPayload() : this(null) {}
 
     public ItemPayload(Node parent) {
@@ -81,58 +134,6 @@ namespace OrbitVR.Components.Items {
       //grav.mode = Gravity.Mode.Strong;
       //AddComponentItem(grav);
     }
-
-    public override mtypes compType {
-      get { return CompType; }
-      set { }
-    }
-
-    //public Dictionary<Type, Component> payload { get; set; }
-    /// <summary>
-    /// The payload node contains all the components that will be picked up by the colliding player/node.
-    /// </summary>
-    [Info(UserLevel.User,
-      "The payload node contains all the components that will be picked up by the colliding player/node.")]
-    [CopyNodeProperty]
-    public Node payloadNode { get; set; }
-
-    /// <summary>
-    /// If enabled, components picked up will overwrite existing components.
-    /// </summary>
-    [Info(UserLevel.User, "If enabled, components picked up will overwrite existing components.")]
-    public bool OverwriteComponents { get; set; }
-
-    /// <summary>
-    /// If enabled, the payload node will be erased after it is picked up.
-    /// </summary>
-    [Info(UserLevel.User, "If enabled, the payload node will be erased after it is picked up.")]
-    public bool DieOnDelivery { get; set; }
-
-    /// <summary>
-    /// The amount of time in seconds until the items in the payload disappear.
-    /// </summary>
-    [Info(UserLevel.User, "The amount of time in seconds until the items in the payload disappear.")]
-    public Toggle<int> timeLimit { get; set; }
-
-    /// <summary>
-    /// If enabled, players can pick up the item payload.
-    /// </summary>
-    [Info(UserLevel.User, "If enabled, players can pick up the item payload.")]
-    public bool PlayersCanGrab { get; set; }
-
-    /// <summary>
-    /// If enabled, nodes can grab the item payload.
-    /// </summary>
-    [Info(UserLevel.User, "If enabled, nodes can grab the item payload.")]
-    public bool NodesCanGrab { get; set; }
-
-    /// <summary>
-    /// If enabled, when the payload is picked up, the reciever will instead get the components on the parent node instead of the payload node.
-    /// </summary>
-    [Info(UserLevel.User,
-      "If enabled, when the payload is picked up, the reciever will instead get the components on the parent node instead of the payload node."
-      )]
-    public bool DropParentsComponents { get; set; }
 
     public override void AfterCloning() {
       Dictionary<Type, Component> newPayload = new Dictionary<Type, Component>();

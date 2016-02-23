@@ -16,17 +16,6 @@ namespace OrbitVR.Components.Movement {
     }
 
     public const mtypes CompType = mtypes.none;
-    public Conveyor() : this(null) {}
-
-    public Conveyor(Node parent) {
-      this.parent = parent;
-      directionMode = DirectionMode.Relative;
-      relativeAngle = 0;
-      absoluteX = 0;
-      absoulteY = 1;
-      multiplier = 5f;
-      slowdown = false;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -57,6 +46,17 @@ namespace OrbitVR.Components.Movement {
     public float relativeAngle { get; set; }
     public float absoluteX { get; set; }
     public float absoulteY { get; set; }
+    public Conveyor() : this(null) {}
+
+    public Conveyor(Node parent) {
+      this.parent = parent;
+      directionMode = DirectionMode.Relative;
+      relativeAngle = 0;
+      absoluteX = 0;
+      absoulteY = 1;
+      multiplier = 5f;
+      slowdown = false;
+    }
 
     public override void OnSpawn() {
       parent.collision.isSolid = false;

@@ -30,14 +30,6 @@ namespace OrbitVR.Components.Essential {
 
     [Info(UserLevel.Developer)] public Dictionary<string, Collider> colliders = new Dictionary<string, Collider>();
 
-    public Collision() : this(null) {}
-
-    public Collision(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      _AllHandlersEnabled = true;
-      UpdateCollisionSet();
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -83,6 +75,14 @@ namespace OrbitVR.Components.Essential {
         _AllHandlersEnabled = value;
         UpdateCollisionSet();
       }
+    }
+
+    public Collision() : this(null) {}
+
+    public Collision(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      _AllHandlersEnabled = true;
+      UpdateCollisionSet();
     }
 
     public Link link { get; set; }

@@ -15,15 +15,6 @@ namespace OrbitVR.Components.AffectOthers {
   {
     public const mtypes CompType = mtypes.affectother;
 
-    public Displace() : this(null) {}
-
-    public Displace(Node parent) {
-      if (parent != null) this.parent = parent;
-      multiplier = 100f;
-      lowerbound = 20;
-      radius = 800f;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -56,6 +47,15 @@ namespace OrbitVR.Components.AffectOthers {
     [Info(UserLevel.Advanced,
       "If disabled, the intensity of displacement will vary depending on the distance from the node.")]
     public bool ConstantPush { get; set; }
+
+    public Displace() : this(null) {}
+
+    public Displace(Node parent) {
+      if (parent != null) this.parent = parent;
+      multiplier = 100f;
+      lowerbound = 20;
+      radius = 800f;
+    }
 
     [Info(UserLevel.Developer)]
     public Link link { get; set; }

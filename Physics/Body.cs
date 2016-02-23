@@ -34,17 +34,6 @@ namespace OrbitVR.Physics {
     public Color permaColor = new Color(255, 255, 255);
     public Vector2 velocity = new Vector2(0, 0);
 
-    public Body() : this(shape: null) {}
-
-    public Body(Shape shape = null, Node parent = null) {
-      if (parent != null) this.parent = parent;
-      this.shape = shape ?? new Circle(Node.defaultNodeSize);
-      this.shape.body = this;
-      this.shape.Initialize();
-      DrawPolygonCenter = true;
-      AfterCloning();
-    }
-
     [Info(UserLevel.Developer)]
     public override bool HandlersEnabled {
       get { return _HandlersEnabled; }
@@ -211,6 +200,17 @@ namespace OrbitVR.Physics {
         _texture = value;
         EvaluateScale();
       }
+    }
+
+    public Body() : this(shape: null) {}
+
+    public Body(Shape shape = null, Node parent = null) {
+      if (parent != null) this.parent = parent;
+      this.shape = shape ?? new Circle(Node.defaultNodeSize);
+      this.shape.body = this;
+      this.shape.Initialize();
+      DrawPolygonCenter = true;
+      AfterCloning();
     }
 
     public void EvaluateScale() {

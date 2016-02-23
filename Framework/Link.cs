@@ -28,83 +28,6 @@ namespace OrbitVR.Framework {
     private float anglestep = 0;
     public Room room;
 
-    public Link() {
-      //..
-      this.room = OrbIt.Game.Room;
-      this.components = new Dictionary<Type, ILinkable>();
-      this.sources = new ObservableHashSet<Node>();
-      this.targets = new ObservableHashSet<Node>();
-    }
-
-    //blank link (for the palette)
-    public Link(ILinkable linkComponent, formationtype ftype = formationtype.AllToAll) {
-      this.room = OrbIt.Game.Room;
-      this.components = new Dictionary<Type, ILinkable>();
-      this.components[linkComponent.GetType()] = linkComponent;
-      this._FormationType = ftype;
-      this.formation = new Formation(this, ftype, InitializeFormation: false);
-    }
-
-    public Link(Link link, dynamic source, dynamic target) {
-      this.room = OrbIt.Game.Room;
-      this.components = new Dictionary<Type, ILinkable>();
-
-      this.UpdateTime = link.UpdateTime;
-      this.IsEntangled = link.IsEntangled;
-      this.Reversed = link.Reversed;
-      this.AngleInc = link.AngleInc;
-      this.DrawTips = link.DrawTips;
-
-      foreach (ILinkable component in link.components.Values) {
-        dynamic newComponent = Activator.CreateInstance(component.GetType());
-        Component.CloneComponent((Component) component, newComponent);
-        newComponent.active = true;
-        newComponent.link = this;
-        if (newComponent.GetType().GetProperty("activated") != null) newComponent.activated = true;
-
-        this.components[newComponent.GetType()] = newComponent;
-      }
-
-      Initialize(source, target, null, link.formation);
-    }
-
-    //constructors
-    public Link(Node sourceNode, Node targetNode, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sourceNode, targetNode, linkComponent, formation);
-    }
-
-    public Link(Node sourceNode, HashSet<Node> targets, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sourceNode, targets, linkComponent, formation);
-    }
-
-    public Link(HashSet<Node> sources, Node targetNode, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sources, targetNode, linkComponent, formation);
-    }
-
-    public Link(HashSet<Node> sources, HashSet<Node> targets, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sources, targets, linkComponent, formation);
-    }
-
-    public Link(HashSet<Node> sources, Group targetGroup, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sources, targetGroup, linkComponent, formation);
-    }
-
-    public Link(Group sourceGroup, HashSet<Node> targets, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sourceGroup, targets, linkComponent, formation);
-    }
-
-    public Link(Node sourceNode, Group targetGroup, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sourceNode, targetGroup, linkComponent, formation);
-    }
-
-    public Link(Group sourceGroup, Node targetNode, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sourceGroup, targetNode, linkComponent, formation);
-    }
-
-    public Link(Group sourceGroup, Group targetGroup, ILinkable linkComponent = null, dynamic formation = null) {
-      Initialize(sourceGroup, targetGroup, linkComponent, formation);
-    }
-
     public bool active {
       get { return _active; }
       set {
@@ -180,6 +103,83 @@ namespace OrbitVR.Framework {
     public bool IsEntangled {
       get { return _IsEntangled; }
       set { _IsEntangled = value; }
+    }
+
+    public Link() {
+      //..
+      this.room = OrbIt.Game.Room;
+      this.components = new Dictionary<Type, ILinkable>();
+      this.sources = new ObservableHashSet<Node>();
+      this.targets = new ObservableHashSet<Node>();
+    }
+
+    //blank link (for the palette)
+    public Link(ILinkable linkComponent, formationtype ftype = formationtype.AllToAll) {
+      this.room = OrbIt.Game.Room;
+      this.components = new Dictionary<Type, ILinkable>();
+      this.components[linkComponent.GetType()] = linkComponent;
+      this._FormationType = ftype;
+      this.formation = new Formation(this, ftype, InitializeFormation: false);
+    }
+
+    public Link(Link link, dynamic source, dynamic target) {
+      this.room = OrbIt.Game.Room;
+      this.components = new Dictionary<Type, ILinkable>();
+
+      this.UpdateTime = link.UpdateTime;
+      this.IsEntangled = link.IsEntangled;
+      this.Reversed = link.Reversed;
+      this.AngleInc = link.AngleInc;
+      this.DrawTips = link.DrawTips;
+
+      foreach (ILinkable component in link.components.Values) {
+        dynamic newComponent = Activator.CreateInstance(component.GetType());
+        Component.CloneComponent((Component) component, newComponent);
+        newComponent.active = true;
+        newComponent.link = this;
+        if (newComponent.GetType().GetProperty("activated") != null) newComponent.activated = true;
+
+        this.components[newComponent.GetType()] = newComponent;
+      }
+
+      Initialize(source, target, null, link.formation);
+    }
+
+    //constructors
+    public Link(Node sourceNode, Node targetNode, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sourceNode, targetNode, linkComponent, formation);
+    }
+
+    public Link(Node sourceNode, HashSet<Node> targets, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sourceNode, targets, linkComponent, formation);
+    }
+
+    public Link(HashSet<Node> sources, Node targetNode, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sources, targetNode, linkComponent, formation);
+    }
+
+    public Link(HashSet<Node> sources, HashSet<Node> targets, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sources, targets, linkComponent, formation);
+    }
+
+    public Link(HashSet<Node> sources, Group targetGroup, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sources, targetGroup, linkComponent, formation);
+    }
+
+    public Link(Group sourceGroup, HashSet<Node> targets, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sourceGroup, targets, linkComponent, formation);
+    }
+
+    public Link(Node sourceNode, Group targetGroup, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sourceNode, targetGroup, linkComponent, formation);
+    }
+
+    public Link(Group sourceGroup, Node targetNode, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sourceGroup, targetNode, linkComponent, formation);
+    }
+
+    public Link(Group sourceGroup, Group targetGroup, ILinkable linkComponent = null, dynamic formation = null) {
+      Initialize(sourceGroup, targetGroup, linkComponent, formation);
     }
 
     private void Initialize(dynamic src, dynamic trg, ILinkable linkComponent, dynamic formation) {

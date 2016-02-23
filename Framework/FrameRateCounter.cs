@@ -19,7 +19,6 @@ namespace OrbitVR.Framework {
     }
 
     public void Update(GameTime gameTime) {
-      
       elapsedTime += gameTime.ElapsedGameTime;
       updateCounter++;
 

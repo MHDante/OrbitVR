@@ -21,6 +21,31 @@ namespace OrbitVR.Framework {
     public int Clock = 0;
     public Room room;
 
+    public Link link { get; set; }
+
+    public formationtype FormationType {
+      get { return link.FormationType; }
+      set { if (link != null) link.FormationType = value; }
+    }
+
+    public bool Uninhabited { get; set; }
+
+    public int UpdateFrequency {
+      get { return _UpdateFrequency; }
+      set {
+        if (_UpdateFrequency <= 0 && value > 0) {
+          room.AfterIteration += UpdateHandler;
+        }
+        else if (_UpdateFrequency > 0 && value <= 0) {
+          room.AfterIteration -= UpdateHandler;
+        }
+        _UpdateFrequency = value;
+      }
+    }
+
+    public int NearestNValue { get; set; }
+    public Dictionary<Node, ObservableHashSet<Node>> AffectionSets { get; set; }
+
     public Formation() {
       //..
       this.room = OrbIt.Game.Room;
@@ -57,31 +82,6 @@ namespace OrbitVR.Framework {
 
       if (InitializeFormation) UpdateFormation();
     }
-
-    public Link link { get; set; }
-
-    public formationtype FormationType {
-      get { return link.FormationType; }
-      set { if (link != null) link.FormationType = value; }
-    }
-
-    public bool Uninhabited { get; set; }
-
-    public int UpdateFrequency {
-      get { return _UpdateFrequency; }
-      set {
-        if (_UpdateFrequency <= 0 && value > 0) {
-          room.AfterIteration += UpdateHandler;
-        }
-        else if (_UpdateFrequency > 0 && value <= 0) {
-          room.AfterIteration -= UpdateHandler;
-        }
-        _UpdateFrequency = value;
-      }
-    }
-
-    public int NearestNValue { get; set; }
-    public Dictionary<Node, ObservableHashSet<Node>> AffectionSets { get; set; }
 
     public void UpdateHandler(object sender, EventArgs e) {
       Update();

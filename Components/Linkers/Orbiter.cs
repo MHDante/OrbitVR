@@ -13,16 +13,6 @@ namespace OrbitVR.Components.Linkers {
   public class Orbiter : Component, ILinkable {
     public const mtypes CompType = mtypes.exclusiveLinker;
 
-    public Orbiter() : this(null) {}
-
-    public Orbiter(Node parent = null) {
-      orbiterDatas = new Dictionary<Node, OrbiterData>();
-      if (parent != null) this.parent = parent;
-      maxRadius = 500;
-      maxSpeed = 50;
-      speedMult = 1f;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -47,6 +37,16 @@ namespace OrbitVR.Components.Linkers {
     /// </summary>
     [Info(UserLevel.User, "Multiplies the speed by the given factor")]
     public float speedMult { get; set; }
+
+    public Orbiter() : this(null) {}
+
+    public Orbiter(Node parent = null) {
+      orbiterDatas = new Dictionary<Node, OrbiterData>();
+      if (parent != null) this.parent = parent;
+      maxRadius = 500;
+      maxSpeed = 50;
+      speedMult = 1f;
+    }
 
     [Info(UserLevel.Developer)]
     public Link link { get; set; }

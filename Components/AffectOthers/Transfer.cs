@@ -14,13 +14,6 @@ namespace OrbitVR.Components.AffectOthers {
   {
     public const mtypes CompType = mtypes.affectother;
 
-    public Transfer() : this(null) {}
-
-    public Transfer(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      radiusScale = 2f;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -31,6 +24,13 @@ namespace OrbitVR.Components.AffectOthers {
     /// </summary>
     [Info(UserLevel.User, "Distance at which the node is teleported, based on a scale of the node's radius.")]
     public float radiusScale { get; set; }
+
+    public Transfer() : this(null) {}
+
+    public Transfer(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      radiusScale = 2f;
+    }
 
     public Link link { get; set; }
 

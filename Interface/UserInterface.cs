@@ -31,6 +31,12 @@ namespace OrbitVR.Interface {
 
     public Dictionary<dynamic, dynamic> UserProps;
 
+    public static int SidebarWidth { get; set; }
+
+    public float zoomfactor { get; set; }
+    public static bool GameInputDisabled { get; set; }
+    public bool IsPaused { get; set; }
+
     private UserInterface() {
       sidebar = new Sidebar(this);
 
@@ -39,12 +45,6 @@ namespace OrbitVR.Interface {
       IsPaused = false;
       this.keyManager = new KeyManager(this);
     }
-
-    public static int SidebarWidth { get; set; }
-
-    public float zoomfactor { get; set; }
-    public static bool GameInputDisabled { get; set; }
-    public bool IsPaused { get; set; }
 
     public void Initialize() {
       sidebar.Initialize();

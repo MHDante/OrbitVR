@@ -13,15 +13,6 @@ namespace OrbitVR.Components.Meta {
     public const mtypes CompType = mtypes.affectself;
     private Dictionary<string, ModifierInfo> _modifierInfos = new Dictionary<string, ModifierInfo>();
 
-    //private ModifierInfo _modifierInfo = null;
-    //public ModifierInfo modifierInfo { get { return _modifierInfo; } set { _modifierInfo = value;  } }
-
-    public Modifier() : this(null) {}
-
-    public Modifier(Node parent) {
-      if (parent != null) this.parent = parent;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -30,6 +21,15 @@ namespace OrbitVR.Components.Meta {
     public Dictionary<string, ModifierInfo> modifierInfos {
       get { return _modifierInfos; }
       set { _modifierInfos = value; }
+    }
+
+    //private ModifierInfo _modifierInfo = null;
+    //public ModifierInfo modifierInfo { get { return _modifierInfo; } set { _modifierInfo = value;  } }
+
+    public Modifier() : this(null) {}
+
+    public Modifier(Node parent) {
+      if (parent != null) this.parent = parent;
     }
 
     public void UpdateReferences() {

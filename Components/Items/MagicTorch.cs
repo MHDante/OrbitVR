@@ -40,32 +40,6 @@ namespace OrbitVR.Components.Items {
     private MagicType _magicType = MagicType.gravity;
     float total;
 
-    public MagicTorch() : this(null) {}
-
-    public MagicTorch(Node parent) {
-      this.parent = parent;
-      torchRadius = 15;
-      torchReach = 200;
-      torchMultiplier = 50;
-
-
-      Dictionary<dynamic, dynamic> props = new Dictionary<dynamic, dynamic>() {
-        {typeof (BasicDraw), false},
-        {typeof (Collision), false},
-        {typeof (Gravity), false},
-        {typeof (Displace), false},
-        {typeof (Spring), false},
-        {typeof (Transfer), false},
-      };
-
-      torchNode = new Node(room, props);
-      torchNode.name = "magictorch";
-      torchNode.body.radius = torchRadius;
-
-
-      magicType = MagicType.gravity;
-    }
-
     public override bool active {
       get { return base.active; }
       set {
@@ -126,6 +100,32 @@ namespace OrbitVR.Components.Items {
     }
 
     private IMultipliable activeComp { get; set; }
+
+    public MagicTorch() : this(null) {}
+
+    public MagicTorch(Node parent) {
+      this.parent = parent;
+      torchRadius = 15;
+      torchReach = 200;
+      torchMultiplier = 50;
+
+
+      Dictionary<dynamic, dynamic> props = new Dictionary<dynamic, dynamic>() {
+        {typeof (BasicDraw), false},
+        {typeof (Collision), false},
+        {typeof (Gravity), false},
+        {typeof (Displace), false},
+        {typeof (Spring), false},
+        {typeof (Transfer), false},
+      };
+
+      torchNode = new Node(room, props);
+      torchNode.name = "magictorch";
+      torchNode.body.radius = torchRadius;
+
+
+      magicType = MagicType.gravity;
+    }
 
     public override void AfterCloning() {
       if (torchNode == null) return;

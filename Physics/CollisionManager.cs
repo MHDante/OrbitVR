@@ -12,6 +12,11 @@ namespace OrbitVR.Physics {
     private List<Manifold> contacts = new List<Manifold>();
     Room room;
 
+    public int colIterations { get; set; }
+    public HashSet<Collider> CollisionSetCircle { get; set; }
+    public HashSet<Collider> CollisionSetPolygon { get; set; }
+    public GridSystem gridsystemCollision { get; set; }
+
     public CollisionManager(Room room) {
       this.room = room;
       CollisionSetCircle = new HashSet<Collider>();
@@ -47,11 +52,6 @@ namespace OrbitVR.Physics {
                                            new Vector2(0, room.WorldHeight - OrbIt.ScreenHeight), room.WorldWidth,
                                            OrbIt.ScreenHeight);
     }
-
-    public int colIterations { get; set; }
-    public HashSet<Collider> CollisionSetCircle { get; set; }
-    public HashSet<Collider> CollisionSetPolygon { get; set; }
-    public GridSystem gridsystemCollision { get; set; }
 
 
     public void AddManifold(Manifold m) {
@@ -155,7 +155,7 @@ namespace OrbitVR.Physics {
         m.PositionalCorrection();
 
       if (contacts.Count > 0) contacts = new List<Manifold>();
-      if (DebugFlags.drawCollisionGrid)gridsystemCollision.addGridSystemLines();
+      if (DebugFlags.drawCollisionGrid) gridsystemCollision.addGridSystemLines();
     }
 
     public void Draw() {

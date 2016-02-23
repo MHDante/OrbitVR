@@ -37,12 +37,15 @@ namespace OrbitVR.Framework.Gametypes {
       {nodeE.texture, textures.blueorb},
     };
 
+    public float absaccel { get; set; }
+    public float friction { get; set; }
+
     public BigTony() : base() {
       //OrbIt.ui.SetSidebarActive(false);
       onCollisionEnter = delegate(Node s, Node t) {
                            if (t != null && !Player.players.Select(p => p.node).Contains(t)) {
                              t.body.color = Add(s.body.color, new Color(colorChange, colorChange, colorChange));
-                               //changed node to s
+                             //changed node to s
                            }
                          };
       onCollisionExit = delegate(Node s, Node t) {
@@ -58,9 +61,6 @@ namespace OrbitVR.Framework.Gametypes {
 
       InitializePlayers();
     }
-
-    public float absaccel { get; set; }
-    public float friction { get; set; }
 
     public void InitializePlayers() {
       for (int i = 0; i < 8; i++) {
@@ -78,7 +78,7 @@ namespace OrbitVR.Framework.Gametypes {
         //add //{ nodeE.position, spawnPos },
         p.node = room.SpawnNode(playerProps);
         p.node.name = "player" + p.playerIndex;
-        
+
 
         Collider collider = new Collider(new Circle(25));
         p.node.collision.AddCollider("trigger", collider);

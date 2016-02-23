@@ -36,28 +36,6 @@ namespace OrbitVR.Components.Items {
     bool shovelling = false;
     Link shovelLink;
 
-    public Shovel() : this(null) {}
-
-    public Shovel(Node parent) {
-      this.parent = parent;
-      shovelRadius = 15;
-      shovelReach = 100;
-      scoopReach = 60;
-      maxShovelCapacity = 5;
-      modePlayers = ModePlayers.GrabNone;
-      modeShovelPosition = ModeShovelPosition.AbsoluteStickPos;
-      physicsDivisor = 8;
-      physicsThrow = false;
-      throwSpeed = 12;
-
-      shovelNode = new Node(room);
-      shovelNode.name = "shovel" + counter++;
-      shovelNode.body.radius = shovelRadius;
-      shovelNode.body.ExclusionCheck += (c1, c2) => c2 == parent.body;
-      shovelNode.body.mass = 0.001f;
-      shovelNode.body.texture = textures.shoveltip;
-    }
-
     public override bool active {
       get { return base.active; }
       set {
@@ -128,6 +106,28 @@ namespace OrbitVR.Components.Items {
     public bool physicsThrow { get; set; }
     public float throwSpeed { get; set; }
     public float physicsDivisor { get; set; }
+
+    public Shovel() : this(null) {}
+
+    public Shovel(Node parent) {
+      this.parent = parent;
+      shovelRadius = 15;
+      shovelReach = 100;
+      scoopReach = 60;
+      maxShovelCapacity = 5;
+      modePlayers = ModePlayers.GrabNone;
+      modeShovelPosition = ModeShovelPosition.AbsoluteStickPos;
+      physicsDivisor = 8;
+      physicsThrow = false;
+      throwSpeed = 12;
+
+      shovelNode = new Node(room);
+      shovelNode.name = "shovel" + counter++;
+      shovelNode.body.radius = shovelRadius;
+      shovelNode.body.ExclusionCheck += (c1, c2) => c2 == parent.body;
+      shovelNode.body.mass = 0.001f;
+      shovelNode.body.texture = textures.shoveltip;
+    }
 
     //public static List<Shovel> shovels = new List<Shovel>();
 

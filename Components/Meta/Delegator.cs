@@ -11,12 +11,6 @@ namespace OrbitVR.Components.Meta {
     private bool _enabled = false;
     public Delegator delegator;
 
-    public MethodEntry(Delegator delegator, string name, bool enabled = false) {
-      this.delegator = delegator;
-      this.name = name;
-      this.enabled = _enabled;
-    }
-
     public string name { get; set; }
 
     public bool enabled {
@@ -32,6 +26,12 @@ namespace OrbitVR.Components.Meta {
         }
         _enabled = value;
       }
+    }
+
+    public MethodEntry(Delegator delegator, string name, bool enabled = false) {
+      this.delegator = delegator;
+      this.name = name;
+      this.enabled = _enabled;
     }
 
     public override string ToString() {
@@ -142,6 +142,15 @@ namespace OrbitVR.Components.Meta {
     private Dictionary<string, Action<Node>> drawDelegates;
     private Dictionary<string, Action<Node, DataStore>> drawDelegatesDS;
 
+    public override mtypes compType {
+      get { return CompType; }
+      set { CompType = value; }
+    }
+
+    public Dictionary<string, MethodEntry> delegates { get; set; }
+
+    public Dictionary<string, DataStore> datastores { get; set; }
+
     public Delegator() : this(null) {}
 
     public Delegator(Node parent) {
@@ -152,15 +161,6 @@ namespace OrbitVR.Components.Meta {
         delegates[key] = new MethodEntry(this, key);
       }
     }
-
-    public override mtypes compType {
-      get { return CompType; }
-      set { CompType = value; }
-    }
-
-    public Dictionary<string, MethodEntry> delegates { get; set; }
-
-    public Dictionary<string, DataStore> datastores { get; set; }
 
     public override void AfterCloning() {
       if (delegates == null) delegates = new Dictionary<string, MethodEntry>();

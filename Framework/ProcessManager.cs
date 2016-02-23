@@ -7,13 +7,13 @@ namespace OrbitVR.Framework {
   public class ProcessManager {
     public HashSet<Process> activeProcesses;
 
+    public Dictionary<Type, Process> processDict { get; set; }
+
     public ProcessManager() {
       this.processDict = new Dictionary<Type, Process>();
       this.activeProcesses = new HashSet<Process>();
       //OrbIt.ui.groupSelectSet = GetProcess<GroupSelect>().groupSelectSet;
     }
-
-    public Dictionary<Type, Process> processDict { get; set; }
 
     public T GetProcess<T>() where T : Process, new() {
       Type t = typeof (T);

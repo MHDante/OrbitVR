@@ -23,13 +23,6 @@ namespace OrbitVR.Components.Meta {
 
     public ResumeType resumeType = ResumeType.Forget;
 
-    public Scheduler(Node parent = null) {
-      //start = OrbIt.game.Content.Load<SoundEffect>("croc");
-      //end = OrbIt.game.Content.Load<SoundEffect>("coin");
-      //fanfare = OrbIt.game.Content.Load<SoundEffect>("fanfare");
-      if (parent != null) this.parent = parent;
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -45,6 +38,13 @@ namespace OrbitVR.Components.Meta {
         if (resumeType == ResumeType.Forget) {}
         _active = value;
       }
+    }
+
+    public Scheduler(Node parent = null) {
+      //start = OrbIt.game.Content.Load<SoundEffect>("croc");
+      //end = OrbIt.game.Content.Load<SoundEffect>("coin");
+      //fanfare = OrbIt.game.Content.Load<SoundEffect>("fanfare");
+      if (parent != null) this.parent = parent;
     }
 
     public override void OnSpawn() {
@@ -121,6 +121,13 @@ namespace OrbitVR.Components.Meta {
   //public delegate void AppointmentDelegate(Node n, DataStore d);
 
   public class Appointment /*: IComparer<Appointment>*/ {
+    public List<Action<Node>> actions { get; set; }
+    public bool infinite { get; set; }
+    public bool playSound { get; set; }
+    public int repetitions { get; set; }
+    public int interval { get; set; }
+    public long scheduledTime { get; set; }
+
     public Appointment(Action<Node> action, int interval, int repetitions = 1, bool infinite = false,
                        bool playSound = false) {
       actions = new List<Action<Node>>();
@@ -131,13 +138,6 @@ namespace OrbitVR.Components.Meta {
       this.scheduledTime = -1;
       this.playSound = playSound;
     }
-
-    public List<Action<Node>> actions { get; set; }
-    public bool infinite { get; set; }
-    public bool playSound { get; set; }
-    public int repetitions { get; set; }
-    public int interval { get; set; }
-    public long scheduledTime { get; set; }
 
     public void InvokeAppointment(Node n) {
       //if (playSound) {

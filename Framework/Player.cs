@@ -38,6 +38,33 @@ namespace OrbitVR.Framework {
 
     public int playerIndex;
     public Room room;
+
+    public Node node {
+      get { return _node; }
+      set {
+        if (_node != null) _node.player = null;
+        _node = value;
+        if (value != null) value.player = this;
+      }
+    }
+
+    public Body body {
+      get { return node != null ? node.body : null; }
+    }
+
+    public ItemSlots currentItem {
+      get { return _currentItem; }
+      set {
+        foreach (var item in itemSlots.Keys) {
+          if (itemSlots[item] != null) {
+            if (item != value) itemSlots[item].active = false;
+            else itemSlots[item].active = true;
+          }
+        }
+        _currentItem = value;
+      }
+    }
+
     /*
         public static Player GetNew(int playerIndex)
         {
@@ -71,32 +98,6 @@ namespace OrbitVR.Framework {
       }
 
       SetPlayerColor();
-    }
-
-    public Node node {
-      get { return _node; }
-      set {
-        if (_node != null) _node.player = null;
-        _node = value;
-        if (value != null) value.player = this;
-      }
-    }
-
-    public Body body {
-      get { return node != null ? node.body : null; }
-    }
-
-    public ItemSlots currentItem {
-      get { return _currentItem; }
-      set {
-        foreach (var item in itemSlots.Keys) {
-          if (itemSlots[item] != null) {
-            if (item != value) itemSlots[item].active = false;
-            else itemSlots[item].active = true;
-          }
-        }
-        _currentItem = value;
-      }
     }
 
     public void AddItem(Component comp) {

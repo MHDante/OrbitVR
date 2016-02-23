@@ -25,19 +25,6 @@ namespace OrbitVR.Framework {
     public OrbIt game;
     public Dictionary<Player, HashSet<Player>> playerTeammates;
 
-
-    public GlobalGameMode(OrbIt game) {
-      this.game = game;
-      playersHurtPlayers = new Toggle<float>(1f, true);
-      nodesHurtPlayers = new Toggle<float>(1f, false);
-      playersHurtNodes = new Toggle<float>(1f, true);
-      nodesHurtNodes = new Toggle<float>(1f, false);
-      scoringMode = ScoringModes.playerKills;
-      _gameMode = GameModes.FreeForAll;
-      SetUpTeams();
-      globalColor = Color.Purple;
-    }
-
     /// <summary>
     /// If enabled, the players will damage each other, multiplied by the given value.
     /// </summary>
@@ -82,6 +69,19 @@ namespace OrbitVR.Framework {
     public ScoringModes scoringMode { get; set; }
 
     public Color globalColor { get; set; }
+
+
+    public GlobalGameMode(OrbIt game) {
+      this.game = game;
+      playersHurtPlayers = new Toggle<float>(1f, true);
+      nodesHurtPlayers = new Toggle<float>(1f, false);
+      playersHurtNodes = new Toggle<float>(1f, true);
+      nodesHurtNodes = new Toggle<float>(1f, false);
+      scoringMode = ScoringModes.playerKills;
+      _gameMode = GameModes.FreeForAll;
+      SetUpTeams();
+      globalColor = Color.Purple;
+    }
 
     public void Draw() {
       if (gameMode == GameModes.FreeForAll || gameMode == GameModes.Cooperative) return;

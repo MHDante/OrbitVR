@@ -23,20 +23,6 @@ namespace OrbitVR.Components.Items {
     fistmode state = fistmode.ready;
 
     Vector2 target;
-    public Fist() : this(null) {}
-
-    public Fist(Node parent) {
-      this.parent = parent;
-      fistReach = 60;
-      fistRadius = 15;
-      damageMultiplier = 10f;
-      parryKnockback = 20f;
-      nodeKnockback = 500f;
-      fistNode = new Node(room);
-      fistNode.basicdraw.active = false;
-      fistNode.name = "fist";
-      fistNode.body.radius = fistRadius;
-    }
 
     public override bool active {
       get { return base.active; }
@@ -89,6 +75,21 @@ namespace OrbitVR.Components.Items {
     /// </summary>
     [Info(UserLevel.User, "The force at which to push the other node back after a direct hit to the other node.")]
     public float nodeKnockback { get; set; }
+
+    public Fist() : this(null) {}
+
+    public Fist(Node parent) {
+      this.parent = parent;
+      fistReach = 60;
+      fistRadius = 15;
+      damageMultiplier = 10f;
+      parryKnockback = 20f;
+      nodeKnockback = 500f;
+      fistNode = new Node(room);
+      fistNode.basicdraw.active = false;
+      fistNode.name = "fist";
+      fistNode.body.radius = fistRadius;
+    }
 
     public override void AfterCloning() {
       if (fistNode == null) return;

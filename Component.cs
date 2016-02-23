@@ -37,20 +37,6 @@ namespace OrbitVR {
 
     protected float timePassed = 0;
 
-    static Component() {
-      compTypes = AppDomain.CurrentDomain.GetAssemblies()
-                           .SelectMany(assembly => assembly.GetTypes())
-                           .Where(type => type.IsSubclassOf(typeof (Component))).ToHashSet();
-
-
-      compInfos = new Dictionary<Type, Info>();
-      foreach (Type t in compTypes) {
-        Info info = Utils.GetInfoType(t);
-        if (info == null) continue;
-        compInfos[t] = info;
-      }
-    }
-
     public virtual mtypes compType { get; set; }
 
     [Info(UserLevel.Developer)]
@@ -76,6 +62,20 @@ namespace OrbitVR {
     public bool CallDraw {
       get { return _CallDraw; }
       set { _CallDraw = value; }
+    }
+
+    static Component() {
+      compTypes = AppDomain.CurrentDomain.GetAssemblies()
+                           .SelectMany(assembly => assembly.GetTypes())
+                           .Where(type => type.IsSubclassOf(typeof (Component))).ToHashSet();
+
+
+      compInfos = new Dictionary<Type, Info>();
+      foreach (Type t in compTypes) {
+        Info info = Utils.GetInfoType(t);
+        if (info == null) continue;
+        compInfos[t] = info;
+      }
     }
 
     public void SetDecayMaxTime(int seconds, bool isDecaying = true) {

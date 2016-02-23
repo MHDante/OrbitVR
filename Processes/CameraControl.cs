@@ -6,12 +6,12 @@ namespace OrbitVR.Processes {
   public class CameraControl : Process {
     public float velocity = 20f;
 
+    public Toggle<Node> targetedNode { get; set; }
+
     public CameraControl() {
       targetedNode = new Toggle<Node>(null, false);
       addProcessKeyAction("targetNode", KeyCodes.LeftShift, KeyCodes.LeftClick, OnPress: TargetNode);
     }
-
-    public Toggle<Node> targetedNode { get; set; }
 
     public void TargetNode() {
       Node n = room.SelectNodeAt(UserInterface.WorldMousePos);

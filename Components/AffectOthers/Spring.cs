@@ -23,18 +23,6 @@ namespace OrbitVR.Components.AffectOthers {
 
     private int _restdist;
 
-    public Spring() : this(null) {}
-
-    public Spring(Node parent = null) {
-      if (parent != null) {
-        this.parent = parent;
-      }
-      multiplier = 100f;
-      radius = 800;
-      _restdist = 300;
-      _deadzone = new Toggle<int>(100, false);
-    }
-
     public override mtypes compType {
       get { return CompType; }
       set { }
@@ -76,6 +64,18 @@ namespace OrbitVR.Components.AffectOthers {
         _deadzone = value;
         if (_deadzone.value > _restdist) _deadzone.value = _restdist;
       }
+    }
+
+    public Spring() : this(null) {}
+
+    public Spring(Node parent = null) {
+      if (parent != null) {
+        this.parent = parent;
+      }
+      multiplier = 100f;
+      radius = 800;
+      _restdist = 300;
+      _deadzone = new Toggle<int>(100, false);
     }
 
     [Info(UserLevel.Developer)]

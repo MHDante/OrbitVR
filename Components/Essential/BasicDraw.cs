@@ -20,16 +20,6 @@ namespace OrbitVR.Components.Essential {
     public const mtypes CompType = mtypes.essential | mtypes.draw;
 
     private Initial _InitialColor = Initial.Managed;
-    public BasicDraw() : this(null) {}
-
-    public BasicDraw(Node parent = null) {
-      if (parent != null) this.parent = parent;
-      UpdateColor();
-      AlphaPercent = 100f;
-      DrawLayer = Layers.Under1;
-      DrawSparkles = true;
-      threshold = 20;
-    }
 
     public override mtypes compType {
       get { return CompType; }
@@ -82,6 +72,16 @@ namespace OrbitVR.Components.Essential {
     public int threshold { get; set; }
 
     public bool DrawSparkles { get; set; }
+    public BasicDraw() : this(null) {}
+
+    public BasicDraw(Node parent = null) {
+      if (parent != null) this.parent = parent;
+      UpdateColor();
+      AlphaPercent = 100f;
+      DrawLayer = Layers.Under1;
+      DrawSparkles = true;
+      threshold = 20;
+    }
 
     public void UpdateColor() {
       if (parent == null) return;
