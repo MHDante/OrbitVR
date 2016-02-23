@@ -23,7 +23,7 @@ namespace OrbitVR {
       base.Initialize();
       Assets.LoadAssets(Content);
       Window.AllowUserResizing = false; //Todo: make true, fix crash.
-      Room = new Room(this, ScreenWidth, ScreenHeight);
+      Room = new Room(ScreenWidth, ScreenHeight);
       GlobalGameMode = new GlobalGameMode(this);
       _frameRateCounter = new FrameRateCounter(this);
       Player.CreatePlayers(Room);

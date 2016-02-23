@@ -66,7 +66,14 @@ namespace OrbitVR.Framework {
     public abstract void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                               Vector2 origin, float scale, Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
 
-    public abstract void drawGrid(List<Rectangle> linesToDraw, Color color);
+    public  void DrawLines(List<Line> linesToDraw, Color color)
+    {
+      foreach (Line line in linesToDraw)
+      {
+        DrawLine(line.Start, line.End, 2, color, Layers.Under5);
+      }
+    }
+    
     public abstract void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, Layers Layer);
     public abstract void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life);
 
@@ -85,6 +92,16 @@ namespace OrbitVR.Framework {
         backgroundHue = (backgroundHue + ((float) Math.Sin(x) + 1)/10f)%360;
         backgroundColor = ColorChanger.getColorFromHSV(backgroundHue, value: 0.2f);
       }
+    }
+  }
+
+  public struct Line {
+    public Vector2 Start;
+    public Vector2 End;
+    public Line(int x1, int y1, int x2, int y2) : this()
+    {
+      Start = new Vector2(x1,y1);
+      End = new Vector2(x2,y2);
     }
   }
 }

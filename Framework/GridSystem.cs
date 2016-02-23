@@ -24,7 +24,7 @@ namespace OrbitVR.Framework {
     SortedDictionary<float, List<Tuple<int, int>>> distToOffsets;
 
     public List<Collider>[,] grid;
-    public List<Rectangle> linesToDraw = new List<Rectangle>();
+    public List<Line> linesToDraw = new List<Line>();
 
 
     //new attempt : april 14 2014   START
@@ -36,7 +36,7 @@ namespace OrbitVR.Framework {
     public Room room;
 
     public GridSystem(Room room, int cellsX, Vector2 position, int? GridWidth = null, int? GridHeight = null) {
-      linesToDraw = new List<Rectangle>();
+      linesToDraw = new List<Line>();
       this.position = position;
       this.room = room;
 
@@ -220,7 +220,6 @@ namespace OrbitVR.Framework {
         int count = buck.index;
         for (int j = 0; j < count; j++) {
           Collider c = arrayGrid[xx][yy].array[j];
-          //if (room.ColorNodesInReach && collider.parent == room.targetNode) c.parent.body.color = Color.Purple;
           if (alreadyVisited.Contains(c) || collider == c) continue;
           action(collider, c);
         }
@@ -235,7 +234,6 @@ namespace OrbitVR.Framework {
       if (x < 0 || x > cellsX || y < 0 || y > cellsY) return;
       int findcount = FindCount(distance);
       int lastIndex;
-      //lastIndex = reachIndexs[reachCount];
       lastIndex = reachIndexs[findcount];
       for (int coordPointer = 0; coordPointer <= lastIndex; coordPointer += 2) {
         int xx = offsetArray[coordPointer] + x;
@@ -244,9 +242,7 @@ namespace OrbitVR.Framework {
         IndexArray<Collider> buck = arrayGrid[xx][yy];
         int count = buck.index;
         for (int j = 0; j < count; j++) {
-          Collider c = buck.array[j]; // = arrayGrid[xx][yy].array[j];
-          //if (room.ColorNodesInReach && collider.parent == room.targetNode) buck.array[j].parent.body.color = Color.Purple;
-          //if (alreadyVisited.Contains(c) || collider == c) continue;
+          Collider c = buck.array[j];
           if (c == collider) continue;
           action(collider, c);
         }
@@ -561,48 +557,30 @@ namespace OrbitVR.Framework {
       return false;
     }
 
-    // color the nodes that targetnode is affecting
-    public void colorEffectedNodes() {
-      // coloring the nodes
-      if (room.targetNode != null) {
-        List<Collider> returnObjectsGridSystem = retrieve(room.targetNode.body);
-
-        foreach (Node _node in room.masterGroup.fullSet) {
-          if (_node.body.color != Color.Black) {
-            if (returnObjectsGridSystem.Contains(_node.body))
-              _node.body.color = Color.Purple;
-            else
-              _node.body.color = Color.White;
-          }
-        }
-        room.targetNode.body.color = Color.Red;
-      }
-    }
-
-
     public void DrawGrid(Room room, Color color) {
-      room.camera.drawGrid(linesToDraw, color);
-      linesToDraw = new List<Rectangle>();
+      room.camera.DrawLines(linesToDraw, color);
+      linesToDraw = new List<Line>();
     }
 
     //draw grid lines
-    public void addGridSystemLines(GridSystem gs) {
+    public void addGridSystemLines() {
+      var gs = this;
       for (int i = 0; i <= gs.cellsX; i++) {
         int x = i*gs.cellWidth + (int) gs.position.X;
-        linesToDraw.Add(new Rectangle(x, (int) gs.position.Y, x, gs.gridHeight + (int) gs.position.Y));
+        linesToDraw.Add(new Line(x, (int) gs.position.Y, x, gs.gridHeight + (int) gs.position.Y));
       }
       for (int i = 0; i <= gs.cellsY; i++) {
         int y = i*gs.cellHeight + (int) gs.position.Y;
-        linesToDraw.Add(new Rectangle((int) gs.position.X, y, gs.gridWidth + (int) gs.position.X, y));
+        linesToDraw.Add(new Line((int) gs.position.X, y, gs.gridWidth + (int) gs.position.X, y));
       }
     }
 
 
-    public void addRectangleLines(int x, int y, int width, int height) {
-      linesToDraw.Add(new Rectangle(x, y, width, y));
-      linesToDraw.Add(new Rectangle(x, y, x, height));
-      linesToDraw.Add(new Rectangle(x, height, width, height));
-      linesToDraw.Add(new Rectangle(width, y, width, height));
+    private void addRectangleLines(int x, int y, int width, int height) {
+      linesToDraw.Add(new Line(x, y, width, y));
+      linesToDraw.Add(new Line(x, y, x, height));
+      linesToDraw.Add(new Line(x, height, width, height));
+      linesToDraw.Add(new Line(width, y, width, height));
     }
   }
 }

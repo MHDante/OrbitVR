@@ -399,12 +399,5 @@ namespace OrbitVR.Framework {
       }
       catch {}
     }
-
-    public override void drawGrid(List<Rectangle> linesToDraw, Color color) {
-      foreach (Rectangle rect in linesToDraw) {
-        Rectangle maprect = new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
-        DrawLine(new Vector2(maprect.X, maprect.Y), new Vector2(maprect.Width, maprect.Height), 2, color, Layers.Under5);
-      }
-    }
   }
 }

@@ -55,7 +55,7 @@ namespace OrbitVR.Components.Meta {
       bool sort = false;
       while (appointments.Count != 0) {
         Appointment a = appointments.ElementAt(0);
-        if (Room.totalElapsedMilliseconds > a.scheduledTime) {
+        if (Room.TotalElapsedMilliseconds > a.scheduledTime) {
           a.InvokeAppointment(parent);
           if (a.infinite || a.repetitions > 1) {
             appointments.Remove(a);
@@ -160,7 +160,7 @@ namespace OrbitVR.Components.Meta {
     }
 
     public void SetTimer() {
-      scheduledTime = Room.totalElapsedMilliseconds + interval;
+      scheduledTime = Room.TotalElapsedMilliseconds + interval;
     }
 
     public void AddAction(Action<Node> action) {

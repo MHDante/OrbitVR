@@ -256,6 +256,7 @@
     <Compile Include="Components\Tracers\PhaseOrb.cs" />
     <Compile Include="Components\Tracers\Waver.cs" />
     <Compile Include="Components\Tracers\WideRay.cs" />
+    <Compile Include="DebugFlags.cs" />
     <Compile Include="Framework\Camera.cs" />
     <Compile Include="Framework\CameraBase.cs" />
     <Compile Include="Framework\Controller.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="Interface\Toggle.cs" />
     <Compile Include="Interface\UserInterface.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Object3D.cs" />
     <Compile Include="OrbIt.cs" />
     <Compile Include="Physics\AABB.cs" />
     <Compile Include="Physics\Body.cs" />
@@ -323,11 +325,9 @@
     <Compile Include="PSMove\PSMoveManager.cs" />
     <Compile Include="PSMove\PSMovePose.cs" />
     <Compile Include="PSMove\PSMoveUtility.cs" />
-    <Compile Include="PSMove\Transform.cs" />
     <Compile Include="RiftGame.cs" />
     <Compile Include="Room.cs" />
-    <Compile Include="RoomComponents\CollisionManager.cs" />
-    <Compile Include="RoomComponents\RoomComponent.cs" />
+    <Compile Include="Physics\CollisionManager.cs" />
     <Compile Include="Tester.cs" />
     <Compile Include="VRGame.cs" />
   </ItemGroup>

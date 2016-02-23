@@ -417,56 +417,16 @@ namespace OrbitVR {
       if (nodeState == state.off || nodeState == state.drawOnly) return;
 
       if (aOtherProps.Count > 0) {
-        if (room.affectAlgorithm == 1) {
-          List<Collider> returnObjectsFinal = new List<Collider>();
-
-          int reach; //update later based on cell size and radius (or polygon size.. maybe based on it's AABB)
-          if (body.shape is Polygon) {
-            reach = 20;
-          }
-          else {
-            //reach = (int)(body.radius * 5) / room.gridsystem.cellWidth;
-            reach = 10;
-          }
-          returnObjectsFinal = room.gridsystemAffect.retrieve(body, reach);
-          returnObjectsFinal.Remove(body);
-          if (AffectExclusionCheck == null) {
-            foreach (Collider other in returnObjectsFinal) {
-              if (room.ColorNodesInReach && this == room.targetNode && other is Body)
-                (other as Body).color = Color.Purple;
-              if (other.parent.active) {
-                foreach (Type t in aOtherProps) {
-                  if (!comps[t].active) continue;
-                  comps[t].AffectOther(other.parent);
-                }
-              }
-            }
-          }
-          else {
-            foreach (Collider other in returnObjectsFinal) {
-              if (room.ColorNodesInReach && this == room.targetNode && other is Body)
-                (other as Body).color = Color.Purple;
-              if (other.parent.active) {
-                if (AffectExclusionCheck(other.parent))
-                  continue; //todo: extend to check for every component for finer control if necessary
-                foreach (Type t in aOtherProps) {
-                  if (!comps[t].active) continue;
-                  comps[t].AffectOther(other.parent);
-                }
-              }
-            }
+        //AffectAlgorithm #2 See Souce History in this file for AffectAlgorithm 1
+        if (meta.IgnoreAffectGrid) {
+          foreach (Node n in room.masterGroup.fullSet) {
+            affectAction(body, n.body);
           }
         }
-        else if (room.affectAlgorithm == 2) {
-          if (meta.IgnoreAffectGrid) {
-            foreach (Node n in room.masterGroup.fullSet) {
-              affectAction(body, n.body);
-            }
-          }
-          else {
-            room.gridsystemAffect.retrieveOffsetArraysAffect(body, affectAction, affectionReach);
-          }
+        else {
+          room.gridsystemAffect.retrieveOffsetArraysAffect(body, affectAction, affectionReach);
         }
+        
       }
       if (OnAffectOthers != null) OnAffectOthers.Invoke(this, null);
 

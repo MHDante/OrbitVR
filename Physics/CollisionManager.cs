@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using OrbitVR.Framework;
-using OrbitVR.Physics;
 using SharpDX;
 
-namespace OrbitVR.RoomComponents {
-  public class CollisionManager : RoomComponent {
+namespace OrbitVR.Physics {
+  public class CollisionManager {
     static int algorithm = 7;
 
     Action<Collider, Collider> collideAction;
@@ -74,7 +73,7 @@ namespace OrbitVR.RoomComponents {
         CollisionSetPolygon.Remove(collider);
     }
 
-    public override void Update() {
+    public void Update() {
       if (algorithm >= 5) {
         gridsystemCollision.clearBuckets();
         foreach (var c in CollisionSetCircle) //.ToList()
@@ -143,7 +142,7 @@ namespace OrbitVR.RoomComponents {
         }
       }
       foreach (Node n in room.masterGroup.fullSet.ToList()) {
-        if (room.skipOutsideGrid &&
+        if (DebugFlags.skipOutsideGrid &&
             n.body.pos.isWithin(gridsystemCollision.position,
                                 gridsystemCollision.position +
                                 new Vector2(gridsystemCollision.gridWidth, gridsystemCollision.gridHeight)))
@@ -156,9 +155,10 @@ namespace OrbitVR.RoomComponents {
         m.PositionalCorrection();
 
       if (contacts.Count > 0) contacts = new List<Manifold>();
+      gridsystemCollision.addGridSystemLines();
     }
 
-    public override void Draw() {
+    public void Draw() {
       gridsystemCollision.DrawGrid(room, Color.Orange);
     }
   }
