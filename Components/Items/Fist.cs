@@ -103,7 +103,7 @@ namespace OrbitVR.Components.Items {
       fistNode.body.pos = parent.body.pos;
 
 
-      room.groups.items.IncludeEntity(fistNode);
+      room.Groups.Items.IncludeEntity(fistNode);
       fistNode.OnSpawn();
       fistNode.body.AddExclusionCheck(parent.body);
       fistNode.body.ExclusionCheck += delegate(Collider p, Collider o) { return !movingStick; };
@@ -196,7 +196,7 @@ namespace OrbitVR.Components.Items {
         //Utils.DrawLine(room, target, parent.body.pos, 2f, Color.Red, Layers.Under2);
       }
 
-      room.camera.Draw(textures.fist, position, Color.White, fistNode.body.scale, fistNode.body.orient, Layers.Over2);
+      room.Camera.Draw(textures.fist, position, Color.White, fistNode.body.scale, fistNode.body.orient, Layers.Over2);
       //layers don't work
     }
 

@@ -72,7 +72,7 @@ namespace OrbitVR.Framework {
       Keybindset.Add("polygonspawner", new KeyBundle(KeyCodes.D9, KeyCodes.LeftShift), enableKeyBinds<PolygonSpawner>());
       //Keybindset.Add("diodespawner", new KeyBundle(KeyCodes.D8, KeyCodes.LeftShift), enableKeyBinds(proc.diodeSpawner));
       Keybindset.Add("screenshot", new KeyBundle(KeyCodes.PrintScreen),
-                     () => { OrbIt.Game.Room.camera.TakeScreenshot = true; });
+                     () => { OrbIt.Game.Room.Camera.TakeScreenshot = true; });
 
 
       Keybindset.AddProcess(this, GetProcess<CameraControl>(), false);

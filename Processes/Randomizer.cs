@@ -116,8 +116,9 @@ namespace OrbitVR.Processes {
 
         //savedDicts.Enqueue(userP);
         savedNodes.Enqueue(n);
-        Group p = room.masterGroup.childGroups["Link Groups"];
-        Group g = new Group(room, n, p, n.name);
+        Group p = room.MasterGroup.childGroups["Link Groups"];
+        var g = new Group(room, n, n.name);
+        p.AddGroup(g);
         //p.AddGroup(g.Name, g);
         //OrbIt.ui.sidebar.UpdateGroupComboBoxes();
         savedGroups.Enqueue(g);

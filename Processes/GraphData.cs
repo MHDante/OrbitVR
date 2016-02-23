@@ -89,10 +89,10 @@ namespace OrbitVR.Processes {
       foreach (float f in floatData.Keys) {
         float ratio = (f - min.X)/(max.X - min.X);
         float hue = ratio*360;
-        float x = ratio*room.worldWidth;
-        float y = (room.worldHeight - ((floatData[f] - min.Y + 1)/(max.Y - min.Y + 1)*room.worldHeight*0.5f));
+        float x = ratio*room.WorldWidth;
+        float y = (room.WorldHeight - ((floatData[f] - min.Y + 1)/(max.Y - min.Y + 1)*room.WorldHeight*0.5f));
         datapoints += floatData[f];
-        room.camera.DrawLine(new Vector2(x, room.worldHeight), new Vector2(x, y), 1, ColorChanger.getColorFromHSV(hue),
+        room.Camera.DrawLine(new Vector2(x, room.WorldHeight), new Vector2(x, y), 1, ColorChanger.getColorFromHSV(hue),
                              Layers.Under5);
       }
 

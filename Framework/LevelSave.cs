@@ -27,7 +27,7 @@ namespace OrbitVR.Framework {
 
     public LevelSave(Group group, int levelWidth, int levelHeight, string name) {
       Diodes = new List<DiodeData>();
-      foreach (var n in group.room.masterGroup.fullSet) {
+      foreach (var n in group.room.MasterGroup.fullSet) {
         if (n.HasComp<Diode>()) {
           Diodes.Add(new DiodeData(n.Comp<Diode>()));
         }

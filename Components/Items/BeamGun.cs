@@ -51,7 +51,7 @@ namespace OrbitVR.Components.Items {
       beamNode = Node.ContructLineWall(room, parent.body.pos, parent.body.pos, beamThickness, addToWallGroup: false);
       beamNode.body.ExclusionCheck += (a, b) => b.parent == parent;
       beamNode.body.isSolid = false;
-      room.groups.walls.IncludeEntity(beamNode);
+      room.Groups.Walls.IncludeEntity(beamNode);
       beamNode.body.OnCollisionStay += OnBeamCollision;
       beamNode.active = false;
     }
@@ -128,7 +128,7 @@ namespace OrbitVR.Components.Items {
         Vector2 end = start + (stick.NormalizeSafe()*size);
         int seed = (int) DelegateManager.Triangle((i + tempColorVal), maxColorVal);
         Color newcol = new Color(c.R + r*seed, c.G + g*seed, c.B + g*seed); // *0.5f;
-        room.camera.DrawLine(start, end, 1f, newcol, Layers.Under2);
+        room.Camera.DrawLine(start, end, 1f, newcol, Layers.Under2);
       }
       tempColorVal += colorValSpeed;
     }

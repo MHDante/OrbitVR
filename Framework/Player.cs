@@ -171,20 +171,20 @@ namespace OrbitVR.Framework {
     //
     public static void ResetPlayers(Room room) //todo:fix
     {
-      room.groups.player.EmptyGroup();
+      room.Groups.Player.EmptyGroup();
       Controller.ResetControllers();
       CreatePlayers(room);
       //OrbIt.ui.sidebar.playerView.InitializePlayers();
     }
 
     public static void CreatePlayers(Room room) {
-      room.groups.player.defaultNode = room.masterGroup.defaultNode.CreateClone(room);
+      room.Groups.Player.defaultNode = room.MasterGroup.defaultNode.CreateClone(room);
       Shooter.MakeBullet(room);
       if (!EnablePlayers) return;
       //def.addComponent(comp.shooter, true);
 
       for (int i = 1; i < 5; i++) {
-        TryCreatePlayer(room, room.groups.player.defaultNode, i, false);
+        TryCreatePlayer(room, room.Groups.Player.defaultNode, i, false);
       }
       //OrbIt.ui.sidebar.playerView.InitializePlayers();
     }
@@ -193,14 +193,14 @@ namespace OrbitVR.Framework {
       for (int i = 1; i < 5; i++) {
         if (players[i] == null) // && GamePad.GetState((PlayerIndex)(i-1)).IsConnected)
         {
-          TryCreatePlayer(room, room.groups.player.defaultNode, i, true);
+          TryCreatePlayer(room, room.Groups.Player.defaultNode, i, true);
         }
       }
     }
 
     public static void TryCreatePcPlayer() {
       if (players[0] == null) {
-        TryCreatePlayer(OrbIt.Game.Room, OrbIt.Game.Room.groups.player.defaultNode, 0, true);
+        TryCreatePlayer(OrbIt.Game.Room, OrbIt.Game.Room.Groups.Player.defaultNode, 0, true);
       }
     }
 
@@ -218,7 +218,7 @@ namespace OrbitVR.Framework {
       float dist = 200;
       float x = dist*(float) Math.Cos(angle);
       float y = dist*(float) Math.Sin(angle);
-      Vector2 spawnPos = new Vector2((room.worldWidth/4)*playerIndex - (room.worldWidth/8), room.worldHeight - 600);
+      Vector2 spawnPos = new Vector2((room.WorldWidth/4)*playerIndex - (room.WorldWidth/8), room.WorldHeight - 600);
       // -new Vector2(x, y);
       Node node = defaultNode.CreateClone(room);
       p.node = node;
@@ -237,7 +237,7 @@ namespace OrbitVR.Framework {
       //node.body.mass = 0.1f;
       node.movement.maxVelocity.value = 6f;
       //node.addComponent<LinkGun>(true);
-      room.spawnNode(node, g: room.groups.player);
+      room.spawnNode(node, g: room.Groups.Player);
       //node.OnSpawn();
       node.texture = textures.robot1;
 

@@ -47,12 +47,12 @@ namespace OrbitVR.Processes {
       newNode.movement.mode = movemode.free;
       newNode.body.restitution = 1f;
       newNode.meta.maxHealth.enabled = false;
-      room.spawnNode(newNode, g: room.masterGroup.childGroups["Wall Group"]);
+      room.spawnNode(newNode, g: room.MasterGroup.childGroups["Wall Group"]);
       verts = new List<Vector2>();
     }
 
     public void ClearWalls() {
-      room.masterGroup.childGroups["Wall Group"].EmptyGroup();
+      room.MasterGroup.childGroups["Wall Group"].EmptyGroup();
     }
 
     public override void Draw() {
@@ -63,10 +63,10 @@ namespace OrbitVR.Processes {
       Texture2D tx = Assets.textureDict[textures.whitecircle];
       Vector2 cen = new Vector2(tx.Width/2f, tx.Height/2f); //store this in another textureDict to avoid recalculating
 
-      room.camera.Draw(textures.whitecircle, vert, null, Color.White, 0f, cen, 0.3f, Layers.Over5);
+      room.Camera.Draw(textures.whitecircle, vert, null, Color.White, 0f, cen, 0.3f, Layers.Over5);
 
       foreach (Vector2 v in verts) {
-        room.camera.Draw(textures.whitecircle, v, null, Color.Red, 0f, cen, 0.3f, Layers.Over5);
+        room.Camera.Draw(textures.whitecircle, v, null, Color.Red, 0f, cen, 0.3f, Layers.Over5);
       }
     }
 
@@ -75,11 +75,11 @@ namespace OrbitVR.Processes {
       Vector2 MousePos = UserInterface.WorldMousePos;
 
       //Console.WriteLine(room.worldWidth + " : " + room.worldHeight + "  :::  " + MousePos.X + " : " + MousePos.Y);
-      double dx = MousePos.X/(double) room.level.cellWidth;
-      double dy = MousePos.Y/(double) room.level.cellHeight;
+      double dx = MousePos.X/(double) room.Level.cellWidth;
+      double dy = MousePos.Y/(double) room.Level.cellHeight;
 
-      x = (int) Math.Floor(dx + 0.5)*room.level.cellWidth;
-      y = (int) Math.Floor(dy + 0.5)*room.level.cellHeight;
+      x = (int) Math.Floor(dx + 0.5)*room.Level.cellWidth;
+      y = (int) Math.Floor(dy + 0.5)*room.Level.cellHeight;
     }
   }
 }

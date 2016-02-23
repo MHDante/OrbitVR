@@ -33,8 +33,8 @@ namespace OrbitVR.Components.Meta {
 
         data1.switchAvailable = false;
         data2.switchAvailable = false;
-        n1.room.scheduler.doAfterXMilliseconds(nn => data1.switchAvailable = true, 1000);
-        n1.room.scheduler.doAfterXMilliseconds(nn => data2.switchAvailable = true, 1000);
+        n1.room.Scheduler.doAfterXMilliseconds(nn => data1.switchAvailable = true, 1000);
+        n1.room.Scheduler.doAfterXMilliseconds(nn => data2.switchAvailable = true, 1000);
       }
       else {
         Player p1;
@@ -73,7 +73,7 @@ namespace OrbitVR.Components.Meta {
 
         p1.node.body.texture = textures.blackorb;
         p1.node.body.color = p1.pColor;
-        p1.node.room.scheduler.doAfterXMilliseconds(nn => p1.Data<BigTonyData>().switchAvailable = true, 1000);
+        p1.node.room.Scheduler.doAfterXMilliseconds(nn => p1.Data<BigTonyData>().switchAvailable = true, 1000);
       }
       //don't switch if both are nodes
     }

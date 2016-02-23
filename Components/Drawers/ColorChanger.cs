@@ -172,9 +172,9 @@ namespace OrbitVR.Components.Drawers {
         parent.body.color = getColorFromHSV(angle, saturation, value);
       }
       else if (colormode == ColorMode.position) {
-        float r = parent.body.pos.X/(float) room.worldWidth;
-        float g = parent.body.pos.Y/(float) room.worldHeight;
-        float b = (parent.body.pos.X/parent.body.pos.Y)/((float) room.worldWidth/(float) room.worldHeight);
+        float r = parent.body.pos.X/(float) room.WorldWidth;
+        float g = parent.body.pos.Y/(float) room.WorldHeight;
+        float b = (parent.body.pos.X/parent.body.pos.Y)/((float) room.WorldWidth/(float) room.WorldHeight);
         parent.body.color = new Color(r, g, b);
       }
       else if (colormode == ColorMode.velocity) {

@@ -120,7 +120,7 @@ namespace OrbitVR.Components.Items {
       swordNode.basicdraw.active = false;
       ///room.spawnNode(sword);
 
-      room.groups.items.IncludeEntity(swordNode);
+      room.Groups.Items.IncludeEntity(swordNode);
       swordNode.OnSpawn();
       swordNode.body.AddExclusionCheck(parent.body);
       swordNode.body.ExclusionCheck += delegate(Collider p, Collider o) { return !movingStick; };
@@ -173,7 +173,7 @@ namespace OrbitVR.Components.Items {
     public override void Draw() {
       Vector2 position = swordNode.body.pos;
       if (position == Vector2.Zero) position = parent.body.pos;
-      room.camera.Draw(textures.sword, position, parent.body.color, swordNode.body.scale*2, swordNode.body.orient,
+      room.Camera.Draw(textures.sword, position, parent.body.color, swordNode.body.scale*2, swordNode.body.orient,
                        Layers.Over3);
     }
 

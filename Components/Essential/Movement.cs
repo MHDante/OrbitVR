@@ -221,8 +221,8 @@ namespace OrbitVR.Components.Essential {
 
     //reminder: make a vocal recognition extension for visual studio to take you where you want ("Class: Movement. Method: fallOff.")
     public void fallOff() {
-      int levelwidth = room.worldWidth;
-      int levelheight = room.worldHeight;
+      int levelwidth = room.WorldWidth;
+      int levelheight = room.WorldHeight;
 
       Vector2 pos = parent.body.pos;
 
@@ -251,13 +251,13 @@ namespace OrbitVR.Components.Essential {
     public void wallBounce() {
       //if (room.PropertiesDict["wallBounce"])
       //float levelwidth = room.game...;
-      int levelwidth = room.worldWidth;
-      int levelheight = room.worldHeight;
+      int levelwidth = room.WorldWidth;
+      int levelheight = room.WorldHeight;
 
       if (parent.body.pos.X >= (levelwidth - parent.body.radius)) {
         //float off = parent.body.pos.X - (levelwidth - parent.body.radius);
         //parent.body.pos.X = (levelwidth - parent.body.radius - off) % room.worldWidth;
-        parent.body.pos.X = DelegateManager.Triangle(parent.body.pos.X, room.worldWidth - (int) parent.body.radius);
+        parent.body.pos.X = DelegateManager.Triangle(parent.body.pos.X, room.WorldWidth - (int) parent.body.radius);
         if (parent.body.velocity.X > 0)
           parent.body.velocity.X *= -1;
         //parent.body.InvokeOnCollisionStay(null); //todo: find out why we needed null, fix this
@@ -265,7 +265,7 @@ namespace OrbitVR.Components.Essential {
       if (parent.body.pos.X < parent.body.radius) {
         //float off = parent.body.radius - parent.body.pos.X;
         //parent.body.pos.X = (parent.body.radius + off) % room.worldWidth;
-        parent.body.pos.X = DelegateManager.Triangle(parent.body.pos.X - parent.body.radius, room.worldWidth) +
+        parent.body.pos.X = DelegateManager.Triangle(parent.body.pos.X - parent.body.radius, room.WorldWidth) +
                             parent.body.radius;
         if (parent.body.velocity.X < 0)
           parent.body.velocity.X *= -1;
@@ -274,7 +274,7 @@ namespace OrbitVR.Components.Essential {
       if (parent.body.pos.Y >= (levelheight - parent.body.radius)) {
         //float off = parent.body.pos.Y - (levelheight - parent.body.radius);
         //parent.body.pos.Y = (levelheight - parent.body.radius - off) % room.worldHeight;
-        parent.body.pos.Y = DelegateManager.Triangle(parent.body.pos.Y, room.worldHeight - (int) parent.body.radius);
+        parent.body.pos.Y = DelegateManager.Triangle(parent.body.pos.Y, room.WorldHeight - (int) parent.body.radius);
         if (parent.body.velocity.Y > 0)
           parent.body.velocity.Y *= -1;
         //parent.body.InvokeOnCollisionStay(null);
@@ -282,7 +282,7 @@ namespace OrbitVR.Components.Essential {
       if (parent.body.pos.Y < parent.body.radius) {
         //float off = parent.body.radius - parent.body.pos.Y;
         //parent.body.pos.Y = (parent.body.radius + off) % room.worldHeight;
-        parent.body.pos.Y = DelegateManager.Triangle(parent.body.pos.Y - parent.body.radius, room.worldHeight) +
+        parent.body.pos.Y = DelegateManager.Triangle(parent.body.pos.Y - parent.body.radius, room.WorldHeight) +
                             parent.body.radius;
         if (parent.body.velocity.Y < 0)
           parent.body.velocity.Y *= -1;
@@ -293,8 +293,8 @@ namespace OrbitVR.Components.Essential {
     public void halt() {
       //if (room.PropertiesDict["wallBounce"])
       //float levelwidth = room.game...;
-      int levelwidth = room.worldWidth;
-      int levelheight = room.worldHeight;
+      int levelwidth = room.WorldWidth;
+      int levelheight = room.WorldHeight;
 
       if (parent.body.pos.X >= (levelwidth - parent.body.radius)) {
         parent.body.pos.X = levelwidth - parent.body.radius;
@@ -322,8 +322,8 @@ namespace OrbitVR.Components.Essential {
     public void screenWrap() {
       //if (room.PropertiesDict["wallBounce"])
       //float levelwidth = room.game...;
-      int levelwidth = room.worldWidth;
-      int levelheight = room.worldHeight;
+      int levelwidth = room.WorldWidth;
+      int levelheight = room.WorldHeight;
 
       //todo: modulus screen width
       //hitting top/bottom of screen

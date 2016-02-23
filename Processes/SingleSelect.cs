@@ -49,11 +49,11 @@ namespace OrbitVR.Processes {
       //if (buttonState == ButtonState.Released) return;
       Node found = room.SelectNodeAt(UserInterface.WorldMousePos);
       if (found != null) {
-        if (room.targetNode != null && room.targetNode.HasComp<Flow>()) {
-          room.targetNode.Comp<Flow>().AddToOutgoing(found);
+        if (room.TargetNode != null && room.TargetNode.HasComp<Flow>()) {
+          room.TargetNode.Comp<Flow>().AddToOutgoing(found);
         }
-        if (room.targetNode != null && room.targetNode.HasComp<Tether>()) {
-          room.targetNode.Comp<Tether>().AddToOutgoing(found);
+        if (room.TargetNode != null && room.TargetNode.HasComp<Tether>()) {
+          room.TargetNode.Comp<Tether>().AddToOutgoing(found);
         }
       }
     }

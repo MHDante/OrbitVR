@@ -1,26 +1,31 @@
+using OrbitVR.Interface;
 using OrbitVR.Processes;
+using SharpDX;
 using SharpDX.Toolkit;
 
 namespace OrbitVR {
   internal class Tester : OrbIt {
     private Randomizer randomizer;
     private int testTimer;
+    private bool spawned;
+    private Vector2 spawnPos;
 
     protected override void Initialize() {
       base.Initialize();
       randomizer = Game.processManager.GetProcess<Randomizer>();
     }
-
+    
     protected override void Update(GameTime gt) {
       base.Update(gt);
 
       testTimer += gt.ElapsedGameTime.Milliseconds;
-      //if (testTimer > 1000) {
-      //  spawnPos += Vector2.One*10;
-      //  randomizer.SpawnSemiRandom();
-      //  //randomizer.SpawnFullyRandom();
-      //  testTimer = 0;
-      //}
+      if (testTimer > 1000) {
+        spawnPos += Vector2.One*10;
+        UserInterface.WorldMousePos = spawnPos;
+        randomizer.SpawnSemiRandom();
+        //randomizer.SpawnFullyRandom();
+        testTimer = 0;
+      }
 
       //if (testTimer < 1000) {
       //  testTimer = 1000;
@@ -33,9 +38,8 @@ namespace OrbitVR {
       //  n.addComponent<Shovel>(true);
       //}
 
-      if (testTimer < 1000)
-      {
-        testTimer = 1000;
+      if (!spawned) {
+        spawned = true;
         for (int i = 0; i < 500; i++)
         {
           Node n = Room.spawnNode(0, 0);

@@ -167,7 +167,7 @@ namespace OrbitVR.Components.Meta {
 
     public override void Draw() {
       if (!LeaveTrunk || !original) return;
-      room.camera.AddPermanentDraw(parent.texture, parent.body.pos, parent.body.color, parent.body.scale, 0, 200);
+      room.Camera.AddPermanentDraw(parent.texture, parent.body.pos, parent.body.color, parent.body.scale, 0, 200);
       //trunk doesn't die. (make 500?)
     }
 
@@ -185,12 +185,12 @@ namespace OrbitVR.Components.Meta {
         col = new Color(a, b, c, 0.8f);
         if (!fade) col = parent.body.color;
 
-        room.camera.Draw(parent.texture, pos, col, scales.ElementAt(count), 0);
+        room.Camera.Draw(parent.texture, pos, col, scales.ElementAt(count), 0);
         count++;
       }
 
       if (!fade) col = parent.body.color;
-      room.camera.Draw(parent.texture, parent.body.pos, col, parent.body.scale, 0);
+      room.Camera.Draw(parent.texture, parent.body.pos, col, parent.body.scale, 0);
     }
 
     public void onCollision(Dictionary<dynamic, dynamic> args) {}

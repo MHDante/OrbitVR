@@ -19,8 +19,8 @@ namespace OrbitVR.Processes {
     public Node FindNode(Vector2 pos) {
       Node found = null;
       float shortedDistance = Int32.MaxValue;
-      for (int i = room.masterGroup.fullSet.Count - 1; i >= 0; i--) {
-        Node n = (Node) room.masterGroup.fullSet.ElementAt(i);
+      for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
+        Node n = (Node) room.MasterGroup.fullSet.ElementAt(i);
         // find node that has been clicked, starting from the most recently placed nodes
         float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
         if (distsquared < n.body.radius*n.body.radius) {

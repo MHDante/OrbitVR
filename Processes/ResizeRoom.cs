@@ -12,7 +12,7 @@ namespace OrbitVR.Processes {
     public void resize() {
       Vector2 pos = UserInterface.WorldMousePos;
       if (pos.X < 0 || pos.Y < 0) return;
-      OrbIt.Game.Room.resize(pos);
+      OrbIt.Game.Room.Resize(pos);
     }
 
     public override void Update() {
@@ -25,10 +25,10 @@ namespace OrbitVR.Processes {
       int maxY = (int) pos.Y;
 
       Color c = Color.Green;
-      room.camera.DrawLine(new Vector2(minX, minY), new Vector2(minX, maxY), 2f, c, Layers.Over5);
-      room.camera.DrawLine(new Vector2(minX, minY), new Vector2(maxX, minY), 2f, c, Layers.Over5);
-      room.camera.DrawLine(new Vector2(maxX, maxY), new Vector2(minX, maxY), 2f, c, Layers.Over5);
-      room.camera.DrawLine(new Vector2(maxX, maxY), new Vector2(maxX, minY), 2f, c, Layers.Over5);
+      room.Camera.DrawLine(new Vector2(minX, minY), new Vector2(minX, maxY), 2f, c, Layers.Over5);
+      room.Camera.DrawLine(new Vector2(minX, minY), new Vector2(maxX, minY), 2f, c, Layers.Over5);
+      room.Camera.DrawLine(new Vector2(maxX, maxY), new Vector2(minX, maxY), 2f, c, Layers.Over5);
+      room.Camera.DrawLine(new Vector2(maxX, maxY), new Vector2(maxX, minY), 2f, c, Layers.Over5);
     }
   }
 }

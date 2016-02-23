@@ -216,7 +216,7 @@ namespace OrbitVR.Framework {
         lock (_locker) {
           DepthStencilView d = null;
           var oldTargets = batch.GraphicsDevice.GetRenderTargets(out d);
-          batch.GraphicsDevice.SetRenderTargets(room.roomRenderTarget);
+          batch.GraphicsDevice.SetRenderTargets(room.RoomRenderTarget);
           batch.GraphicsDevice.Clear(backgroundColor);
           //After a lot of messing around, found some settings that worked. From: http://robjsoftware.org/2013/02/07/goodbye-xna-helloooo-sharpdx/
           batch.Begin(SpriteSortMode.Deferred, batch.GraphicsDevice.BlendStates.NonPremultiplied);
@@ -373,7 +373,7 @@ namespace OrbitVR.Framework {
     }
 
     public override void Screenshot() {
-      Texture2DBase t2d = room.roomRenderTarget;
+      Texture2DBase t2d = room.RoomRenderTarget;
       int i = 0;
       string name;
       string date = DateTime.Now.ToShortDateString().Replace('/', '-');

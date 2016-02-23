@@ -227,8 +227,8 @@ namespace OrbitVR.Framework {
     /// <summary> Returns a non-unit vector up to the radius specified.</summary>
     public override Vector2 GetRightStick(float radius, bool drawRing = false) {
       Vector2 mousePos = new Vector2(newMouseState.X, newMouseState.Y);
-      Vector2 playerPos = (player.node.body.pos - player.room.camera.virtualTopLeft)*player.room.camera.zoom +
-                          player.room.camera.CameraOffsetVect;
+      Vector2 playerPos = (player.node.body.pos - player.room.Camera.virtualTopLeft)*player.room.Camera.zoom +
+                          player.room.Camera.CameraOffsetVect;
       Vector2 dir = mousePos - playerPos;
       float lensqr = dir.LengthSquared();
       if (lensqr > radius*radius) {
@@ -241,7 +241,7 @@ namespace OrbitVR.Framework {
       if (drawRing) {
         float scale = (radius*2f)/Assets.textureDict[textures.ring].Width;
         float alpha = (((float) Math.Sin(OrbIt.Game.Time.TotalGameTime.TotalMilliseconds/300f) + 1f)/4f) + 0.25f;
-        player.room.camera.Draw(textures.ring, player.node.body.pos, player.pColor*alpha, scale, Layers.Under2);
+        player.room.Camera.Draw(textures.ring, player.node.body.pos, player.pColor*alpha, scale, Layers.Under2);
       }
       return dir;
     }

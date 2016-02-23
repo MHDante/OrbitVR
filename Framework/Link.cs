@@ -225,7 +225,7 @@ namespace OrbitVR.Framework {
         this.sourceGroup.SourceLinks.Add(this);
         this.sources = this.sourceGroup.fullSet;
 
-        room.masterGroup.childGroups["Link Groups"].AddGroup(ss.Name, ss);
+        room.MasterGroup.childGroups["Link Groups"].AddGroup(ss);
         //if (OrbIt.ui != null)
         //{
         //    OrbIt.ui.sidebar.UpdateGroupComboBoxes();
@@ -278,7 +278,7 @@ namespace OrbitVR.Framework {
         this.targets = this.targetGroup.fullSet;
         this.targetGroup.TargetLinks.Add(this);
 
-        room.masterGroup.childGroups["Link Groups"].AddGroup(ts.Name, ts);
+        room.MasterGroup.childGroups["Link Groups"].AddGroup(ts);
         //if (OrbIt.ui != null) OrbIt.ui.sidebar.UpdateGroupComboBoxes();
 
         foreach (Node t in this.targets) {
@@ -478,7 +478,7 @@ namespace OrbitVR.Framework {
           VMath.NormalizeSafe(ref perp);
           perp *= 2;
 
-          room.camera.DrawLine(source.body.pos, target.body.pos, 2f, color1, Layers.Under3);
+          room.Camera.DrawLine(source.body.pos, target.body.pos, 2f, color1, Layers.Under3);
 
           //Utils.DrawLine(spritebatch, source.transform.position + perp, target.transform.position + perp, 2f, col, room);
           //Utils.DrawLine(spritebatch, source.transform.position - perp, target.transform.position - perp, 2f, col, room);
@@ -489,8 +489,8 @@ namespace OrbitVR.Framework {
           Vector2 center = (target.body.pos + source.body.pos)/2;
 
           Vector2 point = target.body.pos - (diff/5);
-          room.camera.DrawLine(point + perp, target.body.pos, 2f, color1, Layers.Under3);
-          room.camera.DrawLine(point - perp, target.body.pos, 2f, color1, Layers.Under3);
+          room.Camera.DrawLine(point + perp, target.body.pos, 2f, color1, Layers.Under3);
+          room.Camera.DrawLine(point - perp, target.body.pos, 2f, color1, Layers.Under3);
         }
       }
     }

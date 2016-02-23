@@ -48,7 +48,7 @@ namespace OrbitVR.Components.Items {
     public bool drawCenterNode { get; set; }
 
     public override void OnSpawn() {
-      currentGroup = room.groups.general.childGroups.ElementAt(0).Value;
+      currentGroup = room.Groups.General.childGroups.ElementAt(0).Value;
     }
 
     public override void PlayerControl(Input input) {
@@ -71,9 +71,9 @@ namespace OrbitVR.Components.Items {
       }
 
       if (input.BtnClicked(InputButtons.RightBumper_E)) {
-        if (room.groups.general.childGroups.Values.Count < 2) return;
+        if (room.Groups.General.childGroups.Values.Count < 2) return;
         bool next = false;
-        var tempGroup = room.groups.general.childGroups;
+        var tempGroup = room.Groups.General.childGroups;
         for (int i = 0; i < tempGroup.Values.Count; i++) {
           Group g = tempGroup.Values.ElementAt(i);
           if (next) {

@@ -37,7 +37,7 @@ namespace OrbitVR.Processes {
       n3.body.pos.Y -= 150;
 
 
-      Group g = room.masterGroup.FindGroup("[G0]");
+      Group g = room.MasterGroup.FindGroup("[G0]");
       g.IncludeEntity(n1);
       g.IncludeEntity(n2);
       g.IncludeEntity(n3);

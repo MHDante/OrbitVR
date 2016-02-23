@@ -160,14 +160,14 @@ namespace OrbitVR.Components.Essential {
       Layers layer = parent.IsPlayer ? Layers.Player : DrawLayer;
 
       if (parent.HasComp<Shader>())
-        room.camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
+        room.Camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
                          parent.body.orient, layer, parent.Comp<Shader>().shaderPack);
       else
-        room.camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
+        room.Camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
                          parent.body.orient, layer);
 
       if (parent.body.texture == textures.boulder1 && DrawSparkles)
-        room.camera.Draw(textures.boulderShine, parent.body.pos, Utils.randomColor(), parent.body.scale,
+        room.Camera.Draw(textures.boulderShine, parent.body.pos, Utils.randomColor(), parent.body.scale,
                          parent.body.orient, layer);
     }
   }

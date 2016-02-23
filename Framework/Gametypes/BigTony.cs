@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using OrbitVR.Components.Meta;
 using OrbitVR.Components.Tracers;
 using OrbitVR.Physics;
@@ -39,13 +40,13 @@ namespace OrbitVR.Framework.Gametypes {
     public BigTony() : base() {
       //OrbIt.ui.SetSidebarActive(false);
       onCollisionEnter = delegate(Node s, Node t) {
-                           if (t != null && !room.playerNodes.Contains(t)) {
+                           if (t != null && !Player.players.Select(p => p.node).Contains(t)) {
                              t.body.color = Add(s.body.color, new Color(colorChange, colorChange, colorChange));
                                //changed node to s
                            }
                          };
       onCollisionExit = delegate(Node s, Node t) {
-                          if (t != null && !room.playerNodes.Contains(t)) {
+                          if (t != null && !Player.players.Select(p => p.node).Contains(t)) {
                             t.body.color = Color.White;
                           }
                         };
@@ -72,7 +73,7 @@ namespace OrbitVR.Framework.Gametypes {
         float dist = 200;
         float x = dist*(float) Math.Cos(angle);
         float y = dist*(float) Math.Sin(angle);
-        spawnPos = new Vector2(room.worldWidth/2, room.worldHeight/2) - new Vector2(x, y);
+        spawnPos = new Vector2(room.WorldWidth/2, room.WorldHeight/2) - new Vector2(x, y);
 
         //add //{ nodeE.position, spawnPos },
         p.node = room.spawnNode(playerProps);
@@ -96,12 +97,12 @@ namespace OrbitVR.Framework.Gametypes {
       //    return;
       //}
       Dictionary<dynamic, dynamic> tonyProps = new Dictionary<dynamic, dynamic>() {
-        {nodeE.position, new Vector2(room.worldWidth/2, room.worldHeight/2)},
+        {nodeE.position, new Vector2(room.WorldWidth/2, room.WorldHeight/2)},
         {nodeE.texture, textures.blackorb},
         {typeof (PhaseOrb), true},
       };
       Node tony = new Node(room, tonyProps);
-      room.scheduler.doEveryXMilliseconds(delegate {
+      room.Scheduler.doEveryXMilliseconds(delegate {
                                             //if (OrbIt.soundEnabled) Scheduler.end.Play(0.3f, -0.5f, 0f);
                                             int rad = 100;
                                             for (int i = 0; i < 10; i++) {
@@ -121,13 +122,13 @@ namespace OrbitVR.Framework.Gametypes {
 
       EventHandler updateScores = null;
       updateScores = (ooo, eee) => {
-                       foreach (var p in room.players) {
+                       foreach (var p in Player.players) {
                          if (p.node == bigtony) {
                            p.node.meta.score += OrbIt.Game.Time.ElapsedGameTime.Milliseconds;
                            if (p.node.meta.score >= maxScore) {
                              p.node.body.radius += 500;
                              p.node.body.mass += 100;
-                             foreach (var pp in room.players) {
+                             foreach (var pp in Player.players) {
                                //pp.node.body.ClearHandlers();
                                //pp.nodeCollision.body.ClearHandlers();
                                pp.node.collision.AllHandlersEnabled = false;
@@ -140,7 +141,7 @@ namespace OrbitVR.Framework.Gametypes {
                      };
       bigtony.OnAffectOthers += updateScores;
 
-      room.masterGroup.fullSet.Add(bigtony); //#bigtony
+      room.MasterGroup.fullSet.Add(bigtony); //#bigtony
     }
 
     public static Color Add(Color c, Color b) {

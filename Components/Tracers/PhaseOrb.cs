@@ -41,7 +41,7 @@ namespace OrbitVR.Components.Tracers {
     }
 
     public override void Draw() {
-      room.camera.AddPermanentDraw(parent.texture, parent.body.pos, parent.body.color, parent.body.scale, 0,
+      room.Camera.AddPermanentDraw(parent.texture, parent.body.pos, parent.body.color, parent.body.scale, 0,
                                    phaserLength);
     }
   }

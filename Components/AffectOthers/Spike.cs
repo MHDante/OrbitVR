@@ -83,7 +83,7 @@ namespace OrbitVR.Components.AffectOthers {
                               if (t.movement.active) {
                                 t.movement.active = false;
                                 Action<Node> ad = (n) => { t.movement.active = true; };
-                                room.scheduler.AddAppointment(new Appointment(ad, (int) (stunSeconds.value*1000)));
+                                room.Scheduler.AddAppointment(new Appointment(ad, (int) (stunSeconds.value*1000)));
                               }
                             }
                           }

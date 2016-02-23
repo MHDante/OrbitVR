@@ -142,7 +142,7 @@ namespace OrbitVR.Components.Items {
 
       torchNode.AffectExclusionCheck += (node) => node == parent;
 
-      room.groups.items.IncludeEntity(torchNode);
+      room.Groups.Items.IncludeEntity(torchNode);
       torchNode.OnSpawn();
       torchNode.body.AddExclusionCheck(parent.body);
       torchNode.body.OnCollisionEnter += (p, o) => {
@@ -208,12 +208,12 @@ namespace OrbitVR.Components.Items {
       Vector2 position = torchNode.body.pos;
       if (position == Vector2.Zero) position = parent.body.pos;
       else {
-        room.camera.DrawLine(position, parent.body.pos, 2f, col, Layers.Over3);
+        room.Camera.DrawLine(position, parent.body.pos, 2f, col, Layers.Over3);
       }
 
       torchNode.body.color = col;
-      room.camera.Draw(textures.ring, position, Color.Black, torchNode.body.scale, torchNode.body.orient, Layers.Over4);
-      room.camera.Draw(MagicToRune[magicType], position, col, torchNode.body.scale,
+      room.Camera.Draw(textures.ring, position, Color.Black, torchNode.body.scale, torchNode.body.orient, Layers.Over4);
+      room.Camera.Draw(MagicToRune[magicType], position, col, torchNode.body.scale,
                        VMath.VectorToAngle(position - parent.body.pos) + GMath.PIbyTwo, Layers.Over3);
     }
 

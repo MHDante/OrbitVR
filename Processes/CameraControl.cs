@@ -29,7 +29,7 @@ namespace OrbitVR.Processes {
           Console.WriteLine("CAMERACONTROL: We've found it. We've finally found null.");
         }
         else {
-          room.camera.pos = targetedNode.value.body.pos;
+          room.Camera.pos = targetedNode.value.body.pos;
           return;
         }
       }
@@ -42,7 +42,7 @@ namespace OrbitVR.Processes {
       bool right = state.IsKeyDown(Keys.Right);
 
       Stick s = new Stick(up, down, left, right);
-      room.camera.pos += s.v2*velocity;
+      room.Camera.pos += s.v2*velocity;
     }
   }
 }

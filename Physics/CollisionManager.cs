@@ -43,8 +43,8 @@ namespace OrbitVR.Physics {
                         }
                       };
 
-      gridsystemCollision = new GridSystem(room, room.gridsystemAffect.cellsX,
-                                           new Vector2(0, room.worldHeight - OrbIt.ScreenHeight), room.worldWidth,
+      gridsystemCollision = new GridSystem(room, room.GridsystemAffect.cellsX,
+                                           new Vector2(0, room.WorldHeight - OrbIt.ScreenHeight), room.WorldWidth,
                                            OrbIt.ScreenHeight);
     }
 
@@ -141,7 +141,7 @@ namespace OrbitVR.Physics {
           //m.b.parent.SetColor(Color.Yellow);
         }
       }
-      foreach (Node n in room.masterGroup.fullSet.ToList()) {
+      foreach (Node n in room.MasterGroup.fullSet.ToList()) {
         if (DebugFlags.skipOutsideGrid &&
             n.body.pos.isWithin(gridsystemCollision.position,
                                 gridsystemCollision.position +

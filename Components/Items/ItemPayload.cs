@@ -208,7 +208,7 @@ namespace OrbitVR.Components.Items {
     }
 
     public void Draw(Room room, Vector2 position, Color color) {
-      room.camera.AddPermanentDraw(texture, position, color*alpha, scale, rotation, 20);
+      room.Camera.AddPermanentDraw(texture, position, color*alpha, scale, rotation, 20);
     }
   }
 }

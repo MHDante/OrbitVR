@@ -48,8 +48,8 @@ namespace OrbitVR.Interface {
     }
 
     public Group GetActiveGroup() {
-      if (string.IsNullOrEmpty(ActiveGroupName)) return room.masterGroup;
-      return room.masterGroup.FindGroup(ActiveGroupName);
+      if (string.IsNullOrEmpty(ActiveGroupName)) return room.MasterGroup;
+      return room.MasterGroup.FindGroup(ActiveGroupName);
     }
 
     public void Initialize() {}
@@ -59,7 +59,7 @@ namespace OrbitVR.Interface {
       if (g == null) return;
       if (g.Name.Equals("[G0]")) return;
 
-      if (g.fullSet.Contains(room.targetNode)) room.targetNode = null;
+      if (g.fullSet.Contains(room.TargetNode)) room.TargetNode = null;
       g.DeleteGroup();
     }
 

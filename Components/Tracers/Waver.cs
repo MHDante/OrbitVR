@@ -110,17 +110,17 @@ namespace OrbitVR.Components.Tracers {
 
       if (drawLines) {
         if (previousMetaPos != Vector2.Zero) {
-          room.camera.DrawLinePermanent(previousMetaPos, metaposfinal, 2f, parent.body.color, Length);
+          room.Camera.DrawLinePermanent(previousMetaPos, metaposfinal, 2f, parent.body.color, Length);
         }
         previousMetaPos = metaposfinal;
         //previousRelectPos = metaposfinal;
         if (reflective) {
           if (previousRelectPos != Vector2.Zero) {
-            room.camera.DrawLinePermanent(previousRelectPos, reflectfinal, 2f, parent.body.color, Length);
+            room.Camera.DrawLinePermanent(previousRelectPos, reflectfinal, 2f, parent.body.color, Length);
 
             if (drawSpin) {
-              room.camera.DrawLinePermanent(previousMetaPos, reflectfinal, 2f, parent.body.color, Length);
-              room.camera.DrawLinePermanent(previousRelectPos, metaposfinal, 2f, parent.body.color, Length);
+              room.Camera.DrawLinePermanent(previousMetaPos, reflectfinal, 2f, parent.body.color, Length);
+              room.Camera.DrawLinePermanent(previousRelectPos, metaposfinal, 2f, parent.body.color, Length);
             }
           }
           previousRelectPos = reflectfinal;
@@ -128,10 +128,10 @@ namespace OrbitVR.Components.Tracers {
         }
       }
       else {
-        room.camera.AddPermanentDraw(parent.texture, metaposfinal, parent.body.color, parent.body.scale*waveScale, 0,
+        room.Camera.AddPermanentDraw(parent.texture, metaposfinal, parent.body.color, parent.body.scale*waveScale, 0,
                                      Length);
         if (reflective) {
-          room.camera.AddPermanentDraw(parent.texture, reflectfinal, parent.body.color, parent.body.scale*waveScale, 0,
+          room.Camera.AddPermanentDraw(parent.texture, reflectfinal, parent.body.color, parent.body.scale*waveScale, 0,
                                        Length);
         }
       }

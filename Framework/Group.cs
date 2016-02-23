@@ -43,13 +43,12 @@ namespace OrbitVR.Framework {
     public Group()
       : this(null) {}
 
-    public Group(Room room, Node defaultNode = null, Group parentGroup = null, string Name = "", bool Spawnable = true,
+    public Group(Room room, Node defaultNode = null, string Name = "", bool Spawnable = true,
                  ObservableHashSet<Node> entities = null) {
-      if (parentGroup != null) room = parentGroup.room;
       this.room = room ?? OrbIt.Game.Room;
 
       GroupId = -1;
-      this.defaultNode = defaultNode ?? this.room.defaultNode;
+      this.defaultNode = defaultNode ?? this.room.DefaultNode;
       this.entities = entities ?? new ObservableHashSet<Node>();
       this.inherited = new ObservableHashSet<Node>();
       this.fullSet = new ObservableHashSet<Node>();
@@ -58,7 +57,7 @@ namespace OrbitVR.Framework {
           fullSet.Add(e);
         }
       }
-      this.parentGroup = parentGroup;
+
       //this.groupState = groupState;
       this.Spawnable = Spawnable;
       this.childGroups = new Dictionary<string, Group>();
@@ -74,19 +73,10 @@ namespace OrbitVR.Framework {
 
       groupPath = new List<Group>();
 
-      if (parentGroup != null) {
-        parentGroup.AddGroup(this.Name, this);
-        Group g = parentGroup;
-
-        while (g != null) {
-          groupPath.Add(g);
-          g = g.parentGroup;
-        }
-      }
     }
 
     public int GroupId { get; set; }
-    public Group parentGroup { get; set; }
+    public Group ParentGroup { get; set; }
     //
     public ObservableHashSet<Node> fullSet { get; set; }
     public ObservableHashSet<Node> entities { get; set; }
@@ -97,7 +87,7 @@ namespace OrbitVR.Framework {
       set {
         _childGroups = value;
         foreach (Group g in _childGroups.Values) {
-          g.parentGroup = this;
+          g.ParentGroup = this;
         }
       }
     }
@@ -127,21 +117,21 @@ namespace OrbitVR.Framework {
       set {
         _Disabled = value;
         if (value) {
-          if (parentGroup != null) {
+          if (ParentGroup != null) {
             foreach (Node n in fullSet) {
-              if (parentGroup.inherited.Contains(n)) parentGroup.inherited.Remove(n);
-              if (room.collisionManager.CollisionSetCircle.Contains(n.body))
-                room.collisionManager.CollisionSetCircle.Remove(n.body);
-              if (room.collisionManager.CollisionSetPolygon.Contains(n.body))
-                room.collisionManager.CollisionSetPolygon.Remove(n.body);
+              if (ParentGroup.inherited.Contains(n)) ParentGroup.inherited.Remove(n);
+              if (room.CollisionManager.CollisionSetCircle.Contains(n.body))
+                room.CollisionManager.CollisionSetCircle.Remove(n.body);
+              if (room.CollisionManager.CollisionSetPolygon.Contains(n.body))
+                room.CollisionManager.CollisionSetPolygon.Remove(n.body);
             }
             Spawnable = false;
           }
         }
         else {
-          if (parentGroup != null) {
+          if (ParentGroup != null) {
             foreach (Node n in fullSet) {
-              parentGroup.inherited.Add(n);
+              ParentGroup.inherited.Add(n);
               n.collision.UpdateCollisionSet();
             }
             Spawnable = true;
@@ -167,8 +157,8 @@ namespace OrbitVR.Framework {
       if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add) {
         //bool ui = OrbIt.ui != null && OrbIt.ui.sidebar.cbListPicker != null;
         foreach (Node n in e.NewItems) {
-          if (parentGroup != null && !parentGroup.entities.Contains(n)) {
-            parentGroup.inherited.Add(n);
+          if (ParentGroup != null && !ParentGroup.entities.Contains(n)) {
+            ParentGroup.inherited.Add(n);
           }
           fullSet.Add(n);
         }
@@ -181,8 +171,8 @@ namespace OrbitVR.Framework {
               fullSet.Remove(n);
             }
           }
-          if (parentGroup != null && parentGroup.inherited.Contains(n)) {
-            parentGroup.inherited.Remove(n);
+          if (ParentGroup != null && ParentGroup.inherited.Contains(n)) {
+            ParentGroup.inherited.Remove(n);
           }
           if (n.group == this) n.group = null;
         }
@@ -263,8 +253,8 @@ namespace OrbitVR.Framework {
 
     public Group FindGroup(string name) {
       Group root = this;
-      while (root.parentGroup != null) {
-        root = root.parentGroup;
+      while (root.ParentGroup != null) {
+        root = root.ParentGroup;
       }
       Group result = root.FindGroupRecurse(name);
       if (result != null) return result;
@@ -338,27 +328,37 @@ namespace OrbitVR.Framework {
         }
         */
 
-    public void AddGroup(string name, Group group) {
-      if (childGroups.ContainsKey(name)) {
+    public void AddGroup(Group group) {
+      if (childGroups.ContainsKey(group.Name))
+      {
         return;
         //throw new SystemException("Error: One of the childGroups with the same key was already present in this Group.");
       }
-      childGroups.Add(name, group);
-      group.parentGroup = this;
+      group.room = this.room;
+      childGroups.Add(group.Name, group);
+      group.ParentGroup = this;
       foreach (Node n in group.fullSet) {
         inherited.Add(n);
       }
+
+        Group g = this;
+        while (g != null)
+        {
+          group.groupPath = new List<Group>();
+          group.groupPath.Add(g);
+          g = g.ParentGroup;
+        }
     }
 
     public void DetatchFromParent() {
-      if (parentGroup == null) return;
+      if (ParentGroup == null) return;
       foreach (Node n in fullSet) {
-        parentGroup.inherited.Remove(n);
+        ParentGroup.inherited.Remove(n);
       }
-      if (parentGroup.childGroups.ContainsKey(Name)) {
-        parentGroup.childGroups.Remove(Name);
+      if (ParentGroup.childGroups.ContainsKey(Name)) {
+        ParentGroup.childGroups.Remove(Name);
       }
-      parentGroup = null;
+      ParentGroup = null;
     }
 
     public void GroupNamesToList(List<object> list, bool addSelf = true) {
@@ -376,8 +376,8 @@ namespace OrbitVR.Framework {
         n.group = null;
         DeleteEntity(n);
       }
-      if (parentGroup == null) throw new SystemException("Don't delete orphans");
-      parentGroup.childGroups.Remove(Name);
+      if (ParentGroup == null) throw new SystemException("Don't delete orphans");
+      ParentGroup.childGroups.Remove(Name);
     }
 
     /*

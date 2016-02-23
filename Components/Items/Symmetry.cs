@@ -59,7 +59,7 @@ namespace OrbitVR.Components.Items {
     }
 
     public void RandomizeSymmetry() {
-      Group group = room.groups.general.childGroups.Values.ElementAt(0);
+      Group group = room.Groups.General.childGroups.Values.ElementAt(0);
       Color color = Utils.randomColor();
       Vector2 center = parent.body.pos;
       float dist = (float) Utils.random.NextDouble()*100f + 20f;
@@ -69,7 +69,7 @@ namespace OrbitVR.Components.Items {
 
       float angleIncrement = GMath.TwoPI/numberOfNodes;
 
-      Node centerNode = room.defaultNode.CreateClone(room);
+      Node centerNode = room.DefaultNode.CreateClone(room);
       centerNode.body.color = color;
       centerNode.collision.active = false;
       centerNode.body.pos = center;

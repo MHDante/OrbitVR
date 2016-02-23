@@ -104,18 +104,18 @@ namespace OrbitVR.Components.Tracers {
       //don't draw lines from screen edge to edge if screenwrapping
       if (parent.movement.mode == movemode.screenwrap) {
         float diffx = prevPos.X - start.X;
-        if (diffx > room.worldWidth/2) {
-          start.X += room.worldWidth;
+        if (diffx > room.WorldWidth/2) {
+          start.X += room.WorldWidth;
         }
-        else if (diffx < -room.worldWidth/2) {
-          start.X -= room.worldWidth;
+        else if (diffx < -room.WorldWidth/2) {
+          start.X -= room.WorldWidth;
         }
         float diffy = prevPos.Y - start.Y;
-        if (diffy > room.worldHeight/2) {
-          start.Y += room.worldHeight;
+        if (diffy > room.WorldHeight/2) {
+          start.Y += room.WorldHeight;
         }
-        else if (diffy < -room.worldHeight/2) {
-          start.Y -= room.worldHeight;
+        else if (diffy < -room.WorldHeight/2) {
+          start.Y -= room.WorldHeight;
         }
       }
 
@@ -153,7 +153,7 @@ namespace OrbitVR.Components.Tracers {
       else {
         coll = new Color(parent.body.color.R, parent.body.color.G, parent.body.color.B, alpha);
       }
-      room.camera.AddPermanentDraw(textures.whitepixel, centerpoint, parent.body.color, scalevect, testangle,
+      room.Camera.AddPermanentDraw(textures.whitepixel, centerpoint, parent.body.color, scalevect, testangle,
                                    laserLength);
       prevPos = start;
     }

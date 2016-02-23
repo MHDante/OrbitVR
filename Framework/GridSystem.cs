@@ -40,8 +40,8 @@ namespace OrbitVR.Framework {
       this.position = position;
       this.room = room;
 
-      this.gridWidth = GridWidth ?? room.worldWidth;
-      this.gridHeight = GridHeight ?? room.worldHeight;
+      this.gridWidth = GridWidth ?? room.WorldWidth;
+      this.gridHeight = GridHeight ?? room.WorldHeight;
       this.cellsX = cellsX;
 
       //this.cellReach = cellReach;
@@ -558,7 +558,7 @@ namespace OrbitVR.Framework {
     }
 
     public void DrawGrid(Room room, Color color) {
-      room.camera.DrawLines(linesToDraw, color);
+      room.Camera.DrawLines(linesToDraw, color);
       linesToDraw = new List<Line>();
     }
 

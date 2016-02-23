@@ -350,7 +350,7 @@ namespace OrbitVR {
 
       n.body.SetStatic();
       if (addToWallGroup) {
-        room.masterGroup.childGroups["Wall Group"].IncludeEntity(n);
+        room.MasterGroup.childGroups["Wall Group"].IncludeEntity(n);
         n.OnSpawn();
       }
       return n;
@@ -419,12 +419,12 @@ namespace OrbitVR {
       if (aOtherProps.Count > 0) {
         //AffectAlgorithm #2 See Souce History in this file for AffectAlgorithm 1
         if (meta.IgnoreAffectGrid) {
-          foreach (Node n in room.masterGroup.fullSet) {
+          foreach (Node n in room.MasterGroup.fullSet) {
             affectAction(body, n.body);
           }
         }
         else {
-          room.gridsystemAffect.retrieveOffsetArraysAffect(body, affectAction, affectionReach);
+          room.GridsystemAffect.retrieveOffsetArraysAffect(body, affectAction, affectionReach);
         }
         
       }
@@ -627,7 +627,7 @@ namespace OrbitVR {
       }
       comps[t].active = false;
       compsToRemove.Add(t);
-      if (!room.masterGroup.fullSet.Contains(this)) {
+      if (!room.MasterGroup.fullSet.Contains(this)) {
         SortComponentLists();
         RemoveComponentTriggered();
       }

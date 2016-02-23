@@ -27,37 +27,29 @@ namespace OrbitVR {
     private readonly RenderShape _renderShape = DebugFlags.renderShape;
     public static long TotalElapsedMilliseconds { get; private set; }
     //Components
-    public GridSystem gridsystemAffect { get; private set; }
-    public Level level { get; set; }
-    public RenderTarget2D roomRenderTarget { get; set; }
-    public CameraBase camera { get; set; }
-    public Scheduler scheduler { get; set; }
-    public CollisionManager collisionManager { get; set; }
+    public GridSystem GridsystemAffect { get; private set; }
+    public Level Level { get; private set; }
+    public RenderTarget2D RoomRenderTarget { get; }
+    public CameraBase Camera { get; }
+    public Scheduler Scheduler { get; }
+    public CollisionManager CollisionManager { get; }
     //Entities
-    public Group masterGroup { get; set; }
-    public RoomGroups groups { get; private set; }
-    public Node defaultNode { get; set; }
-    public HashSet<Player> players { get; set; }
-
-    [Info(UserLevel.Never)]
-    public HashSet<Node> playerNodes {
-      get { return players.Select(p => p.node).ToHashSet(); }
-    }
-
-    public ObservableHashSet<Link> AllActiveLinks { get; set; }
-    public ObservableHashSet<Link> AllInactiveLinks { get; set; }
+    public Group MasterGroup { get; }
+    public RoomGroups Groups { get; }
+    public Node DefaultNode { get; }
+    public ObservableHashSet<Link> AllActiveLinks { get; }
+    public ObservableHashSet<Link> AllInactiveLinks { get; }
     //Values
-    public int worldWidth { get; set; }
-    public int worldHeight { get; set; }
-    public bool DrawLinks { get; set; }
-    public Node targetNode { get; set; }
-    public Color borderColor { get; set; }
-    public bool DrawAffectGrid = true;
-    public bool DrawCollisionGrid { get; set; }
+    public int WorldWidth { get; private set; }
+    public int WorldHeight { get; private set; }
+    private bool DrawLinks { get; }
+    public Node TargetNode { get; set; }
+    private Color BorderColor { get; }
+    private bool DrawAffectGrid = true;
     //Events
     public event EventHandler AfterIteration;
     
-    public Room(int worldWidth, int worldHeight, bool Groups = true)
+    public Room(int worldWidth, int worldHeight, bool groups = true)
     {
       Transform = new Transform();
       switch (_renderShape)
@@ -72,60 +64,57 @@ namespace OrbitVR {
           _renderQuad = GeometricPrimitive.Cylinder.New(OrbIt.Game.GraphicsDevice, 2, 2, 32, true);
           break;
       }
-      groups = new RoomGroups(this);
+      Groups = new RoomGroups(this);
       AllActiveLinks = new ObservableHashSet<Link>();
       AllInactiveLinks = new ObservableHashSet<Link>();
 
-      this.worldWidth = worldWidth;
-      this.worldHeight = worldHeight;
+      WorldWidth = worldWidth;
+      WorldHeight = worldHeight;
 
 
-      scheduler = new Scheduler();
-      borderColor = Color.DarkGray;
+      Scheduler = new Scheduler();
+      BorderColor = Color.DarkGray;
 
       // grid System
-      gridsystemAffect = new GridSystem(this, 40, new Vector2(0, 0), worldWidth, OrbIt.ScreenHeight);
-      collisionManager = new CollisionManager(this);
-      level = new Level(this, 40, 40, gridsystemAffect.cellWidth, gridsystemAffect.cellHeight);
-      roomRenderTarget = RenderTarget2D.New(OrbIt.Game.Graphics.GraphicsDevice, OrbIt.ScreenWidth, OrbIt.ScreenHeight,
+      GridsystemAffect = new GridSystem(this, 40, new Vector2(0, 0), worldWidth, OrbIt.ScreenHeight);
+      CollisionManager = new CollisionManager(this);
+      Level = new Level(this, 40, 40, GridsystemAffect.cellWidth, GridsystemAffect.cellHeight);
+      RoomRenderTarget = RenderTarget2D.New(OrbIt.Game.Graphics.GraphicsDevice, OrbIt.ScreenWidth, OrbIt.ScreenHeight,
                                             OrbIt.Game.pixelFormat.Format);
-      camera = new ThreadedCamera(this, 1f);
+      Camera = new ThreadedCamera(this, 1f);
       DrawLinks = true;
-      scheduler = new Scheduler();
-
-      players = new HashSet<Player>();
-
+      Scheduler = new Scheduler();
+      
       Dictionary<dynamic, dynamic> userPr = new Dictionary<dynamic, dynamic>() {
         {nodeE.position, new Vector2(0, 0)},
         {nodeE.texture, textures.blackorb},
       };
 
-      defaultNode = new Node(this, userPr);
-      defaultNode.name = "master";
+      DefaultNode = new Node(this, userPr) {name = "master"};
       //defaultNode.IsDefault = true;
 
-      foreach (Component c in defaultNode.comps.Values)
+      foreach (Component c in DefaultNode.comps.Values)
       {
         c.AfterCloning();
       }
 
       Node firstdefault = new Node(this, ShapeType.Circle);
       //firstdefault.addComponent(comp.itempayload, true);
-      Node.cloneNode(defaultNode, firstdefault);
+      Node.cloneNode(DefaultNode, firstdefault);
       firstdefault.name = "[G0]0";
       //firstdefault.IsDefault = true;
 
-      masterGroup = new Group(this, defaultNode, null, defaultNode.name, false);
-      if (Groups)
+      MasterGroup = new Group(this, DefaultNode, DefaultNode.name, false);
+      if (groups)
       {
-        new Group(this, defaultNode, masterGroup, "General Groups", false);
-        new Group(this, defaultNode, masterGroup, "Preset Groups", false);
-        new Group(this, defaultNode.CreateClone(this), masterGroup, "Player Group", true);
-        new Group(this, defaultNode, masterGroup, "Item Group", false);
-        new Group(this, defaultNode, masterGroup, "Link Groups", false);
-        new Group(this, defaultNode.CreateClone(this), masterGroup, "Bullet Group", true);
-        new Group(this, defaultNode, masterGroup, "Wall Group", true);
-        new Group(this, firstdefault, groups.general, "Group1");
+        MasterGroup.AddGroup(new Group(this, DefaultNode,  "General Groups", false));
+        MasterGroup.AddGroup(new Group(this, DefaultNode,  "Preset Groups", false));
+        MasterGroup.AddGroup(new Group(this, DefaultNode.CreateClone(this),  "Player Group"));
+        MasterGroup.AddGroup(new Group(this, DefaultNode,  "Item Group", false));
+        MasterGroup.AddGroup(new Group(this, DefaultNode,  "Link Groups", false));
+        MasterGroup.AddGroup(new Group(this, DefaultNode.CreateClone(this),  "Bullet Group"));
+        MasterGroup.AddGroup(new Group(this, DefaultNode,  "Wall Group"));
+        Groups.General.AddGroup(new Group(this, firstdefault, "Group1"));
       }
       Dictionary<dynamic, dynamic> userPropsTarget = new Dictionary<dynamic, dynamic>() {
         {typeof (ColorChanger), true},
@@ -152,17 +141,17 @@ namespace OrbitVR {
         if (info.userLevel == UserLevel.Developer || info.userLevel == UserLevel.Advanced) continue;
         if (t == typeof (Lifetime)) continue;
         if (t == typeof (Rune)) continue;
-        Node nodeDef = defaultNode.CreateClone(this);
+        Node nodeDef = DefaultNode.CreateClone(this);
         nodeDef.SetColor(Utils.randomColor());
         nodeDef.addComponent(t, true);
         nodeDef.addComponent(typeof (Rune), true);
         nodeDef.Comp<Rune>().runeTexture = (textures) runenum++;
-        Group presetgroup = new Group(this, nodeDef, groups.preset, t.ToString().LastWord('.') + " Group");
+        Groups.Preset.AddGroup(new Group(this, nodeDef, t.ToString().LastWord('.') + " Group"));
       }
     }
 
     public void MakeItemGroups() {
-      Node itemDef = defaultNode.CreateClone(this);
+      Node itemDef = DefaultNode.CreateClone(this);
       itemDef.addComponent(typeof (ItemPayload), true);
       itemDef.movement.active = false;
 
@@ -176,14 +165,14 @@ namespace OrbitVR {
         //nodeDef.addComponent(t, true);
         Component c = Node.MakeComponent(t, true, nodeDef);
         nodeDef.Comp<ItemPayload>().AddComponentItem(c);
-        new Group(this, nodeDef, groups.items, t.ToString().LastWord('.') + " Item");
+        Groups.Items.AddGroup(new Group(this, nodeDef, t.ToString().LastWord('.') + " Item"));
       }
     }
 
     public void Update(GameTime gametime) {
       Player.CheckForPlayers(this);
 
-      camera.Update();
+      Camera.Update();
       long elapsed = 0;
       if (gametime != null) elapsed = (long) Math.Round(gametime.ElapsedGameTime.TotalMilliseconds);
       TotalElapsedMilliseconds += elapsed;
@@ -191,27 +180,27 @@ namespace OrbitVR {
       HashSet<Node> toDelete = new HashSet<Node>();
 
       //AffectAlgorithm #2 See Souce History in this file for AffectAlgorithm 1
-      gridsystemAffect.clearBuckets();
-      foreach (var n in masterGroup.fullSet) {
-        if (masterGroup.childGroups["Wall Group"].fullSet.Contains(n)) continue;
-        gridsystemAffect.insertToBuckets(n.body);
+      GridsystemAffect.clearBuckets();
+      foreach (var n in MasterGroup.fullSet) {
+        if (MasterGroup.childGroups["Wall Group"].fullSet.Contains(n)) continue;
+        GridsystemAffect.insertToBuckets(n.body);
       }
 
-      collisionManager.Update();
+      CollisionManager.Update();
 
-      foreach (Node n in masterGroup.fullSet.ToList()) {
+      foreach (Node n in MasterGroup.fullSet.ToList()) {
         if (n.active) {
           n.Update(gametime);
         }
       }
       if (AfterIteration != null) AfterIteration(this, null);
 
-      gridsystemAffect.addGridSystemLines();
-      level.addLevelLines();
+      GridsystemAffect.addGridSystemLines();
+      Level.addLevelLines();
 
-      updateTargetNodeGraphic();
+      UpdateTargetNodeGraphic();
 
-      scheduler.AffectSelf();
+      Scheduler.AffectSelf();
 
       if (_pendingRoomResize != null) {
         _pendingRoomResize();
@@ -223,22 +212,22 @@ namespace OrbitVR {
     
     public void Draw() {
       //spritebatch.Draw(game.textureDict[textures.whitepixel], new Vector2(300, 300), null, Color.Black, 0f, Vector2.Zero, 100f, SpriteEffects.None, 0);
-      if (targetNode != null) {
-        updateTargetNodeGraphic();
+      if (TargetNode != null) {
+        UpdateTargetNodeGraphic();
         TargetNodeGraphic.Draw();
       }
-      foreach (var n in masterGroup.fullSet.ToList()) //todo:wtfuck threading?
+      foreach (var n in MasterGroup.fullSet.ToList()) //todo:wtfuck threading?
       {
         //Node n = (Node)o;
         n.Draw();
       }
       
-      camera.DrawLine(Vector2.Zero, new Vector2(worldWidth, 0), 2, borderColor, Layers.Under5);
-      camera.DrawLine(Vector2.Zero, new Vector2(0, worldHeight), 2, borderColor, Layers.Under5);
-      camera.DrawLine(new Vector2(0, worldHeight), new Vector2(worldWidth, worldHeight), 2, borderColor, Layers.Under5);
-      camera.DrawLine(new Vector2(worldWidth, 0), new Vector2(worldWidth, worldHeight), 2, borderColor, Layers.Under5);
+      Camera.DrawLine(Vector2.Zero, new Vector2(WorldWidth, 0), 2, BorderColor, Layers.Under5);
+      Camera.DrawLine(Vector2.Zero, new Vector2(0, WorldHeight), 2, BorderColor, Layers.Under5);
+      Camera.DrawLine(new Vector2(0, WorldHeight), new Vector2(WorldWidth, WorldHeight), 2, BorderColor, Layers.Under5);
+      Camera.DrawLine(new Vector2(WorldWidth, 0), new Vector2(WorldWidth, WorldHeight), 2, BorderColor, Layers.Under5);
 
-      if (DrawAffectGrid) gridsystemAffect.DrawGrid(this, Color.LightBlue);
+      if (DrawAffectGrid) GridsystemAffect.DrawGrid(this, Color.LightBlue);
 
       if (DrawLinks) {
         foreach (Link link in AllActiveLinks) {
@@ -255,33 +244,33 @@ namespace OrbitVR {
         View = OrbIt.Game.view,
         Projection = OrbIt.Game.projection,
         TextureEnabled = true,
-        Texture = roomRenderTarget
+        Texture = RoomRenderTarget
       };
       foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes) {
         pass.Apply();
 
         _renderQuad.Draw();
       }
-      if (camera.TakeScreenshot) {
-        camera.Screenshot();
-        camera.TakeScreenshot = false;
+      if (Camera.TakeScreenshot) {
+        Camera.Screenshot();
+        Camera.TakeScreenshot = false;
       }
     }
 
-    public void MakeWalls(float WallWidth) {
+    public void MakeWalls(float wallWidth) {
       Dictionary<dynamic, dynamic> props = new Dictionary<dynamic, dynamic>() {
         {nodeE.position, new Vector2(0, 0)},
       };
-      Node left = ConstructWallPoly(props, (int) WallWidth/2, worldHeight/2, new Vector2(WallWidth/2, worldHeight/2));
+      Node left = ConstructWallPoly(props, (int) wallWidth/2, WorldHeight/2, new Vector2(wallWidth/2, WorldHeight/2));
       left.name = "left wall";
-      Node right = ConstructWallPoly(props, (int) WallWidth/2, worldHeight/2,
-                                     new Vector2(worldWidth - WallWidth/2, worldHeight/2));
+      Node right = ConstructWallPoly(props, (int) wallWidth/2, WorldHeight/2,
+                                     new Vector2(WorldWidth - wallWidth/2, WorldHeight/2));
       right.name = "right wall";
-      Node top = ConstructWallPoly(props, (worldWidth + (int) WallWidth*2)/2, (int) WallWidth/2,
-                                   new Vector2(worldWidth/2, (int) WallWidth/2));
+      Node top = ConstructWallPoly(props, (WorldWidth + (int) wallWidth*2)/2, (int) wallWidth/2,
+                                   new Vector2(WorldWidth/2, (int) wallWidth/2));
       top.name = "top wall";
-      Node bottom = ConstructWallPoly(props, (worldWidth + (int) WallWidth*2)/2, (int) WallWidth/2,
-                                      new Vector2(worldWidth/2, worldHeight - WallWidth/2));
+      Node bottom = ConstructWallPoly(props, (WorldWidth + (int) wallWidth*2)/2, (int) wallWidth/2,
+                                      new Vector2(WorldWidth/2, WorldHeight - wallWidth/2));
       bottom.name = "bottom wall";
     }
 
@@ -301,28 +290,28 @@ namespace OrbitVR {
 
       //n.movement.pushable = false;
 
-      masterGroup.childGroups["Wall Group"].entities.Add(n);
+      MasterGroup.childGroups["Wall Group"].entities.Add(n);
       return n;
     }
 
 
-    public void updateTargetNodeGraphic() {
-      if (targetNode != null) {
+    public void UpdateTargetNodeGraphic() {
+      if (TargetNode != null) {
         TargetNodeGraphic.Comp<ColorChanger>().AffectSelf();
-        TargetNodeGraphic.body.pos = targetNode.body.pos;
-        TargetNodeGraphic.body.radius = targetNode.body.radius*1.5f;
+        TargetNodeGraphic.body.pos = TargetNode.body.pos;
+        TargetNodeGraphic.body.radius = TargetNode.body.radius*1.5f;
       }
     }
 
-    public void addRectangleLines(float x, float y, float width, float height) {
-      addRectangleLines((int) x, (int) y, (int) width, (int) height);
+    public void AddRectangleLines(float x, float y, float width, float height) {
+      AddRectangleLines((int) x, (int) y, (int) width, (int) height);
     }
 
     public Node SelectNodeAt(Vector2 pos) {
       Node found = null;
       float shortedDistance = Int32.MaxValue;
-      for (int i = masterGroup.fullSet.Count - 1; i >= 0; i--) {
-        Node n = (Node) masterGroup.fullSet.ElementAt(i);
+      for (int i = MasterGroup.fullSet.Count - 1; i >= 0; i--) {
+        Node n = (Node) MasterGroup.fullSet.ElementAt(i);
         // find node that has been clicked, starting from the most recently placed nodes
         float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
         if (distsquared < n.body.radius*n.body.radius) {
@@ -389,75 +378,75 @@ namespace OrbitVR {
       return newNode;
     }
 
-    internal void resize(Vector2 resizeVect, bool fillWithGrid = false) {
+    internal void Resize(Vector2 resizeVect, bool fillWithGrid = false) {
       _pendingRoomResize = delegate {
-                            worldWidth = (int) resizeVect.X;
-                            worldHeight = (int) resizeVect.Y;
-                            int newCellsX = worldWidth/gridsystemAffect.cellWidth;
-                            int gridHeight = fillWithGrid ? worldHeight : OrbIt.ScreenHeight;
-                            gridsystemAffect = new GridSystem(this, newCellsX, new Vector2(0, worldHeight - gridHeight),
-                                                              worldWidth,
+                            WorldWidth = (int) resizeVect.X;
+                            WorldHeight = (int) resizeVect.Y;
+                            int newCellsX = WorldWidth/GridsystemAffect.cellWidth;
+                            int gridHeight = fillWithGrid ? WorldHeight : OrbIt.ScreenHeight;
+                            GridsystemAffect = new GridSystem(this, newCellsX, new Vector2(0, WorldHeight - gridHeight),
+                                                              WorldWidth,
                                                               gridHeight);
-                            level = new Level(this, newCellsX, newCellsX, gridsystemAffect.cellWidth,
-                                              gridsystemAffect.cellHeight);
+                            Level = new Level(this, newCellsX, newCellsX, GridsystemAffect.cellWidth,
+                                              GridsystemAffect.cellHeight);
                             //roomRenderTarget = new RenderTarget2D(game.GraphicsDevice, worldWidth, worldHeight);
-                            collisionManager.gridsystemCollision = new GridSystem(this, newCellsX,
+                            CollisionManager.gridsystemCollision = new GridSystem(this, newCellsX,
                                                                                   new Vector2(0,
-                                                                                              worldHeight - gridHeight),
-                                                                                  worldWidth, gridHeight);
+                                                                                              WorldHeight - gridHeight),
+                                                                                  WorldWidth, gridHeight);
                             fillWithGrid = false;
 
-                            camera.pos = new Vector2(worldWidth/2, worldHeight/2);
+                            Camera.pos = new Vector2(WorldWidth/2, WorldHeight/2);
                           };
     }
 
 
     public class RoomGroups {
-      private Room room;
+      private Room _room;
 
       public RoomGroups(Room room) {
-        this.room = room;
+        _room = room;
       }
 
-      public Group general {
+      public Group General {
         get {
-          if (room.masterGroup == null) return null;
-          return room.masterGroup.childGroups["General Groups"];
+          if (_room.MasterGroup == null) return null;
+          return _room.MasterGroup.childGroups["General Groups"];
         }
       }
 
-      public Group preset {
+      public Group Preset {
         get {
-          if (room.masterGroup == null) return null;
-          return room.masterGroup.childGroups["Preset Groups"];
+          if (_room.MasterGroup == null) return null;
+          return _room.MasterGroup.childGroups["Preset Groups"];
         }
       }
 
-      public Group player {
+      public Group Player {
         get {
-          if (room.masterGroup == null) return null;
-          return room.masterGroup.childGroups["Player Group"];
+          if (_room.MasterGroup == null) return null;
+          return _room.MasterGroup.childGroups["Player Group"];
         }
       }
 
-      public Group items {
+      public Group Items {
         get {
-          if (room.masterGroup == null) return null;
-          return room.masterGroup.childGroups["Item Group"];
+          if (_room.MasterGroup == null) return null;
+          return _room.MasterGroup.childGroups["Item Group"];
         }
       }
 
-      public Group bullets {
+      public Group Bullets {
         get {
-          if (room.masterGroup == null) return null;
-          return room.masterGroup.childGroups["Bullet Group"];
+          if (_room.MasterGroup == null) return null;
+          return _room.MasterGroup.childGroups["Bullet Group"];
         }
       }
 
-      public Group walls {
+      public Group Walls {
         get {
-          if (room.masterGroup == null) return null;
-          return room.masterGroup.childGroups["Wall Group"];
+          if (_room.MasterGroup == null) return null;
+          return _room.MasterGroup.childGroups["Wall Group"];
         }
       }
     }

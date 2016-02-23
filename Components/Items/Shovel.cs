@@ -145,8 +145,8 @@ namespace OrbitVR.Components.Items {
 
       shovelNode.AffectExclusionCheck += (node) => node == parent;
 
-      room.groups.items.IncludeEntity(shovelNode);
-      Debug.WriteLine(room.groups.items.entities.Count);
+      room.Groups.Items.IncludeEntity(shovelNode);
+      Debug.WriteLine(room.Groups.Items.entities.Count);
       shovelNode.OnSpawn();
       shovelNode.body.AddExclusionCheck(parent.body);
       Spring spring = new Spring();
@@ -266,7 +266,7 @@ namespace OrbitVR.Components.Items {
                                                c2.parent.body.color = parent.body.color;
                                              }
                                            };
-          shovelNode.room.gridsystemAffect.retrieveOffsetArraysAffect(shovelNode.body, del, scoopReach*2);
+          shovelNode.room.GridsystemAffect.retrieveOffsetArraysAffect(shovelNode.body, del, scoopReach*2);
           shovelLink.targets = capturedNodes;
           shovelLink.formation.UpdateFormation();
           shovelLink.active = true;
@@ -286,7 +286,7 @@ namespace OrbitVR.Components.Items {
       Vector2 position = shovelNode.body.pos;
       if (position == Vector2.Zero) position = parent.body.pos;
       else {
-        room.camera.DrawLine(position, parent.body.pos, 2f, col, Layers.Over3);
+        room.Camera.DrawLine(position, parent.body.pos, 2f, col, Layers.Over3);
       }
     }
 

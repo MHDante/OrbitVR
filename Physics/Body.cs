@@ -263,7 +263,7 @@ namespace OrbitVR.Physics {
         }
         if (DoExclusionCheckResolution(other)) return;
         if (isSolid && other.isSolid)
-          room.collisionManager.AddManifold(m);
+          room.CollisionManager.AddManifold(m);
       }
     }
 

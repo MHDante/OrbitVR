@@ -154,7 +154,7 @@ namespace OrbitVR.Components.Items {
       bulletNode.Comp<Laser>().thickness = 5f;
       bulletNode.Comp<Laser>().laserLength = 20;
       bulletNode.Comp<Essential.Movement>().randInitialVel.enabled = false;
-      bulletNode.group = room.groups.bullets;
+      bulletNode.group = room.Groups.Bullets;
     }
 
     public override void PlayerControl(Input input) {
@@ -198,7 +198,7 @@ namespace OrbitVR.Components.Items {
       if (tempTurretTimer > TurretTimerSeconds*1000) {
         float nearest = float.MaxValue;
         Node nearNode = null;
-        foreach (Node n in room.groups.player.entities) {
+        foreach (Node n in room.Groups.Player.entities) {
           float dist = Vector2.Distance(parent.body.pos, n.body.pos);
           if (dist < nearest) {
             nearNode = n;
@@ -236,7 +236,7 @@ namespace OrbitVR.Components.Items {
         n.Comp<ColorChanger>().colormode = ColorChanger.ColorMode.none;
         n.SetColor(parent.player.pColor);
       }
-      room.spawnNode(n, g: room.groups.bullets);
+      room.spawnNode(n, g: room.Groups.Bullets);
       Action<Node, Node> bulletHit = (n1, n2) => {
                                        Node bullet, them;
                                        if (n1 == n) {

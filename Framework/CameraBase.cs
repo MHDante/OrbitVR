@@ -24,14 +24,14 @@ namespace OrbitVR.Framework {
       this.batch = new SpriteBatch(OrbIt.Game.GraphicsDevice);
       this.zoom = zoom;
       this.pos = pos ??
-                 new Vector2(room.gridsystemAffect.position.X + room.gridsystemAffect.gridWidth/2,
-                             10 + room.gridsystemAffect.position.Y + room.gridsystemAffect.gridHeight/2);
+                 new Vector2(room.GridsystemAffect.position.X + room.GridsystemAffect.gridWidth/2,
+                             10 + room.GridsystemAffect.position.Y + room.GridsystemAffect.gridHeight/2);
     }
 
     public bool TakeScreenshot { get; set; }
 
     public Vector2 virtualTopLeft {
-      get { return pos - new Vector2(room.gridsystemAffect.gridWidth/2, room.gridsystemAffect.gridHeight/2)*1/zoom; }
+      get { return pos - new Vector2(room.GridsystemAffect.gridWidth/2, room.GridsystemAffect.gridHeight/2)*1/zoom; }
     }
 
     public float zoom { get; set; }

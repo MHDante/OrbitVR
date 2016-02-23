@@ -119,19 +119,19 @@ namespace OrbitVR.Components.Essential {
       Manifold m = new Manifold(parent.body, other.body);
       m.Solve();
       if (m.contact_count > 0) {
-        room.collisionManager.AddManifold(m);
+        room.CollisionManager.AddManifold(m);
       }
     }
 
     public override void Draw() {
       if (!DrawRing) return;
       //Console.WriteLine(Utils.random.Next(10));
-      room.camera.Draw(textures.ring, parent.body.pos, Color.Red, parent.body.scale, Layers.Under2);
+      room.Camera.Draw(textures.ring, parent.body.pos, Color.Red, parent.body.scale, Layers.Under2);
 
       foreach (Collider cc in colliders.Values) {
         if (cc.HandlersEnabled) {
           float scale = cc.radius/parent.getTexture().Width*2;
-          room.camera.Draw(textures.ring, parent.body.pos, parent.body.color, scale, Layers.Under2);
+          room.Camera.Draw(textures.ring, parent.body.pos, parent.body.color, scale, Layers.Under2);
         }
       }
     }
@@ -183,16 +183,16 @@ namespace OrbitVR.Components.Essential {
 
     public void UpdateCollisionSet() {
       if (parent != null && !parent.IsDefault) {
-        if (room.masterGroup == null || !room.masterGroup.fullSet.Contains(parent)) return;
+        if (room.MasterGroup == null || !room.MasterGroup.fullSet.Contains(parent)) return;
         if (active && AllHandlersEnabled) {
           if (parent.body.isSolid || parent.body.HandlersEnabled)
-            room.collisionManager.AddCollider(parent.body);
+            room.CollisionManager.AddCollider(parent.body);
           else
-            room.collisionManager.RemoveCollider(parent.body);
+            room.CollisionManager.RemoveCollider(parent.body);
 
           foreach (Collider col in colliders.Values) {
-            if (col.HandlersEnabled) room.collisionManager.AddCollider(col);
-            else room.collisionManager.RemoveCollider(col);
+            if (col.HandlersEnabled) room.CollisionManager.AddCollider(col);
+            else room.CollisionManager.RemoveCollider(col);
           }
         }
         else {
@@ -202,9 +202,9 @@ namespace OrbitVR.Components.Essential {
     }
 
     public void RemoveCollidersFromSet() {
-      room.collisionManager.RemoveCollider(parent.body);
+      room.CollisionManager.RemoveCollider(parent.body);
       foreach (Collider col in colliders.Values) {
-        room.collisionManager.RemoveCollider(col);
+        room.CollisionManager.RemoveCollider(col);
       }
     }
 

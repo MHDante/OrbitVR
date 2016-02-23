@@ -82,7 +82,7 @@ namespace OrbitVR.Interface {
       if (keybState.IsKeyDown(Keys.LeftShift)) {
         if (!isShiftDown) {
           MouseState ms = Mouse.GetState();
-          spawnPos = new Vector2(ms.X, ms.Y)/room.camera.zoom;
+          spawnPos = new Vector2(ms.X, ms.Y)/room.Camera.zoom;
         }
         isShiftDown = true;
       }
@@ -99,8 +99,8 @@ namespace OrbitVR.Interface {
     public Node SelectNode(Vector2 pos) {
       Node found = null;
       float shortedDistance = Int32.MaxValue;
-      for (int i = room.masterGroup.fullSet.Count - 1; i >= 0; i--) {
-        Node n = (Node) room.masterGroup.fullSet.ElementAt(i);
+      for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
+        Node n = (Node) room.MasterGroup.fullSet.ElementAt(i);
         // find node that has been clicked, starting from the most recently placed nodes
         float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
         if (distsquared < n.body.radius*n.body.radius) {
@@ -131,8 +131,8 @@ namespace OrbitVR.Interface {
       //if (mouseState.XButton2 == ButtonState.Pressed)
       //    System.Console.WriteLine("X2");
 
-      MousePos = new Vector2(mouseState.X, mouseState.Y) - OrbIt.Game.Room.camera.CameraOffsetVect;
-      WorldMousePos = (MousePos/room.camera.zoom) + room.camera.virtualTopLeft;
+      MousePos = new Vector2(mouseState.X, mouseState.Y) - OrbIt.Game.Room.Camera.CameraOffsetVect;
+      WorldMousePos = (MousePos/room.Camera.zoom) + room.Camera.virtualTopLeft;
       //ignore mouse clicks outside window
       if (!IsPaused) {
         if (mouseState.X >= OrbIt.ScreenWidth || mouseState.X < 0 || mouseState.Y >= OrbIt.ScreenHeight ||
@@ -165,24 +165,24 @@ namespace OrbitVR.Interface {
         if (true) // || mouseState.LeftButton == ButtonState.Pressed)
         {
           bool found = false;
-          for (int i = room.masterGroup.fullSet.Count - 1; i >= 0; i--) {
-            Node n = (Node) room.masterGroup.fullSet.ElementAt(i);
+          for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
+            Node n = (Node) room.MasterGroup.fullSet.ElementAt(i);
             // find node that has been clicked, starting from the most recently placed nodes
             if (Vector2.DistanceSquared(n.body.pos, new Vector2(worldMouseX, worldMouseY)) < n.body.radius*n.body.radius) {
-              room.targetNode = n;
+              room.TargetNode = n;
               found = true;
               break;
             }
           }
-          if (!found) room.targetNode = null;
+          if (!found) room.TargetNode = null;
         }
       }
 
       if (mouseState.ScrollWheelValue < oldMouseScrollValue) {
-        room.camera.zoom *= zoomfactor;
+        room.Camera.zoom *= zoomfactor;
       }
       else if (mouseState.ScrollWheelValue > oldMouseScrollValue) {
-        room.camera.zoom /= zoomfactor;
+        room.Camera.zoom /= zoomfactor;
       }
 
       oldMouseScrollValue = mouseState.ScrollWheelValue;

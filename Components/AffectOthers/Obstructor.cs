@@ -90,7 +90,7 @@ namespace OrbitVR.Components.AffectOthers {
     public override void OnSpawn() {
       if (walls != null) {
         foreach (Node n in walls) {
-          room.masterGroup.childGroups["Wall Group"].IncludeEntity(n);
+          room.MasterGroup.childGroups["Wall Group"].IncludeEntity(n);
         }
       }
     }

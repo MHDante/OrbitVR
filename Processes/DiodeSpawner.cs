@@ -30,7 +30,7 @@ namespace OrbitVR.Processes {
         var dict = new Dictionary<dynamic, dynamic>() {{typeof (Diode), true}, {nodeE.texture, textures.gradient1}};
         lastSpawnedDiode = Node.ContructLineWall(room, firstPos, mousePos, diodeThickness, dict, false);
 
-        room.masterGroup.IncludeEntity(lastSpawnedDiode);
+        room.MasterGroup.IncludeEntity(lastSpawnedDiode);
         lastSpawnedDiode.OnSpawn();
 
         lastSpawnedDiode.SetColor(new Color(255, 255, 255, 255));
@@ -44,8 +44,8 @@ namespace OrbitVR.Processes {
       Vector2 pos = UserInterface.WorldMousePos;
       Node found = null;
       float shortedDistance = Int32.MaxValue;
-      for (int i = room.masterGroup.fullSet.Count - 1; i >= 0; i--) {
-        Node n = (Node) room.masterGroup.fullSet.ElementAt(i);
+      for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
+        Node n = (Node) room.MasterGroup.fullSet.ElementAt(i);
         if (!n.HasComp<Diode>()) continue;
         // find node that has been clicked, starting from the most recently placed nodes
         float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
@@ -70,8 +70,8 @@ namespace OrbitVR.Processes {
       Vector2 pos = UserInterface.WorldMousePos;
       Node found = null;
       float shortedDistance = Int32.MaxValue;
-      for (int i = room.masterGroup.fullSet.Count - 1; i >= 0; i--) {
-        Node n = (Node) room.masterGroup.fullSet.ElementAt(i);
+      for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
+        Node n = (Node) room.MasterGroup.fullSet.ElementAt(i);
         if (!n.HasComp<Diode>()) continue;
         // find node that has been clicked, starting from the most recently placed nodes
         float distsquared = Vector2.DistanceSquared(n.body.pos, pos);

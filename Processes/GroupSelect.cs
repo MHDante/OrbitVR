@@ -24,7 +24,7 @@ namespace OrbitVR.Processes {
       float lowery = Math.Min(mousePos.Y, groupSelectionBoxOrigin.Y);
       float uppery = Math.Max(mousePos.Y, groupSelectionBoxOrigin.Y);
 
-      room.addRectangleLines(lowerx, lowery, upperx, uppery);
+      room.AddRectangleLines(lowerx, lowery, upperx, uppery);
       //Console.WriteLine(mousePos.X + " " + glob.X);
     }
 
@@ -64,7 +64,7 @@ namespace OrbitVR.Processes {
       if (!ctrlDown && !altDown) groupSelectSet = new HashSet<Node>();
 
 
-      foreach (Node n in room.masterGroup.fullSet.ToList()) {
+      foreach (Node n in room.MasterGroup.fullSet.ToList()) {
         float xx = n.body.pos.X;
         float yy = n.body.pos.Y;
 
@@ -81,7 +81,7 @@ namespace OrbitVR.Processes {
       }
       //System.Console.WriteLine(groupSelectSet.Count);
 
-      room.addRectangleLines(lowerx, lowery, upperx, uppery);
+      room.AddRectangleLines(lowerx, lowery, upperx, uppery);
     }
   }
 }

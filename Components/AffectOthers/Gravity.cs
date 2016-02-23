@@ -197,7 +197,7 @@ namespace OrbitVR.Components.AffectOthers {
         }
 
         if (ShowForceLines) {
-          room.camera.DrawLine(other.body.pos, other.body.pos + (delta*100), 2, parent.body.color, Layers.Over4);
+          room.Camera.DrawLine(other.body.pos, other.body.pos + (delta*100), 2, parent.body.color, Layers.Over4);
         }
         //other.body.velocity += delta;
         //other.body.velocity /= other.body.mass; //creates snakelike effect when put below increments
@@ -245,7 +245,7 @@ namespace OrbitVR.Components.AffectOthers {
 
     public void DrawCircle() {
       //room.camera.Draw(textures.ring, parent.body.pos, parent.body.color * 0.2f, drawscale / 50f, Layers.Under2);
-      room.camera.AddPermanentDraw(textures.ring, parent.body.pos, parent.body.color*0.2f, drawscale/50f, 0, 50);
+      room.Camera.AddPermanentDraw(textures.ring, parent.body.pos, parent.body.color*0.2f, drawscale/50f, 0, 50);
     }
   }
 }

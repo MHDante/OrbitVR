@@ -97,7 +97,7 @@ namespace OrbitVR.Components.Items {
       shootNode.body.pos = parent.body.pos;
       shootNode.addComponent<ColorChanger>(true);
       shootNode.AffectExclusionCheck += (node) => node == parent;
-      room.groups.items.IncludeEntity(shootNode);
+      room.Groups.Items.IncludeEntity(shootNode);
       shootNode.OnSpawn();
       shootNode.body.AddExclusionCheck(parent.body);
       shootNode.active = false;
