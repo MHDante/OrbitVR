@@ -15,7 +15,7 @@ namespace OrbitVR
     [STAThread]
 #endif
     static void Main() {
-      using (var orbit = new OrbIt())
+      using (var orbit = new Tester())
         orbit.Run();
     }
   }

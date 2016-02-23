@@ -11,7 +11,7 @@ namespace OrbitVR {
     public GameTime Time => gameTime;
     public static int ScreenWidth => Game.Graphics.PreferredBackBufferWidth;
     public static int ScreenHeight => Game.Graphics.PreferredBackBufferHeight;
-    public static GlobalGameMode GlobalGameMode { get; set; }
+    public static GlobalGameMode GlobalGameMode { get; private set; }
     public Room Room { get; private set; }
     public OrbIt()
     {
@@ -22,7 +22,7 @@ namespace OrbitVR {
     protected override void Initialize() {
       base.Initialize();
       Assets.LoadAssets(Content);
-      Window.AllowUserResizing = false;//Todo: make true, fix crash.
+      Window.AllowUserResizing = false; //Todo: make true, fix crash.
       Room = new Room(this, ScreenWidth, ScreenHeight);
       GlobalGameMode = new GlobalGameMode(this);
       _frameRateCounter = new FrameRateCounter(this);
@@ -42,10 +42,10 @@ namespace OrbitVR {
       Room.Draw3D();
     }
     private void GlobalKeyBinds(UserInterface ui) {
-      ui.keyManager.addGlobalKeyAction("exitgame", KeyCodes.Escape, OnPress: () => Exit());
+      ui.keyManager.addGlobalKeyAction("exitgame", KeyCodes.Escape, OnPress: Exit);
       //ui.keyManager.addGlobalKeyAction("togglesidebar", KeyCodes.OemTilde, OnPress: ui.ToggleSidebar);
       //ui.keyManager.addGlobalKeyAction("switchview", KeyCodes.PageDown, OnPress: ui.SwitchView);
-      //TODO: ui.keyManager.addGlobalKeyAction("removeall", KeyCodes.Delete, OnPress: () => ui.sidebar.btnRemoveAllNodes_Click(null, null));
+      //ui.keyManager.addGlobalKeyAction("removeall", KeyCodes.Delete, OnPress: () => ui.sidebar.btnRemoveAllNodes_Click(null, null));
     }
   }
 }

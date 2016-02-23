@@ -28,7 +28,7 @@ namespace OrbitVR {
     private Model ship;
     public Matrix view;
 
-    public VRGame() {
+    protected VRGame() {
       // Creates a graphics manager. This is mandatory.
       Graphics = new GraphicsDeviceManager(this);
       OVR.Initialize();

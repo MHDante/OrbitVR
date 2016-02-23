@@ -328,6 +328,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="RoomComponents\CollisionManager.cs" />
     <Compile Include="RoomComponents\RoomComponent.cs" />
+    <Compile Include="Tester.cs" />
     <Compile Include="VRGame.cs" />
   </ItemGroup>
   <ItemGroup />

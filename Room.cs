@@ -23,26 +23,16 @@ namespace OrbitVR {
     Cylinder
 }
   public class Room {
-    public static long totalElapsedMilliseconds = 0;
     public int affectAlgorithm = 2;
     public bool ColorNodesInReach = false;
-    public bool drawCage = true;
     public List<Rectangle> linesToDraw = new List<Rectangle>();
     private Action PendingRoomResize;
-    private Randomizer randomizer;
-    public bool scroll = false; //#tojam
-
-    public float scrollRate = 1.5f; //0.5f;
     public bool skipOutsideGrid = false;
-    public Vector2 spawnPos = Vector2.One;
     public Node targetNodeGraphic = null;
-
-    public int testTimer = 0;
-    public int waitTime = 5000;
-    public int waitTimeCounter = 0;
     private GeometricPrimitive renderQuad;
     public Transform Transform;
     private RenderShape renderShape = RenderShape.Cylinder;
+    public static long totalElapsedMilliseconds;
 
     public Room(OrbIt game, int worldWidth, int worldHeight, bool Groups = true) {
       Transform = new Transform();
@@ -162,7 +152,6 @@ namespace OrbitVR {
       processManager = new ProcessManager();
       processManager.SetProcessKeybinds();
       ui.sidebar.ActiveGroupName = "Group1";
-      randomizer = processManager.GetProcess<Randomizer>();
 
       //ui.sidebar.UpdateGroupComboBoxes();
     }
@@ -207,33 +196,6 @@ namespace OrbitVR {
     }
 
     public void Update(GameTime gametime) {
-      testTimer += gametime.ElapsedGameTime.Milliseconds;
-      //if (testTimer > 1000) {
-      //  spawnPos += Vector2.One*10;
-      //  randomizer.SpawnSemiRandom();
-      //  //randomizer.SpawnFullyRandom();
-      //  testTimer = 0;
-      //}
-
-      //if (testTimer < 1000) {
-      //  testTimer = 1000;
-      //  Node n = spawnNode(0, 0);
-      //  n.addComponent<Lifetime>(true);
-      //  n.Comp<Lifetime>().timeUntilDeath.value = 2000;
-      //  n.Comp<Lifetime>().timeUntilDeath.enabled = true;
-      //  n.addComponent<Tree>(true);
-      //  //n.Comp<Tree>().branchStages = 1;
-      //  n.addComponent<Shovel>(true);
-      //}
-
-      if (testTimer < 1000) {
-        testTimer = 1000;
-        for(int i = 0; i < 500; i++)
-        {
-          Node n = spawnNode(0, 0);
-        }
-      }
-
       Player.CheckForPlayers(this);
 
       camera.Update();
@@ -301,10 +263,7 @@ namespace OrbitVR {
       linesToDraw.Add(new Rectangle(0, worldHeight, worldWidth, worldHeight));
       linesToDraw.Add(new Rectangle(worldWidth, 0, worldWidth, worldHeight));
 
-      if (totalElapsedMilliseconds > 5000000)
-        foreach (var item in Assets.textureDict.Keys.ToList()) {
-          Assets.textureDict[item] = Assets.textureDict[textures.cage];
-        }
+
     }
 
 
