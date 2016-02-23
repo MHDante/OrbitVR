@@ -8,7 +8,7 @@ namespace OrbitVR {
 
     protected override void Initialize() {
       base.Initialize();
-      randomizer = Room.processManager.GetProcess<Randomizer>();
+      randomizer = Game.processManager.GetProcess<Randomizer>();
     }
 
     protected override void Update(GameTime gt) {

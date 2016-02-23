@@ -22,13 +22,12 @@ namespace OrbitVR {
 }
   public class Room : Object3D {
     private Action _pendingRoomResize;
-    private readonly Node _targetNodeGraphic;
+    public readonly Node TargetNodeGraphic;
     private readonly GeometricPrimitive _renderQuad;
     private readonly RenderShape _renderShape = DebugFlags.renderShape;
-    public static long TotalElapsedMilliseconds { get; set; }
+    public static long TotalElapsedMilliseconds { get; private set; }
     //Components
-    public ProcessManager processManager { get; set; }
-    public GridSystem gridsystemAffect { get; set; }
+    public GridSystem gridsystemAffect { get; private set; }
     public Level level { get; set; }
     public RenderTarget2D roomRenderTarget { get; set; }
     public CameraBase camera { get; set; }
@@ -57,15 +56,7 @@ namespace OrbitVR {
     public bool DrawCollisionGrid { get; set; }
     //Events
     public event EventHandler AfterIteration;
-
-    public void attatchToSidebar(UserInterface ui) {
-      //We put the Procs In OrbItProcs
-      processManager = new ProcessManager();
-      processManager.SetProcessKeybinds();
-      ui.sidebar.ActiveGroupName = "Group1";
-
-      //ui.sidebar.UpdateGroupComboBoxes();
-    }
+    
     public Room(int worldWidth, int worldHeight, bool Groups = true)
     {
       Transform = new Transform();
@@ -141,9 +132,9 @@ namespace OrbitVR {
         {nodeE.texture, textures.ring}
       };
 
-      _targetNodeGraphic = new Node(this, userPropsTarget);
+      TargetNodeGraphic = new Node(this, userPropsTarget);
 
-      _targetNodeGraphic.name = "TargetNodeGraphic";
+      TargetNodeGraphic.name = "TargetNodeGraphic";
 
       //MakeWalls(WallWidth);
 
@@ -227,32 +218,15 @@ namespace OrbitVR {
         _pendingRoomResize = null;
       }
 
-      Draw();
-      ((ThreadedCamera) camera).CatchUp();
     }
 
-    public void GroupSelectDraw() //todo: make this the draw method in groupselect class
-    {
-      if (processManager.processDict.ContainsKey(typeof (GroupSelect))) {
-        HashSet<Node> groupset = processManager.GetProcess<GroupSelect>().groupSelectSet;
-        if (groupset != null) {
-          _targetNodeGraphic.body.color = Color.LimeGreen;
-          foreach (Node n in groupset.ToList()) {
-            _targetNodeGraphic.body.pos = n.body.pos;
-            _targetNodeGraphic.body.radius = n.body.radius*1.5f;
-            _targetNodeGraphic.Draw();
-          }
-        }
-      }
-    }
-
+    
     public void Draw() {
       //spritebatch.Draw(game.textureDict[textures.whitepixel], new Vector2(300, 300), null, Color.Black, 0f, Vector2.Zero, 100f, SpriteEffects.None, 0);
       if (targetNode != null) {
         updateTargetNodeGraphic();
-        _targetNodeGraphic.Draw();
+        TargetNodeGraphic.Draw();
       }
-      GroupSelectDraw();
       foreach (var n in masterGroup.fullSet.ToList()) //todo:wtfuck threading?
       {
         //Node n = (Node)o;
@@ -272,7 +246,6 @@ namespace OrbitVR {
         }
       }
       OrbIt.GlobalGameMode.Draw();
-      processManager.Draw(); //todo:find out why we needed this and generalize later
       GraphData.DrawGraph();
     }
 
@@ -335,9 +308,9 @@ namespace OrbitVR {
 
     public void updateTargetNodeGraphic() {
       if (targetNode != null) {
-        _targetNodeGraphic.Comp<ColorChanger>().AffectSelf();
-        _targetNodeGraphic.body.pos = targetNode.body.pos;
-        _targetNodeGraphic.body.radius = targetNode.body.radius*1.5f;
+        TargetNodeGraphic.Comp<ColorChanger>().AffectSelf();
+        TargetNodeGraphic.body.pos = targetNode.body.pos;
+        TargetNodeGraphic.body.radius = targetNode.body.radius*1.5f;
       }
     }
 

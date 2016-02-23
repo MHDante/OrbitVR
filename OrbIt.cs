@@ -13,6 +13,7 @@ namespace OrbitVR {
     public static int ScreenHeight => Game.Graphics.PreferredBackBufferHeight;
     public static GlobalGameMode GlobalGameMode { get; private set; }
     public Room Room { get; private set; }
+    public ProcessManager processManager { get; set; }
     public OrbIt()
     {
       Game = this;
@@ -29,14 +30,24 @@ namespace OrbitVR {
       Player.CreatePlayers(Room);
       UI = UserInterface.Start();
       UI.Initialize();
-      Room.attatchToSidebar(UI);
+
+      processManager = new ProcessManager();
+      processManager.SetProcessKeybinds();
+      UI.sidebar.ActiveGroupName = "Group1";
+
       GlobalKeyBinds(UI);
     }
     protected override void Update(GameTime gt) {
       base.Update(gameTime);
       _frameRateCounter.Update(gameTime);
       if (IsActive) UI.Update(gameTime);
-      if (!UI.IsPaused) Room.Update(gameTime);
+      if (!UI.IsPaused) {
+        Room.Update(gameTime);
+        //Pending de-threading
+        Room.Draw();
+        ((ThreadedCamera)Room.camera).CatchUp();
+        processManager.Draw();
+      }
     }
     protected override void DrawScene(GameTime gt) {
       Room.Draw3D();

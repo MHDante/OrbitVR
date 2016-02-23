@@ -32,6 +32,23 @@ namespace OrbitVR.Processes {
       groupSelectionBoxOrigin = UserInterface.WorldMousePos;
     }
 
+    public override void Draw() {
+      if (Manager.processDict.ContainsKey(typeof(GroupSelect)))
+      {
+        HashSet<Node> groupset = Manager.GetProcess<GroupSelect>().groupSelectSet;
+        if (groupset != null)
+        {
+          room.TargetNodeGraphic.body.color = Color.LimeGreen;
+          foreach (Node n in groupset.ToList())
+          {
+            room.TargetNodeGraphic.body.pos = n.body.pos;
+            room.TargetNodeGraphic.body.radius = n.body.radius * 1.5f;
+            room.TargetNodeGraphic.Draw();
+          }
+        }
+      }
+    }
+
     public void SelectGroup() {
       bool ctrlDown = UserInterface.oldKeyBState.IsKeyDown(Keys.LeftControl);
       bool altDown = UserInterface.oldKeyBState.IsKeyDown(Keys.LeftAlt);

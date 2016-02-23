@@ -36,6 +36,8 @@ namespace OrbitVR.Processes {
         if (value) OnActivate();
       }
     }
+    //Todo: Local Reference.
+    public ProcessManager Manager => OrbIt.Game.processManager;
 
     //public event Action OnUpdate;
     //public event Action OnDraw;
