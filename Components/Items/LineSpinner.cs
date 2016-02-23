@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using OrbitVR.Components.Drawers;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Items {
@@ -155,7 +155,7 @@ namespace OrbitVR.Components.Items {
           float length = dist*distLengthRatio;
 
           //symmetry.room.camera.Draw(textures.whitepixel, dir + symmetry.parent.body.pos, color ?? symmetry.parent.body.color, new Vector2(1f, length), rotationAngle, Layers.Under1);
-          lineSpinner.room.Camera.AddPermanentDraw(textures.whitepixel, dir + lineSpinner.parent.body.pos, newColor,
+          lineSpinner.room.Camera.AddPermanentDraw(Textures.Whitepixel, dir + lineSpinner.parent.body.pos, newColor,
                                                    new Vector2(1f, length), rotationAngle, permDraw);
         }
       }

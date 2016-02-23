@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 

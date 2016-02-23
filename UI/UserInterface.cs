@@ -5,69 +5,37 @@ using OrbitVR.Framework;
 using SharpDX;
 using SharpDX.Toolkit;
 
-namespace OrbitVR.Interface {
+namespace OrbitVR.UI {
   public class UserInterface {
-    public enum selection {
-      placeNode,
-      targetSelection,
-      groupSelection,
-      randomNode,
+    public enum Selection {
+      PlaceNode,
+      TargetSelection,
+      GroupSelection,
+      RandomNode,
     }
-
-    private static UserInterface ui;
-    public static bool tomShaneWasClicked = false;
-    public static readonly Color TomShanePuke = new Color(75, 187, 0);
-    public static readonly Color TomDark = new Color(65, 65, 65);
-    public static readonly Color TomLight = new Color(180, 180, 180);
+    
     public static Vector2 MousePos;
     public static Vector2 WorldMousePos;
-
-    public static string Checkmark = "\u2714";
-    public static string Cross = "\u2718";
     public Action<int> ScrollAction;
-    public Sidebar sidebar;
-
-    public Node spawnerNode;
-
-    public Dictionary<dynamic, dynamic> UserProps;
-
-    public static int SidebarWidth { get; set; }
-
     public float zoomfactor { get; set; }
-    public static bool GameInputDisabled { get; set; }
     public bool IsPaused { get; set; }
 
-    private UserInterface() {
-      sidebar = new Sidebar(this);
+    public UserInterface() {
 
       zoomfactor = 0.9f;
-      GameInputDisabled = false;
       IsPaused = false;
-      this.keyManager = new KeyManager(this);
-    }
-
-    public void Initialize() {
-      sidebar.Initialize();
+      keyManager = new KeyManager(this);
     }
 
     public void Update(GameTime gameTime) {
       ProcessKeyboard();
-
       ProcessMouse();
-
       ProcessController();
-
-      //game.testing.KeyManagerTest(() => Keybindset.Update());
       keyManager.Update();
-      sidebar.Update();
-
-      //randomizerProcess = new Randomizer();
     }
 
     public void ProcessKeyboard() {
       keybState = Keyboard.GetState();
-
-      if (GameInputDisabled) return;
 
       if (keybState.IsKeyDown(Keys.Y))
         hovertargetting = true;
@@ -121,10 +89,7 @@ namespace OrbitVR.Interface {
 
     public void ProcessMouse() {
       mouseState = Mouse.GetState();
-
-      if (UserInterface.tomShaneWasClicked) {
-        mouseState = oldMouseState;
-      }
+      
       //if (mouseState.XButton1 == ButtonState.Pressed)
       //    System.Console.WriteLine("X1");
       //
@@ -155,7 +120,7 @@ namespace OrbitVR.Interface {
       // return;
       //}
 
-      if (GameInputDisabled || !keyManager.MouseInGameBox) return;
+      if (!keyManager.MouseInGameBox) return;
       //game.processManager.PollMouse(mouseState, oldMouseState);
       int worldMouseX = (int) WorldMousePos.X;
       int worldMouseY = (int) WorldMousePos.Y;
@@ -188,11 +153,7 @@ namespace OrbitVR.Interface {
       oldMouseScrollValue = mouseState.ScrollWheelValue;
       oldMouseState = mouseState;
     }
-
-    internal static UserInterface Start() {
-      ui = new UserInterface();
-      return ui;
-    }
+    
 
     #region /// Fields ///
 
@@ -212,7 +173,7 @@ namespace OrbitVR.Interface {
     public static MouseState mouseState, oldMouseState;
 
     //public string currentSelection = "placeNode";//
-    public selection currentSelection = selection.placeNode;
+    public Selection currentSelection = Selection.PlaceNode;
     int oldMouseScrollValue = 0; //
     bool hovertargetting = false; //
     //int rightClickCount = 0;//

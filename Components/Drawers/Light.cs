@@ -1,5 +1,5 @@
 ﻿using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Drawers {
@@ -91,12 +91,12 @@ namespace OrbitVR.Components.Drawers {
         scaleRateTemp = scaleRate;
         scale = min;
       }
-      room.Camera.Draw(textures.whitecircle, parent.body.pos, color*(transparencyPercent/100f), scale, drawLayer);
+      room.Camera.Draw(Textures.Whitecircle, parent.body.pos, color*(transparencyPercent/100f), scale, drawLayer);
       if (shadowCount.enabled) {
         float totalScaleDifference = 0.5f;
         float singleScaleDifference = totalScaleDifference/shadowCount.value;
         for (int i = 0; i < shadowCount.value; i++) {
-          room.Camera.Draw(textures.whitecircle, parent.body.pos, color*(transparencyPercent/100f),
+          room.Camera.Draw(Textures.Whitecircle, parent.body.pos, color*(transparencyPercent/100f),
                            scale*(1f - (singleScaleDifference*(i + 1))), drawLayer);
         }
       }

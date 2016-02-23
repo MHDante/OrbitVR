@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OrbitVR.Components.Movement;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Processes {

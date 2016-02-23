@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OrbitVR.Components.Essential;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 using Collision = OrbitVR.Components.Essential.Collision;
 
@@ -160,7 +160,7 @@ namespace OrbitVR.Components.Items {
 
       particlePacks = new List<ParticlePack>();
       for (int i = 0; i < packCount; i++) {
-        particlePacks.Add(new ParticlePack(textures.randompixels, 1.0f, 0.4f));
+        particlePacks.Add(new ParticlePack(Textures.Randompixels, 1.0f, 0.4f));
       }
     }
 
@@ -191,9 +191,9 @@ namespace OrbitVR.Components.Items {
     float scale;
     float scaleMax;
     float scaleRate;
-    textures texture;
+    Textures texture;
 
-    public ParticlePack(textures texture, float scaleMax, float alpha) {
+    public ParticlePack(Textures texture, float scaleMax, float alpha) {
       this.texture = texture;
       this.scaleMax = scaleMax;
       this.alpha = alpha;

@@ -2,7 +2,7 @@
 using System.Linq;
 using OrbitVR.Components.Meta;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Linkers {

@@ -1,5 +1,5 @@
 ﻿using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 
 namespace OrbitVR.Components.Movement {
   /// <summary>

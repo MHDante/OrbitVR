@@ -3,7 +3,7 @@ using OrbitVR.Components.AffectOthers;
 using OrbitVR.Components.Drawers;
 using OrbitVR.Components.Linkers;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Items {
@@ -81,7 +81,7 @@ namespace OrbitVR.Components.Items {
       shootNode.body.radius = shootNodeRadius;
       shootNode.body.ExclusionCheck += (c1, c2) => c2 == parent.body;
       shootNode.body.mass = 2f;
-      shootNode.body.texture = textures.cage;
+      shootNode.body.texture = Textures.Cage;
     }
 
     private void UpdateAttachLink() {

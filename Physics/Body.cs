@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 using Collision = OrbitVR.Components.Essential.Collision;
@@ -24,7 +24,7 @@ namespace OrbitVR.Physics {
     private float _scale = 1f;
 
     private float _staticFriction = 0.5f;
-    private textures _texture;
+    private Textures _texture;
     private float _torque = 0;
 
     public Color color = new Color(255, 255, 255);
@@ -194,7 +194,7 @@ namespace OrbitVR.Physics {
     /// The texture that the node will use to render. (This is the picture of the node.)
     /// </summary>
     [Info(UserLevel.User, "The texture that the node will use to render. (This is the picture of the node.)")]
-    public textures texture {
+    public Textures texture {
       get { return _texture; }
       set {
         _texture = value;

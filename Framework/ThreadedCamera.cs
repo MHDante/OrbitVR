@@ -46,14 +46,14 @@ namespace OrbitVR.Framework {
     public ShaderPack shaderPack;
     private Rectangle? sourceRect;
     private string text;
-    private textures texture;
+    private Textures texture;
 
     private DrawType type;
 
 
     public Texture2D texture2d { get; set; }
 
-    public DrawCommand(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
+    public DrawCommand(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                        Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0,
                        int maxlife = -1,
                        ShaderPack? shaderPack = null) {
@@ -93,7 +93,7 @@ namespace OrbitVR.Framework {
       this.shaderPack = shaderPack ?? ShaderPack.Default;
     }
 
-    public DrawCommand(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
+    public DrawCommand(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                        Vector2 origin, Vector2 scalevect, SpriteEffects effects = SpriteEffects.None,
                        float layerDepth = 0,
                        int maxlife = -1, ShaderPack? shaderPack = null) {
@@ -130,18 +130,18 @@ namespace OrbitVR.Framework {
     public void Draw(SpriteBatch batch) {
       switch (type) {
         case DrawType.standard:
-          batch.Draw(Assets.textureDict[texture], position, sourceRect, color, rotation, origin, scale, effects,
+          batch.Draw(Assets.TextureDict[texture], position, sourceRect, color, rotation, origin, scale, effects,
                      layerDepth);
           break;
         case DrawType.direct:
           batch.Draw(texture2d, position, sourceRect, color, rotation, origin, scale, effects, layerDepth);
           break;
         case DrawType.vectScaled:
-          batch.Draw(Assets.textureDict[texture], position, sourceRect, color, rotation, origin, scalevect, effects,
+          batch.Draw(Assets.TextureDict[texture], position, sourceRect, color, rotation, origin, scalevect, effects,
                      layerDepth);
           break;
         case DrawType.drawString:
-          batch.DrawString(Assets.font, text, position, color, 0f, Vector2.Zero, scale, SpriteEffects.None, layerDepth);
+          batch.DrawString(Assets.Font, text, position, color, 0f, Vector2.Zero, scale, SpriteEffects.None, layerDepth);
           break;
       }
       if (maxlife > 0) {
@@ -191,23 +191,23 @@ namespace OrbitVR.Framework {
     }
 
 
-    public override void AddPermanentDraw(textures texture, Vector2 position, Color color, float scale, float rotation,
+    public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation,
                                           int life) {
       addPerm.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-                                      rotation, Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, 0, life));
+                                      rotation, Assets.TextureCenters[texture], scale*zoom, SpriteEffects.None, 0, life));
     }
 
-    public override void AddPermanentDraw(textures texture, Vector2 position, Color color, Vector2 scalevect,
+    public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect,
                                           float rotation,
                                           int life) {
       addPerm.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-                                      rotation, Assets.textureCenters[texture], scalevect*zoom, SpriteEffects.None, 0,
+                                      rotation, Assets.TextureCenters[texture], scalevect*zoom, SpriteEffects.None, 0,
                                       life));
     }
 
-    public override void removePermanentDraw(textures texture, Vector2 position, Color color, float scale) {
+    public override void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale) {
       removePerm.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color, 0,
-                                         Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, 0));
+                                         Assets.TextureCenters[texture], scale*zoom, SpriteEffects.None, 0));
     }
 
     private void Work(object obj) {
@@ -264,10 +264,10 @@ namespace OrbitVR.Framework {
       }
     }
 
-    public override void Draw(textures texture, Vector2 position, Color color, float scale, Layers Layer,
+    public override void Draw(Textures texture, Vector2 position, Color color, float scale, Layers Layer,
                               ShaderPack? shaderPack = null, bool center = true) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color, 0,
-                                        center ? Assets.textureCenters[texture] : Vector2.Zero, scale*zoom,
+                                        center ? Assets.TextureCenters[texture] : Vector2.Zero, scale*zoom,
                                         SpriteEffects.None, (((float) Layer)/10), -1,
                                         shaderPack));
     }
@@ -280,10 +280,10 @@ namespace OrbitVR.Framework {
                                         (((float) Layer)/10), -1, shaderPack));
     }
 
-    public override void Draw(textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
+    public override void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
                               ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-                                        rotation, Assets.textureCenters[texture], scale*zoom, SpriteEffects.None,
+                                        rotation, Assets.TextureCenters[texture], scale*zoom, SpriteEffects.None,
                                         (((float) Layer)/10), -1, shaderPack));
     }
 
@@ -296,23 +296,23 @@ namespace OrbitVR.Framework {
                                         -1, shaderPack));
     }
 
-    public override void Draw(textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation,
+    public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation,
                               Layers Layer,
                               ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, null, color,
-                                        rotation, Assets.textureCenters[texture], scalevect*zoom, SpriteEffects.None,
+                                        rotation, Assets.TextureCenters[texture], scalevect*zoom, SpriteEffects.None,
                                         (((float) Layer)/10), -1,
                                         shaderPack));
     }
 
-    public override void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
+    public override void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                               Vector2 origin, float scale, Layers Layer, ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, sourceRect,
                                         color, rotation, origin, scale*zoom, SpriteEffects.None, (((float) Layer)/10),
                                         -1, shaderPack));
     }
 
-    public override void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
+    public override void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                               Vector2 origin, Vector2 scalevect, Layers Layer, ShaderPack? shaderPack = null) {
       nextFrame.Enqueue(new DrawCommand(texture, ((position - virtualTopLeft)*zoom) + CameraOffsetVect, sourceRect,
                                         color, rotation, origin, scalevect*zoom, SpriteEffects.None,
@@ -329,7 +329,7 @@ namespace OrbitVR.Framework {
       //thickness *= 2f * mapzoom;
       Vector2 scalevect = new Vector2(len, thickness);
       float angle = (float) (Math.Atan2(diff.Y, diff.X));
-      Draw(textures.whitepixel, centerpoint, null, color, angle, Assets.textureCenters[textures.whitepixel], scalevect,
+      Draw(Textures.Whitepixel, centerpoint, null, color, angle, Assets.TextureCenters[Textures.Whitepixel], scalevect,
            Layer);
     }
 
@@ -345,7 +345,7 @@ namespace OrbitVR.Framework {
       Vector2 scalevect = new Vector2(len, thickness);
       float angle = (float) (Math.Atan2(diff.Y, diff.X));
       //Draw(textures.whitepixel, centerpoint, null, color, angle, Assets.textureCenters[textures.whitepixel], scalevect, Layer);
-      AddPermanentDraw(textures.whitepixel, centerpoint, color, scalevect, angle, life);
+      AddPermanentDraw(Textures.Whitepixel, centerpoint, color, scalevect, angle, life);
     }
 
     public override void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = null,

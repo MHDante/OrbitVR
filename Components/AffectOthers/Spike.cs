@@ -1,8 +1,8 @@
 ﻿using System;
 using OrbitVR.Components.Meta;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.AffectOthers {

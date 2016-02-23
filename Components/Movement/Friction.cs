@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 
 namespace OrbitVR.Components.Movement {
   /// <summary>

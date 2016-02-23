@@ -1,7 +1,7 @@
 ﻿using OrbitVR.Components.Drawers;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Essential {
@@ -166,8 +166,8 @@ namespace OrbitVR.Components.Essential {
         room.Camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
                          parent.body.orient, layer);
 
-      if (parent.body.texture == textures.boulder1 && DrawSparkles)
-        room.Camera.Draw(textures.boulderShine, parent.body.pos, Utils.randomColor(), parent.body.scale,
+      if (parent.body.texture == Textures.Boulder1 && DrawSparkles)
+        room.Camera.Draw(Textures.BoulderShine, parent.body.pos, Utils.randomColor(), parent.body.scale,
                          parent.body.orient, layer);
     }
   }

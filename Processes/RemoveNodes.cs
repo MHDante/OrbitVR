@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Processes {

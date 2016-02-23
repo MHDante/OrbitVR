@@ -1,5 +1,5 @@
 ﻿using System;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Movement {

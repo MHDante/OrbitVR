@@ -1,5 +1,5 @@
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX.Direct3D11;
 using SharpDX.Toolkit;
 
@@ -30,12 +30,10 @@ namespace OrbitVR {
       GlobalGameMode = new GlobalGameMode(this);
       _frameRateCounter = new FrameRateCounter(this);
       Player.CreatePlayers(Room);
-      UI = UserInterface.Start();
-      UI.Initialize();
-
+      UI = new UserInterface();
       ProcessManager = new ProcessManager();
       ProcessManager.SetProcessKeybinds();
-      UI.sidebar.ActiveGroupName = "Group1";
+      Room.ActiveGroupName = "Group1";
 
       GlobalKeyBinds(UI);
     }
@@ -59,9 +57,7 @@ namespace OrbitVR {
 
     private void GlobalKeyBinds(UserInterface ui) {
       ui.keyManager.addGlobalKeyAction("exitgame", KeyCodes.Escape, OnPress: Exit);
-      //ui.keyManager.addGlobalKeyAction("togglesidebar", KeyCodes.OemTilde, OnPress: ui.ToggleSidebar);
-      //ui.keyManager.addGlobalKeyAction("switchview", KeyCodes.PageDown, OnPress: ui.SwitchView);
-      //ui.keyManager.addGlobalKeyAction("removeall", KeyCodes.Delete, OnPress: () => ui.sidebar.btnRemoveAllNodes_Click(null, null));
+      ui.keyManager.addGlobalKeyAction("removeall", KeyCodes.Delete, OnPress: Room.EmptyCurrentGroup);
     }
   }
 }

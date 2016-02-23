@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrbitVR.Interface {
+namespace OrbitVR.UI {
   public class Toggle<T> {
     //create an OnChanged event here in replacement for properties for declarers of toggles
     public T value { get; set; }

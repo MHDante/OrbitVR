@@ -1,5 +1,4 @@
 using OrbitVR.PSMove;
-using Polenter.Serialization;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Direct3D11;
@@ -8,7 +7,7 @@ using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
 using SharpOVR;
 
-namespace OrbitVR {
+namespace OrbitVR.UI {
   public abstract class VRGame : Game {
     private float bodyYaw = 3.141592f;
     private EyeRenderDesc[] eyeRenderDesc = new EyeRenderDesc[2];
@@ -26,7 +25,6 @@ namespace OrbitVR {
 
     public Matrix projection;
     public PSMoveController PsMoveController;
-    public SharpSerializer serializer = new SharpSerializer();
     private Model ship;
     public Matrix view;
 

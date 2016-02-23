@@ -79,10 +79,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Polenter.SharpSerializer, Version=2.18.0.0, Culture=neutral, PublicKeyToken=8f4f20011571ee5f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Includes\Polenter.SharpSerializer.dll</HintPath>
-    </Reference>
     <Reference Include="SharpDX">
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
     </Reference>
@@ -182,7 +178,6 @@
     <ToolkitTexture Include="Content\Textures\whitepixel.png" />
     <ToolkitTexture Include="Content\Textures\whitepixeltrans.png" />
     <ToolkitTexture Include="Content\Textures\whitesphere.png" />
-    <Content Include="Includes\Polenter.SharpSerializer.dll" />
     <Content Include="Includes\psmoveapi.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -256,7 +251,6 @@
     <Compile Include="Components\Tracers\PhaseOrb.cs" />
     <Compile Include="Components\Tracers\Waver.cs" />
     <Compile Include="Components\Tracers\WideRay.cs" />
-    <Compile Include="DebugFlags.cs" />
     <Compile Include="Framework\Camera.cs" />
     <Compile Include="Framework\CameraBase.cs" />
     <Compile Include="Framework\Controller.cs" />
@@ -272,9 +266,8 @@
     <Compile Include="Framework\IndexArray.cs" />
     <Compile Include="Framework\Input.cs" />
     <Compile Include="Framework\MonoGameInput.cs" />
-    <Compile Include="Framework\KeyManager.cs" />
+    <Compile Include="UI\KeyManager.cs" />
     <Compile Include="Framework\Level.cs" />
-    <Compile Include="Framework\LevelSave.cs" />
     <Compile Include="Framework\Link.cs" />
     <Compile Include="Framework\ModifierInfo.cs" />
     <Compile Include="Framework\ObservableHashSetOfT.cs" />
@@ -285,13 +278,13 @@
     <Compile Include="Framework\ThreadedCamera.cs" />
     <Compile Include="Framework\Utils.cs" />
     <Compile Include="Framework\VMath.cs" />
-    <Compile Include="Interface\InspectorInfo.cs" />
-    <Compile Include="Interface\OrbItAttributes.cs" />
-    <Compile Include="Interface\Sidebar.cs" />
-    <Compile Include="Interface\Toggle.cs" />
-    <Compile Include="Interface\UserInterface.cs" />
+    <Compile Include="UI\InspectorInfo.cs" />
+    <Compile Include="UI\OrbItAttributes.cs" />
+    <Compile Include="UI\Command.cs" />
+    <Compile Include="UI\Toggle.cs" />
+    <Compile Include="UI\UserInterface.cs" />
     <Compile Include="Node.cs" />
-    <Compile Include="Object3D.cs" />
+    <Compile Include="UI\Object3D.cs" />
     <Compile Include="OrbIt.cs" />
     <Compile Include="Physics\AABB.cs" />
     <Compile Include="Physics\Body.cs" />
@@ -317,19 +310,17 @@
     <Compile Include="Processes\SingleSelect.cs" />
     <Compile Include="Processes\SpawnNodes.cs" />
     <Compile Include="Processes\TripSpawnOnCollide.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="PSMove\PSMoveAPI.cs" />
-    <Compile Include="PSMove\PSMoveClock.cs" />
-    <Compile Include="PSMove\PSMoveController.cs" />
-    <Compile Include="PSMove\PSMoveData.cs" />
-    <Compile Include="PSMove\PSMoveManager.cs" />
-    <Compile Include="PSMove\PSMovePose.cs" />
-    <Compile Include="PSMove\PSMoveUtility.cs" />
-    <Compile Include="RiftGame.cs" />
+    <Compile Include="UI\PSMove\PSMoveAPI.cs" />
+    <Compile Include="UI\PSMove\PSMoveClock.cs" />
+    <Compile Include="UI\PSMove\PSMoveController.cs" />
+    <Compile Include="UI\PSMove\PSMoveData.cs" />
+    <Compile Include="UI\PSMove\PSMoveManager.cs" />
+    <Compile Include="UI\PSMove\PSMovePose.cs" />
+    <Compile Include="UI\PSMove\PSMoveUtility.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="Physics\CollisionManager.cs" />
-    <Compile Include="Tester.cs" />
-    <Compile Include="VRGame.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="UI\VRGame.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

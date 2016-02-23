@@ -6,7 +6,7 @@ namespace OrbitVR.Framework {
   {
     private static int _CameraOffset = 0;
     public static Vector2 CameraOffsetVect = new Vector2(0, 0);
-    public static readonly SpriteFont font = Assets.font;
+    public static readonly SpriteFont font = Assets.Font;
     public SpriteBatch batch;
     public Vector2 pos;
 
@@ -23,37 +23,37 @@ namespace OrbitVR.Framework {
 
     public Camera(Room room, float zoom = 0.5f, Vector2? pos = null) {} // : base(room, zoom, pos) {}
 
-    public virtual void Draw(textures texture, Vector2 position, Color color, float scale) {
+    public virtual void Draw(Textures texture, Vector2 position, Color color, float scale) {
       color *= ((float) color.A/255f);
-      batch.Draw(Assets.textureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, null, color, 0,
-                 Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, 0);
+      batch.Draw(Assets.TextureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, null, color, 0,
+                 Assets.TextureCenters[texture], scale*zoom, SpriteEffects.None, 0);
     }
 
-    public virtual void Draw(textures texture, Vector2 position, Color color, float scale, float rotation) {
+    public virtual void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation) {
       color *= ((float) color.A/255f);
-      batch.Draw(Assets.textureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, null, color, rotation,
-                 Assets.textureCenters[texture], scale*zoom, SpriteEffects.None, 0);
+      batch.Draw(Assets.TextureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, null, color, rotation,
+                 Assets.TextureCenters[texture], scale*zoom, SpriteEffects.None, 0);
     }
 
-    public virtual void Draw(textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation) {
+    public virtual void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation) {
       color *= ((float) color.A/255f);
-      batch.Draw(Assets.textureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, null, color, rotation,
-                 Assets.textureCenters[texture], scalevect*zoom, SpriteEffects.None, 0);
+      batch.Draw(Assets.TextureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, null, color, rotation,
+                 Assets.TextureCenters[texture], scalevect*zoom, SpriteEffects.None, 0);
     }
 
-    public virtual void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
+    public virtual void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                              Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None,
                              float layerDepth = 0) {
       color *= ((float) color.A/255f);
-      batch.Draw(Assets.textureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, sourceRect, color, rotation,
+      batch.Draw(Assets.TextureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, sourceRect, color, rotation,
                  origin, scale*zoom, effects, layerDepth);
     }
 
-    public virtual void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
+    public virtual void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                              Vector2 origin, Vector2 scalevect, SpriteEffects effects = SpriteEffects.None,
                              float layerDepth = 0) {
       color *= ((float) color.A/255f);
-      batch.Draw(Assets.textureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, sourceRect, color, rotation,
+      batch.Draw(Assets.TextureDict[texture], ((position - pos)*zoom) + CameraOffsetVect, sourceRect, color, rotation,
                  origin, scalevect*zoom, effects, layerDepth);
     }
 

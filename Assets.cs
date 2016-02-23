@@ -12,144 +12,142 @@ using Color = SharpDX.Color;
 using Point = System.Drawing.Point;
 
 namespace OrbitVR {
-  public enum textures {
-    rune1,
-    rune2,
-    rune3,
-    rune4,
-    rune5,
-    rune6,
-    rune7,
-    rune8,
-    rune9,
-    rune10,
-    rune11,
-    rune12,
-    rune13,
-    rune14,
-    rune15,
-    rune16,
-    whitecircle,
-    orientedcircle,
-    blackorb,
-    whitesphere,
-    ring,
-    whiteorb,
-    blueorb,
-    colororb,
-    whitepixel,
-    whitepixeltrans,
-    sword,
-    randompixels,
-    innerL,
-    innerR,
-    outerL,
-    outerR,
-    pointer,
-    itemLight,
-    itemWhisper,
-    fist,
-    cage,
-    robot1,
-    shoveltip,
-    spiderhead,
-    spiderleg1,
-    rock1,
-    boulder1,
-    goat,
-    gradient1,
-    gradient2,
-    ridgesR,
-    ridgesL,
-    boulderShine,
-    endLight,
-    leaf,
-    whiteorb2,
+  public enum Textures {
+    Rune1,
+    Rune2,
+    Rune3,
+    Rune4,
+    Rune5,
+    Rune6,
+    Rune7,
+    Rune8,
+    Rune9,
+    Rune10,
+    Rune11,
+    Rune12,
+    Rune13,
+    Rune14,
+    Rune15,
+    Rune16,
+    Whitecircle,
+    Orientedcircle,
+    Blackorb,
+    Whitesphere,
+    Ring,
+    Whiteorb,
+    Blueorb,
+    Colororb,
+    Whitepixel,
+    Whitepixeltrans,
+    Sword,
+    Randompixels,
+    InnerL,
+    InnerR,
+    OuterL,
+    OuterR,
+    Pointer,
+    ItemLight,
+    ItemWhisper,
+    Fist,
+    Cage,
+    Robot1,
+    Shoveltip,
+    Spiderhead,
+    Spiderleg1,
+    Rock1,
+    Boulder1,
+    Goat,
+    Gradient1,
+    Gradient2,
+    RidgesR,
+    RidgesL,
+    BoulderShine,
+    EndLight,
+    Leaf,
+    Whiteorb2,
   }
 
   static class Assets {
-    public const string filepath = "Presets//Nodes/";
-    public const string levelsFilepath = "Presets//Levels/";
+    public const string Filepath = "Presets//Nodes/";
+    public const string LevelsFilepath = "Presets//Levels/";
 
-    public static SpriteFont font;
-    public static Dictionary<textures, Texture2D> textureDict;
-    public static Dictionary<textures, Vector2> textureCenters;
+    public static SpriteFont Font;
+    public static Dictionary<Textures, Texture2D> TextureDict;
+    public static Dictionary<Textures, Vector2> TextureCenters;
     public static ObservableCollection<object> NodePresets = new ObservableCollection<object>();
     //public static Effect shaderEffect; // Shader code
 
     public static void LoadAssets(ContentManager content) {
-      if (!Directory.Exists(filepath)) Directory.CreateDirectory(filepath);
-      textureDict = new Dictionary<textures, Texture2D>() {
-        {textures.blueorb, /**/content.Load<Texture2D>("Textures/bluesphere")},
-        {textures.whiteorb, /**/content.Load<Texture2D>("Textures/whiteorb")},
-        {textures.colororb, /**/content.Load<Texture2D>("Textures/colororb")},
-        {textures.whitepixel, /**/content.Load<Texture2D>("Textures/whitepixel")},
-        {textures.whitepixeltrans, /**/content.Load<Texture2D>("Textures/whitepixeltrans")},
-        {textures.whitecircle, /**/content.Load<Texture2D>("Textures/whitecircle")},
-        {textures.whitesphere, /**/content.Load<Texture2D>("Textures/whitesphere")},
-        {textures.blackorb, /**/content.Load<Texture2D>("Textures/blackorb")},
-        {textures.ring, /**/content.Load<Texture2D>("Textures/ring")},
-        {textures.orientedcircle, /**/content.Load<Texture2D>("Textures/orientedcircle")},
-        {textures.sword, /**/content.Load<Texture2D>("Textures/sword")},
-        {textures.randompixels, /**/content.Load<Texture2D>("Textures/randompixels")},
-        {textures.innerL, /**/content.Load<Texture2D>("Textures/innerL")},
-        {textures.innerR, /**/content.Load<Texture2D>("Textures/innerR")},
-        {textures.outerL, /**/content.Load<Texture2D>("Textures/outerL")},
-        {textures.outerR, /**/content.Load<Texture2D>("Textures/outerR")},
-        {textures.pointer, /**/content.Load<Texture2D>("Textures/pointer")},
-        {textures.itemLight, /**/content.Load<Texture2D>("Textures/itemLight")},
-        {textures.itemWhisper, /**/content.Load<Texture2D>("Textures/itemWhisper")},
-        {textures.cage, /**/content.Load<Texture2D>("Textures/cage")},
-        {textures.fist, /**/content.Load<Texture2D>("Textures/fist")},
-        {textures.goat, /**/content.Load<Texture2D>("Textures/Boulder_3")},
-        {textures.robot1, /**/content.Load<Texture2D>("Textures/Robot1")},
-        {textures.shoveltip, /**/content.Load<Texture2D>("Textures/ShovelTip")},
-        {textures.spiderhead, /**/content.Load<Texture2D>("Textures/SpiderHead")},
-        {textures.spiderleg1, /**/content.Load<Texture2D>("Textures/SpiderLeg1")},
-        {textures.rock1, /**/content.Load<Texture2D>("Textures/RockTexture1")},
-        {textures.boulder1, /**/content.Load<Texture2D>("Textures/Bolders")},
-        {textures.gradient1, /**/content.Load<Texture2D>("Textures/gradient")},
-        {textures.gradient2, /**/content.Load<Texture2D>("Textures/gradient2")},
-        {textures.ridgesL, /**/content.Load<Texture2D>("Textures/RidgesL")},
-        {textures.ridgesR, /**/content.Load<Texture2D>("Textures/RidgesR")},
-        {textures.boulderShine, /**/content.Load<Texture2D>("Textures/boulderShine")},
-        {textures.endLight, /**/content.Load<Texture2D>("Textures/endLight")},
-        {textures.leaf, /**/content.Load<Texture2D>("Textures/leaf")},
-        {textures.whiteorb2, /**/content.Load<Texture2D>("Textures/whiteorb2")},
+      if (!Directory.Exists(Filepath)) Directory.CreateDirectory(Filepath);
+      TextureDict = new Dictionary<Textures, Texture2D>() {
+        {Textures.Blueorb, /**/content.Load<Texture2D>("Textures/bluesphere")},
+        {Textures.Whiteorb, /**/content.Load<Texture2D>("Textures/whiteorb")},
+        {Textures.Colororb, /**/content.Load<Texture2D>("Textures/colororb")},
+        {Textures.Whitepixel, /**/content.Load<Texture2D>("Textures/whitepixel")},
+        {Textures.Whitepixeltrans, /**/content.Load<Texture2D>("Textures/whitepixeltrans")},
+        {Textures.Whitecircle, /**/content.Load<Texture2D>("Textures/whitecircle")},
+        {Textures.Whitesphere, /**/content.Load<Texture2D>("Textures/whitesphere")},
+        {Textures.Blackorb, /**/content.Load<Texture2D>("Textures/blackorb")},
+        {Textures.Ring, /**/content.Load<Texture2D>("Textures/ring")},
+        {Textures.Orientedcircle, /**/content.Load<Texture2D>("Textures/orientedcircle")},
+        {Textures.Sword, /**/content.Load<Texture2D>("Textures/sword")},
+        {Textures.Randompixels, /**/content.Load<Texture2D>("Textures/randompixels")},
+        {Textures.InnerL, /**/content.Load<Texture2D>("Textures/innerL")},
+        {Textures.InnerR, /**/content.Load<Texture2D>("Textures/innerR")},
+        {Textures.OuterL, /**/content.Load<Texture2D>("Textures/outerL")},
+        {Textures.OuterR, /**/content.Load<Texture2D>("Textures/outerR")},
+        {Textures.Pointer, /**/content.Load<Texture2D>("Textures/pointer")},
+        {Textures.ItemLight, /**/content.Load<Texture2D>("Textures/itemLight")},
+        {Textures.ItemWhisper, /**/content.Load<Texture2D>("Textures/itemWhisper")},
+        {Textures.Cage, /**/content.Load<Texture2D>("Textures/cage")},
+        {Textures.Fist, /**/content.Load<Texture2D>("Textures/fist")},
+        {Textures.Goat, /**/content.Load<Texture2D>("Textures/Boulder_3")},
+        {Textures.Robot1, /**/content.Load<Texture2D>("Textures/Robot1")},
+        {Textures.Shoveltip, /**/content.Load<Texture2D>("Textures/ShovelTip")},
+        {Textures.Spiderhead, /**/content.Load<Texture2D>("Textures/SpiderHead")},
+        {Textures.Spiderleg1, /**/content.Load<Texture2D>("Textures/SpiderLeg1")},
+        {Textures.Rock1, /**/content.Load<Texture2D>("Textures/RockTexture1")},
+        {Textures.Boulder1, /**/content.Load<Texture2D>("Textures/Bolders")},
+        {Textures.Gradient1, /**/content.Load<Texture2D>("Textures/gradient")},
+        {Textures.Gradient2, /**/content.Load<Texture2D>("Textures/gradient2")},
+        {Textures.RidgesL, /**/content.Load<Texture2D>("Textures/RidgesL")},
+        {Textures.RidgesR, /**/content.Load<Texture2D>("Textures/RidgesR")},
+        {Textures.BoulderShine, /**/content.Load<Texture2D>("Textures/boulderShine")},
+        {Textures.EndLight, /**/content.Load<Texture2D>("Textures/endLight")},
+        {Textures.Leaf, /**/content.Load<Texture2D>("Textures/leaf")},
+        {Textures.Whiteorb2, /**/content.Load<Texture2D>("Textures/whiteorb2")},
       };
 
 
       for (int i = 0; i < 16; i++) {
-        textures rune = (textures) i;
+        Textures rune = (Textures) i;
         string s = "Textures/Runes/" + (i + 1) + " symboli";
-        textureDict.Add(rune, content.Load<Texture2D>(s));
+        TextureDict.Add(rune, content.Load<Texture2D>(s));
       }
 
-      textureCenters = new Dictionary<textures, Vector2>();
-      foreach (var tex in textureDict.Keys) {
-        Texture2D t = textureDict[tex];
-        textureCenters[tex] = new Vector2(t.Width/2f, t.Height/2f);
+      TextureCenters = new Dictionary<Textures, Vector2>();
+      foreach (var tex in TextureDict.Keys) {
+        Texture2D t = TextureDict[tex];
+        TextureCenters[tex] = new Vector2(t.Width/2f, t.Height/2f);
       }
 
-      font = content.Load<SpriteFont>("Courier New");
-      // shaderEffect = 						content.Load<Effect>("Effects/Shader");
-      //TODO: btnTextures = 						content.Load<Texture2D>("Textures/buttons").sliceSpriteSheet(2, 5);
+      Font = content.Load<SpriteFont>("Courier New");
     }
 
-    public static Texture2D ClippedBitmap(Texture2D t2d, Point[] pointsArray, out Point position) {
+    public static Texture2D ClippedBitmap(Texture2D t2D, Point[] pointsArray, out Point position) {
       MemoryStream mStream = new MemoryStream();
-      t2d.Save(mStream, ImageFileType.Png);
+      t2D.Save(mStream, ImageFileType.Png);
       Bitmap texture = new Bitmap(mStream);
       int minX = pointsArray.Min(x => x.X); //margin.X >= 0 ? x.X : x.X + margin.X);
       int maxX = pointsArray.Max(x => x.X); //margin.X <= 0 ? x.X : x.X + margin.X);
       int minY = pointsArray.Min(x => x.Y); //margin.Y >= 0 ? x.Y : x.Y + margin.Y);
       int maxY = pointsArray.Max(x => x.Y); //margin.Y <= 0 ? x.X : x.X + margin.X);
       position = new Point(minX, minY);
-      if (maxX - minX <= 0 || maxY - minY <= 0) return Assets.textureDict[textures.whitepixel];
+      if (maxX - minX <= 0 || maxY - minY <= 0) return TextureDict[Textures.Whitepixel];
       Bitmap bmp = new Bitmap(maxX - minX, maxY - minY);
       Point[] offset = new Point[pointsArray.Length];
       pointsArray.CopyTo(offset, 0);
-      offset = Array.ConvertAll(offset, x => x = new Point(x.X - minX, x.Y - minY));
+      offset = Array.ConvertAll(offset, x => new Point(x.X - minX, x.Y - minY));
       Graphics g = Graphics.FromImage(bmp);
       TextureBrush tb = new TextureBrush(texture);
       g.FillPolygon(tb, offset);
@@ -167,7 +165,7 @@ namespace OrbitVR {
                                       bmp.Width,
                                       bmp.Height, Format.B8G8R8A8_UNorm);
 
-      myTex.SetData<Color>(pixels);
+      myTex.SetData(pixels);
       return myTex;
     }
   }

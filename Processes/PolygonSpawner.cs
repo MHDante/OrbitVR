@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Processes {
@@ -59,7 +59,7 @@ namespace OrbitVR.Processes {
 
       Vector2[] vertices = randVerts.ToArray();
       //Node newNode = new Node(ShapeType.ePolygon);
-      Node newNode = OrbIt.UI.sidebar.ActiveDefaultNode.CreateClone();
+      Node newNode = room.ActiveDefaultNode.CreateClone();
       //Node.cloneNode(OrbIt.ui.sidebar.ActiveDefaultNode, newNode);
       Polygon poly = new Polygon();
       poly.body = newNode.body;
@@ -78,7 +78,7 @@ namespace OrbitVR.Processes {
       //if (verts.Count < 3) return;
       //Vector2[] vertices = verts.ToArray();
       //Node newNode = new Node(ShapeType.ePolygon);
-      Node newNode = OrbIt.UI.sidebar.ActiveDefaultNode.CreateClone();
+      Node newNode = room.ActiveDefaultNode.CreateClone();
       //Node.cloneNode(OrbIt.ui.sidebar.ActiveDefaultNode, newNode);
       Polygon poly = new Polygon();
       poly.body = newNode.body;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 
 namespace OrbitVR.Components.Meta {
   public enum ResumeType {

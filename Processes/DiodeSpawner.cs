@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OrbitVR.Components.Meta;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Processes {
@@ -27,7 +27,7 @@ namespace OrbitVR.Processes {
       }
       else {
         firstclick = true;
-        var dict = new Dictionary<dynamic, dynamic>() {{typeof (Diode), true}, {nodeE.texture, textures.gradient1}};
+        var dict = new Dictionary<dynamic, dynamic>() {{typeof (Diode), true}, {nodeE.texture, Textures.Gradient1}};
         lastSpawnedDiode = Node.ContructLineWall(room, firstPos, mousePos, diodeThickness, dict, false);
 
         room.MasterGroup.IncludeEntity(lastSpawnedDiode);

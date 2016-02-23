@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrbitVR.Interface {
+namespace OrbitVR.UI {
   //[System.AttributeUsage(System.AttributeTargets.Field |
   //                       System.AttributeTargets.Property)
   //]

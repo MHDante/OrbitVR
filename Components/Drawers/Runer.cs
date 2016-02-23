@@ -1,5 +1,5 @@
 ﻿using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Drawers {
@@ -19,7 +19,7 @@ namespace OrbitVR.Components.Drawers {
     /// The rune texture to draw.
     /// </summary>
     [Info(UserLevel.User, "The rune texture to draw.")]
-    public textures runeTexture { get; set; }
+    public Textures runeTexture { get; set; }
 
     /// <summary>
     /// Toggles whether runes are randomly generated upon spawning.
@@ -32,13 +32,13 @@ namespace OrbitVR.Components.Drawers {
     public Rune(Node parent) {
       this.parent = parent;
       randomRune = false;
-      runeTexture = textures.rune1;
+      runeTexture = Textures.Rune1;
     }
 
     public override void OnSpawn() {
       if (!randomRune) return;
       int r = Utils.random.Next(16);
-      runeTexture = (textures) r;
+      runeTexture = (Textures) r;
     }
 
     public override void Draw() {

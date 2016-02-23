@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using OrbitVR.Components.Essential;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
+using OrbitVR.UI;
 using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
@@ -60,13 +60,13 @@ namespace OrbitVR.Processes {
       MouseToGrid(ref vertX, ref vertY);
       Vector2 vert = new Vector2(vertX, vertY);
 
-      Texture2D tx = Assets.textureDict[textures.whitecircle];
+      Texture2D tx = Assets.TextureDict[Textures.Whitecircle];
       Vector2 cen = new Vector2(tx.Width/2f, tx.Height/2f); //store this in another textureDict to avoid recalculating
 
-      room.Camera.Draw(textures.whitecircle, vert, null, Color.White, 0f, cen, 0.3f, Layers.Over5);
+      room.Camera.Draw(Textures.Whitecircle, vert, null, Color.White, 0f, cen, 0.3f, Layers.Over5);
 
       foreach (Vector2 v in verts) {
-        room.Camera.Draw(textures.whitecircle, v, null, Color.Red, 0f, cen, 0.3f, Layers.Over5);
+        room.Camera.Draw(Textures.Whitecircle, v, null, Color.Red, 0f, cen, 0.3f, Layers.Over5);
       }
     }
 

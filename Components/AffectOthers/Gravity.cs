@@ -1,7 +1,7 @@
 ﻿using System;
 using OrbitVR.Components.Linkers;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.AffectOthers {
@@ -246,7 +246,7 @@ namespace OrbitVR.Components.AffectOthers {
 
     public void DrawCircle() {
       //room.camera.Draw(textures.ring, parent.body.pos, parent.body.color * 0.2f, drawscale / 50f, Layers.Under2);
-      room.Camera.AddPermanentDraw(textures.ring, parent.body.pos, parent.body.color*0.2f, drawscale/50f, 0, 50);
+      room.Camera.AddPermanentDraw(Textures.Ring, parent.body.pos, parent.body.color*0.2f, drawscale/50f, 0, 50);
     }
   }
 }

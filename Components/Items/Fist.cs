@@ -1,7 +1,7 @@
 ﻿using System;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Items {
@@ -197,7 +197,7 @@ namespace OrbitVR.Components.Items {
         //Utils.DrawLine(room, target, parent.body.pos, 2f, Color.Red, Layers.Under2);
       }
 
-      room.Camera.Draw(textures.fist, position, Color.White, fistNode.body.scale, fistNode.body.orient, Layers.Over2);
+      room.Camera.Draw(Textures.Fist, position, Color.White, fistNode.body.scale, fistNode.body.orient, Layers.Over2);
       //layers don't work
     }
 

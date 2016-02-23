@@ -1,6 +1,6 @@
 ﻿using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Items {
@@ -174,7 +174,7 @@ namespace OrbitVR.Components.Items {
     public override void Draw() {
       Vector2 position = swordNode.body.pos;
       if (position == Vector2.Zero) position = parent.body.pos;
-      room.Camera.Draw(textures.sword, position, parent.body.color, swordNode.body.scale*2, swordNode.body.orient,
+      room.Camera.Draw(Textures.Sword, position, parent.body.color, swordNode.body.scale*2, swordNode.body.orient,
                        Layers.Over3);
     }
 

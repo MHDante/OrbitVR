@@ -28,13 +28,13 @@ namespace OrbitVR.Framework.Gametypes {
     public Action<Node, Node> onCollisionStay;
 
     Dictionary<dynamic, dynamic> playerProps = new Dictionary<dynamic, dynamic>() {
-      {nodeE.texture, textures.blackorb},
+      {nodeE.texture, Textures.Blackorb},
       {typeof (PhaseOrb), true},
     };
 
     Dictionary<dynamic, dynamic> userP = new Dictionary<dynamic, dynamic>() {
       {nodeE.position, new Vector2(0, 0)},
-      {nodeE.texture, textures.blueorb},
+      {nodeE.texture, Textures.Blueorb},
     };
 
     public float absaccel { get; set; }
@@ -98,7 +98,7 @@ namespace OrbitVR.Framework.Gametypes {
       //}
       Dictionary<dynamic, dynamic> tonyProps = new Dictionary<dynamic, dynamic>() {
         {nodeE.position, new Vector2(room.WorldWidth/2, room.WorldHeight/2)},
-        {nodeE.texture, textures.blackorb},
+        {nodeE.texture, Textures.Blackorb},
         {typeof (PhaseOrb), true},
       };
       Node tony = new Node(room, tonyProps);
@@ -116,7 +116,7 @@ namespace OrbitVR.Framework.Gametypes {
       tony.body.mass = tonymass;
       tony.body.velocity *= 100;
       tony.name = "bigTony";
-      tony.body.texture = textures.blackorb;
+      tony.body.texture = Textures.Blackorb;
 
       bigtony = tony;
 

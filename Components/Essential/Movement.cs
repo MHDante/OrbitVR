@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
 using OrbitVR.Processes;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Essential {

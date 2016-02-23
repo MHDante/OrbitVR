@@ -29,7 +29,7 @@ namespace OrbitVR.Framework {
         updateRate = updateCounter;
         updateCounter = 0;
       }
-      Draw(Assets.font);
+      Draw(Assets.Font);
     }
 
     public void UpdateElapsed(TimeSpan elapsed) {

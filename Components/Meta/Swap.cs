@@ -52,7 +52,7 @@ namespace OrbitVR.Components.Meta {
           n = null;
         }
         p1.node.body.color = Color.White;
-        p1.node.body.texture = textures.whitecircle;
+        p1.node.body.texture = Textures.Whitecircle;
         if (OnSwapBefore != null) {
           OnSwapBefore(p1.node);
         }
@@ -71,7 +71,7 @@ namespace OrbitVR.Components.Meta {
         }
         //if (p1.node != bigtony) p1.node.body.mass = bigmass;
 
-        p1.node.body.texture = textures.blackorb;
+        p1.node.body.texture = Textures.Blackorb;
         p1.node.body.color = p1.pColor;
         p1.node.room.Scheduler.doAfterXMilliseconds(nn => p1.Data<BigTonyData>().switchAvailable = true, 1000);
       }

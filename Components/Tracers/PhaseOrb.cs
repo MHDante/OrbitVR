@@ -1,4 +1,4 @@
-﻿using OrbitVR.Interface;
+﻿using OrbitVR.UI;
 
 namespace OrbitVR.Components.Tracers {
   /// <summary>

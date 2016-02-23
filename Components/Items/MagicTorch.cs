@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using OrbitVR.Components.AffectOthers;
 using OrbitVR.Components.Essential;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 using Collision = OrbitVR.Components.Essential.Collision;
 
@@ -30,11 +30,11 @@ namespace OrbitVR.Components.Items {
       {MagicType.transfer, typeof (Transfer)},
     };
 
-    private static Dictionary<MagicType, textures> MagicToRune = new Dictionary<MagicType, textures>() {
-      {MagicType.gravity, textures.rune12},
-      {MagicType.displace, textures.rune13},
-      {MagicType.spring, textures.rune6},
-      {MagicType.transfer, textures.rune10},
+    private static Dictionary<MagicType, Textures> MagicToRune = new Dictionary<MagicType, Textures>() {
+      {MagicType.gravity, Textures.Rune12},
+      {MagicType.displace, Textures.Rune13},
+      {MagicType.spring, Textures.Rune6},
+      {MagicType.transfer, Textures.Rune10},
     };
 
     private MagicType _magicType = MagicType.gravity;
@@ -212,7 +212,7 @@ namespace OrbitVR.Components.Items {
       }
 
       torchNode.body.color = col;
-      room.Camera.Draw(textures.ring, position, Color.Black, torchNode.body.scale, torchNode.body.orient, Layers.Over4);
+      room.Camera.Draw(Textures.Ring, position, Color.Black, torchNode.body.scale, torchNode.body.orient, Layers.Over4);
       room.Camera.Draw(MagicToRune[magicType], position, col, torchNode.body.scale,
                        VMath.VectorToAngle(position - parent.body.pos) + GMath.PIbyTwo, Layers.Over3);
     }

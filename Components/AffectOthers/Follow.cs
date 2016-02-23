@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OrbitVR.Components.Linkers;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.AffectOthers {

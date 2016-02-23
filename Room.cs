@@ -6,9 +6,9 @@ using OrbitVR.Components.Essential;
 using OrbitVR.Components.Items;
 using OrbitVR.Components.Meta;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
 using OrbitVR.Processes;
+using OrbitVR.UI;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
@@ -24,7 +24,11 @@ namespace OrbitVR {
     private readonly GeometricPrimitive _renderQuad;
     private readonly RenderShape _renderShape = DebugFlags.renderShape;
     private Action _pendingRoomResize;
+    public Node ActiveDefaultNode => GetActiveGroup()?.defaultNode;
 
+    public Group GetActiveGroup() => string.IsNullOrEmpty(ActiveGroupName) ? MasterGroup : MasterGroup.FindGroup(ActiveGroupName);
+
+    public string ActiveGroupName;
     public Node TargetNodeGraphic { get; }
     public static long TotalElapsedMilliseconds { get; private set; }
     //Components
@@ -49,6 +53,7 @@ namespace OrbitVR {
 
     public Room(int worldWidth, int worldHeight, bool groups = true) {
       Transform = new Transform();
+      Transform.rotation = Quaternion.RotationAxis(Vector3.Up, (float)Math.PI);
       switch (_renderShape) {
         case RenderShape.Plane:
           _renderQuad = GeometricPrimitive.Plane.New(OrbIt.Game.GraphicsDevice, 2, 2, 32, true);
@@ -67,7 +72,6 @@ namespace OrbitVR {
       WorldWidth = worldWidth;
       WorldHeight = worldHeight;
 
-
       Scheduler = new Scheduler();
       BorderColor = Color.DarkGray;
 
@@ -83,7 +87,7 @@ namespace OrbitVR {
 
       Dictionary<dynamic, dynamic> userPr = new Dictionary<dynamic, dynamic>() {
         {nodeE.position, new Vector2(0, 0)},
-        {nodeE.texture, textures.blackorb},
+        {nodeE.texture, Textures.Blackorb},
       };
 
       DefaultNode = new Node(this, userPr) {name = "master"};
@@ -112,7 +116,7 @@ namespace OrbitVR {
       }
       Dictionary<dynamic, dynamic> userPropsTarget = new Dictionary<dynamic, dynamic>() {
         {typeof (ColorChanger), true},
-        {nodeE.texture, textures.ring}
+        {nodeE.texture, Textures.Ring}
       };
 
       TargetNodeGraphic = new Node(this, userPropsTarget) {name = "TargetNodeGraphic"};
@@ -140,7 +144,7 @@ namespace OrbitVR {
         nodeDef.SetColor(Utils.randomColor());
         nodeDef.addComponent(t, true);
         nodeDef.addComponent(typeof (Rune), true);
-        nodeDef.Comp<Rune>().runeTexture = (textures) runenum++;
+        nodeDef.Comp<Rune>().runeTexture = (Textures) runenum++;
         Groups.Preset.AddGroup(new Group(this, nodeDef, t.ToString().LastWord('.') + " Group"));
       }
     }
@@ -318,7 +322,7 @@ namespace OrbitVR {
     }
 
     public Node SpawnNode(Node newNode, Action<Node> afterSpawnAction = null, int lifetime = -1, Group g = null) {
-      Group spawngroup = g ?? OrbIt.UI.sidebar.GetActiveGroup();
+      Group spawngroup = g ?? GetActiveGroup();
       if (spawngroup == null || !spawngroup.Spawnable) return null;
       //newNode.name = "bullet" + Node.nodeCounter;
       return SpawnNodeHelper(newNode, afterSpawnAction, spawngroup, lifetime);
@@ -326,12 +330,12 @@ namespace OrbitVR {
 
     public Node SpawnNode(Dictionary<dynamic, dynamic> userProperties, Action<Node> afterSpawnAction = null,
                           bool blank = false, int lifetime = -1) {
-      Group activegroup = OrbIt.UI.sidebar.GetActiveGroup();
+      Group activegroup = GetActiveGroup();
       if (activegroup == null || !activegroup.Spawnable) return null;
 
       Node newNode = new Node(this, ShapeType.Circle);
       if (!blank) {
-        Node.cloneNode(OrbIt.UI.sidebar.ActiveDefaultNode, newNode);
+        Node.cloneNode(ActiveDefaultNode, newNode);
       }
       newNode.group = activegroup;
       newNode.name = activegroup.Name + Node.nodeCounter;
@@ -365,7 +369,7 @@ namespace OrbitVR {
     }
 
     internal void Resize(Vector2 resizeVect, bool fillWithGrid = false) {
-      _pendingRoomResize = delegate {
+      _pendingRoomResize = () => {
                              WorldWidth = (int) resizeVect.X;
                              WorldHeight = (int) resizeVect.Y;
                              int newCellsX = WorldWidth/GridsystemAffect.cellWidth;
@@ -386,6 +390,13 @@ namespace OrbitVR {
                            };
     }
 
+    public void EmptyCurrentGroup()
+    {
+      Group g = GetActiveGroup();
+      if (g == null) return;
+      if (TargetNode != null) if (g.fullSet.Contains(TargetNode)) TargetNode = null;
+      g.EmptyGroup();
+    }
 
     public class RoomGroups {
       private readonly Room _room;

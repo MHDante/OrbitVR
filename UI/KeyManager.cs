@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using OrbitVR.Interface;
 using OrbitVR.Processes;
+using OrbitVR.UI;
 
 namespace OrbitVR.Framework {
 
@@ -986,7 +986,6 @@ namespace OrbitVR.Framework {
     }
 
     public void ProcessMouse() {
-      if (UserInterface.GameInputDisabled) return;
       DetectMouseButton(newMouseState.LeftButton, oldMouseState.LeftButton, KeyCodes.LeftClick);
       DetectMouseButton(newMouseState.RightButton, oldMouseState.RightButton, KeyCodes.RightClick);
       DetectMouseButton(newMouseState.MiddleButton, oldMouseState.MiddleButton, KeyCodes.MiddleClick);
@@ -1009,7 +1008,7 @@ namespace OrbitVR.Framework {
       if (pressbool || releasebool) {
         //Console.WriteLine("----------------");
       }
-      if (event1 && !UserInterface.tomShaneWasClicked) {
+      if (event1) {
         //Console.WriteLine(newButtonState);
 
         if (newButtonState == ButtonState.Pressed) {

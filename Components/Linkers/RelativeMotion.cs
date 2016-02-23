@@ -1,6 +1,6 @@
 ﻿using OrbitVR.Components.Essential;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 
 namespace OrbitVR.Components.Linkers {
   /// <summary>

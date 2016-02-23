@@ -37,19 +37,19 @@ namespace OrbitVR.Framework {
                              10 + room.GridsystemAffect.position.Y + room.GridsystemAffect.gridHeight/2);
     }
 
-    public abstract void AddPermanentDraw(textures texture, Vector2 position, Color color, Vector2 scalevect,
+    public abstract void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect,
                                           float rotation, int life);
 
-    public abstract void AddPermanentDraw(textures texture, Vector2 position, Color color, float scale, float rotation,
+    public abstract void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation,
                                           int life);
 
-    public abstract void Draw(textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation,
+    public abstract void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation,
                               Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
 
-    public abstract void Draw(textures texture, Vector2 position, Color color, float scale, Layers Layer,
+    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, Layers Layer,
                               ShaderPack? shaderPack = default(ShaderPack?), bool center = true);
 
-    public abstract void Draw(textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
+    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
                               ShaderPack? shaderPack = default(ShaderPack?));
 
     public abstract void Draw(Texture2D texture, Vector2 position, Color color, float scale, Layers Layer,
@@ -58,11 +58,11 @@ namespace OrbitVR.Framework {
     public abstract void Draw(Texture2D texture, Vector2 position, Color color, float scale, float rotation,
                               Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
 
-    public abstract void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
+    public abstract void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                               Vector2 origin, Vector2 scalevect, Layers Layer,
                               ShaderPack? shaderPack = default(ShaderPack?));
 
-    public abstract void Draw(textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
+    public abstract void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
                               Vector2 origin, float scale, Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
 
 
@@ -75,7 +75,7 @@ namespace OrbitVR.Framework {
     public abstract void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = default(Color?),
                                          float scale = 0.5F, bool offset = true, Layers Layer = Layers.Over5);
 
-    public abstract void removePermanentDraw(textures texture, Vector2 position, Color color, float scale);
+    public abstract void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale);
     public abstract void Screenshot();
 
     public virtual void Update() {

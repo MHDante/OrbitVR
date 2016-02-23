@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using OrbitVR.Components.Meta;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;

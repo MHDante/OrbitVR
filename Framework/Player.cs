@@ -240,7 +240,7 @@ namespace OrbitVR.Framework {
       //node.addComponent<LinkGun>(true);
       room.SpawnNode(node, g: room.Groups.Player);
       //node.OnSpawn();
-      node.texture = textures.robot1;
+      node.texture = Textures.Robot1;
 
       //if (updateUI)
       //{

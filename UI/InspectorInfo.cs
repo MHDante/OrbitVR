@@ -7,7 +7,7 @@ using OrbitVR.Framework;
 using OrbitVR.Processes;
 using SharpDX;
 
-namespace OrbitVR.Interface {
+namespace OrbitVR.UI {
   public enum member_type {
     none,
     field,
@@ -83,7 +83,6 @@ namespace OrbitVR.Interface {
     public object obj;
     public String prefix;
     public bool showValueToString = false;
-    public Sidebar sidebar;
 
     public string ToolTip = "";
     public String whitespace = "";
@@ -101,7 +100,7 @@ namespace OrbitVR.Interface {
     }
 
     //root item
-    public InspectorInfo(IList<object> masterList, object obj, Sidebar sidebar, bool showValueToString = false) {
+    public InspectorInfo(IList<object> masterList, object obj, bool showValueToString = false) {
       this.showValueToString = showValueToString;
       this.whitespace = "|";
       this.obj = obj;
@@ -110,7 +109,6 @@ namespace OrbitVR.Interface {
       this.membertype = member_type.none;
       this.children = new List<InspectorInfo>();
       //this.inspectorArea = insArea;
-      this.sidebar = sidebar;
       CheckItemType();
       prefix = "" + ((char) 164);
       //System.Console.WriteLine(obj);
@@ -142,7 +140,6 @@ namespace OrbitVR.Interface {
       this.fpinfo = null;
       this.children = new List<InspectorInfo>();
       //this.inspectorArea = parentItem.inspectorArea;
-      this.sidebar = parentItem.sidebar;
       this.showValueToString = parentItem.showValueToString;
       Type t = parentItem.obj.GetType();
       if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof (Dictionary<,>)) {
@@ -170,7 +167,6 @@ namespace OrbitVR.Interface {
       this.fpinfo = null;
       this.children = new List<InspectorInfo>();
       //this.inspectorArea = parentItem.inspectorArea;
-      this.sidebar = parentItem.sidebar;
       this.showValueToString = parentItem.showValueToString;
       Type t = parentItem.obj.GetType();
 
@@ -201,7 +197,6 @@ namespace OrbitVR.Interface {
       CheckItemType();
       prefix = "" + ((char) 164);
       //this.inspectorArea = parentItem.inspectorArea;
-      this.sidebar = parentItem.sidebar;
     }
 
     private void FieldOrPropertyInitilize(IList<object> masterList, InspectorInfo parentItem, object obj) {
@@ -215,7 +210,6 @@ namespace OrbitVR.Interface {
       CheckItemType();
       prefix = "" + ((char) 164);
       //this.inspectorArea = parentItem.inspectorArea;
-      this.sidebar = parentItem.sidebar;
     }
 
     public bool ReferenceExists(InspectorInfo parent, object reference) {
@@ -245,7 +239,7 @@ namespace OrbitVR.Interface {
 
     public static List<InspectorInfo> GenerateList(object parent, InspectorInfo parentItem = null,
                                                    bool GenerateFields = false, UserLevel? userLevel = null) {
-      UserLevel userlevel = OrbIt.UI.sidebar.userLevel;
+      UserLevel userlevel = UserLevel.Debug;
       if (userLevel != null) userlevel = (UserLevel) userLevel;
 
       List<InspectorInfo> list = new List<InspectorInfo>();
@@ -769,7 +763,7 @@ namespace OrbitVR.Interface {
 
       group.ForEachAllSets(delegate(Node n) {
                              if (n == itemspath.ElementAt(0).obj) return;
-                             InspectorInfo temp = new InspectorInfo(null, n, sidebar);
+                             InspectorInfo temp = new InspectorInfo(null, n);
                              int count = 0;
                              foreach (InspectorInfo pathitem in itemspath) {
                                if (temp.methodInfo != null) {

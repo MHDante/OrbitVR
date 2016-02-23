@@ -5,8 +5,8 @@ using System.Reflection;
 using OrbitVR.Components.Essential;
 using OrbitVR.Components.Meta;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
+using OrbitVR.UI;
 using SharpDX;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
@@ -201,7 +201,7 @@ namespace OrbitVR {
       }
     }
 
-    public textures texture {
+    public Textures texture {
       get { return body.texture; }
       set { body.texture = value; }
     }
@@ -742,15 +742,15 @@ namespace OrbitVR {
     }
 
     public Texture2D getTexture() {
-      return Assets.textureDict[body.texture];
+      return Assets.TextureDict[body.texture];
     }
 
-    public Texture2D getTexture(textures t) {
-      return Assets.textureDict[t];
+    public Texture2D getTexture(Textures t) {
+      return Assets.TextureDict[t];
     }
 
     public Vector2 TextureCenter() {
-      Texture2D tx = Assets.textureDict[body.texture];
+      Texture2D tx = Assets.TextureDict[body.texture];
       return new Vector2(tx.Width/2f, tx.Height/2f); // TODO: maybe cast to floats to make sure it's the exact center.
     }
 

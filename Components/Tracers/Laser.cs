@@ -2,7 +2,7 @@
 using OrbitVR.Components.Drawers;
 using OrbitVR.Components.Essential;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Tracers {
@@ -151,7 +151,7 @@ namespace OrbitVR.Components.Tracers {
       else {
         coll = new Color(parent.body.color.R, parent.body.color.G, parent.body.color.B, alpha);
       }
-      room.Camera.AddPermanentDraw(textures.whitepixel, centerpoint, parent.body.color, scalevect, testangle,
+      room.Camera.AddPermanentDraw(Textures.Whitepixel, centerpoint, parent.body.color, scalevect, testangle,
                                    laserLength);
       prevPos = start;
     }

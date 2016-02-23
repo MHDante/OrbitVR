@@ -6,8 +6,8 @@ using OrbitVR.Components.AffectOthers;
 using OrbitVR.Components.Linkers;
 using OrbitVR.Components.Meta;
 using OrbitVR.Framework;
-using OrbitVR.Interface;
 using OrbitVR.Physics;
+using OrbitVR.UI;
 using SharpDX;
 
 namespace OrbitVR.Components.Items {
@@ -126,7 +126,7 @@ namespace OrbitVR.Components.Items {
       shovelNode.body.radius = shovelRadius;
       shovelNode.body.ExclusionCheck += (c1, c2) => c2 == parent.body;
       shovelNode.body.mass = 0.001f;
-      shovelNode.body.texture = textures.shoveltip;
+      shovelNode.body.texture = Textures.Shoveltip;
     }
 
     //public static List<Shovel> shovels = new List<Shovel>();
