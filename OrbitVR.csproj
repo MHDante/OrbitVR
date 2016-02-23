@@ -118,7 +118,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
     <ToolkitAudio Include="Content\coin.wav" />
     <ToolkitAudio Include="Content\croc.wav" />
     <Content Include="Content\Effects\Shader.fx" />
@@ -193,8 +192,7 @@
     <Content Include="Includes\SDL2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="license.txt" />
-    <Content Include="Game.ico" />
+    <Content Include="Content\Game.ico" />
   </ItemGroup>
   <ItemGroup>
     <ToolkitFont Include="Content\Courier New.spritefont" />
@@ -202,13 +200,8 @@
     <ToolkitModel Include="Content\PSMove.fbx" />
     <ToolkitModel Include="Content\Ship.fbx" />
     <ToolkitTexture Include="Content\ShipDiffuse.dds" />
-    <None Include="app.config" />
-    <None Include="snippets\ctyp.snippet" />
-    <None Include="snippets\usra.snippet" />
-    <None Include="snippets\usrd.snippet" />
-    <None Include="snippets\usru.snippet" />
-    <None Include="packages.config" />
-    <None Include="README.md" />
+    <None Include="Includes\app.config" />
+    <None Include="Includes\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets.cs" />
@@ -296,12 +289,6 @@
     <Compile Include="Interface\Sidebar.cs" />
     <Compile Include="Interface\Toggle.cs" />
     <Compile Include="Interface\UserInterface.cs" />
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Node.cs" />
     <Compile Include="OrbIt.cs" />
     <Compile Include="Physics\AABB.cs" />
@@ -343,15 +330,7 @@
     <Compile Include="RoomComponents\RoomComponent.cs" />
     <Compile Include="VRGame.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include=".git\" />
-    <Folder Include="Screenshots\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
