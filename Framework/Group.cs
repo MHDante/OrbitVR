@@ -166,7 +166,6 @@ namespace OrbitVR.Framework {
         foreach (Node n in e.OldItems) {
           if (sender != fullSet) {
             if (!entities.Contains(n) && !inherited.Contains(n)) {
-              Debug.WriteLine("Removing from fullset of " + Name);
               fullSet.Remove(n);
             }
           }

@@ -233,17 +233,19 @@ namespace OrbitVR {
     }
 
     public void Draw3D() {
-      var quadEffect = new BasicEffect(OrbIt.Game.GraphicsDevice) {
+      using (var quadEffect = new BasicEffect(OrbIt.Game.GraphicsDevice) {
         World = Transform.getMatrix(),
         View = OrbIt.Game.view,
         Projection = OrbIt.Game.projection,
         TextureEnabled = true,
         Texture = RoomRenderTarget
-      };
-      foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes) {
-        pass.Apply();
+      }
+        ) {
+        foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes) {
+          pass.Apply();
 
-        _renderQuad.Draw();
+          _renderQuad.Draw();
+        }
       }
       if (Camera.TakeScreenshot) {
         Camera.Screenshot();
