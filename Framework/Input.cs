@@ -239,7 +239,7 @@ namespace OrbitVR.Framework {
         dir /= radius;
       }
       if (drawRing) {
-        float scale = (radius*2f)/Assets.TextureDict[Textures.Ring].Width;
+        float scale = (radius*2f)/128;//Todo:Assets.TextureDict[Textures.Ring].Width;
         float alpha = (((float) Math.Sin(OrbIt.Game.Time.TotalGameTime.TotalMilliseconds/300f) + 1f)/4f) + 0.25f;
         player.room.Camera.Draw(Textures.Ring, player.node.body.pos, player.pColor*alpha, scale, Layers.Under2);
       }

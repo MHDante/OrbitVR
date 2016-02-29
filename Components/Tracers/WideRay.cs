@@ -65,7 +65,8 @@ namespace OrbitVR.Components.Tracers {
       Vector2 pos = parent.body.pos;
       Vector2 scalevect = new Vector2(rayscale, width);
       float angle = (float) (Math.Atan2(parent.body.velocity.Y, parent.body.velocity.X) + Math.PI/2);
-      room.Camera.AddPermanentDraw(Textures.Whitepixel, pos, parent.body.color, scalevect, angle, rayLength);
+      //room.Camera.AddPermanentDraw(Textures.Whitepixel, pos, parent.body.color, scalevect, angle, rayLength);
+      //Todo:drawlines
     }
 
     public void onCollision(Dictionary<dynamic, dynamic> args) {}

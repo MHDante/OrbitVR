@@ -4,6 +4,27 @@ using SharpDX;
 using SharpDX.Toolkit.Graphics;
 
 namespace OrbitVR.Framework {
+  public enum Layers
+  {
+    Under5 = 0,
+    Under4 = 1,
+    Under3 = 2,
+    Under2 = 3,
+    Under1 = 4,
+    Player = 5,
+    Over1 = 6,
+    Over2 = 7,
+    Over3 = 8,
+    Over4 = 9,
+    Over5 = 10
+  }
+  public enum DrawType
+  {
+    standard,
+    vectScaled,
+    drawString,
+    direct
+  }
   public abstract class CameraBase {
     protected static System.Drawing.Pen pen;
     public Color backgroundColor = Color.Black;
@@ -91,6 +112,78 @@ namespace OrbitVR.Framework {
       DrawLine(min, new Vector2(min.X, max.Y), 2, borderColor, Layers.Under5);
       DrawLine(new Vector2(min.X, max.Y), max, 2, borderColor, Layers.Under5);
       DrawLine(new Vector2(max.X, min.Y), max, 2, borderColor, Layers.Under5);
+    }
+  }
+
+  class CameraBaseImpl : CameraBase {
+    public CameraBaseImpl(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {}
+    public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, int life) {
+      throw new NotImplementedException();
+    }
+
+    public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation, int life) {
+      throw new NotImplementedException();
+    }
+
+    public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, Layers Layer,
+                              ShaderPack? shaderPack = null) {
+      throw new NotImplementedException();
+    }
+
+    public override void Draw(Textures texture, Vector2 position, Color color, float scale, Layers Layer, ShaderPack? shaderPack = null,
+                              bool center = true) {
+      throw new NotImplementedException();
+    }
+
+    public override void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
+                              ShaderPack? shaderPack = null) {
+      throw new NotImplementedException();
+    }
+
+    public override void Draw(Texture2D texture, Vector2 position, Color color, float scale, Layers Layer, ShaderPack? shaderPack = null,
+                              bool center = true) {
+      throw new NotImplementedException();
+    }
+
+    public override void Draw(Texture2D texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
+                              ShaderPack? shaderPack = null) {
+      throw new NotImplementedException();
+    }
+
+    public override void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin,
+                              Vector2 scalevect, Layers Layer, ShaderPack? shaderPack = null) {
+      throw new NotImplementedException();
+    }
+
+    public override void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin,
+                              float scale, Layers Layer, ShaderPack? shaderPack = null) {
+      throw new NotImplementedException();
+    }
+
+    public override void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, Layers Layer) {
+      throw new NotImplementedException();
+    }
+
+    public override void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life) {
+      throw new NotImplementedException();
+    }
+
+    public override void DrawStringScreen(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
+                                          bool offset = true, Layers Layer = Layers.Over5) {
+      throw new NotImplementedException();
+    }
+
+    public override void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
+                                         bool offset = true, Layers Layer = Layers.Over5) {
+      throw new NotImplementedException();
+    }
+
+    public override void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale) {
+      throw new NotImplementedException();
+    }
+
+    public override void Screenshot() {
+      throw new NotImplementedException();
     }
   }
 

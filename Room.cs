@@ -72,7 +72,7 @@ namespace OrbitVR {
       GridsystemAffect = new GridSystem(this, 40, new Vector2(0, 0), worldWidth, OrbIt.ScreenHeight);
       CollisionManager = new CollisionManager(this);
       Level = new Level(this, 40, 40, GridsystemAffect.cellWidth, GridsystemAffect.cellHeight);
-      Camera = new ThreadedCamera(this, 1f);
+      Camera = new CameraBaseImpl(this,1f, Vector2.Zero);
       DrawLinks = true;
       Scheduler = new Scheduler();
 
@@ -224,9 +224,8 @@ namespace OrbitVR {
     }
 
     public void Draw3D() {
-     {
         //TODO: Draw things.
-      }
+        
       if (Camera.TakeScreenshot) {
         Camera.Screenshot();
         Camera.TakeScreenshot = false;

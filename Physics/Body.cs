@@ -214,7 +214,7 @@ namespace OrbitVR.Physics {
     }
 
     public void EvaluateScale() {
-      float halfwidth = getTexture() != null ? (parent.getTexture().Width/2f) : 128f;
+      float halfwidth = getTexture() != null ? (parent.getTexture().GetWidth()/2f) : 128f;
       if (_scale != (float) radius/halfwidth) _scale = radius/halfwidth;
     }
 
@@ -351,7 +351,7 @@ namespace OrbitVR.Physics {
       return VMath.AngleToVector(orient);
     }
 
-    public virtual Texture2D getTexture() {
+    public virtual Textures? getTexture() {
       if (parent != null) {
         return parent.getTexture();
       }

@@ -741,17 +741,14 @@ namespace OrbitVR {
       }
     }
 
-    public Texture2D getTexture() {
-      return Assets.TextureDict[body.texture];
+    public Textures getTexture() {
+      return body.texture;
     }
 
-    public Texture2D getTexture(Textures t) {
-      return Assets.TextureDict[t];
-    }
 
     public Vector2 TextureCenter() {
-      Texture2D tx = Assets.TextureDict[body.texture];
-      return new Vector2(tx.Width/2f, tx.Height/2f); // TODO: maybe cast to floats to make sure it's the exact center.
+      // TODO: variable size textures.
+      return new Vector2(64,64);
     }
 
     public void SetColor(Color c) {

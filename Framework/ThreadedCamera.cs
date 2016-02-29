@@ -6,30 +6,13 @@ using System.Threading;
 using OrbitVR.Components.Drawers;
 using SharpDX;
 using SharpDX.Direct3D11;
+using SharpDX.Toolkit.Graphics;
 using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 namespace OrbitVR.Framework {
-  public enum Layers {
-    Under5 = 0,
-    Under4 = 1,
-    Under3 = 2,
-    Under2 = 3,
-    Under1 = 4,
-    Player = 5,
-    Over1 = 6,
-    Over2 = 7,
-    Over3 = 8,
-    Over4 = 9,
-    Over5 = 10
-  }
 
   public class DrawCommand {
-    public enum DrawType {
-      standard,
-      vectScaled,
-      drawString,
-      direct
-    }
+    
 
     public Color color;
     private float layerDepth;

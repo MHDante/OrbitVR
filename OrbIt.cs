@@ -45,10 +45,8 @@ namespace OrbitVR {
 
       GameSystems.Add(new EffectCompilerSystem(this));
       if (!UI.IsPaused) {
-        Room.Update(gameTime);
-        //Pending de-threading
+        Room.Update();
         Room.Draw();
-        ((ThreadedCamera) Room.Camera).CatchUp();
         ProcessManager.Draw();
       }
     }

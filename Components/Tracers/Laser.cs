@@ -151,8 +151,9 @@ namespace OrbitVR.Components.Tracers {
       else {
         coll = new Color(parent.body.color.R, parent.body.color.G, parent.body.color.B, alpha);
       }
-      room.Camera.AddPermanentDraw(Textures.Whitepixel, centerpoint, parent.body.color, scalevect, testangle,
-                                   laserLength);
+      //room.Camera.AddPermanentDraw(Textures.Whitepixel, centerpoint, parent.body.color, scalevect, testangle,
+      //                             laserLength);
+      //Todo:drawlines
       prevPos = start;
     }
   }

@@ -328,7 +328,7 @@ namespace OrbitVR.Physics {
       VMath.Set(ref normals[3], -1, 0); //normals[3].Set(-1, 0);
       polyReach = Vector2.Distance(Vector2.Zero, new Vector2(hw, hh))*2;
       if (fill) {
-        testTexture = CreateClippedTexture(Assets.TextureDict[body.texture], vertices, vertexCount, out this.offset);
+        testTexture = CreateClippedTexture(body.texture.GetTexture2D(), vertices, vertexCount, out this.offset);
         this.trueOffset = this.offset*-1f;
       }
     }
@@ -339,7 +339,7 @@ namespace OrbitVR.Physics {
       float minY = vertices.Min(x => x.Y);
       float maxY = vertices.Max(x => x.Y);
       this.trueOffset = new Vector2((maxX - minX)/2, (maxY - minY)/2);
-      this.testTexture = CreateClippedTexture(Assets.TextureDict[body.texture], vertices, vertexCount, out offset);
+      this.testTexture = CreateClippedTexture(body.texture.GetTexture2D(), vertices, vertexCount, out offset);
       this.offset = new Vector2(offset.X, offset.Y);
     }
 

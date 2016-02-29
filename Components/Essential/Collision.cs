@@ -130,7 +130,7 @@ namespace OrbitVR.Components.Essential {
 
       foreach (Collider cc in colliders.Values) {
         if (cc.HandlersEnabled) {
-          float scale = cc.radius/parent.getTexture().Width*2;
+          float scale = cc.radius/parent.getTexture().GetWidth()*2;
           room.Camera.Draw(Textures.Ring, parent.body.pos, parent.body.color, scale, Layers.Under2);
         }
       }

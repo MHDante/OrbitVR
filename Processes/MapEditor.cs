@@ -60,7 +60,7 @@ namespace OrbitVR.Processes {
       MouseToGrid(ref vertX, ref vertY);
       Vector2 vert = new Vector2(vertX, vertY);
 
-      Texture2D tx = Assets.TextureDict[Textures.Whitecircle];
+      Texture2D tx = Textures.Whitecircle.GetTexture2D();
       Vector2 cen = new Vector2(tx.Width/2f, tx.Height/2f); //store this in another textureDict to avoid recalculating
 
       room.Camera.Draw(Textures.Whitecircle, vert, null, Color.White, 0f, cen, 0.3f, Layers.Over5);

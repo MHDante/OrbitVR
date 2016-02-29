@@ -117,11 +117,8 @@ namespace OrbitVR {
       return (compType & mtypes.item) == mtypes.item;
     }
 
-    public virtual Texture2D getTexture() {
-      if (parent != null) {
-        return parent.getTexture();
-      }
-      return null;
+    public virtual Textures? getTexture() {
+      return parent?.getTexture();
     }
 
     public static Component GenerateComponent(Type t, Node par) {

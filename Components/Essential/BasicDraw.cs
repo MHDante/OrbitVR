@@ -70,8 +70,7 @@ namespace OrbitVR.Components.Essential {
     public Layers DrawLayer { get; set; }
 
     public int threshold { get; set; }
-
-    public bool DrawSparkles { get; set; }
+    
     public BasicDraw() : this(null) {}
 
     public BasicDraw(Node parent = null) {
@@ -79,7 +78,6 @@ namespace OrbitVR.Components.Essential {
       UpdateColor();
       AlphaPercent = 100f;
       DrawLayer = Layers.Under1;
-      DrawSparkles = true;
       threshold = 20;
     }
 
@@ -164,10 +162,6 @@ namespace OrbitVR.Components.Essential {
                          parent.body.orient, layer, parent.Comp<Shader>().shaderPack);
       else
         room.Camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
-                         parent.body.orient, layer);
-
-      if (parent.body.texture == Textures.Boulder1 && DrawSparkles)
-        room.Camera.Draw(Textures.BoulderShine, parent.body.pos, Utils.randomColor(), parent.body.scale,
                          parent.body.orient, layer);
     }
   }
