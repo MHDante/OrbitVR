@@ -47,7 +47,7 @@ namespace OrbitVR.UI {
       
 
       if (keybState.IsKeyDown(Keys.Space) && oldKeyBState.IsKeyUp(Keys.Space)) {
-        room.Update(null);
+        room.Update();
       }
       
 

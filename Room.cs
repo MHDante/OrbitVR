@@ -10,9 +10,8 @@ using OrbitVR.Physics;
 using OrbitVR.Processes;
 using OrbitVR.UI;
 using SharpDX;
-using SharpDX.Toolkit;
-using SharpDX.Toolkit.Graphics;
-
+using SharpDX.D3DCompiler;
+using SharpDX.Direct3D11;
 namespace OrbitVR {
   public enum RenderShape {
     Plane,
@@ -21,7 +20,6 @@ namespace OrbitVR {
   }
 
   public class Room : Object3D {
-    private readonly GeometricPrimitive _renderQuad;
     private readonly RenderShape _renderShape = DebugFlags.renderShape;
     private Action _pendingRoomResize;
     public Node ActiveDefaultNode => GetActiveGroup()?.defaultNode;
@@ -29,12 +27,12 @@ namespace OrbitVR {
     public Group GetActiveGroup() => string.IsNullOrEmpty(ActiveGroupName) ? MasterGroup : MasterGroup.FindGroup(ActiveGroupName);
 
     public string ActiveGroupName;
+    private PixelShader pixelShader;
     public Node TargetNodeGraphic { get; }
     public static long TotalElapsedMilliseconds { get; private set; }
     //Components
     public GridSystem GridsystemAffect { get; private set; }
     public Level Level { get; private set; }
-    public RenderTarget2D RoomRenderTarget { get; }
     public CameraBase Camera { get; }
     public Scheduler Scheduler { get; }
     public CollisionManager CollisionManager { get; }
@@ -51,20 +49,15 @@ namespace OrbitVR {
     public Node TargetNode { get; set; }
     private Color BorderColor { get; }
 
-    public Room(int worldWidth, int worldHeight, bool groups = true) {
+    public Room(int worldWidth, int worldHeight, bool groups = true){
+      
+      using (var pixelShaderByteCode = ShaderBytecode.CompileFromFile("PixelShader.hlsl", "main", "ps_4_0", ShaderFlags.Debug))
+      {
+        pixelShader = new PixelShader(OrbIt.Game.GraphicsDevice, pixelShaderByteCode);
+      }
+      
       Transform = new Transform();
       Transform.rotation = Quaternion.RotationAxis(Vector3.Up, (float)Math.PI);
-      switch (_renderShape) {
-        case RenderShape.Plane:
-          _renderQuad = GeometricPrimitive.Plane.New(OrbIt.Game.GraphicsDevice, 2, 2, 32, true);
-          break;
-        case RenderShape.Sphere:
-          _renderQuad = GeometricPrimitive.Sphere.New(OrbIt.Game.GraphicsDevice, 5, 32, true);
-          break;
-        case RenderShape.Cylinder:
-          _renderQuad = GeometricPrimitive.Cylinder.New(OrbIt.Game.GraphicsDevice, 2, 2, 32, true);
-          break;
-      }
       Groups = new RoomGroups(this);
       AllActiveLinks = new ObservableHashSet<Link>();
       AllInactiveLinks = new ObservableHashSet<Link>();
@@ -79,8 +72,6 @@ namespace OrbitVR {
       GridsystemAffect = new GridSystem(this, 40, new Vector2(0, 0), worldWidth, OrbIt.ScreenHeight);
       CollisionManager = new CollisionManager(this);
       Level = new Level(this, 40, 40, GridsystemAffect.cellWidth, GridsystemAffect.cellHeight);
-      RoomRenderTarget = RenderTarget2D.New(OrbIt.Game.Graphics.GraphicsDevice, OrbIt.ScreenWidth, OrbIt.ScreenHeight,
-                                            OrbIt.Game.pixelFormat.Format);
       Camera = new ThreadedCamera(this, 1f);
       DrawLinks = true;
       Scheduler = new Scheduler();
@@ -168,12 +159,12 @@ namespace OrbitVR {
       }
     }
 
-    public void Update(GameTime gametime) {
+    public void Update() {
       Player.CheckForPlayers(this);
 
       Camera.Update();
       long elapsed = 0;
-      if (gametime != null) elapsed = (long) Math.Round(gametime.ElapsedGameTime.TotalMilliseconds);
+      if (OrbIt.Game.Time != null) elapsed = (long) Math.Round(OrbIt.Game.Time.ElapsedGameTime.TotalMilliseconds);
       TotalElapsedMilliseconds += elapsed;
 
 
@@ -189,7 +180,7 @@ namespace OrbitVR {
 
       foreach (Node n in MasterGroup.fullSet.ToList()) {
         if (n.active) {
-          n.Update(gametime);
+          n.Update(OrbIt.Game.Time);
         }
       }
       AfterIteration?.Invoke(this, null);
@@ -233,19 +224,8 @@ namespace OrbitVR {
     }
 
     public void Draw3D() {
-      using (var quadEffect = new BasicEffect(OrbIt.Game.GraphicsDevice) {
-        World = Transform.getMatrix(),
-        View = OrbIt.Game.view,
-        Projection = OrbIt.Game.projection,
-        TextureEnabled = true,
-        Texture = RoomRenderTarget
-      }
-        ) {
-        foreach (EffectPass pass in quadEffect.CurrentTechnique.Passes) {
-          pass.Apply();
-
-          _renderQuad.Draw();
-        }
+     {
+        //TODO: Draw things.
       }
       if (Camera.TakeScreenshot) {
         Camera.Screenshot();
@@ -400,24 +380,6 @@ namespace OrbitVR {
       g.EmptyGroup();
     }
 
-    public class RoomGroups {
-      private readonly Room _room;
-
-      public Group General => _room.MasterGroup?.childGroups["General Groups"];
-
-      public Group Preset => _room.MasterGroup?.childGroups["Preset Groups"];
-
-      public Group Player => _room.MasterGroup?.childGroups["Player Group"];
-
-      public Group Items => _room.MasterGroup?.childGroups["Item Group"];
-
-      public Group Bullets => _room.MasterGroup?.childGroups["Bullet Group"];
-
-      public Group Walls => _room.MasterGroup?.childGroups["Wall Group"];
-
-      public RoomGroups(Room room) {
-        _room = room;
-      }
-    }
+    
   }
 }

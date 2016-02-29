@@ -26,7 +26,7 @@ namespace OrbitVR {
       base.Initialize();
       Assets.LoadAssets(Content);
       Window.AllowUserResizing = false; //Todo: make true, fix crash.
-      Room = new Room(ScreenWidth, ScreenHeight);
+      Room = new Room(ScreenWidth*2, ScreenHeight);
       GlobalGameMode = new GlobalGameMode(this);
       _frameRateCounter = new FrameRateCounter(this);
       Player.CreatePlayers(Room);
@@ -42,6 +42,8 @@ namespace OrbitVR {
       base.Update(gameTime);
       _frameRateCounter.Update(gameTime);
       if (IsActive) UI.Update(gameTime);
+
+      GameSystems.Add(new EffectCompilerSystem(this));
       if (!UI.IsPaused) {
         Room.Update(gameTime);
         //Pending de-threading

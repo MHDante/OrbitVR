@@ -6,7 +6,6 @@ using System.Threading;
 using OrbitVR.Components.Drawers;
 using SharpDX;
 using SharpDX.Direct3D11;
-using SharpDX.Toolkit.Graphics;
 using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 namespace OrbitVR.Framework {
@@ -33,7 +32,6 @@ namespace OrbitVR.Framework {
     }
 
     public Color color;
-    private SpriteEffects effects;
     private float layerDepth;
     public float life;
     public float maxlife;
@@ -54,7 +52,7 @@ namespace OrbitVR.Framework {
     public Texture2D texture2d { get; set; }
 
     public DrawCommand(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-                       Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0,
+                       Vector2 origin, float scale, float layerDepth = 0,
                        int maxlife = -1,
                        ShaderPack? shaderPack = null) {
       this.type = DrawType.standard;
@@ -66,7 +64,6 @@ namespace OrbitVR.Framework {
       this.rotation = rotation;
       this.sourceRect = sourceRect;
       this.origin = origin;
-      this.effects = effects;
       this.layerDepth = layerDepth;
       this.maxlife = maxlife;
       this.life = maxlife;
@@ -74,7 +71,7 @@ namespace OrbitVR.Framework {
     }
 
     public DrawCommand(Texture2D texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-                       Vector2 origin, float scale, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0,
+                       Vector2 origin, float scale, float layerDepth = 0,
                        int maxlife = -1,
                        ShaderPack? shaderPack = null) {
       this.type = DrawType.direct;
@@ -86,7 +83,6 @@ namespace OrbitVR.Framework {
       this.rotation = rotation;
       this.sourceRect = sourceRect;
       this.origin = origin;
-      this.effects = effects;
       this.layerDepth = layerDepth;
       this.maxlife = maxlife;
       this.life = maxlife;
@@ -94,7 +90,7 @@ namespace OrbitVR.Framework {
     }
 
     public DrawCommand(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-                       Vector2 origin, Vector2 scalevect, SpriteEffects effects = SpriteEffects.None,
+                       Vector2 origin, Vector2 scalevect,
                        float layerDepth = 0,
                        int maxlife = -1, ShaderPack? shaderPack = null) {
       this.type = DrawType.vectScaled;
@@ -106,7 +102,6 @@ namespace OrbitVR.Framework {
       this.rotation = rotation;
       this.sourceRect = sourceRect;
       this.origin = origin;
-      this.effects = effects;
       this.layerDepth = layerDepth;
       this.maxlife = maxlife;
       this.life = maxlife;

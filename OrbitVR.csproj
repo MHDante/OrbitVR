@@ -116,6 +116,7 @@
   <ItemGroup>
     <ToolkitAudio Include="Content\coin.wav" />
     <ToolkitAudio Include="Content\croc.wav" />
+    <Content Include="Content\Effects\Billboard.fx" />
     <Content Include="Content\Effects\Shader.fx" />
     <ToolkitAudio Include="Content\fanfare.wav" />
     <ToolkitTexture Include="Content\Textures\blackorb.png" />
@@ -178,6 +179,8 @@
     <ToolkitTexture Include="Content\Textures\whitepixel.png" />
     <ToolkitTexture Include="Content\Textures\whitepixeltrans.png" />
     <ToolkitTexture Include="Content\Textures\whitesphere.png" />
+    <ToolkitFxc Include="Content\Effects\tunnel.fx" />
+    <Content Include="Content\Effects\PixelShader.hlsl" />
     <Content Include="Includes\psmoveapi.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -266,6 +269,7 @@
     <Compile Include="Framework\IndexArray.cs" />
     <Compile Include="Framework\Input.cs" />
     <Compile Include="Framework\MonoGameInput.cs" />
+    <Compile Include="RoomGroups.cs" />
     <Compile Include="UI\KeyManager.cs" />
     <Compile Include="Framework\Level.cs" />
     <Compile Include="Framework\Link.cs" />

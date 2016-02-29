@@ -38,7 +38,7 @@ float4 halfScreen(float2 texCoord, float4 screenSpace)
 
 float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0, float4 screenSpace : SV_Position) : COLOR0
 {
-	float4 tex = tex2D(TextureSampler, texCoord);
+	float4 tex = Testure.Sample(TextureSampler, texCoord);
 	if (enabled < 1)
 	{
 		return float4(tex.rgb, tex.a);
