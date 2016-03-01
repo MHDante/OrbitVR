@@ -1,5 +1,4 @@
-﻿using OrbitVR.Components.Drawers;
-using OrbitVR.Framework;
+﻿using OrbitVR.Framework;
 using OrbitVR.Physics;
 using OrbitVR.UI;
 using SharpDX;

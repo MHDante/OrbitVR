@@ -1,7 +1,5 @@
 ﻿using System;
 using SharpDX;
-using SharpDX.Toolkit;
-using SharpDX.Toolkit.Graphics;
 
 namespace OrbitVR.Framework {
   public class FrameRateCounter {
@@ -18,8 +16,8 @@ namespace OrbitVR.Framework {
       this.game = game;
     }
 
-    public void Update(GameTime gameTime) {
-      elapsedTime += gameTime.ElapsedGameTime;
+    public void Update() {
+      elapsedTime += OrbIt.Game.Time.ElapsedGameTime;
       updateCounter++;
 
       if (elapsedTime > TimeSpan.FromSeconds(1)) {
@@ -29,7 +27,7 @@ namespace OrbitVR.Framework {
         updateRate = updateCounter;
         updateCounter = 0;
       }
-      Draw(Assets.Font);
+      Draw();
     }
 
     public void UpdateElapsed(TimeSpan elapsed) {
@@ -45,7 +43,7 @@ namespace OrbitVR.Framework {
     }
 
 
-    public void Draw(SpriteFont spriteFont) {
+    public void Draw() {
       frameCounter++;
       int y1 = 70;
 

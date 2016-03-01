@@ -2,7 +2,7 @@
 using System.Linq;
 using OrbitVR.Framework;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
+using SharpDX.Direct3D11;
 using Point = System.Drawing.Point;
 
 namespace OrbitVR.Physics {
@@ -68,7 +68,7 @@ namespace OrbitVR.Physics {
     private Vector2 offset;
 
     public float polyReach = 0;
-    public Texture testTexture;
+    public Texture2D testTexture;
     private Vector2 trueOffset;
     public Vector2[] vertices = new Vector2[MaxPolyVertexCount];
 

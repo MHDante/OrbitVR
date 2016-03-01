@@ -7,7 +7,6 @@ using OrbitVR.Components.Meta;
 using OrbitVR.Framework;
 using OrbitVR.UI;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
 
 namespace OrbitVR {
   [Flags]

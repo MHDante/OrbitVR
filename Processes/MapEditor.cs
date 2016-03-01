@@ -5,7 +5,7 @@ using OrbitVR.Framework;
 using OrbitVR.Physics;
 using OrbitVR.UI;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
+using SharpDX.Direct3D11;
 
 namespace OrbitVR.Processes {
   public class MapEditor : Process {
@@ -61,7 +61,7 @@ namespace OrbitVR.Processes {
       Vector2 vert = new Vector2(vertX, vertY);
 
       Texture2D tx = Textures.Whitecircle.GetTexture2D();
-      Vector2 cen = new Vector2(tx.Width/2f, tx.Height/2f); //store this in another textureDict to avoid recalculating
+      Vector2 cen = new Vector2(tx.Description.Width/2f, tx.Description.Height / 2f); //store this in another textureDict to avoid recalculating
 
       //Todo: why did we use sourceRects before?
       room.Camera.Draw(Textures.Whitecircle, vert, Color.White, 0f, 0.3f, Layers.Over5);

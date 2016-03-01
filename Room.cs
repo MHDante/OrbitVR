@@ -10,8 +10,7 @@ using OrbitVR.Physics;
 using OrbitVR.Processes;
 using OrbitVR.UI;
 using SharpDX;
-using SharpDX.D3DCompiler;
-using SharpDX.Direct3D11;
+
 namespace OrbitVR {
   public enum RenderShape {
     Plane,
@@ -175,7 +174,7 @@ namespace OrbitVR {
 
       foreach (Node n in MasterGroup.fullSet.ToList()) {
         if (n.active) {
-          n.Update(OrbIt.Game.Time);
+          n.Update();
         }
       }
       AfterIteration?.Invoke(this, null);

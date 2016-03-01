@@ -117,9 +117,9 @@
     <ToolkitAudio Include="Content\coin.wav" />
     <ToolkitAudio Include="Content\croc.wav" />
     <Content Include="Content\Effects\Billboard.fx" />
-    <ToolkitFxc Include="Content\Effects\MixedShaders.fx">
+    <Content Include="Content\Effects\MixedShaders.fx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </ToolkitFxc>
+    </Content>
     <ToolkitAudio Include="Content\fanfare.wav" />
     <ToolkitTexture Include="Content\Textures\Individual\1 symboli.png" />
     <ToolkitTexture Include="Content\Textures\Individual\10 symboli.png" />
@@ -213,7 +213,6 @@
     <Compile Include="Components\Tracers\WideRay.cs" />
     <Compile Include="CustomVertex.cs" />
     <Compile Include="Framework\CameraBase.cs" />
-    <Compile Include="Framework\CameraBaseImpl.cs" />
     <Compile Include="Framework\Controller.cs" />
     <Compile Include="Framework\DelegateManager.cs" />
     <Compile Include="Framework\Formation.cs" />
@@ -226,9 +225,12 @@
     <Compile Include="Framework\Group.cs" />
     <Compile Include="Framework\IndexArray.cs" />
     <Compile Include="Framework\Input.cs" />
+    <Compile Include="Framework\MeshCamera.cs" />
     <Compile Include="Framework\MonoGameInput.cs" />
     <Compile Include="QuadVertex.cs" />
     <Compile Include="RoomGroups.cs" />
+    <Compile Include="UI\Game.cs" />
+    <Compile Include="UI\GameTime.cs" />
     <Compile Include="UI\KeyManager.cs" />
     <Compile Include="Framework\Level.cs" />
     <Compile Include="Framework\Link.cs" />

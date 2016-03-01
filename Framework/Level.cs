@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
 
 namespace OrbitVR.Framework {
   public class Level {
@@ -33,7 +32,7 @@ namespace OrbitVR.Framework {
 
     public void Update() {}
 
-    public void Draw(SpriteBatch batch) {}
+    public void Draw() {}
 
 
     public void addLevelLines() {

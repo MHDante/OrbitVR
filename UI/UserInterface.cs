@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using OrbitVR.Framework;
 using SharpDX;
-using SharpDX.Toolkit;
 
 namespace OrbitVR.UI {
   public class UserInterface {
@@ -35,7 +33,7 @@ namespace OrbitVR.UI {
       keyManager = new KeyManager(this);
     }
 
-    public void Update(GameTime gameTime) {
+    public void Update() {
       ProcessKeyboard();
       ProcessMouse();
       ProcessController();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using OrbitVR.Framework;
 
 namespace OrbitVR.UI {
   public class Command {

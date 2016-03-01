@@ -1,11 +1,11 @@
+using System;
 using OrbitVR.PSMove;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
-using SharpDX.Toolkit;
-using SharpDX.Toolkit.Graphics;
 using SharpOVR;
+using Device = SharpDX.Direct3D11.Device;
 
 namespace OrbitVR.UI {
   public abstract class VRGame : Game {
@@ -13,7 +13,6 @@ namespace OrbitVR.UI {
     private EyeRenderDesc[] eyeRenderDesc = new EyeRenderDesc[2];
     private PoseF[] eyeRenderPose = new PoseF[2];
     private SwapTexture[] eyeTexture = new SwapTexture[2];
-    public GraphicsDeviceManager Graphics;
     public Vector3 headPos = new Vector3(0f, 0, 0);
     public HMD hmd;
     private Vector3[] hmdToEyeViewOffset = new Vector3[2];
@@ -25,21 +24,19 @@ namespace OrbitVR.UI {
 
     public Matrix projection;
     public PSMoveController PsMoveController;
-    private Model ship;
     public Matrix view;
 
     public bool UsePsMove { get; } = false;
 
-    protected VRGame() {
-      // Creates a graphics manager. This is mandatory.
-      Graphics = new GraphicsDeviceManager(this);
+    protected VRGame(String name) : base(name){
       OVR.Initialize();
       hmd = OVR.HmdCreate(0) ?? OVR.HmdCreateDebug(HMDType.DK2);
       ToDispose(hmd);
-      Graphics.PreferredBackBufferWidth = hmd.Resolution.Width;
-      Graphics.PreferredBackBufferHeight = hmd.Resolution.Height;
-      Graphics.PreferredFullScreenOutputIndex = 1;
+      Width = hmd.Resolution.Width;
+      Height = hmd.Resolution.Height;
+      //Graphics.PreferredFullScreenOutputIndex = 1;
     }
+
 
     protected override void Initialize() {
       base.Initialize();
@@ -76,10 +73,10 @@ namespace OrbitVR.UI {
       hmdToEyeViewOffset[1] = eyeRenderDesc[1].HmdToEyeViewOffset;
 
       // Create a mirror texture
-      mirrorTexture = hmd.CreateMirrorTexture(GraphicsDevice, GraphicsDevice.BackBuffer.Description);
+      mirrorTexture = hmd.CreateMirrorTexture(GraphicsDevice, backBuffer.Description);
 
       // Set presentation interval to immediate as SubmitFrame will be taking care of VSync
-      GraphicsDevice.Presenter.PresentInterval = PresentInterval.Immediate;
+      //GraphicsDevice.Presenter.PresentInterval = PresentInterval.Immediate;
 
       // Configure tracking
       hmd.ConfigureTracking(
@@ -91,8 +88,8 @@ namespace OrbitVR.UI {
       hmd.EnabledCaps = HMDCapabilities.LowPersistence | HMDCapabilities.DynamicPrediction;
     }
 
-    protected sealed override void Draw(GameTime gameTime) {
-      base.Draw(gameTime);
+    protected internal sealed override void Draw() {
+      base.Draw();
       var rollPitchYaw = Matrix.RotationY(bodyYaw);
       // Get eye poses
       hmd.GetEyePoses(0, hmdToEyeViewOffset, eyeRenderPose);
@@ -120,8 +117,8 @@ namespace OrbitVR.UI {
         swapTexture.AdvanceToNextView();
 
         // Clear the screen
-        GraphicsDevice.SetRenderTargets(swapTexture.DepthStencilView, swapTexture.CurrentView);
-        GraphicsDevice.SetViewport(swapTexture.Viewport);
+        d3dDeviceContext.OutputMerger.SetRenderTargets(swapTexture.DepthStencilView, swapTexture.CurrentView);
+        d3dDeviceContext.Rasterizer.SetViewport(swapTexture.Viewport);
         ((SharpDX.Direct3D11.Device) GraphicsDevice).ImmediateContext.ClearDepthStencilView(
                                                                                             swapTexture.DepthStencilView,
                                                                                             DepthStencilClearFlags.Depth |
@@ -130,24 +127,24 @@ namespace OrbitVR.UI {
         ((SharpDX.Direct3D11.Device) GraphicsDevice).ImmediateContext.ClearRenderTargetView(swapTexture.CurrentView,
                                                                                             Color.CornflowerBlue);
 
-        if (UsePsMove) PsMoveController.Draw(GraphicsDevice, view, projection);
-        DrawScene(gameTime);
+        //if (UsePsMove) PsMoveController.Draw(GraphicsDevice, view, projection);Todo: model
+        DrawScene();
       }
     }
 
-    protected abstract void DrawScene(GameTime gameTime);
+    protected abstract void DrawScene();
 
-    protected override void EndDraw() {
+    public override void EndDraw() {
       // Cancel original EndDraw() as the Present call is made through hmd.SubmitFrame().
       hmd.SubmitFrame(0, ref layerEyeFov.Header);
 
       // Copy the mirror texture to the back buffer and present it
-      GraphicsDevice.Copy(mirrorTexture, GraphicsDevice.BackBuffer);
-      GraphicsDevice.Present();
+      GraphicsDevice.ImmediateContext.CopyResource(mirrorTexture, backBuffer);
+      swapChain.Present(1, PresentFlags.None);
     }
 
-    protected override void Update(GameTime gameTime) {
-      base.Update(gameTime);
+    public override void Update() {
+      base.Update();
       if (UsePsMove) {
         PSMoveManager.GetManagerInstance().Update();
         PsMoveController.Update();

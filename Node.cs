@@ -8,8 +8,6 @@ using OrbitVR.Framework;
 using OrbitVR.Physics;
 using OrbitVR.UI;
 using SharpDX;
-using SharpDX.Toolkit;
-using SharpDX.Toolkit.Graphics;
 using Collision = OrbitVR.Components.Essential.Collision;
 
 namespace OrbitVR {
@@ -399,7 +397,7 @@ namespace OrbitVR {
       tags.Remove(tag);
     }
 
-    public virtual void Update(GameTime gametime) {
+    public virtual void Update() {
       if (IsPlayer) {
         body.angularVelocity = 0;
       }

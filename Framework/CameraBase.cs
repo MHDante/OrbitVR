@@ -1,7 +1,6 @@
 ﻿using System;
 using OrbitVR.Components.Drawers;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
 
 namespace OrbitVR.Framework {
   public enum Layers
@@ -29,7 +28,6 @@ namespace OrbitVR.Framework {
     protected static System.Drawing.Pen pen;
     public Color backgroundColor = Color.Black;
     private float backgroundHue = 180;
-    public SpriteBatch batch;
     public bool phaseBackgroundColor = false;
 
     public Room room;
@@ -51,7 +49,6 @@ namespace OrbitVR.Framework {
 
     protected CameraBase(Room room, float zoom, Vector2? pos) {
       this.room = room;
-      this.batch = new SpriteBatch(OrbIt.Game.GraphicsDevice);
       this.zoom = zoom;
       this.pos = pos ??
                  new Vector2(room.GridsystemAffect.position.X + room.GridsystemAffect.gridWidth/2,

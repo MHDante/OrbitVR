@@ -9,8 +9,6 @@ using OrbitVR.UI;
 using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
-using SharpDX.Toolkit.Graphics;
-using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 namespace OrbitVR.Framework {
   public static class Utils {
@@ -76,35 +74,13 @@ namespace OrbitVR.Framework {
     }
 
     public static Texture2D Crop(this Texture2D image, Rectangle source) {
-      var graphics = image.GraphicsDevice;
-      var ret = RenderTarget2D.New(graphics, source.Width, source.Height, OrbIt.Game.pixelFormat.Format);
-      DepthStencilView d = null;
-      var oldTargets = graphics.GetRenderTargets(out d);
-
-
-      var sb = new SpriteBatch(graphics);
-
-      graphics.SetRenderTargets(ret); // draw to image
-      graphics.Clear(new Color(0, 0, 0, 0));
-
-      sb.Begin();
-      sb.Draw(image, Vector2.Zero, source, Color.White);
-      sb.End();
-
-      graphics.SetRenderTargets(oldTargets); // set back to main window
-      Texture2D ret2 = Texture2D.New(graphics, source.Width, source.Height, Format.B8G8R8A8_UNorm);
-      Color[] q = new Color[source.Width*source.Height];
-      ret.GetData(q);
-
-      ret2.SetData<Color>(q);
-
-      return (Texture2D) ret2;
+      throw new NotImplementedException();
     }
 
     public static Texture2D[,] sliceSpriteSheet(this Texture2D spritesheet, int columnsX, int rowsY) {
       Texture2D[,] result = new Texture2D[columnsX, rowsY];
-      int width = spritesheet.Width/columnsX;
-      int height = spritesheet.Height/rowsY;
+      int width = spritesheet.Description.Width/columnsX;
+      int height = spritesheet.Description.Height/rowsY;
       for (int x = 0; x < columnsX; x++) {
         for (int y = 0; y < rowsY; y++) {
           result[x, y] = spritesheet.Crop(new Rectangle(x*width, y*height, width, height));

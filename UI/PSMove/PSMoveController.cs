@@ -1,9 +1,8 @@
 using System;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
 
 namespace OrbitVR.PSMove {
-  public class PSMoveController : IDisposable {
+  public class PSMoveController : Object3D, IDisposable {
     // Used to send and receive controller data from the PSMoveWorker thread
     private PSMoveDataContext dataContext;
     public float lerpRate;
@@ -20,14 +19,14 @@ namespace OrbitVR.PSMove {
     /// If the controller is not already paired, it can only be connected by USB.
     /// See README for more information.
     /// </summary>
-    public PSMoveController(Vector3 Position, Model m = null) {
-      model = m ?? OrbIt.Game.Content.Load<Model>("PSMove");
+    public PSMoveController(Vector3 Position) {
+      //model = m ?? OrbIt.Game.Content.Load<Model>("PSMove"); Todo: model
       transform = new Transform();
       transform.parent = new Transform() {position = Position};
       if (PSMoveManager.GetManagerInstance() != null) {
         dataContext = PSMoveManager.GetManagerInstance().AcquirePSMove(this.PSMoveID);
       }
-      model = m;
+      //model = m; Todo: model
     }
 
     public void Dispose() {
@@ -109,7 +108,7 @@ namespace OrbitVR.PSMove {
     // Debug
     public bool ShowTrackingDebug;
     public bool ShowHMDFrustumDebug;
-    private Model model;
+    //private Model model;Todo: model
 
     #endregion
 
@@ -145,9 +144,9 @@ namespace OrbitVR.PSMove {
 
     #region Unity Callbacks
 
-    public void Draw(GraphicsDevice device, Matrix v, Matrix p) {
-      model.Draw(device, transform.getMatrix(), v, p);
-    }
+    //public void Draw(GraphicsDevice device, Matrix v, Matrix p) {
+    //  model.Draw(device, transform.getMatrix(), v, p);
+    //}Todo: model
 
     public void Update() {
       // Get the latest state from the 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SharpDX.Toolkit;
 
 namespace OrbitVR.Framework.Gametypes {
   public class Gametype {
@@ -12,7 +11,7 @@ namespace OrbitVR.Framework.Gametypes {
       players = new HashSet<Player>();
     }
 
-    public virtual void Update(GameTime gameTime) {
+    public virtual void Update() {
       //foreach(Player p in players)
       //{
       //    p.Update(gameTime);

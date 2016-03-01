@@ -2,7 +2,6 @@
 using OrbitVR.Framework;
 using OrbitVR.UI;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
 using Collision = OrbitVR.Components.Essential.Collision;
 
 namespace OrbitVR.Physics {

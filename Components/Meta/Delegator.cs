@@ -4,7 +4,6 @@ using System.Reflection;
 using OrbitVR.Framework;
 using OrbitVR.UI;
 using SharpDX;
-using SharpDX.Toolkit.Graphics;
 
 namespace OrbitVR.Components.Meta {
   public class MethodEntry {
@@ -63,17 +62,17 @@ namespace OrbitVR.Components.Meta {
           else if (parameters[1].ParameterType == typeof (DataStore)) {
             methType = typeof (Action<Node, DataStore>);
           }
-          else if (parameters[1].ParameterType == typeof (SpriteBatch)) {
-            methType = typeof (Action<Node, SpriteBatch>);
-          }
+          //else if (parameters[1].ParameterType == typeof (SpriteBatch)) {
+          //  methType = typeof (Action<Node, SpriteBatch>);
+          //}
         }
         else if (parameters.Length == 3) {
           if (parameters[1].ParameterType == typeof (Node) && parameters[2].ParameterType == typeof (DataStore)) {
             methType = typeof (Action<Node, Node, DataStore>);
           }
-          else if (parameters[1].ParameterType == typeof (SpriteBatch) && parameters[2].ParameterType == typeof (DataStore)) {
-            methType = typeof (Action<Node, SpriteBatch, DataStore>);
-          }
+          //else if (parameters[1].ParameterType == typeof (SpriteBatch) && parameters[2].ParameterType == typeof (DataStore)) {
+          //  methType = typeof (Action<Node, SpriteBatch, DataStore>);
+          //}
         }
         if (methType != null) {
           dynamic del = Delegate.CreateDelegate(methType, meth);
@@ -200,9 +199,9 @@ namespace OrbitVR.Components.Meta {
         else if (type == typeof (Action<Node, Node, DataStore>)) {
           AddAffectOtherAndDS(n, del, ds);
         }
-        else if (type == typeof (Action<Node, SpriteBatch, DataStore>)) {
-          AddDrawAndDS(n, del, ds);
-        }
+        //else if (type == typeof (Action<Node, SpriteBatch, DataStore>)) {
+        //  AddDrawAndDS(n, del, ds); //Todo:rip out.
+        //}
       }
     }
 
@@ -221,11 +220,11 @@ namespace OrbitVR.Components.Meta {
         if ((aOtherDelegates == null || aOtherDelegates.Count == 0) &&
             (aOtherDelegatesDS == null || aOtherDelegatesDS.Count == 0)) compType &= ~mtypes.affectother;
       }
-      else if (type == typeof (Action<Node, SpriteBatch>)) {
-        if (drawDelegates != null && drawDelegates.ContainsKey(n)) drawDelegates.Remove(n);
-        if ((drawDelegates == null || drawDelegates.Count == 0) &&
-            (drawDelegatesDS == null || drawDelegatesDS.Count == 0)) compType &= ~(mtypes.draw);
-      }
+      //else if (type == typeof (Action<Node, SpriteBatch>)) {
+      //  if (drawDelegates != null && drawDelegates.ContainsKey(n)) drawDelegates.Remove(n);
+      //  if ((drawDelegates == null || drawDelegates.Count == 0) &&
+      //      (drawDelegatesDS == null || drawDelegatesDS.Count == 0)) compType &= ~(mtypes.draw);
+      //}
       else {
         if (type == typeof (Action<Node, DataStore>)) {
           if (aSelfDelegatesDS != null && aSelfDelegatesDS.ContainsKey(n)) aSelfDelegatesDS.Remove(n);
@@ -237,11 +236,11 @@ namespace OrbitVR.Components.Meta {
           if ((aOtherDelegatesDS == null || aOtherDelegatesDS.Count == 0) &&
               (aOtherDelegates == null || aOtherDelegates.Count == 0)) compType &= ~mtypes.affectother;
         }
-        else if (type == typeof (Action<Node, SpriteBatch, DataStore>)) {
-          if (drawDelegatesDS != null && drawDelegatesDS.ContainsKey(n)) drawDelegatesDS.Remove(n);
-          if ((drawDelegatesDS == null || drawDelegatesDS.Count == 0) &&
-              (drawDelegates == null || drawDelegates.Count == 0)) compType &= ~(mtypes.draw);
-        }
+        //else if (type == typeof (Action<Node, SpriteBatch, DataStore>)) {
+        //  if (drawDelegatesDS != null && drawDelegatesDS.ContainsKey(n)) drawDelegatesDS.Remove(n);
+        //  if ((drawDelegatesDS == null || drawDelegatesDS.Count == 0) &&
+        //      (drawDelegates == null || drawDelegates.Count == 0)) compType &= ~(mtypes.draw);
+        //}
       }
       if (datastores.ContainsKey(n)) datastores.Remove(n);
     }

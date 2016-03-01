@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using OrbitVR.Processes;
 using OrbitVR.UI;
 using SharpDX;
-using SharpDX.Toolkit;
 
 namespace OrbitVR {
   [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
@@ -40,10 +39,10 @@ namespace OrbitVR {
       randomizer = Game.ProcessManager.GetProcess<Randomizer>();
     }
 
-    protected override void Update(GameTime gt) {
-      base.Update(gt);
+    public override void Update() {
+      base.Update();
 
-      testTimer += gt.ElapsedGameTime.Milliseconds;
+      testTimer += Time.ElapsedGameTime.Milliseconds;
       if (testTimer > 1000) {
         spawnPos += Vector2.One*10;
         UserInterface.WorldMousePos = spawnPos;

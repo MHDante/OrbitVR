@@ -16,7 +16,7 @@ namespace OrbitVR.Framework {
     public float Rotation; // ROTATION;
     public int TextureIndex; // TEXIND;
     public Color Color; // COLOR;
-    private static InputElement[] inputElements = new InputElement[]
+    public static InputElement[] inputElements = new InputElement[]
 {
     new InputElement("POSITION", 0, Format.R32G32B32_Float, 0),
     new InputElement("SIZE", 0, Format.R32G32B32_Float, 0),
@@ -35,7 +35,6 @@ namespace OrbitVR.Framework {
       this.Color = color ?? Color.White;
     }
   }
-
   class MeshCamera : CameraBase {
 
     public HashSet<SpriteVertex> Mesh;
@@ -45,9 +44,13 @@ namespace OrbitVR.Framework {
     private GeometryShader geometryShader;
 
     private ShaderSignature inputSignature;
+    private DeviceContext d3dDeviceContext;
+
     public MeshCamera(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {
       Mesh = new HashSet<SpriteVertex>();
       Perms = new HashSet<SpriteVertex>();
+
+
       using (var pixelShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/MixedShaders.fx", "PS", "ps_4_0", ShaderFlags.Debug))
       {
         pixelShader = new PixelShader(OrbIt.Game.GraphicsDevice, pixelShaderByteCode);
@@ -62,16 +65,16 @@ namespace OrbitVR.Framework {
         inputSignature = ShaderSignature.GetInputSignature(geometryShaderByteCode);
       }
 
-      var d3dDeviceContext = OrbIt.Game.GraphicsDevice
+      d3dDeviceContext = OrbIt.Game.d3dDeviceContext;
       d3dDeviceContext.VertexShader.Set(vertexShader);
       d3dDeviceContext.PixelShader.Set(pixelShader);
-
+      
       d3dDeviceContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
-
-      // Create the input layout from the input signature and the input elements
-      inputLayout = new D3D11.InputLayout(d3dDevice, inputSignature, inputElements);
-
-      // Set input layout to use
+      
+      //// Create the input layout from the input signature and the input elements
+      var inputLayout = new InputLayout(OrbIt.Game.GraphicsDevice, inputSignature, SpriteVertex.inputElements);
+      //
+      //// Set input layout to use
       d3dDeviceContext.InputAssembler.InputLayout = inputLayout;
     }
     public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, int life) {
@@ -129,7 +132,6 @@ namespace OrbitVR.Framework {
     public override void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
                                          bool offset = true, Layers layer = Layers.Over5) {
       return;
-
     }
 
     public override void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale) {
@@ -139,9 +141,14 @@ namespace OrbitVR.Framework {
     public override void Draw() {
       Mesh.UnionWith(Perms);
       var vertices = Mesh.ToArray();
+      Mesh.Clear();
+      Perms.Clear();
+      if (vertices.Length == 0) return;
 
       using (var triangleVertexBuffer = Buffer.Create(OrbIt.Game.GraphicsDevice, BindFlags.VertexBuffer, vertices)) {
-        
+        d3dDeviceContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(triangleVertexBuffer, Utilities.SizeOf<SpriteVertex>(), 0));
+        d3dDeviceContext.Draw(vertices.Length, 0);
+
       }
     }
   }

@@ -45,7 +45,6 @@
 using System;
 using System.Collections.Generic;
 using SharpDX;
-using SharpDX.Toolkit;
 using GBF = SharpDX.XInput.GamepadButtonFlags;
 
 
@@ -2774,7 +2773,7 @@ namespace OrbitVR.Framework {
   /// Allows reading position and button click information from mouse.
   /// </summary>
   public static class Mouse {
-    internal static GameWindow PrimaryWindow = null;
+    //internal static GameWindow PrimaryWindow = null; //Todo: why?
 
     private static readonly MouseState _defaultState = new MouseState();
 
@@ -2835,34 +2834,7 @@ namespace OrbitVR.Framework {
     /// presses for the provided window
     /// </summary>
     /// <returns>Current state of the mouse.</returns>
-    public static MouseState GetState(GameWindow window) {
-#if MONOMAC
-  //We need to maintain precision...
-            window.MouseState.ScrollWheelValue = (int)ScrollWheelValue;
-
-#elif DESKTOPGL || ANGLE
-
-            var state = OpenTK.Input.Mouse.GetCursorState();
-            var pc = ((OpenTKGameWindow)window).Window.PointToClient(new System.Drawing.Point(state.X, state.Y));
-            window.MouseState.X = pc.X;
-            window.MouseState.Y = pc.Y;
-
-            window.MouseState.LeftButton = (ButtonState)state.LeftButton;
-            window.MouseState.RightButton = (ButtonState)state.RightButton;
-            window.MouseState.MiddleButton = (ButtonState)state.MiddleButton;
-            window.MouseState.XButton1 = (ButtonState)state.XButton1;
-            window.MouseState.XButton2 = (ButtonState)state.XButton2;
-
-            // XNA uses the winapi convention of 1 click = 120 delta
-            // OpenTK scales 1 click = 1.0 delta, so make that match
-            window.MouseState.ScrollWheelValue = (int)(state.Scroll.Y * 120);
-#endif
-
-
-      return new MouseState();
-      //TODO: SAVE ME
-      //return window.MouseState;
-    }
+    
 
     /// <summary>
     /// Gets mouse state information that includes position and button presses
@@ -2883,9 +2855,7 @@ namespace OrbitVR.Framework {
 
             return _defaultState;
 #else
-      if (PrimaryWindow != null)
-        return GetState(PrimaryWindow);
-
+      //Todo: SAVE ME.
       return _defaultState;
 #endif
     }
