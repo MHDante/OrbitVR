@@ -64,27 +64,12 @@ namespace OrbitVR.Framework {
     public abstract void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation,
                                           int life);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation,
-                              Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
+    public abstract void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, Layers Layer);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, Layers Layer,
-                              ShaderPack? shaderPack = default(ShaderPack?), bool center = true);
+    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, Layers Layer);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
-                              ShaderPack? shaderPack = default(ShaderPack?));
-
-    public abstract void Draw(Texture2D texture, Vector2 position, Color color, float scale, Layers Layer,
-                              ShaderPack? shaderPack = default(ShaderPack?), bool center = true);
-
-    public abstract void Draw(Texture2D texture, Vector2 position, Color color, float scale, float rotation,
-                              Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
-
-    public abstract void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-                              Vector2 origin, Vector2 scalevect, Layers Layer,
-                              ShaderPack? shaderPack = default(ShaderPack?));
-
-    public abstract void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation,
-                              Vector2 origin, float scale, Layers Layer, ShaderPack? shaderPack = default(ShaderPack?));
+    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer);
+    
 
 
     public abstract void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, Layers Layer);
@@ -97,7 +82,6 @@ namespace OrbitVR.Framework {
                                          float scale = 0.5F, bool offset = true, Layers Layer = Layers.Over5);
 
     public abstract void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale);
-    public abstract void Screenshot();
 
     public virtual void Update() {
       if (phaseBackgroundColor) {
@@ -112,78 +96,6 @@ namespace OrbitVR.Framework {
       DrawLine(min, new Vector2(min.X, max.Y), 2, borderColor, Layers.Under5);
       DrawLine(new Vector2(min.X, max.Y), max, 2, borderColor, Layers.Under5);
       DrawLine(new Vector2(max.X, min.Y), max, 2, borderColor, Layers.Under5);
-    }
-  }
-
-  class CameraBaseImpl : CameraBase {
-    public CameraBaseImpl(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {}
-    public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, int life) {
-      throw new NotImplementedException();
-    }
-
-    public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation, int life) {
-      throw new NotImplementedException();
-    }
-
-    public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, Layers Layer,
-                              ShaderPack? shaderPack = null) {
-      throw new NotImplementedException();
-    }
-
-    public override void Draw(Textures texture, Vector2 position, Color color, float scale, Layers Layer, ShaderPack? shaderPack = null,
-                              bool center = true) {
-      throw new NotImplementedException();
-    }
-
-    public override void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
-                              ShaderPack? shaderPack = null) {
-      throw new NotImplementedException();
-    }
-
-    public override void Draw(Texture2D texture, Vector2 position, Color color, float scale, Layers Layer, ShaderPack? shaderPack = null,
-                              bool center = true) {
-      throw new NotImplementedException();
-    }
-
-    public override void Draw(Texture2D texture, Vector2 position, Color color, float scale, float rotation, Layers Layer,
-                              ShaderPack? shaderPack = null) {
-      throw new NotImplementedException();
-    }
-
-    public override void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin,
-                              Vector2 scalevect, Layers Layer, ShaderPack? shaderPack = null) {
-      throw new NotImplementedException();
-    }
-
-    public override void Draw(Textures texture, Vector2 position, Rectangle? sourceRect, Color color, float rotation, Vector2 origin,
-                              float scale, Layers Layer, ShaderPack? shaderPack = null) {
-      throw new NotImplementedException();
-    }
-
-    public override void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, Layers Layer) {
-      throw new NotImplementedException();
-    }
-
-    public override void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life) {
-      throw new NotImplementedException();
-    }
-
-    public override void DrawStringScreen(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
-                                          bool offset = true, Layers Layer = Layers.Over5) {
-      throw new NotImplementedException();
-    }
-
-    public override void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
-                                         bool offset = true, Layers Layer = Layers.Over5) {
-      throw new NotImplementedException();
-    }
-
-    public override void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale) {
-      throw new NotImplementedException();
-    }
-
-    public override void Screenshot() {
-      throw new NotImplementedException();
     }
   }
 

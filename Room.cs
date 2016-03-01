@@ -51,7 +51,7 @@ namespace OrbitVR {
 
     public Room(int worldWidth, int worldHeight, bool groups = true){
       
-      using (var pixelShaderByteCode = ShaderBytecode.CompileFromFile("PixelShader.hlsl", "main", "ps_4_0", ShaderFlags.Debug))
+      using (var pixelShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/PixelShader.hlsl", "main", "ps_4_0", ShaderFlags.Debug))
       {
         pixelShader = new PixelShader(OrbIt.Game.GraphicsDevice, pixelShaderByteCode);
       }
@@ -226,10 +226,6 @@ namespace OrbitVR {
     public void Draw3D() {
         //TODO: Draw things.
         
-      if (Camera.TakeScreenshot) {
-        Camera.Screenshot();
-        Camera.TakeScreenshot = false;
-      }
     }
 
     private void MakeWalls(float wallWidth) {

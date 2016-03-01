@@ -117,6 +117,7 @@
     <ToolkitAudio Include="Content\coin.wav" />
     <ToolkitAudio Include="Content\croc.wav" />
     <Content Include="Content\Effects\Billboard.fx" />
+    <ToolkitFxc Include="Content\Effects\MixedShaders.fx" />
     <Content Include="Content\Effects\Shader.fx" />
     <ToolkitAudio Include="Content\fanfare.wav" />
     <ToolkitTexture Include="Content\Textures\Individual\1 symboli.png" />
@@ -137,7 +138,9 @@
     <ToolkitTexture Include="Content\Textures\Individual\9 symboli.png" />
     <ToolkitTexture Include="Content\Textures\Individual\cage.png" />
     <ToolkitFxc Include="Content\Effects\tunnel.fx" />
-    <Content Include="Content\Effects\PixelShader.hlsl" />
+    <Content Include="Content\Effects\PixelShader.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Textures\spritesheet.png" />
     <Content Include="Includes\psmoveapi.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -176,7 +179,6 @@
     <Compile Include="Components\Drawers\ColorGravity.cs" />
     <Compile Include="Components\Drawers\Light.cs" />
     <Compile Include="Components\Drawers\Runer.cs" />
-    <Compile Include="Components\Drawers\Shader.cs" />
     <Compile Include="Components\Essential\BasicDraw.cs" />
     <Compile Include="Components\Essential\Collision.cs" />
     <Compile Include="Components\Essential\Meta.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Components\Tracers\WideRay.cs" />
     <Compile Include="CustomVertex.cs" />
     <Compile Include="Framework\CameraBase.cs" />
+    <Compile Include="Framework\CameraBaseImpl.cs" />
     <Compile Include="Framework\Controller.cs" />
     <Compile Include="Framework\DelegateManager.cs" />
     <Compile Include="Framework\Formation.cs" />

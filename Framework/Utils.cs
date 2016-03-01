@@ -269,6 +269,15 @@ namespace OrbitVR.Framework {
       return result;
     }
 
+    public static Vector2 toV2(this Vector3 v)
+    {
+      return new Vector2(v.X, v.Y);
+    }
+    public static Vector3 toV3(this Vector2 v)
+    {
+      return new Vector3(v.X, v.Y, 0);
+    }
+
     //even distribution of colors between 0 and 16.5 million (total number of possible colors, excluding alphas)
     public static Color IntToColor(int i, int alpha = 255) {
       int r = (i/(255*255))%255;

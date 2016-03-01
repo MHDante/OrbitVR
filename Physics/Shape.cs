@@ -68,7 +68,7 @@ namespace OrbitVR.Physics {
     private Vector2 offset;
 
     public float polyReach = 0;
-    public Texture2D testTexture;
+    public Texture testTexture;
     private Vector2 trueOffset;
     public Vector2[] vertices = new Vector2[MaxPolyVertexCount];
 
@@ -195,8 +195,9 @@ namespace OrbitVR.Physics {
     public override void Draw() {
       DrawPolygon(body.pos, body.color);
       if (testTexture != null)
-        body.room.Camera.Draw(testTexture, body.pos + (trueOffset.Rotate(body.orient)) + (offset.Rotate(body.orient)),
-                              body.color, 1f, body.orient, Layers.Over1);
+        throw new NotImplementedException();
+        //body.room.Camera.Draw(testTexture, body.pos + (trueOffset.Rotate(body.orient)) + (offset.Rotate(body.orient)),
+        //                      body.color, 1f, body.orient, Layers.Over1);
     }
 
     public void DrawPolygon(Vector2 position, Color color) {
@@ -316,7 +317,7 @@ namespace OrbitVR.Physics {
     }
 
     // half width and half height
-    public void SetBox(float hw, float hh, bool fill = true) {
+    public void SetBox(float hw, float hh, bool fill = false) {
       vertexCount = 4;
       VMath.Set(ref vertices[0], -hw, -hh); //vertices[0].Set(-hw, -hh);
       VMath.Set(ref vertices[1], hw, -hh); //vertices[1].Set(hw, -hh);
@@ -328,7 +329,7 @@ namespace OrbitVR.Physics {
       VMath.Set(ref normals[3], -1, 0); //normals[3].Set(-1, 0);
       polyReach = Vector2.Distance(Vector2.Zero, new Vector2(hw, hh))*2;
       if (fill) {
-        testTexture = CreateClippedTexture(body.texture.GetTexture2D(), vertices, vertexCount, out this.offset);
+        testTexture = CreateClippedTexture(body.texture, vertices, vertexCount, out this.offset);
         this.trueOffset = this.offset*-1f;
       }
     }
@@ -339,7 +340,7 @@ namespace OrbitVR.Physics {
       float minY = vertices.Min(x => x.Y);
       float maxY = vertices.Max(x => x.Y);
       this.trueOffset = new Vector2((maxX - minX)/2, (maxY - minY)/2);
-      this.testTexture = CreateClippedTexture(body.texture.GetTexture2D(), vertices, vertexCount, out offset);
+      this.testTexture = CreateClippedTexture(body.texture, vertices, vertexCount, out offset);
       this.offset = new Vector2(offset.X, offset.Y);
     }
 
@@ -415,7 +416,7 @@ namespace OrbitVR.Physics {
       ComputeNormals();
     }
 
-    public Texture2D CreateClippedTexture(Texture2D tex, Vector2[] verts, int count, out Vector2 offset) {
+    public Texture2D CreateClippedTexture(Textures tex, Vector2[] verts, int count, out Vector2 offset) {
       Point offsetP = new Point();
       Point[] points = new Point[count];
       for (int i = 0; i < count; i++) {

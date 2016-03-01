@@ -70,9 +70,9 @@ namespace OrbitVR {
 
     }
 
-    public static Texture2D ClippedBitmap(Texture2D t2D, Point[] pointsArray, out Point position) {
+    public static Texture2D ClippedBitmap(Textures t2D, Point[] pointsArray, out Point position) {
       MemoryStream mStream = new MemoryStream();
-      t2D.Save(mStream, ImageFileType.Png);
+      t2D.GetTexture2D().Save(mStream, ImageFileType.Png);
       Bitmap texture = new Bitmap(mStream);
       int minX = pointsArray.Min(x => x.X); //margin.X >= 0 ? x.X : x.X + margin.X);
       int maxX = pointsArray.Max(x => x.X); //margin.X <= 0 ? x.X : x.X + margin.X);

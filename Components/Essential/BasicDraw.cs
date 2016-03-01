@@ -156,11 +156,6 @@ namespace OrbitVR.Components.Essential {
       }
 
       Layers layer = parent.IsPlayer ? Layers.Player : DrawLayer;
-
-      if (parent.HasComp<Shader>())
-        room.Camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
-                         parent.body.orient, layer, parent.Comp<Shader>().shaderPack);
-      else
         room.Camera.Draw(parent.body.texture, parent.body.pos, parent.body.color*(AlphaPercent/100f), parent.body.scale,
                          parent.body.orient, layer);
     }
