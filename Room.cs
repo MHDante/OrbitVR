@@ -27,7 +27,6 @@ namespace OrbitVR {
     public Group GetActiveGroup() => string.IsNullOrEmpty(ActiveGroupName) ? MasterGroup : MasterGroup.FindGroup(ActiveGroupName);
 
     public string ActiveGroupName;
-    private PixelShader pixelShader;
     public Node TargetNodeGraphic { get; }
     public static long TotalElapsedMilliseconds { get; private set; }
     //Components
@@ -51,10 +50,6 @@ namespace OrbitVR {
 
     public Room(int worldWidth, int worldHeight, bool groups = true){
       
-      using (var pixelShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/PixelShader.hlsl", "main", "ps_4_0", ShaderFlags.Debug))
-      {
-        pixelShader = new PixelShader(OrbIt.Game.GraphicsDevice, pixelShaderByteCode);
-      }
       
       Transform = new Transform();
       Transform.rotation = Quaternion.RotationAxis(Vector3.Up, (float)Math.PI);
@@ -72,7 +67,7 @@ namespace OrbitVR {
       GridsystemAffect = new GridSystem(this, 40, new Vector2(0, 0), worldWidth, OrbIt.ScreenHeight);
       CollisionManager = new CollisionManager(this);
       Level = new Level(this, 40, 40, GridsystemAffect.cellWidth, GridsystemAffect.cellHeight);
-      Camera = new CameraBaseImpl(this,1f, Vector2.Zero);
+      Camera = new MeshCamera(this,1f, Vector2.Zero);
       DrawLinks = true;
       Scheduler = new Scheduler();
 
@@ -224,7 +219,7 @@ namespace OrbitVR {
     }
 
     public void Draw3D() {
-        //TODO: Draw things.
+        Camera.Draw();
         
     }
 

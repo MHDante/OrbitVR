@@ -12,10 +12,11 @@ SamplerState SampPointClamp
 };
 struct VSGS_IN
 {
-  float2 pos : POSITION;
-	float4 color : COLOR;
+  float3 pos : POSITION;
   float2 size : SIZE;
+  float rot : ROTATION;
   int textureIndex : TEXIND;
+  float4 color : COLOR;
 };
 
 struct PS_IN

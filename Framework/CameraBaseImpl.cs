@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
-using OrbitVR.Components.Drawers;
+using System.Linq;
 using SharpDX;
+using SharpDX.D3DCompiler;
+using SharpDX.Direct3D;
+using SharpDX.Direct3D11;
+using SharpDX.DXGI;
+using Buffer = SharpDX.Direct3D11.Buffer;
 
 namespace OrbitVR.Framework {
   public struct SpriteVertex
@@ -11,7 +16,15 @@ namespace OrbitVR.Framework {
     public float Rotation; // ROTATION;
     public int TextureIndex; // TEXIND;
     public Color Color; // COLOR;
+    private static InputElement[] inputElements = new InputElement[]
+{
+    new InputElement("POSITION", 0, Format.R32G32B32_Float, 0),
+    new InputElement("SIZE", 0, Format.R32G32B32_Float, 0),
+    new InputElement("ROTATION", 0, Format.R32_Float, 0),
+    new InputElement("TEXIND", 0, Format.R32_SInt, 0),
+    new InputElement("COLOR", 0, Format.R32G32B32A32_Float, 0),
 
+};
 
     public SpriteVertex(Vector3 pos, Vector2 size, float rotation = 0, int textureIndex = 0, Color? color = null)
     {
@@ -23,13 +36,43 @@ namespace OrbitVR.Framework {
     }
   }
 
-  class CameraBaseImpl : CameraBase {
+  class MeshCamera : CameraBase {
 
     public HashSet<SpriteVertex> Mesh;
-    public HashSet<SpriteVertex> Perms; 
-    public CameraBaseImpl(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {
+    public HashSet<SpriteVertex> Perms;
+    private PixelShader pixelShader;
+    private VertexShader vertexShader;
+    private GeometryShader geometryShader;
+
+    private ShaderSignature inputSignature;
+    public MeshCamera(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {
       Mesh = new HashSet<SpriteVertex>();
       Perms = new HashSet<SpriteVertex>();
+      using (var pixelShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/MixedShaders.fx", "PS", "ps_4_0", ShaderFlags.Debug))
+      {
+        pixelShader = new PixelShader(OrbIt.Game.GraphicsDevice, pixelShaderByteCode);
+      }
+      using (var vertexShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/MixedShaders.fx", "VS", "vs_4_0", ShaderFlags.Debug))
+      {
+        vertexShader = new VertexShader(OrbIt.Game.GraphicsDevice, vertexShaderByteCode);
+      }
+      using (var geometryShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/MixedShaders.fx", "GS", "gs_4_0", ShaderFlags.Debug))
+      {
+        geometryShader = new GeometryShader(OrbIt.Game.GraphicsDevice, geometryShaderByteCode);
+        inputSignature = ShaderSignature.GetInputSignature(geometryShaderByteCode);
+      }
+
+      var d3dDeviceContext = OrbIt.Game.GraphicsDevice
+      d3dDeviceContext.VertexShader.Set(vertexShader);
+      d3dDeviceContext.PixelShader.Set(pixelShader);
+
+      d3dDeviceContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
+
+      // Create the input layout from the input signature and the input elements
+      inputLayout = new D3D11.InputLayout(d3dDevice, inputSignature, inputElements);
+
+      // Set input layout to use
+      d3dDeviceContext.InputAssembler.InputLayout = inputLayout;
     }
     public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, int life) {
       var v = new SpriteVertex(position.toV3(),scalevect,rotation,(int)texture, color);
@@ -93,6 +136,13 @@ namespace OrbitVR.Framework {
       Perms.RemoveWhere(x => x.Pos.toV2() == position);
     }
 
+    public override void Draw() {
+      Mesh.UnionWith(Perms);
+      var vertices = Mesh.ToArray();
 
+      using (var triangleVertexBuffer = Buffer.Create(OrbIt.Game.GraphicsDevice, BindFlags.VertexBuffer, vertices)) {
+        
+      }
+    }
   }
 }

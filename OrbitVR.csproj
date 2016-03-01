@@ -117,8 +117,9 @@
     <ToolkitAudio Include="Content\coin.wav" />
     <ToolkitAudio Include="Content\croc.wav" />
     <Content Include="Content\Effects\Billboard.fx" />
-    <ToolkitFxc Include="Content\Effects\MixedShaders.fx" />
-    <Content Include="Content\Effects\Shader.fx" />
+    <ToolkitFxc Include="Content\Effects\MixedShaders.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ToolkitFxc>
     <ToolkitAudio Include="Content\fanfare.wav" />
     <ToolkitTexture Include="Content\Textures\Individual\1 symboli.png" />
     <ToolkitTexture Include="Content\Textures\Individual\10 symboli.png" />
@@ -137,10 +138,6 @@
     <ToolkitTexture Include="Content\Textures\Individual\8 symboli.png" />
     <ToolkitTexture Include="Content\Textures\Individual\9 symboli.png" />
     <ToolkitTexture Include="Content\Textures\Individual\cage.png" />
-    <ToolkitFxc Include="Content\Effects\tunnel.fx" />
-    <Content Include="Content\Effects\PixelShader.hlsl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Textures\spritesheet.png" />
     <Content Include="Includes\psmoveapi.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
