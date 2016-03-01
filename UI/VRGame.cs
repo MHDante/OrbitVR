@@ -1,7 +1,6 @@
 using System;
 using OrbitVR.PSMove;
 using SharpDX;
-using SharpDX.Direct2D1;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpOVR;
@@ -18,9 +17,7 @@ namespace OrbitVR.UI {
     private Vector3[] hmdToEyeViewOffset = new Vector3[2];
     private LayerEyeFov layerEyeFov;
     private SharpDX.Direct3D11.Texture2D mirrorTexture;
-
-    public SharpDX.Direct2D1.PixelFormat pixelFormat = new SharpDX.Direct2D1.PixelFormat(Format.R8G8B8A8_UNorm,
-                                                                                         AlphaMode.Premultiplied);
+    
 
     public Matrix projection;
     public PSMoveController PsMoveController;

@@ -1,7 +1,6 @@
 using OrbitVR.Framework;
 using OrbitVR.UI;
 using SharpDX.Direct3D11;
-using SharpDX.Toolkit;
 
 namespace OrbitVR {
   public class OrbIt : VRGame {

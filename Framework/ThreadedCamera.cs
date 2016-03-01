@@ -6,8 +6,6 @@ using System.Threading;
 using OrbitVR.Components.Drawers;
 using SharpDX;
 using SharpDX.Direct3D11;
-using SharpDX.Toolkit.Graphics;
-using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
 
 namespace OrbitVR.Framework {
 

@@ -1,6 +1,8 @@
-﻿float4x4 Model;
-float4x4 View;
-float4x4 Projection;
+﻿cbuffer constInput : register(b0)
+{
+    float4x4 mvp;
+}
+
 Texture2D ModelTexture;
 float SpriteCount = 45;
 // clamped mip map nearest neigbor sampling
@@ -38,7 +40,6 @@ void GS(point VSGS_IN sprite[1], inout TriangleStream<PS_IN> triStream)
 	float y = sprite[0].pos.y;
 	float texTop = (1 / SpriteCount) * sprite[0].textureIndex;
 	float texBot = (1 / SpriteCount) * sprite[0].textureIndex + 1;
-	float4x4 mvp = Model * View * Projection;
     //bottom left
 	output.pos = mul(mvp , float4(x - w, y - h, 1, 1));
 	output.tex = float2(0, texBot);
