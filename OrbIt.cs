@@ -34,7 +34,7 @@ namespace OrbitVR
       base.Initialize();
       Assets.LoadAssets();
       Window.AllowUserResizing = false; //Todo: make true, fix crash.
-      Room = new Room(ScreenWidth * 2, ScreenHeight);
+      Room = new Room(ScreenWidth, ScreenHeight);
       GlobalGameMode = new GlobalGameMode(this);
       _frameRateCounter = new FrameRateCounter(this);
       Player.CreatePlayers(Room);
@@ -68,10 +68,10 @@ namespace OrbitVR
     {
 
       // Use time in seconds directly
-      var time = (float)gameTime.TotalGameTime.TotalSeconds;
-      var world = Matrix.Scaling(.01f) *
-            Matrix.RotationY(time) *
-            Matrix.Translation(0, 0, 0);
+      //var time = (float)gameTime.TotalGameTime.TotalSeconds;
+      var world = Matrix.Scaling(1f) *
+            Matrix.RotationY(MathHelper.Pi) *
+            Matrix.Translation(0, 0, 200);
       //model.Draw(GraphicsDevice, world, view, projection);
       Room.Draw3D(world);
     }

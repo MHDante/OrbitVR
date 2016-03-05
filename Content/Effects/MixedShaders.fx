@@ -15,6 +15,7 @@ struct VSGS_IN
   float rot : ROTATION;
   int textureIndex : TEXIND;
   float4 color : COLOR;
+  //float3 float2 float int float4
 };
 
 struct PS_IN
@@ -28,52 +29,52 @@ struct PS_IN
 void GS(point VSGS_IN sprite[1], inout TriangleStream<PS_IN> triStream)
 {
 
-    PS_IN output;
-    output.color = sprite[0].color;
-    float w = sprite[0].size.x / 2;
-    float h = sprite[0].size.y / 2;
-    float x = sprite[0].pos.x;
-    float y = sprite[0].pos.y;
-    float texTop = (1 / SpriteCount) * sprite[0].textureIndex;
-    float texBot = (1 / SpriteCount) * sprite[0].textureIndex + 1;
-    //bottom left
-    output.pos = float4(-1, -1, -5, 1);
-    output.tex = float2(0, texBot);
-    triStream.Append(output);
-    output.pos = float4(1, -1, -5, 1);
-    output.tex = float2(0, texBot);
-    triStream.Append(output);
-    output.pos = float4(-1, 1, -5, 1);
-    output.tex = float2(0, texBot);
-    triStream.Append(output);
-    output.pos = float4(1, 1, -5, 1);
-    output.tex = float2(0, texBot);
-    triStream.Append(output);
+   //PS_IN output;
+   //output.color = sprite[0].color;
+   //float w = sprite[0].size.x / 2;
+   //float h = sprite[0].size.y / 2;
+   //float x = sprite[0].pos.x;
+   //float y = sprite[0].pos.y;
+   //float texTop = (1 / SpriteCount) * sprite[0].textureIndex;
+   //float texBot = (1 / SpriteCount) * sprite[0].textureIndex + 1;
+   ////bottom left
+   //output.pos = float4(-1, -1, -5, 1);
+   //output.tex = float2(0, texBot);
+   //triStream.Append(output);
+   //output.pos = float4(1, -1, -5, 1);
+   //output.tex = float2(0, texBot);
+   //triStream.Append(output);
+   //output.pos = float4(-1, 1, -5, 1);
+   //output.tex = float2(0, texBot);
+   //triStream.Append(output);
+   //output.pos = float4(1, 1, -5, 1);
+   //output.tex = float2(0, texBot);
+   //triStream.Append(output);
 
- //   PS_IN output;
- //   output.color = sprite[0].color;
- //   float w = sprite[0].size.x / 2;
- //   float h = sprite[0].size.y / 2;
- //   float x = sprite[0].pos.x;
- //   float y = sprite[0].pos.y;
- //   float texTop = (1 / SpriteCount) * sprite[0].textureIndex;
- //   float texBot = (1 / SpriteCount) * sprite[0].textureIndex + 1;
- //   //bottom left
- //   output.pos = mul(mvp, float4(x - w, y - h, 1, 1));
- //   output.tex = float2(0, texBot);
- //   triStream.Append(output);
-	////top left
- //   output.pos = mul(mvp, float4(x - w, y + h, 1, 1));
- //   output.tex = float2(0, texTop);
- //   triStream.Append(output);
-	////bottom right
- //   output.pos = mul(mvp, float4(x + w, y - h, 1, 1));
- //   output.tex = float2(1, texBot);
- //   triStream.Append(output);
-	////top right
- //   output.pos = mul(mvp, float4(x + w, y + h, 1, 1));
- //   output.tex = float2(1, texTop);
- //   triStream.Append(output);
+   PS_IN output;
+   output.color = sprite[0].color;
+   float w = sprite[0].size.x / 2;
+   float h = sprite[0].size.y / 2;
+   float x = sprite[0].pos.x;
+   float y = sprite[0].pos.y;
+   float texTop = (1 / SpriteCount) * sprite[0].textureIndex;
+   float texBot = (1 / SpriteCount) * sprite[0].textureIndex + 1;
+   //bottom left
+   output.pos = mul(mvp, float4(x - w, y - h, 1, 1));
+   output.tex = float2(0, texBot);
+   triStream.Append(output);
+	//top left
+   output.pos = mul(mvp, float4(x - w, y + h, 1, 1));
+   output.tex = float2(0, texTop);
+   triStream.Append(output);
+	//bottom right
+   output.pos = mul(mvp, float4(x + w, y - h, 1, 1));
+   output.tex = float2(1, texBot);
+   triStream.Append(output);
+	//top right
+   output.pos = mul(mvp, float4(x + w, y + h, 1, 1));
+   output.tex = float2(1, texTop);
+   triStream.Append(output);
 
 	
 };
@@ -86,7 +87,7 @@ VSGS_IN VS(VSGS_IN input)
 float4 PS(PS_IN input) : SV_Target
 {
 
-  return float4(1,1,1,0);
+  return input.color;
 }
 
 technique10 Render

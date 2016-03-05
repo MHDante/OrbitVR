@@ -26,17 +26,7 @@ namespace OrbitVR.Framework {
     [VertexElement("TEXIND")]
     public int TextureIndex; // TEXIND;
     [VertexElement("COLOR")]
-    public Color Color; // COLOR;
-
-    public static InputElement[] inputElements = new InputElement[]
-{
-    new InputElement("POSITION", 0, Format.R32G32B32_Float, 0),
-    new InputElement("SIZE", 0, Format.R32G32B32_Float, 0),
-    new InputElement("ROTATION", 0, Format.R32_Float, 0),
-    new InputElement("TEXIND", 0, Format.R32_SInt, 0),
-    new InputElement("COLOR", 0, Format.R32G32B32A32_Float, 0),
-
-};
+    public Vector4 Color; // COLOR;
 
     public SpriteVertex(Vector3 pos, Vector2 size, float rotation = 0, int textureIndex = 0, Color? color = null)
     {
@@ -44,7 +34,7 @@ namespace OrbitVR.Framework {
       this.Size = size;
       this.Rotation = rotation;
       this.TextureIndex = textureIndex;
-      this.Color = color ?? Color.White;
+      this.Color = color?.ToVector4() ?? SharpDX.Color.White.ToVector4();
     }
   }
   class MeshCamera : CameraBase {
@@ -72,6 +62,7 @@ namespace OrbitVR.Framework {
       layout = VertexInputLayout.FromBuffer(0, Mesh);
       effect = OrbIt.Game.Content.Load<Effect>("Effects/MixedShaders");
       texture = OrbIt.Game.Content.Load<Texture2D>("Textures/spritesheet");
+      
       mvpParam = effect.Parameters["mvp"];
       textureParam = effect.Parameters["ModelTexture"];
       effectPass = effect.Techniques["Render"].Passes[0];
@@ -132,6 +123,7 @@ namespace OrbitVR.Framework {
 
     public override void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
                                          bool offset = true, Layers layer = Layers.Over5) {
+
       return;
     }
 
@@ -140,8 +132,10 @@ namespace OrbitVR.Framework {
     }
 
     public override void Draw(Matrix world) {
-      if (pendingVertices.Count == 0)
-        return;
+
+      pendingVertices.Add(new SpriteVertex(
+        new Vector3(OrbIt.ScreenWidth / 2, OrbIt.ScreenHeight / 2, 0),
+        new Vector2(OrbIt.ScreenHeight, OrbIt.ScreenWidth)));
       mvpParam.SetValue(OrbIt.Game.view * OrbIt.Game.projection * world);
       pendingVertices.AddRange(permVertices);
       Mesh.SetData(pendingVertices.ToArray());
@@ -150,6 +144,8 @@ namespace OrbitVR.Framework {
       //device.SetBlendState(device.BlendStates.Additive);
       //device.SetDepthStencilState(device.DepthStencilStates.None);
       effectPass.Apply();
+
+      //device.DrawAuto(PrimitiveType.PointList);
       device.Draw(PrimitiveType.PointList, pendingVertices.Count);
       //device.SetDepthStencilState(null);
       //device.SetBlendState(null);

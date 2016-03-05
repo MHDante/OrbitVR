@@ -44,6 +44,7 @@ namespace OrbitVR.UI
       Graphics.PreferredBackBufferWidth = hmd.Resolution.Width;
       Graphics.PreferredBackBufferHeight = hmd.Resolution.Height;
       Graphics.PreferredFullScreenOutputIndex = 1;
+      Graphics.DeviceCreationFlags |= DeviceCreationFlags.Debug;
     }
 
     protected override void Initialize()
