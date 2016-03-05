@@ -1,21 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using SharpDX;
 using SharpDX.D3DCompiler;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
-using Buffer = SharpDX.Direct3D11.Buffer;
+using SharpDX.Toolkit.Graphics;
+using Buffer = SharpDX.Toolkit.Graphics.Buffer;
+using Texture2D = SharpDX.Toolkit.Graphics.Texture2D;
+using VertexBufferBinding = SharpDX.Direct3D11.VertexBufferBinding;
 
 namespace OrbitVR.Framework {
+
+  [StructLayout(LayoutKind.Sequential, Pack = 1)]
   public struct SpriteVertex
   {
+    [VertexElement("POSITION")]
     public Vector3 Pos; // POSITION;
+    [VertexElement("SIZE")]
     public Vector2 Size; // SIZE;
+    [VertexElement("ROTATION")]
     public float Rotation; // ROTATION;
+    [VertexElement("TEXIND")]
     public int TextureIndex; // TEXIND;
+    [VertexElement("COLOR")]
     public Color Color; // COLOR;
+
     public static InputElement[] inputElements = new InputElement[]
 {
     new InputElement("POSITION", 0, Format.R32G32B32_Float, 0),
@@ -36,50 +48,38 @@ namespace OrbitVR.Framework {
     }
   }
   class MeshCamera : CameraBase {
+    
+    private Buffer<SpriteVertex> Mesh;
+    //private Buffer<SpriteVertex> Perms;
+    
+    private Effect effect;
+    private VertexInputLayout layout;
+    private Texture2D texture;
 
-    public HashSet<SpriteVertex> Mesh;
-    public HashSet<SpriteVertex> Perms;
-    private PixelShader pixelShader;
-    private VertexShader vertexShader;
-    private GeometryShader geometryShader;
-
-    private ShaderSignature inputSignature;
-    private DeviceContext d3dDeviceContext;
+    private EffectParameter mvpParam;
+    private EffectParameter textureParam;
+    private EffectPass effectPass;
+    private List<SpriteVertex> pendingVertices;
+    private List<SpriteVertex> permVertices;
+    private GraphicsDevice device;
 
     public MeshCamera(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {
-      Mesh = new HashSet<SpriteVertex>();
-      Perms = new HashSet<SpriteVertex>();
-
-
-      using (var pixelShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/MixedShaders.fx", "PS", "ps_4_0", ShaderFlags.Debug))
-      {
-        pixelShader = new PixelShader(OrbIt.Game.GraphicsDevice, pixelShaderByteCode);
-      }
-      using (var vertexShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/MixedShaders.fx", "VS", "vs_4_0", ShaderFlags.Debug))
-      {
-        vertexShader = new VertexShader(OrbIt.Game.GraphicsDevice, vertexShaderByteCode);
-      }
-      using (var geometryShaderByteCode = ShaderBytecode.CompileFromFile("Content/Effects/MixedShaders.fx", "GS", "gs_4_0", ShaderFlags.Debug))
-      {
-        geometryShader = new GeometryShader(OrbIt.Game.GraphicsDevice, geometryShaderByteCode);
-        inputSignature = ShaderSignature.GetInputSignature(geometryShaderByteCode);
-      }
-
-      d3dDeviceContext = OrbIt.Game.d3dDeviceContext;
-      d3dDeviceContext.VertexShader.Set(vertexShader);
-      d3dDeviceContext.PixelShader.Set(pixelShader);
+      pendingVertices = new List<SpriteVertex>();
+      permVertices = new List<SpriteVertex>();
+      //Perms = new HashSet<SpriteVertex>();
+      device = OrbIt.Game.GraphicsDevice;
+      Mesh = Buffer.Vertex.New<SpriteVertex>(OrbIt.Game.GraphicsDevice, 16 * 1024);
+      layout = VertexInputLayout.FromBuffer(0, Mesh);
+      effect = OrbIt.Game.Content.Load<Effect>("Effects/MixedShaders");
+      texture = OrbIt.Game.Content.Load<Texture2D>("Textures/spritesheet");
+      mvpParam = effect.Parameters["mvp"];
+      textureParam = effect.Parameters["ModelTexture"];
+      effectPass = effect.Techniques["Render"].Passes[0];
       
-      d3dDeviceContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
-      
-      //// Create the input layout from the input signature and the input elements
-      var inputLayout = new InputLayout(OrbIt.Game.GraphicsDevice, inputSignature, SpriteVertex.inputElements);
-      //
-      //// Set input layout to use
-      d3dDeviceContext.InputAssembler.InputLayout = inputLayout;
     }
     public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, int life) {
       var v = new SpriteVertex(position.toV3(),scalevect,rotation,(int)texture, color);
-      Perms.Add(v);
+      pendingVertices.Add(v);
     }
 
     public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation, int life) {
@@ -88,7 +88,8 @@ namespace OrbitVR.Framework {
 
     public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, Layers layer) {
       var v = new SpriteVertex(new Vector3(position.X, position.Y, (int)layer), scalevect, rotation, (int)texture, color);
-      Perms.Add(v);
+      Mesh.SetData(ref v);
+      pendingVertices.Add(v);
     }
 
     public override void Draw(Textures texture, Vector2 position, Color color, float scale, Layers layer) {
@@ -135,21 +136,25 @@ namespace OrbitVR.Framework {
     }
 
     public override void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale) {
-      Perms.RemoveWhere(x => x.Pos.toV2() == position);
+      //Perms.RemoveWhere(x => x.Pos.toV2() == position);
     }
 
-    public override void Draw() {
-      Mesh.UnionWith(Perms);
-      var vertices = Mesh.ToArray();
-      Mesh.Clear();
-      Perms.Clear();
-      if (vertices.Length == 0) return;
-
-      using (var triangleVertexBuffer = Buffer.Create(OrbIt.Game.GraphicsDevice, BindFlags.VertexBuffer, vertices)) {
-        d3dDeviceContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(triangleVertexBuffer, Utilities.SizeOf<SpriteVertex>(), 0));
-        d3dDeviceContext.Draw(vertices.Length, 0);
-
-      }
+    public override void Draw(Matrix world) {
+      if (pendingVertices.Count == 0)
+        return;
+      mvpParam.SetValue(OrbIt.Game.view * OrbIt.Game.projection * world);
+      pendingVertices.AddRange(permVertices);
+      Mesh.SetData(pendingVertices.ToArray());
+      device.SetVertexBuffer(Mesh);
+      device.SetVertexInputLayout(layout);
+      //device.SetBlendState(device.BlendStates.Additive);
+      //device.SetDepthStencilState(device.DepthStencilStates.None);
+      effectPass.Apply();
+      device.Draw(PrimitiveType.PointList, pendingVertices.Count);
+      //device.SetDepthStencilState(null);
+      //device.SetBlendState(null);
+      effectPass.UnApply();
+      pendingVertices.Clear();
     }
   }
 }

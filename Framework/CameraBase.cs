@@ -95,7 +95,7 @@ namespace OrbitVR.Framework {
       DrawLine(new Vector2(max.X, min.Y), max, 2, borderColor, Layers.Under5);
     }
 
-    public abstract void Draw();
+    public abstract void Draw(Matrix worldMatrix);
   }
 
   public struct Line {

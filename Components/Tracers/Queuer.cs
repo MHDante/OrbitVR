@@ -4,6 +4,7 @@ using OrbitVR;
 using OrbitVR.Framework;
 using OrbitVR.UI;
 using SharpDX;
+using Component = OrbitVR.Component;
 
 namespace OrbItProcs {
   [Flags]

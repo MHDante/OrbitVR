@@ -217,8 +217,8 @@ namespace OrbitVR {
       GraphData.DrawGraph();
     }
 
-    public void Draw3D() {
-        Camera.Draw();
+    public void Draw3D(Matrix world) {
+        Camera.Draw(world);
         
     }
 

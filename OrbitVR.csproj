@@ -3,14 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{DE547291-4F13-480E-9A40-AA1110F58B82}</ProjectGuid>
+    <ProjectGuid>{5213604A-A4A3-403D-8F23-BA178955EEA7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>WindowsApplication</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -31,44 +32,36 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>OrbitVR</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="SharpDX, Version=3.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>packages\SharpDX.3.0.1\lib\net45\SharpDX.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SharpDX">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.D3DCompiler, Version=3.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>packages\SharpDX.D3DCompiler.3.0.1\lib\net45\SharpDX.D3DCompiler.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SharpDX.Direct3D11">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Desktop, Version=3.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>packages\SharpDX.Desktop.3.0.1\lib\net45\SharpDX.Desktop.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SharpDX.DXGI">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.DXGI.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D11, Version=3.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>packages\SharpDX.Direct3D11.3.0.1\lib\net45\SharpDX.Direct3D11.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SharpDX.Toolkit">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.DXGI, Version=3.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>packages\SharpDX.DXGI.3.0.1\lib\net45\SharpDX.DXGI.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SharpDX.Toolkit.Game">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.Game.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Mathematics, Version=3.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>packages\SharpDX.Mathematics.3.0.1\lib\net45\SharpDX.Mathematics.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SharpDX.Toolkit.Graphics">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.Graphics.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.XInput, Version=3.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>packages\SharpDX.XInput.3.0.1\lib\net45\SharpDX.XInput.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SharpDX.XInput">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.XInput.dll</HintPath>
     </Reference>
     <Reference Include="SharpOVR, Version=0.6.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Includes\SharpOVR.dll</HintPath>
+      <HintPath>packages\SharpOVR.0.6.0.4\lib\SharpOVR.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -84,7 +77,9 @@
     <Content Include="Content\coin.wav" />
     <Content Include="Content\croc.wav" />
     <Content Include="Content\Effects\Billboard.fx" />
-    <Content Include="Content\Effects\MixedShaders.fx" />
+    <ToolkitFxc Include="Content\Effects\MixedShaders.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ToolkitFxc>
     <Content Include="Content\fanfare.wav" />
     <Content Include="Content\Game.ico" />
     <Content Include="Content\Textures\Individual\1 symboli.png" />
@@ -130,7 +125,7 @@
     <Content Include="Content\Textures\Individual\whiteorb.png" />
     <Content Include="Content\Textures\Individual\whiteorb2.png" />
     <Content Include="Content\Textures\Individual\whitesphere.png" />
-    <Content Include="Content\Textures\spritesheet.png" />
+    <ToolkitTexture Include="Content\Textures\spritesheet.png" />
     <Content Include="Includes\psmoveapi.dll" />
     <Content Include="Includes\psmoveapi_tracker.dll" />
     <Content Include="Includes\SDL2.dll" />
@@ -189,6 +184,7 @@
     <Compile Include="Components\Movement\RandVelChange.cs" />
     <Compile Include="Components\Tracers\Laser.cs" />
     <Compile Include="Components\Tracers\PhaseOrb.cs" />
+    <Compile Include="Components\Tracers\Queuer.cs" />
     <Compile Include="Components\Tracers\Waver.cs" />
     <Compile Include="Components\Tracers\WideRay.cs" />
     <Compile Include="CustomVertex.cs" />
@@ -249,8 +245,6 @@
     <Compile Include="Room.cs" />
     <Compile Include="RoomGroups.cs" />
     <Compile Include="UI\Command.cs" />
-    <Compile Include="UI\Game.cs" />
-    <Compile Include="UI\GameTime.cs" />
     <Compile Include="UI\InspectorInfo.cs" />
     <Compile Include="UI\KeyManager.cs" />
     <Compile Include="UI\Object3D.cs" />
@@ -271,14 +265,30 @@
     <None Include="Content\Courier New.spritefont" />
     <None Include="Content\landscape.x" />
     <None Include="Content\PSMove.fbx" />
-    <None Include="Content\Ship.fbx" />
-    <None Include="Content\ShipDiffuse.dds" />
+    <ToolkitModel Include="Content\Ship.fbx" />
+    <ToolkitTexture Include="Content\ShipDiffuse.dds" />
     <None Include="packages.config" />
     <None Include="README.md" />
+    <None Include="snippets\ctyp.snippet" />
+    <None Include="snippets\usra.snippet" />
+    <None Include="snippets\usrd.snippet" />
+    <None Include="snippets\usru.snippet" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include=".git\" />
+    <Folder Include="Screenshots\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets'))" />
+    <Error Condition="!Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SharpDX.2.6.3\build\SharpDX.targets'))" />
+  </Target>
+  <Import Project="packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets" Condition="Exists('packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets')" />
+  <Import Project="packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" />
 </Project>
