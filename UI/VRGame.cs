@@ -14,7 +14,7 @@ namespace OrbitVR.UI {
     private PoseF[] eyeRenderPose = new PoseF[2];
     private SwapTexture[] eyeTexture = new SwapTexture[2];
     public GraphicsDeviceManager Graphics;
-    public Vector3 headPos = new Vector3(0f, 0, 0);
+    public Vector3 headPos = new Vector3(0f, 0, -2);
     public HMD hmd;
     private Vector3[] hmdToEyeViewOffset = new Vector3[2];
     private LayerEyeFov layerEyeFov;

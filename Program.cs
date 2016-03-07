@@ -12,7 +12,7 @@ namespace OrbitVR {
     //Dont update nodes outside grid
     public static bool skipOutsideGrid = false;
     //3D shape of the room.
-    public static RenderShape renderShape = RenderShape.Cylinder;
+    public static RenderShape renderShape = RenderShape.Plane;
     //Add polygon Colliders to room walls
     public static bool addRoomWalls = false;
     public static bool drawRoomBorder = true;

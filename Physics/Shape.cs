@@ -422,10 +422,10 @@ namespace OrbitVR.Physics {
         points[i] = new Point((int) verts[i].X, (int) verts[i].Y);
       }
 
-      Texture2D ret = Assets.ClippedBitmap(tex, points, out offsetP);
+      //Texture2D ret = Assets.ClippedBitmap(tex, points, out offsetP);
       offset.X = offsetP.X;
       offset.Y = offsetP.Y;
-      return ret;
+      return null;
     }
 
     public void ComputeNormals() {

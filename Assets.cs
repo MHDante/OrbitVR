@@ -134,7 +134,9 @@ namespace OrbitVR {
       Font = content.Load<SpriteFont>("Courier New");
     }
 
-    public static Texture2D ClippedBitmap(Texture2D t2D, Point[] pointsArray, out Point position) {
+    public static Texture2D ClippedBitmap(Texture2D t2D, Point[] pointsArray, out Point position)
+    {
+
       MemoryStream mStream = new MemoryStream();
       t2D.Save(mStream, ImageFileType.Png);
       Bitmap texture = new Bitmap(mStream);

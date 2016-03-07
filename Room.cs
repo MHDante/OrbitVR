@@ -56,7 +56,8 @@ namespace OrbitVR {
       Transform.rotation = Quaternion.RotationAxis(Vector3.Up, (float)Math.PI);
       switch (_renderShape) {
         case RenderShape.Plane:
-          _renderQuad = GeometricPrimitive.Plane.New(OrbIt.Game.GraphicsDevice, 2, 2, 32, true);
+          _renderQuad = GeometricPrimitive.Plane.New(OrbIt.Game.GraphicsDevice, 400, 400, 32, false);
+          Transform.position += Vector3.ForwardRH*30;
           break;
         case RenderShape.Sphere:
           _renderQuad = GeometricPrimitive.Sphere.New(OrbIt.Game.GraphicsDevice, 5, 32, true);
