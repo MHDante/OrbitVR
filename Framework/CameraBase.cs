@@ -61,15 +61,15 @@ namespace OrbitVR.Framework {
     public abstract void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation,
                                           int life);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, Layers Layer);
+    public abstract void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, float depth);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, Layers Layer);
+    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, float depth);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, Layers Layer);
+    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, float depth);
     
 
 
-    public abstract void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, Layers Layer);
+    public abstract void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, float depth);
     public abstract void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life);
 
     public abstract void DrawStringScreen(string text, Vector2 position, Color color, Color? color2 = default(Color?),
@@ -89,10 +89,10 @@ namespace OrbitVR.Framework {
     }
 
     public void DrawRect(Vector2 min, Vector2 max, Color borderColor) {
-      DrawLine(min, new Vector2(max.X, min.Y), 2, borderColor, Layers.Under5);
-      DrawLine(min, new Vector2(min.X, max.Y), 2, borderColor, Layers.Under5);
-      DrawLine(new Vector2(min.X, max.Y), max, 2, borderColor, Layers.Under5);
-      DrawLine(new Vector2(max.X, min.Y), max, 2, borderColor, Layers.Under5);
+      DrawLine(min, new Vector2(max.X, min.Y), 2, borderColor, (int)Layers.Under5);
+      DrawLine(min, new Vector2(min.X, max.Y), 2, borderColor, (int)Layers.Under5);
+      DrawLine(new Vector2(min.X, max.Y), max, 2, borderColor, (int)Layers.Under5);
+      DrawLine(new Vector2(max.X, min.Y), max, 2, borderColor, (int)Layers.Under5);
     }
 
     public abstract void Draw(Matrix worldMatrix);

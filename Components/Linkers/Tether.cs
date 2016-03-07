@@ -179,7 +179,7 @@ namespace OrbitVR.Components.Linkers {
         col = Color.Blue;
       else
         col = Color.White;
-      room.Camera.Draw(parent.body.texture, parent.body.pos, col, parent.body.scale*1.2f, Layers.Under2);
+      room.Camera.Draw(parent.body.texture, parent.body.pos, col, parent.body.scale*1.2f, (int)Layers.Under2);
 
       foreach (Node receiver in outgoing) {
         Vector2 diff = receiver.body.pos - parent.body.pos;
@@ -187,10 +187,10 @@ namespace OrbitVR.Components.Linkers {
         VMath.NormalizeSafe(ref perp);
         perp *= 2;
 
-        room.Camera.DrawLine(parent.body.pos, receiver.body.pos, 2f, col, Layers.Under3);
+        room.Camera.DrawLine(parent.body.pos, receiver.body.pos, 2f, col, (int)Layers.Under3);
 
-        room.Camera.DrawLine(parent.body.pos + perp, receiver.body.pos + perp, 2f, Color.Red, Layers.Under3);
-        room.Camera.DrawLine(parent.body.pos - perp, receiver.body.pos - perp, 2f, Color.Green, Layers.Under3);
+        room.Camera.DrawLine(parent.body.pos + perp, receiver.body.pos + perp, 2f, Color.Red, (int)Layers.Under3);
+        room.Camera.DrawLine(parent.body.pos - perp, receiver.body.pos - perp, 2f, Color.Green, (int)Layers.Under3);
 
         perp *= 20;
 
@@ -198,8 +198,8 @@ namespace OrbitVR.Components.Linkers {
 
 
         Vector2 point = receiver.body.pos - (diff/5);
-        room.Camera.DrawLine(point + perp, receiver.body.pos, 2f, col, Layers.Under3);
-        room.Camera.DrawLine(point - perp, receiver.body.pos, 2f, col, Layers.Under3);
+        room.Camera.DrawLine(point + perp, receiver.body.pos, 2f, col, (int)Layers.Under3);
+        room.Camera.DrawLine(point - perp, receiver.body.pos, 2f, col, (int)Layers.Under3);
       }
     }
 

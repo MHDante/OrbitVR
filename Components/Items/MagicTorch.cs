@@ -208,13 +208,13 @@ namespace OrbitVR.Components.Items {
       Vector2 position = torchNode.body.pos;
       if (position == Vector2.Zero) position = parent.body.pos;
       else {
-        room.Camera.DrawLine(position, parent.body.pos, 2f, col, Layers.Over3);
+        room.Camera.DrawLine(position, parent.body.pos, 2f, col, (int)Layers.Over3);
       }
 
       torchNode.body.color = col;
-      room.Camera.Draw(Textures.Ring, position, Color.Black, torchNode.body.scale, torchNode.body.orient, Layers.Over4);
+      room.Camera.Draw(Textures.Ring, position, Color.Black, torchNode.body.scale, torchNode.body.orient, (int)Layers.Over4);
       room.Camera.Draw(MagicToRune[magicType], position, col, torchNode.body.scale,
-                       VMath.VectorToAngle(position - parent.body.pos) + GMath.PIbyTwo, Layers.Over3);
+                       VMath.VectorToAngle(position - parent.body.pos) + GMath.PIbyTwo, (int)Layers.Over3);
     }
 
 

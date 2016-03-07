@@ -126,12 +126,12 @@ namespace OrbitVR.Components.Essential {
     public override void Draw() {
       if (!DrawRing) return;
       //Console.WriteLine(Utils.random.Next(10));
-      room.Camera.Draw(Textures.Ring, parent.body.pos, Color.Red, parent.body.scale, Layers.Under2);
+      room.Camera.Draw(Textures.Ring, parent.body.pos, Color.Red, parent.body.scale, (int)Layers.Under2);
 
       foreach (Collider cc in colliders.Values) {
         if (cc.HandlersEnabled) {
           float scale = cc.radius/parent.getTexture().GetWidth()*2;
-          room.Camera.Draw(Textures.Ring, parent.body.pos, parent.body.color, scale, Layers.Under2);
+          room.Camera.Draw(Textures.Ring, parent.body.pos, parent.body.color, scale, (int)Layers.Under2);
         }
       }
     }

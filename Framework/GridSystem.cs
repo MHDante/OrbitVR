@@ -559,7 +559,7 @@ namespace OrbitVR.Framework {
 
     public void DrawGrid(Room room, Color color) {
       foreach (Line line in linesToDraw) {
-        room.Camera.DrawLine(line.Start, line.End, 2, color, Layers.Under5);
+        room.Camera.DrawLine(line.Start, line.End, 2, color, (int)Layers.Under5);
       }
       linesToDraw = new List<Line>();
     }

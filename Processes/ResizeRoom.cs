@@ -25,10 +25,10 @@ namespace OrbitVR.Processes {
       int maxY = (int) pos.Y;
 
       Color c = Color.Green;
-      room.Camera.DrawLine(new Vector2(minX, minY), new Vector2(minX, maxY), 2f, c, Layers.Over5);
-      room.Camera.DrawLine(new Vector2(minX, minY), new Vector2(maxX, minY), 2f, c, Layers.Over5);
-      room.Camera.DrawLine(new Vector2(maxX, maxY), new Vector2(minX, maxY), 2f, c, Layers.Over5);
-      room.Camera.DrawLine(new Vector2(maxX, maxY), new Vector2(maxX, minY), 2f, c, Layers.Over5);
+      room.Camera.DrawLine(new Vector2(minX, minY), new Vector2(minX, maxY), 2f, c, (int)Layers.Over5);
+      room.Camera.DrawLine(new Vector2(minX, minY), new Vector2(maxX, minY), 2f, c, (int)Layers.Over5);
+      room.Camera.DrawLine(new Vector2(maxX, maxY), new Vector2(minX, maxY), 2f, c, (int)Layers.Over5);
+      room.Camera.DrawLine(new Vector2(maxX, maxY), new Vector2(maxX, minY), 2f, c, (int)Layers.Over5);
     }
   }
 }

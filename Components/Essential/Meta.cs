@@ -203,7 +203,7 @@ namespace OrbitVR.Components.Essential {
             break;
         }
 
-        room.Camera.Draw(Textures.Pointer, parent.body.pos, Q, parent.body.scale, parent.body.orient, Layers.Over4);
+        room.Camera.Draw(Textures.Pointer, parent.body.pos, Q, parent.body.scale, parent.body.orient, (int)Layers.Over4);
         ItemSlots itemSlots = parent.player.occupiedSlots;
         Textures A, B, X, Y;
         A = (itemSlots & ItemSlots.A_Green) == ItemSlots.A_Green ? Textures.ItemLight : Textures.ItemWhisper;
@@ -211,13 +211,13 @@ namespace OrbitVR.Components.Essential {
         X = (itemSlots & ItemSlots.X_Blue) == ItemSlots.X_Blue ? Textures.ItemLight : Textures.ItemWhisper;
         Y = (itemSlots & ItemSlots.Y_Yellow) == ItemSlots.Y_Yellow ? Textures.ItemLight : Textures.ItemWhisper;
 
-        room.Camera.Draw(A, parent.body.pos, Color.ForestGreen, parent.body.scale*1.7f, lightRotation, Layers.Under2);
+        room.Camera.Draw(A, parent.body.pos, Color.ForestGreen, parent.body.scale*1.7f, lightRotation, (int)Layers.Under2);
         room.Camera.Draw(B, parent.body.pos, Color.Crimson, parent.body.scale*1.7f, lightRotation + GMath.PIbyTwo,
-                         Layers.Under2);
+                         (int)Layers.Under2);
         room.Camera.Draw(X, parent.body.pos, Color.CornflowerBlue, parent.body.scale*1.7f, lightRotation + GMath.PI,
-                         Layers.Under2);
+                         (int)Layers.Under2);
         room.Camera.Draw(Y, parent.body.pos, Color.Gold, parent.body.scale*1.7f,
-                         lightRotation + GMath.PI + GMath.PIbyTwo, Layers.Under2);
+                         lightRotation + GMath.PI + GMath.PIbyTwo, (int)Layers.Under2);
 
         lightRotation += 0.1f;
       }
@@ -244,11 +244,11 @@ namespace OrbitVR.Components.Essential {
         hideLayer = Layers.Over3;
         rotation2 = rotation - GMath.PI;
       }
-      node.room.Camera.Draw(Textures.OuterL, node.body.pos, Color.Black, node.body.scale*scale, baseRotation, hideLayer);
+      node.room.Camera.Draw(Textures.OuterL, node.body.pos, Color.Black, node.body.scale*scale, baseRotation, (int)hideLayer);
       node.room.Camera.Draw(Textures.OuterR, node.body.pos, Color.Black, node.body.scale*scale, baseRotation,
-                            Layers.Over1);
-      node.room.Camera.Draw(Textures.InnerL, node.body.pos, c, node.body.scale*scale, rotation, Layers.Over2);
-      node.room.Camera.Draw(Textures.InnerR, node.body.pos, c, node.body.scale*scale, rotation2, Layers.Over2);
+                            (int)Layers.Over1);
+      node.room.Camera.Draw(Textures.InnerL, node.body.pos, c, node.body.scale*scale, rotation, (int)Layers.Over2);
+      node.room.Camera.Draw(Textures.InnerR, node.body.pos, c, node.body.scale*scale, rotation2, (int)Layers.Over2);
     }
 
     public override void OnRemove(Node other) {

@@ -198,7 +198,7 @@ namespace OrbitVR.Components.AffectOthers {
         }
 
         if (ShowForceLines) {
-          room.Camera.DrawLine(other.body.pos, other.body.pos + (delta*100), 2, parent.body.color, Layers.Over4);
+          room.Camera.DrawLine(other.body.pos, other.body.pos + (delta*100), 2, parent.body.color, (int)Layers.Over4);
         }
         //other.body.velocity += delta;
         //other.body.velocity /= other.body.mass; //creates snakelike effect when put below increments

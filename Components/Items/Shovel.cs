@@ -286,7 +286,7 @@ namespace OrbitVR.Components.Items {
       Vector2 position = shovelNode.body.pos;
       if (position == Vector2.Zero) position = parent.body.pos;
       else {
-        room.Camera.DrawLine(position, parent.body.pos, 2f, col, Layers.Over3);
+        room.Camera.DrawLine(position, parent.body.pos, 2f, col, (int)Layers.Over3);
       }
     }
 

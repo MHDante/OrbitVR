@@ -43,7 +43,7 @@ namespace OrbitVR.Components.Drawers {
 
     public override void Draw() {
       Color col = parent.body.color.ContrastColor();
-      room.Camera.Draw(runeTexture, parent.body.pos, col, parent.body.scale, parent.body.orient, Layers.Over1);
+      room.Camera.Draw(runeTexture, parent.body.pos, col, parent.body.scale, parent.body.orient, (int)Layers.Over1);
     }
   }
 }

@@ -93,7 +93,7 @@ namespace OrbitVR.Processes {
         float y = (room.WorldHeight - ((floatData[f] - min.Y + 1)/(max.Y - min.Y + 1)*room.WorldHeight*0.5f));
         datapoints += floatData[f];
         room.Camera.DrawLine(new Vector2(x, room.WorldHeight), new Vector2(x, y), 1, ColorChanger.getColorFromHSV(hue),
-                             Layers.Under5);
+                             (int)Layers.Under5);
       }
 
       if (datapoints%100 == 0) Console.WriteLine("Datapoints: {0}  Size: {1}", datapoints, floatData.Count);

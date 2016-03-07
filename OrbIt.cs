@@ -78,6 +78,7 @@ namespace OrbitVR
         Matrix.Scaling(.01f) *
             Matrix.RotationY(MathHelper.Pi);
       //model.Draw(GraphicsDevice, world, view, projection);
+      
       Room.Draw3D(world);
     }
 

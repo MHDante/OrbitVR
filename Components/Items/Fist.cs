@@ -197,7 +197,7 @@ namespace OrbitVR.Components.Items {
         //Utils.DrawLine(room, target, parent.body.pos, 2f, Color.Red, Layers.Under2);
       }
 
-      room.Camera.Draw(Textures.Fist, position, Color.White, fistNode.body.scale, fistNode.body.orient, Layers.Over2);
+      room.Camera.Draw(Textures.Fist, position, Color.White, fistNode.body.scale, fistNode.body.orient, (int)Layers.Over2);
       //layers don't work
     }
 

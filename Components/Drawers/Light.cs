@@ -91,13 +91,13 @@ namespace OrbitVR.Components.Drawers {
         scaleRateTemp = scaleRate;
         scale = min;
       }
-      room.Camera.Draw(Textures.Whitecircle, parent.body.pos, color*(transparencyPercent/100f), scale, drawLayer);
+      room.Camera.Draw(Textures.Whitecircle, parent.body.pos, color*(transparencyPercent/100f), scale, (int)drawLayer);
       if (shadowCount.enabled) {
         float totalScaleDifference = 0.5f;
         float singleScaleDifference = totalScaleDifference/shadowCount.value;
         for (int i = 0; i < shadowCount.value; i++) {
           room.Camera.Draw(Textures.Whitecircle, parent.body.pos, color*(transparencyPercent/100f),
-                           scale*(1f - (singleScaleDifference*(i + 1))), drawLayer);
+                           scale*(1f - (singleScaleDifference*(i + 1))), (int)drawLayer);
         }
       }
     }

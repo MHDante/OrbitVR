@@ -64,9 +64,9 @@ namespace OrbitVR.Processes {
       Vector2 cen = new Vector2(tx.Description.Width/2f, tx.Description.Height / 2f); //store this in another textureDict to avoid recalculating
 
       //Todo: why did we use sourceRects before?
-      room.Camera.Draw(Textures.Whitecircle, vert, Color.White, 0f, 0.3f, Layers.Over5);
+      room.Camera.Draw(Textures.Whitecircle, vert, Color.White, 0f, 0.3f, (int)Layers.Over5);
       foreach (Vector2 v in verts) {
-        room.Camera.Draw(Textures.Whitecircle, v, Color.Red, 0f, 0.3f, Layers.Over5);
+        room.Camera.Draw(Textures.Whitecircle, v, Color.Red, 0f, 0.3f, (int)Layers.Over5);
       }
     }
 

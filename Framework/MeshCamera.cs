@@ -52,6 +52,7 @@ namespace OrbitVR.Framework {
     private List<SpriteVertex> pendingVertices;
     private List<SpriteVertex> permVertices;
     private GraphicsDevice device;
+    private EffectParameter spriteCountParam;
 
     public MeshCamera(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {
       pendingVertices = new List<SpriteVertex>();
@@ -60,13 +61,17 @@ namespace OrbitVR.Framework {
       device = OrbIt.Game.GraphicsDevice;
       Mesh = Buffer.Vertex.New<SpriteVertex>(OrbIt.Game.GraphicsDevice, 16 * 1024);
       layout = VertexInputLayout.FromBuffer(0, Mesh);
+      
       effect = OrbIt.Game.Content.Load<Effect>("Effects/MixedShaders");
       texture = OrbIt.Game.Content.Load<Texture2D>("Textures/spritesheet");
-      
+
       mvpParam = effect.Parameters["mvp"];
+      spriteCountParam = effect.Parameters["SpriteCount"];
       textureParam = effect.Parameters["ModelTexture"];
       effectPass = effect.Techniques["Render"].Passes[0];
-      
+      textureParam.SetResource(texture);
+      spriteCountParam.SetValue((float)Enum.GetValues(typeof(Textures)).Length);
+
     }
     public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, int life) {
       var v = new SpriteVertex(position.toV3(),scalevect,rotation,(int)texture, color);
@@ -77,21 +82,21 @@ namespace OrbitVR.Framework {
       AddPermanentDraw(texture, position, color, Vector2.One * scale, rotation, life);
     }
 
-    public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, Layers layer) {
-      var v = new SpriteVertex(new Vector3(position.X, position.Y, (int)layer), scalevect*128, rotation, (int)texture, color);
+    public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, float depth) {
+      var v = new SpriteVertex(new Vector3(position.X, position.Y, depth), scalevect*128, rotation, (int)texture, color);
       Mesh.SetData(ref v);
       pendingVertices.Add(v);
     }
 
-    public override void Draw(Textures texture, Vector2 position, Color color, float scale, Layers layer) {
-      Draw(texture,position,color,Vector2.One * scale, 0, layer);
+    public override void Draw(Textures texture, Vector2 position, Color color, float scale, float depth) {
+      Draw(texture,position,color,Vector2.One * scale, 0, depth);
     }
 
-    public override void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, Layers layer) {
-      Draw(texture, position, color, Vector2.One * scale, rotation, layer);
+    public override void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, float depth) {
+      Draw(texture, position, color, Vector2.One * scale, rotation, depth);
     }
 
-    public override void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, Layers layer) {
+    public override void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, float depth) {
       if (thickness * zoom < 1) thickness = 1 / zoom;
       Vector2 diff = (end - start); // *mapzoom;
       Vector2 centerpoint = (end + start) / 2;
@@ -100,7 +105,7 @@ namespace OrbitVR.Framework {
       //thickness *= 2f * mapzoom;
       Vector2 scalevect = new Vector2(len, thickness)/128;
       float angle = (float)(Math.Atan2(diff.Y, diff.X));
-      Draw(Textures.Whitecircle, centerpoint, color, scalevect, angle, layer);
+      Draw(Textures.Whitecircle, centerpoint, color, scalevect, angle, depth);
     }
 
     public override void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life) {
@@ -138,35 +143,38 @@ namespace OrbitVR.Framework {
     }
 
     public override void Draw(Matrix world) {
-      SpriteVertex[] vertices = {
-              new SpriteVertex(Vector3.Right, Vector2.One, color: Color.Red),
-        new SpriteVertex(Vector3.Zero, Vector2.One,(float)OrbIt.Game.Time.TotalGameTime.TotalSeconds, color: Color.Green),
-        new SpriteVertex(Vector3.Left, Vector2.One, color: Color.Blue),
-        new SpriteVertex(Vector3.Up, Vector2.One, color: Color.Yellow),
-        new SpriteVertex(Vector3.Down, Vector2.One, color: Color.Brown),
-
-        new SpriteVertex(Vector3.Down + Vector3.Left, Vector2.One, color: Color.Brown*Color.Blue),
-        new SpriteVertex(Vector3.Down + Vector3.Right, Vector2.One, color: Color.Brown * Color.Red),
-        new SpriteVertex(Vector3.Up + Vector3.Left, Vector2.One, color: Color.Yellow*Color.Blue),
-        new SpriteVertex(Vector3.Up + Vector3.Right, Vector2.One, color: Color.Yellow*Color.Red),
-    };
       //pendingVertices.Add(new SpriteVertex(
       //  new Vector3(OrbIt.ScreenWidth / 2, OrbIt.ScreenHeight / 2, 0),
       //  new Vector2(OrbIt.ScreenHeight, OrbIt.ScreenWidth)));
       mvpParam.SetValue(world * OrbIt.Game.view * OrbIt.Game.projection);
       pendingVertices.AddRange(permVertices);
-      var array = pendingVertices.Count == 0? vertices:  pendingVertices.ToArray();
+      var array = pendingVertices.Count == 0
+        ? new[]
+        {
+          new SpriteVertex(Vector3.Right, Vector2.One, color: Color.Red),
+          new SpriteVertex(Vector3.Zero, Vector2.One, (float) OrbIt.Game.Time.TotalGameTime.TotalSeconds,
+            color: Color.Green),
+          new SpriteVertex(Vector3.Left, Vector2.One, color: Color.Blue),
+          new SpriteVertex(Vector3.Up, Vector2.One, color: Color.Yellow),
+          new SpriteVertex(Vector3.Down, Vector2.One, color: Color.Brown),
+
+          new SpriteVertex(Vector3.Down + Vector3.Left, Vector2.One, color: Color.Brown*Color.Blue),
+          new SpriteVertex(Vector3.Down + Vector3.Right, Vector2.One, color: Color.Brown*Color.Red),
+          new SpriteVertex(Vector3.Up + Vector3.Left, Vector2.One, color: Color.Yellow*Color.Blue),
+          new SpriteVertex(Vector3.Up + Vector3.Right, Vector2.One, color: Color.Yellow*Color.Red),
+        }
+        : pendingVertices.ToArray();
       Mesh.SetData(array);
       device.SetVertexBuffer(Mesh);
       device.SetVertexInputLayout(layout);
-      //device.SetBlendState(device.BlendStates.Additive);
-      //device.SetDepthStencilState(device.DepthStencilStates.None);
+      device.SetBlendState(device.BlendStates.AlphaBlend);
+      device.SetDepthStencilState(device.DepthStencilStates.None);
       effectPass.Apply();
 
       //device.DrawAuto(PrimitiveType.PointList);
       device.Draw(PrimitiveType.PointList, array.Length);
-      //device.SetDepthStencilState(null);
-      //device.SetBlendState(null);
+      device.SetDepthStencilState(null);
+      device.SetBlendState(null);
       effectPass.UnApply();
     }
   }

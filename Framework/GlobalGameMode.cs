@@ -89,7 +89,7 @@ namespace OrbitVR.Framework {
         if (playerTeammates[p] != null) {
           foreach (var pp in playerTeammates[p]) {
             if (p == pp) continue;
-            game.Room.Camera.DrawLine(p.node.body.pos, pp.node.body.pos, 3f, Color.White, Layers.Under1);
+            game.Room.Camera.DrawLine(p.node.body.pos, pp.node.body.pos, 3f, Color.White, (int)Layers.Under1);
           }
         }
       }

@@ -175,7 +175,7 @@ namespace OrbitVR.Components.Items {
       Vector2 position = swordNode.body.pos;
       if (position == Vector2.Zero) position = parent.body.pos;
       room.Camera.Draw(Textures.Sword, position, parent.body.color, swordNode.body.scale*2, swordNode.body.orient,
-                       Layers.Over3);
+                       (int)Layers.Over3);
     }
 
     public override void OnRemove(Node other) {

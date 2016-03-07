@@ -128,7 +128,7 @@ namespace OrbitVR.Components.Items {
         Vector2 end = start + (stick.NormalizeSafe()*size);
         int seed = (int) DelegateManager.Triangle((i + tempColorVal), maxColorVal);
         Color newcol = new Color(c.R + r*seed, c.G + g*seed, c.B + g*seed); // *0.5f;
-        room.Camera.DrawLine(start, end, 1f, newcol, Layers.Under2);
+        room.Camera.DrawLine(start, end, 1f, newcol, (int)Layers.Under2);
       }
       tempColorVal += colorValSpeed;
     }
