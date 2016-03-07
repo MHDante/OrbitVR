@@ -67,6 +67,7 @@ namespace OrbitVR {
         spawned = true;
         for (int i = 0; i < 500; i++) {
           Node n = Room.SpawnNode(0, 0);
+        n.body.velocity  = new Vector2(1,1)*0.001f;
         }
       }
     }

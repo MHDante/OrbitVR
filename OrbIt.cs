@@ -64,14 +64,19 @@ namespace OrbitVR
       }
     }
 
+
     protected override void DrawScene(GameTime gt)
     {
 
+
+
       // Use time in seconds directly
-      //var time = (float)gameTime.TotalGameTime.TotalSeconds;
-      var world = Matrix.Scaling(1f) *
-            Matrix.RotationY(MathHelper.Pi) *
-            Matrix.Translation(0, 0, 200);
+      var time = (float)gameTime.TotalGameTime.TotalSeconds;
+
+      var world =
+        Matrix.Translation(-ScreenWidth/2, - ScreenHeight/2, -5) * 
+        Matrix.Scaling(.01f) *
+            Matrix.RotationY(MathHelper.Pi);
       //model.Draw(GraphicsDevice, world, view, projection);
       Room.Draw3D(world);
     }

@@ -78,7 +78,7 @@ namespace OrbitVR.Framework {
     }
 
     public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, Layers layer) {
-      var v = new SpriteVertex(new Vector3(position.X, position.Y, (int)layer), scalevect, rotation, (int)texture, color);
+      var v = new SpriteVertex(new Vector3(position.X, position.Y, (int)layer), scalevect*128, rotation, (int)texture, color);
       Mesh.SetData(ref v);
       pendingVertices.Add(v);
     }
@@ -98,7 +98,7 @@ namespace OrbitVR.Framework {
       //centerpoint *= mapzoom;
       float len = diff.Length();
       //thickness *= 2f * mapzoom;
-      Vector2 scalevect = new Vector2(len, thickness);
+      Vector2 scalevect = new Vector2(len, thickness)/128;
       float angle = (float)(Math.Atan2(diff.Y, diff.X));
       Draw(Textures.Whitecircle, centerpoint, color, scalevect, angle, layer);
     }
@@ -131,14 +131,32 @@ namespace OrbitVR.Framework {
       //Perms.RemoveWhere(x => x.Pos.toV2() == position);
     }
 
-    public override void Draw(Matrix world) {
+    public override void Update()
+    {
+      base.Update();
+      pendingVertices.Clear();
+    }
 
-      pendingVertices.Add(new SpriteVertex(
-        new Vector3(OrbIt.ScreenWidth / 2, OrbIt.ScreenHeight / 2, 0),
-        new Vector2(OrbIt.ScreenHeight, OrbIt.ScreenWidth)));
-      mvpParam.SetValue(OrbIt.Game.view * OrbIt.Game.projection * world);
+    public override void Draw(Matrix world) {
+      SpriteVertex[] vertices = {
+              new SpriteVertex(Vector3.Right, Vector2.One, color: Color.Red),
+        new SpriteVertex(Vector3.Zero, Vector2.One,(float)OrbIt.Game.Time.TotalGameTime.TotalSeconds, color: Color.Green),
+        new SpriteVertex(Vector3.Left, Vector2.One, color: Color.Blue),
+        new SpriteVertex(Vector3.Up, Vector2.One, color: Color.Yellow),
+        new SpriteVertex(Vector3.Down, Vector2.One, color: Color.Brown),
+
+        new SpriteVertex(Vector3.Down + Vector3.Left, Vector2.One, color: Color.Brown*Color.Blue),
+        new SpriteVertex(Vector3.Down + Vector3.Right, Vector2.One, color: Color.Brown * Color.Red),
+        new SpriteVertex(Vector3.Up + Vector3.Left, Vector2.One, color: Color.Yellow*Color.Blue),
+        new SpriteVertex(Vector3.Up + Vector3.Right, Vector2.One, color: Color.Yellow*Color.Red),
+    };
+      //pendingVertices.Add(new SpriteVertex(
+      //  new Vector3(OrbIt.ScreenWidth / 2, OrbIt.ScreenHeight / 2, 0),
+      //  new Vector2(OrbIt.ScreenHeight, OrbIt.ScreenWidth)));
+      mvpParam.SetValue(world * OrbIt.Game.view * OrbIt.Game.projection);
       pendingVertices.AddRange(permVertices);
-      Mesh.SetData(pendingVertices.ToArray());
+      var array = pendingVertices.Count == 0? vertices:  pendingVertices.ToArray();
+      Mesh.SetData(array);
       device.SetVertexBuffer(Mesh);
       device.SetVertexInputLayout(layout);
       //device.SetBlendState(device.BlendStates.Additive);
@@ -146,11 +164,10 @@ namespace OrbitVR.Framework {
       effectPass.Apply();
 
       //device.DrawAuto(PrimitiveType.PointList);
-      device.Draw(PrimitiveType.PointList, pendingVertices.Count);
+      device.Draw(PrimitiveType.PointList, array.Length);
       //device.SetDepthStencilState(null);
       //device.SetBlendState(null);
       effectPass.UnApply();
-      pendingVertices.Clear();
     }
   }
 }
