@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using OrbitVR.Components.AffectOthers;
 using OrbitVR.Processes;
 using OrbitVR.UI;
 using SharpDX;
@@ -33,23 +34,31 @@ namespace OrbitVR {
     private Randomizer randomizer;
     private bool spawned;
     private Vector2 spawnPos;
-    private int testTimer;
+    private double testTimer;
 
     protected override void Initialize() {
       base.Initialize();
       randomizer = Game.ProcessManager.GetProcess<Randomizer>();
     }
 
-    protected override void Update(GameTime gameTime) {
-      base.Update(gameTime);
+    
+    protected override void UpdateAsync() {
+      base.UpdateAsync();
 
-      testTimer += Time.ElapsedGameTime.Milliseconds;
-      if (testTimer > 1000) {
-        spawnPos += Vector2.One*10;
-        UserInterface.WorldMousePos = spawnPos;
-        randomizer.SpawnSemiRandom();
-        //randomizer.SpawnFullyRandom();
-        testTimer = 0;
+      testTimer += Time.ElapsedGameTime.TotalMilliseconds;
+      //if (testTimer > 50) {
+      //  spawnPos += Vector2.One*10;
+      //  UserInterface.WorldMousePos = spawnPos;
+      //  randomizer.SpawnSemiRandom();
+      //  //randomizer.SpawnFullyRandom();
+      //  testTimer = 0;
+      //}
+      if (testTimer > 5) {
+        
+        Node n = Room.SpawnNode(20, 20);
+        n.addComponent<Gravity>();
+        n.addComponent<Transfer>();
+        n.body.velocity = new Vector2(1, 1) * 0.001f;
       }
 
       //if (testTimer < 1000) {
@@ -65,10 +74,12 @@ namespace OrbitVR {
 
       if (!spawned) {
         spawned = true;
-        for (int i = 0; i < 500; i++) {
-          Node n = Room.SpawnNode(0, 0);
+        for (int i = 0; i < 150; i++) {
+          Node n = Room.SpawnNode(i, i);
+          n.addComponent<Gravity>();
         n.body.velocity  = new Vector2(1,1)*0.001f;
         }
+
       }
     }
   }

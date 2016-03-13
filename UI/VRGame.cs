@@ -1,4 +1,4 @@
-//#define RUNVR
+#define RUNVR
 using OrbitVR.PSMove;
 using SharpDX;
 using SharpDX.Direct2D1;

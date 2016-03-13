@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -37,9 +38,11 @@ namespace OrbitVR.Framework {
       this.Color = color?.ToVector4() ?? SharpDX.Color.White.ToVector4();
     }
   }
-  class MeshCamera : CameraBase {
+    public class MeshCamera : CameraBase
+    {
     
     private Buffer<SpriteVertex> Mesh;
+      private ConcurrentQueue<List<SpriteVertex>> pendingVertexQueue;
     //private Buffer<SpriteVertex> Perms;
     
     private Effect effect;
@@ -50,14 +53,16 @@ namespace OrbitVR.Framework {
     private EffectParameter textureParam;
     private EffectPass effectPass;
     private List<SpriteVertex> pendingVertices;
-    private List<SpriteVertex> permVertices;
+    private List<SpriteVertex> drawingVertices;
+    //private List<SpriteVertex> permVertices;
     private GraphicsDevice device;
     private EffectParameter spriteCountParam;
 
     public MeshCamera(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {
       pendingVertices = new List<SpriteVertex>();
-      permVertices = new List<SpriteVertex>();
+      //permVertices = new List<SpriteVertex>();
       //Perms = new HashSet<SpriteVertex>();
+      pendingVertexQueue = new ConcurrentQueue<List<SpriteVertex>>();
       device = OrbIt.Game.GraphicsDevice;
       Mesh = Buffer.Vertex.New<SpriteVertex>(OrbIt.Game.GraphicsDevice, 16 * 1024);
       layout = VertexInputLayout.FromBuffer(0, Mesh);
@@ -75,7 +80,7 @@ namespace OrbitVR.Framework {
     }
     public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, int life) {
       var v = new SpriteVertex(position.toV3(),scalevect,rotation,(int)texture, color);
-      pendingVertices.Add(v);
+      pendingVertices.Add(v);//TODO:PERMS
     }
 
     public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation, int life) {
@@ -84,7 +89,7 @@ namespace OrbitVR.Framework {
 
     public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, float depth) {
       var v = new SpriteVertex(new Vector3(position.X, position.Y, depth), scalevect*128, rotation, (int)texture, color);
-      Mesh.SetData(ref v);
+      //Mesh.SetData(ref v);
       pendingVertices.Add(v);
     }
 
@@ -142,13 +147,20 @@ namespace OrbitVR.Framework {
       pendingVertices.Clear();
     }
 
-    public override void Draw(Matrix world) {
+    
+    public override void Draw(Matrix world)
+    {
+      List<SpriteVertex> newVerts;
+      var gotNewVerts = pendingVertexQueue.TryDequeue(out newVerts);
+      if (gotNewVerts) drawingVertices = newVerts;
+      if (drawingVertices == null)
+        return; 
       //pendingVertices.Add(new SpriteVertex(
       //  new Vector3(OrbIt.ScreenWidth / 2, OrbIt.ScreenHeight / 2, 0),
       //  new Vector2(OrbIt.ScreenHeight, OrbIt.ScreenWidth)));
       mvpParam.SetValue(world * OrbIt.Game.view * OrbIt.Game.projection);
-      pendingVertices.AddRange(permVertices);
-      var array = pendingVertices.Count == 0
+      //pendingVertices.AddRange(permVertices);
+      var array = drawingVertices.Count == 0
         ? new[]
         {
           new SpriteVertex(Vector3.Right, Vector2.One, color: Color.Red),
@@ -163,7 +175,7 @@ namespace OrbitVR.Framework {
           new SpriteVertex(Vector3.Up + Vector3.Left, Vector2.One, color: Color.Yellow*Color.Blue),
           new SpriteVertex(Vector3.Up + Vector3.Right, Vector2.One, color: Color.Yellow*Color.Red),
         }
-        : pendingVertices.ToArray();
+        : drawingVertices.ToArray();
       Mesh.SetData(array);
       device.SetVertexBuffer(Mesh);
       device.SetVertexInputLayout(layout);
@@ -177,5 +189,11 @@ namespace OrbitVR.Framework {
       device.SetBlendState(null);
       effectPass.UnApply();
     }
-  }
+
+      public void EndDrawing()
+      {
+        pendingVertexQueue.Enqueue(pendingVertices);
+        pendingVertices = new List<SpriteVertex>();
+      }
+    }
 }

@@ -31,7 +31,7 @@ namespace OrbitVR {
     //Components
     public GridSystem GridsystemAffect { get; private set; }
     public Level Level { get; private set; }
-    public CameraBase Camera { get; }
+    public MeshCamera Camera { get; }
     public Scheduler Scheduler { get; }
     public CollisionManager CollisionManager { get; }
     //Entities

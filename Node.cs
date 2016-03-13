@@ -543,7 +543,7 @@ namespace OrbitVR {
       if (fetch) SortComponentLists();
     }
 
-    public void addComponent<T>(bool active, bool overwrite = false) where T : Component {
+    public void addComponent<T>(bool active = true, bool overwrite = false) where T : Component {
       addComponent(typeof (T), active, overwrite);
     }
 

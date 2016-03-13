@@ -68,7 +68,7 @@ namespace OrbitVR.Framework {
         string count = room.Groups.General.fullSet.Count.ToString();
         int x = OrbIt.ScreenWidth - (count.Length*7) - 20;
         room.Camera.DrawStringScreen(count, new Vector2(x, OrbIt.ScreenHeight - y1), Color.Black, offset: false,
-                                     Layer: Layers.Over5);
+                                     layer: Layers.Over5);
       }
     }
   }
