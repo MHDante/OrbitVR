@@ -8,8 +8,8 @@ namespace OrbitVR.Processes {
   public class GraphData : Process {
     static bool drawing = false;
     static bool activated = false;
-    static Vector2 min = Vector2.Zero;
-    static Vector2 max = Vector2.Zero;
+    static Vector2R min = Vector2R.Zero;
+    static Vector2R max = Vector2R.Zero;
     static float roundFactor = 1f;
     public static Dictionary<float, int> floatData = new Dictionary<float, int>();
 
@@ -39,8 +39,8 @@ namespace OrbitVR.Processes {
     }
 
     public static void ShowFloatGraph() {
-      min = new Vector2(float.MaxValue, float.MaxValue);
-      max = new Vector2(-float.MaxValue, -float.MaxValue);
+      min = new Vector2R(float.MaxValue, float.MaxValue);
+      max = new Vector2R(-float.MaxValue, -float.MaxValue);
       foreach (float f in floatData.Keys) {
         if (f < min.X) min.X = f;
         if (f > max.X) max.X = f;
@@ -92,7 +92,7 @@ namespace OrbitVR.Processes {
         float x = ratio*room.WorldWidth;
         float y = (room.WorldHeight - ((floatData[f] - min.Y + 1)/(max.Y - min.Y + 1)*room.WorldHeight*0.5f));
         datapoints += floatData[f];
-        room.Camera.DrawLine(new Vector2(x, room.WorldHeight), new Vector2(x, y), 1, ColorChanger.getColorFromHSV(hue),
+        room.Camera.DrawLine(new Vector2R(x, room.WorldHeight), new Vector2R(x, y), 1, ColorChanger.getColorFromHSV(hue),
                              (int)Layers.Under5);
       }
 

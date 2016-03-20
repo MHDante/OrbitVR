@@ -74,7 +74,7 @@ namespace OrbitVR.Components.Movement {
                                          c2.body.velocity *= 1f + (multiplier/100f*sign);
                                        }
                                        else if (directionMode == DirectionMode.Absolute) {
-                                         Vector2 force = new Vector2(absoluteX, absoulteY)*(multiplier/100f);
+                                         Vector2R force = new Vector2R(absoluteX, absoulteY)*(multiplier/100f);
                                          c2.body.velocity += force;
                                        }
                                      };

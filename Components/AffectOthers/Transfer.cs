@@ -38,7 +38,7 @@ namespace OrbitVR.Components.AffectOthers {
       if (!active) return;
       if (exclusions.Contains(other)) return;
 
-      float distVects = Vector2.DistanceSquared(other.body.pos, parent.body.pos);
+      float distVects = Vector2R.DistanceSquared(other.body.pos, parent.body.pos);
       float r = parent.body.radius*radiusScale;
       if (distVects < r*r) {
         float newX = (parent.body.pos.X - other.body.pos.X)*2.05f;

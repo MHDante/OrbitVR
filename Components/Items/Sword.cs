@@ -24,7 +24,7 @@ namespace OrbitVR.Components.Items {
     //public int speed { get; set; }
     private bool movingStick = false;
 
-    Vector2 target;
+    Vector2R target;
 
     public override bool active {
       get { return base.active; }
@@ -128,7 +128,7 @@ namespace OrbitVR.Components.Items {
       swordNode.body.OnCollisionEnter += (p, o) => {
                                            if (o.dataStore.ContainsKey("swordnodeparent")) {
                                              Node otherparent = o.dataStore["swordnodeparent"];
-                                             Vector2 f = otherparent.body.pos - parent.body.pos;
+                                             Vector2R f = otherparent.body.pos - parent.body.pos;
                                              VMath.NormalizeSafe(ref f);
                                              f *= parryKnockback;
                                              otherparent.body.ApplyForce(f);
@@ -148,7 +148,7 @@ namespace OrbitVR.Components.Items {
       swordNode.movement.active = false;
       //sword.body.velocity = Utils.AngleToVector(sword.body.orient + (float)Math.PI/2) * 100;
       swordNode.body.velocity = swordNode.body.effvelocity*nodeKnockback;
-      Vector2 rightstick = input.GetRightStick();
+      Vector2R rightstick = input.GetRightStick().toV2R();
       if (rightstick.LengthSquared() > 0.9*0.9) {
         movingStick = true;
         target = rightstick;
@@ -156,24 +156,24 @@ namespace OrbitVR.Components.Items {
         target.Normalize();
         target *= distance;
         target += parent.body.pos;
-        swordNode.body.pos = Vector2.Lerp(swordNode.body.pos, target, 0.1f);
+        swordNode.body.pos = Vector2R.Lerp(swordNode.body.pos, target, 0.1f);
         //sword.body.pos = target + parent.body.pos;
-        Vector2 result = swordNode.body.pos - parent.body.pos;
+        Vector2R result = swordNode.body.pos - parent.body.pos;
         swordNode.body.SetOrientV2(result);
       }
       else {
         movingStick = false;
         //enabled = false;
-        Vector2 restPos = new Vector2(parent.body.radius, 0).Rotate(parent.body.orient) + parent.body.pos;
-        swordNode.body.pos = Vector2.Lerp(swordNode.body.pos, restPos, 0.1f);
+        Vector2R restPos = new Vector2R(parent.body.radius, 0).Rotate(parent.body.orient) + parent.body.pos;
+        swordNode.body.pos = Vector2R.Lerp(swordNode.body.pos, restPos, 0.1f);
         swordNode.body.orient = GMath.AngleLerp(swordNode.body.orient, parent.body.orient, 0.1f);
       }
       //sword.body.pos = position;
     }
 
     public override void Draw() {
-      Vector2 position = swordNode.body.pos;
-      if (position == Vector2.Zero) position = parent.body.pos;
+      Vector2R position = swordNode.body.pos;
+      if (position == Vector2R.Zero) position = parent.body.pos;
       room.Camera.Draw(Textures.Sword, position, parent.body.color, swordNode.body.scale*2, swordNode.body.orient,
                        (int)Layers.Over3);
     }

@@ -219,7 +219,7 @@ namespace OrbitVR.Framework {
       float dist = 200;
       float x = dist*(float) Math.Cos(angle);
       float y = dist*(float) Math.Sin(angle);
-      Vector2 spawnPos = new Vector2((room.WorldWidth/4)*playerIndex - (room.WorldWidth/8), room.WorldHeight - 600);
+      Vector2R spawnPos = new Vector2R((room.WorldWidth/4)*playerIndex - (room.WorldWidth/8), room.WorldHeight - 600);
       // -new Vector2(x, y);
       Node node = defaultNode.CreateClone(room);
       p.node = node;
@@ -234,7 +234,7 @@ namespace OrbitVR.Framework {
       //room.groups.player.IncludeEntity(node);
       node.meta.healthBar = Meta.HealthBarMode.Bar;
       //node.OnSpawn();
-      node.body.velocity = Vector2.Zero;
+      node.body.velocity = Vector2R.Zero;
       //node.body.mass = 0.1f;
       node.movement.maxVelocity.value = 6f;
       //node.addComponent<LinkGun>(true);

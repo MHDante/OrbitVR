@@ -8,20 +8,20 @@ using SharpDX;
 
 namespace OrbitVR.Processes {
   class FloodFill : Process {
-    static Dictionary<Vector2, List<Node>> spawnedNodes = new Dictionary<Vector2, List<Node>>();
-    static Dictionary<Vector2, int[]> spawnPoints = new Dictionary<Vector2, int[]>();
+    static Dictionary<Vector2R, List<Node>> spawnedNodes = new Dictionary<Vector2R, List<Node>>();
+    static Dictionary<Vector2R, int[]> spawnPoints = new Dictionary<Vector2R, int[]>();
     public static Action afterFilling;
 
     static Action<Node, Node> add = delegate(Node Source, Node Dest) {
                                       if (Source.dataStore.Keys.Contains("Filling") &&
                                           Dest.dataStore.Keys.Contains("Filling"))
-                                        spawnPoints[Source.CheckData<Vector2>("Filling")][1]++;
+                                        spawnPoints[Source.CheckData<Vector2R>("Filling")][1]++;
                                     };
 
     static Action<Node, Node> rem = delegate(Node Source, Node Dest) {
                                       if (Source.dataStore.Keys.Contains("Filling") &&
                                           Dest.dataStore.Keys.Contains("Filling"))
-                                        spawnPoints[Source.CheckData<Vector2>("Filling")][1]--;
+                                        spawnPoints[Source.CheckData<Vector2R>("Filling")][1]--;
                                     };
 
     public FloodFill()
@@ -33,12 +33,12 @@ namespace OrbitVR.Processes {
       startFill(UserInterface.WorldMousePos);
     }
 
-    static public void startFill(Vector2 pos) {
+    static public void startFill(Vector2R pos) {
       if (!spawnPoints.Keys.Contains(pos)) spawnPoints[pos] = new int[2];
     }
 
     static public void boulderFountain() {
-      List<Vector2> removeList = new List<Vector2>();
+      List<Vector2R> removeList = new List<Vector2R>();
       foreach (var v in spawnPoints.Keys) {
         int Spawned = spawnPoints[v][0];
         int cols = spawnPoints[v][1]/3;
@@ -68,7 +68,7 @@ namespace OrbitVR.Processes {
       }
     }
 
-    static private void finish(Vector2 v) {
+    static private void finish(Vector2R v) {
       spawnPoints.Remove(v);
       foreach (var n in spawnedNodes[v]) {
         n.clearData("Filling");

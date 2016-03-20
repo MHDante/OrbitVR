@@ -227,9 +227,9 @@ namespace OrbitVR.Framework {
     /// <summary> Returns a non-unit vector up to the radius specified.</summary>
     public override Vector2 GetRightStick(float radius, bool drawRing = false) {
       Vector2 mousePos = new Vector2(newMouseState.X, newMouseState.Y);
-      Vector2 playerPos = (player.node.body.pos - player.room.Camera.virtualTopLeft)*player.room.Camera.zoom +
+      Vector2R playerPos = (player.node.body.pos - player.room.Camera.virtualTopLeft)*player.room.Camera.zoom +
                           player.room.Camera.CameraOffsetVect;
-      Vector2 dir = mousePos - playerPos;
+      Vector2R dir = new Vector2R(mousePos.X, mousePos.Y) - playerPos;
       float lensqr = dir.LengthSquared();
       if (lensqr > radius*radius) {
         VMath.NormalizeSafe(ref dir);
@@ -243,7 +243,7 @@ namespace OrbitVR.Framework {
         float alpha = (((float) Math.Sin(OrbIt.Game.Time.TotalGameTime.TotalMilliseconds/300f) + 1f)/4f) + 0.25f;
         player.room.Camera.Draw(Textures.Ring, player.node.body.pos, player.pColor*alpha, scale, (int)Layers.Under2);
       }
-      return dir;
+      return new Vector2(dir.X, dir.Y);
     }
   }
 
@@ -275,13 +275,14 @@ namespace OrbitVR.Framework {
 
   public struct Stick {
     public Vector2 v2;
+    public Vector2R v2r => v2.toV2R();
     public ButtonState up;
     public ButtonState down;
     public ButtonState left;
     public ButtonState right;
 
     public float AsRadians {
-      get { return VMath.VectorToAngle(v2); }
+      get { return VMath.VectorToAngle(v2r); }
     }
 
     public int AsDegrees {

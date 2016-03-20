@@ -118,8 +118,8 @@ namespace OrbitVR.Components.Linkers {
                 */
 
         room.Camera.DrawLine(parent.body.pos, receiver.body.pos, 2f, col, (int)Layers.Under3);
-        Vector2 center = (receiver.body.pos + parent.body.pos)/2;
-        Vector2 perp = new Vector2(center.Y, -center.X);
+        Vector2R center = (receiver.body.pos + parent.body.pos)/2;
+        Vector2R perp = new Vector2R(center.Y, -center.X);
         VMath.NormalizeSafe(ref perp);
         perp *= 10;
         //center += perp;

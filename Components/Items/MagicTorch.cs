@@ -157,7 +157,7 @@ namespace OrbitVR.Components.Items {
                                              otherparent = o.dataStore["magictorchnodeparent"];
                                            }
                                            if (otherparent != null) {
-                                             Vector2 f = otherparent.body.pos - parent.body.pos;
+                                             Vector2R f = otherparent.body.pos - parent.body.pos;
                                              VMath.NormalizeSafe(ref f);
                                              f *= 10;
                                              otherparent.body.ApplyForce(f);
@@ -173,9 +173,9 @@ namespace OrbitVR.Components.Items {
     }
 
     public override void PlayerControl(Input input) {
-      Vector2 newstickpos = input.GetRightStick(torchReach, true);
+      Vector2R newstickpos = input.GetRightStick(torchReach, true).toV2R();
 
-      Vector2 pos = newstickpos*torchReach;
+      Vector2R pos = newstickpos*torchReach;
       torchNode.body.pos = parent.body.pos + pos;
       float positive = 0f;
       float negative = 0f;
@@ -205,8 +205,8 @@ namespace OrbitVR.Components.Items {
         col = Color.Lerp(Color.White, Color.Red, total/torchMultiplier*-1f);
       }
 
-      Vector2 position = torchNode.body.pos;
-      if (position == Vector2.Zero) position = parent.body.pos;
+      Vector2R position = torchNode.body.pos;
+      if (position == Vector2R.Zero) position = parent.body.pos;
       else {
         room.Camera.DrawLine(position, parent.body.pos, 2f, col, (int)Layers.Over3);
       }

@@ -81,9 +81,9 @@ namespace OrbitVR {
     {
       return 128;
     }
-    public static Vector2 GetCenter(this Textures t)
+    public static Vector2R GetCenter(this Textures t)
     {
-      return new Vector2(64, 64);
+      return new Vector2R(64, 64);
     }
     public static Texture2D GetTexture2D(this Textures t) {
       throw new NotImplementedException();

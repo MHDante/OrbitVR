@@ -8,10 +8,10 @@ namespace OrbitVR.Physics {
     public Body a;
     public Body b;
     public int contact_count = 0; // Number of contacts that occured during collision
-    public Vector2[] contacts = new Vector2[2]; // Points of contact during collision
+    public Vector2R[] contacts = new Vector2R[2]; // Points of contact during collision
     public double df; // Mixed dynamic friction
     public double e; // Mixed restitution
-    public Vector2 normal = new Vector2(0, 0); // From A to B
+    public Vector2R normal = new Vector2R(0, 0); // From A to B
 
     public double penetration = 0; // Depth of penetration from collision
     public double sf; // Mixed static friction
@@ -31,12 +31,12 @@ namespace OrbitVR.Physics {
       df = Math.Sqrt(a.dynamicFriction*a.dynamicFriction);
 
       for (int i = 0; i < contact_count; i++) {
-        Vector2 ra = contacts[i] - a.pos;
-        Vector2 rb = contacts[i] - b.pos;
+        Vector2R ra = contacts[i] - a.pos;
+        Vector2R rb = contacts[i] - b.pos;
 
-        Vector2 crossprod_b = VMath.Cross(b.angularVelocity, rb);
-        Vector2 crossprod_a = VMath.Cross(a.angularVelocity, ra);
-        Vector2 rv = b.velocity + crossprod_b - a.velocity - crossprod_a;
+        Vector2R crossprod_b = VMath.Cross(b.angularVelocity, rb);
+        Vector2R crossprod_a = VMath.Cross(a.angularVelocity, ra);
+        Vector2R rv = b.velocity + crossprod_b - a.velocity - crossprod_a;
 
         //Vector2 rv = b.velocity + VMath.Cross(b.angularVelocity, rb) -
         //             a.velocity - VMath.Cross(a.angularVelocity, ra);
@@ -55,13 +55,13 @@ namespace OrbitVR.Physics {
 
       for (int i = 0; i < contact_count; i++) {
         //calcuate radii from COM to contact
-        Vector2 ra = contacts[i] - a.pos;
-        Vector2 rb = contacts[i] - b.pos;
+        Vector2R ra = contacts[i] - a.pos;
+        Vector2R rb = contacts[i] - b.pos;
         //relative velocity
-        Vector2 rv = b.velocity + VMath.Cross(b.angularVelocity, rb) -
+        Vector2R rv = b.velocity + VMath.Cross(b.angularVelocity, rb) -
                      a.velocity - VMath.Cross(a.angularVelocity, ra);
         //relative velocity along the normal
-        double contactVel = Vector2.Dot(rv, normal);
+        double contactVel = Vector2R.Dot(rv, normal);
         //do not resolve if velocities are seperating
 
         if (contactVel > 0)
@@ -75,24 +75,24 @@ namespace OrbitVR.Physics {
         j /= invMassSum;
         j /= (double) contact_count;
         //apply impulse
-        Vector2 impulse = VMath.MultVectDouble(normal, j); // normal * j;
+        Vector2R impulse = VMath.MultVectDouble(normal, j); // normal * j;
         a.ApplyImpulse(-impulse, ra);
         b.ApplyImpulse(impulse, rb);
         //friction impulse
         rv = b.velocity + VMath.Cross(b.angularVelocity, rb) -
              a.velocity - VMath.Cross(a.angularVelocity, ra);
-        Vector2 t = rv - (normal*Vector2.Dot(rv, normal));
+        Vector2R t = rv - (normal*Vector2R.Dot(rv, normal));
         //t.Normalize();
         VMath.NormalizeSafe(ref t);
         //j tangent magnitude
-        double jt = -Vector2.Dot(rv, t);
+        double jt = -Vector2R.Dot(rv, t);
         jt /= invMassSum;
         jt /= (double) contact_count;
         //don't apply tiny friction impulses
         if (GMath.Equal(jt, 0.0))
           return;
         //coulumbs law
-        Vector2 tangentImpulse;
+        Vector2R tangentImpulse;
         if (Math.Abs(jt) < j*sf)
           tangentImpulse = VMath.MultVectDouble(t, df); // t * df;
         else
@@ -106,7 +106,7 @@ namespace OrbitVR.Physics {
     public void PositionalCorrection() {
       double k_slop = 0.05;
       double percent = 0.4;
-      Vector2 correction = VMath.MultVectDouble(normal,
+      Vector2R correction = VMath.MultVectDouble(normal,
                                                 Math.Max(penetration - k_slop, 0.0)/(a.invmass + b.invmass)*percent);
       a.pos -= VMath.MultVectDouble(correction, a.invmass);
       b.pos += VMath.MultVectDouble(correction, b.invmass);

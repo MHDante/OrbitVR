@@ -259,6 +259,7 @@
     <Compile Include="UI\Toggle.cs" />
     <Compile Include="UI\UserInterface.cs" />
     <Compile Include="UI\VRGame.cs" />
+    <Compile Include="Vector2R.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

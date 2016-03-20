@@ -42,7 +42,7 @@ namespace OrbitVR.UI {
       typeof (Player),
       typeof (Component),
       typeof (ModifierInfo),
-      typeof (Vector2),
+      typeof (Vector2R),
       typeof (Color),
       typeof (OrbIt),
       typeof (Room),
@@ -423,7 +423,7 @@ namespace OrbitVR.UI {
       //string result = whitespace + prefix;
       string result = "";
 
-      if (obj is Vector2) {
+      if (obj is Vector2R) {
         dynamic vect = obj;
         result += fpinfo.Name;
         if (showValueToString) result += string.Format(" : X: {0:0} | Y: {1:0}", vect.X, vect.Y);

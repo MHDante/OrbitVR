@@ -9,7 +9,7 @@ namespace OrbitVR.Processes {
   public class DirectedSpawn : Process {
     int rightClickCount = 0; //
     int rightClickMax = 1; //
-    private Vector2 spawnPos;
+    private Vector2R spawnPos;
 
     public DirectedSpawn() : base() {
       addProcessKeyAction("DirectedLaunch", KeyCodes.LeftClick, OnHold: DirectedLaunch);
@@ -22,15 +22,15 @@ namespace OrbitVR.Processes {
     }
 
     public void UnsetSpawnPosition() {
-      spawnPos = Vector2.Zero;
+      spawnPos = Vector2R.Zero;
     }
 
     public void DirectedLaunch() {
-      if (spawnPos == Vector2.Zero) return;
+      if (spawnPos == Vector2R.Zero) return;
       rightClickCount++;
       if (rightClickCount%rightClickMax == 0) {
-        Vector2 positionToSpawn = spawnPos;
-        Vector2 diff = UserInterface.WorldMousePos;
+        Vector2R positionToSpawn = spawnPos;
+        Vector2R diff = UserInterface.WorldMousePos;
         diff = diff - positionToSpawn;
         Dictionary<dynamic, dynamic> userP = new Dictionary<dynamic, dynamic>() {
           {typeof (Lifetime), true},

@@ -61,7 +61,7 @@ namespace OrbitVR.Components.Items {
     public void RandomizeSymmetry() {
       Group group = room.Groups.General.childGroups.Values.ElementAt(0);
       Color color = Utils.randomColor();
-      Vector2 center = parent.body.pos;
+      Vector2R center = parent.body.pos;
       float dist = (float) Utils.random.NextDouble()*100f + 20f;
       float angle = (float) Utils.random.NextDouble()*GMath.TwoPI;
       float speed = (float) Utils.random.NextDouble()*5f + 1f;
@@ -78,8 +78,8 @@ namespace OrbitVR.Components.Items {
       for (int i = 0; i < numberOfNodes; i++) {
         Node n = centerNode.CreateClone(room);
         float angleFromCenter = angleIncrement*i;
-        Vector2 spawnPosition = (VMath.AngleToVector(angleFromCenter)*dist) + center;
-        Vector2 spawnVelocity = VMath.AngleToVector(angleFromCenter + angle)*speed;
+        Vector2R spawnPosition = (VMath.AngleToVector(angleFromCenter)*dist) + center;
+        Vector2R spawnVelocity = VMath.AngleToVector(angleFromCenter + angle)*speed;
         room.SpawnNode(n, lifetime: -1, g: group);
         n.body.pos = spawnPosition;
         n.body.velocity = spawnVelocity;

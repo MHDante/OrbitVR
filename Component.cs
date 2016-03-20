@@ -196,9 +196,9 @@ namespace OrbitVR {
             || (field.FieldType == typeof (string))) {
           field.SetValue(destComp, field.GetValue(sourceComp));
         }
-        else if (field.FieldType == typeof (Vector2)) {
-          Vector2 vect = (Vector2) field.GetValue(sourceComp);
-          Vector2 newvect = new Vector2(vect.X, vect.Y);
+        else if (field.FieldType == typeof (Vector2R)) {
+          Vector2R vect = (Vector2R) field.GetValue(sourceComp);
+          Vector2R newvect = new Vector2R(vect.X, vect.Y);
           field.SetValue(destComp, newvect);
         }
         else if (field.FieldType == typeof (Color)) {
@@ -239,9 +239,9 @@ namespace OrbitVR {
             || (field.FieldType == typeof (string))) {
           field.SetValue(destObject, field.GetValue(sourceObject));
         }
-        else if (field.FieldType == typeof (Vector2)) {
-          Vector2 vect = (Vector2) field.GetValue(sourceObject);
-          Vector2 newvect = new Vector2(vect.X, vect.Y);
+        else if (field.FieldType == typeof (Vector2R)) {
+          Vector2R vect = (Vector2R) field.GetValue(sourceObject);
+          Vector2R newvect = new Vector2R(vect.X, vect.Y);
           field.SetValue(destObject, newvect);
         }
         else if (field.FieldType == typeof (Color)) {

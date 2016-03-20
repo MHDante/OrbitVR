@@ -64,13 +64,13 @@ namespace OrbitVR.Physics {
 
   public class Polygon : Shape {
     public static int MaxPolyVertexCount = 64;
-    public Vector2[] normals = new Vector2[MaxPolyVertexCount];
-    private Vector2 offset;
+    public Vector2R[] normals = new Vector2R[MaxPolyVertexCount];
+    private Vector2R offset;
 
     public float polyReach = 0;
     public Texture2D testTexture;
-    private Vector2 trueOffset;
-    public Vector2[] vertices = new Vector2[MaxPolyVertexCount];
+    private Vector2R trueOffset;
+    public Vector2R[] vertices = new Vector2R[MaxPolyVertexCount];
 
     public int vertexCount { get; set; }
 
@@ -153,15 +153,15 @@ namespace OrbitVR.Physics {
 
     public override void ComputeMass(float density) {
       //calculate centroid and moment of inertia
-      Vector2 c = new Vector2(0, 0); // centroid
+      Vector2R c = new Vector2R(0, 0); // centroid
       double area = 0;
       double I = 0;
       double k_inv3 = 1.0/3.0;
 
       for (int i1 = 0; i1 < vertexCount; i1++) {
-        Vector2 p1 = vertices[i1];
+        Vector2R p1 = vertices[i1];
         int i2 = i1 + 1 < vertexCount ? i1 + 1 : 0;
-        Vector2 p2 = vertices[i2];
+        Vector2R p2 = vertices[i2];
 
         double D = VMath.Cross(p1, p2);
         double triangleArea = 0.5*D;
@@ -200,7 +200,7 @@ namespace OrbitVR.Physics {
         //                      body.color, 1f, body.orient, Layers.Over1);
     }
 
-    public void DrawPolygon(Vector2 position, Color color) {
+    public void DrawPolygon(Vector2R position, Color color) {
       //Vector2[] vertIncrements = new Vector2[vertexCount];
       //for (int i = 0; i < vertexCount; i++)
       //{
@@ -212,11 +212,11 @@ namespace OrbitVR.Physics {
 
       //could optimize to use the last vertex on the next iteration
       for (int i = 0; i < vertexCount; i++) {
-        Vector2 a1 = (u /** (RecurseCount)*/)*vertices[i];
-        Vector2 a2 = (u /** (RecurseCount)*/)*vertices[(i + 1)%vertexCount];
+        Vector2R a1 = (u /** (RecurseCount)*/)*vertices[i];
+        Vector2R a2 = (u /** (RecurseCount)*/)*vertices[(i + 1)%vertexCount];
 
-        Vector2 v1 = position + a1;
-        Vector2 v2 = position + a2;
+        Vector2R v1 = position + a1;
+        Vector2R v2 = position + a2;
         body.room.Camera.DrawLine(v1, v2, LineThickness, color, (int)Layers.Over2);
 
         if (RecurseDrawEnabled) {
@@ -228,17 +228,17 @@ namespace OrbitVR.Physics {
       //DrawFill(body.pos, 1f);
     }
 
-    public void DrawFill(Vector2 pos, float scale) {
+    public void DrawFill(Vector2R pos, float scale) {
       //could optimize to use the last vertex on the next iteration
       scale -= RecurseScaleReduction;
       if (scale < 0.3f) return;
 
       for (int i = 0; i < vertexCount; i++) {
-        Vector2 a1 = u*vertices[i]*scale;
-        Vector2 a2 = u*vertices[(i + 1)%vertexCount]*scale;
+        Vector2R a1 = u*vertices[i]*scale;
+        Vector2R a2 = u*vertices[(i + 1)%vertexCount]*scale;
 
-        Vector2 v1 = pos + a1;
-        Vector2 v2 = pos + a2;
+        Vector2R v1 = pos + a1;
+        Vector2R v2 = pos + a2;
         body.room.Camera.DrawLine(v1, v2, LineThickness, body.color, (int)Layers.Under5);
 
         //Draw(pos, count, scale, scalediff);
@@ -246,18 +246,18 @@ namespace OrbitVR.Physics {
       DrawFill(pos, scale);
     }
 
-    public void DrawRecurse(Vector2 pos, int count, float scale) {
+    public void DrawRecurse(Vector2R pos, int count, float scale) {
       //could optimize to use the last vertex on the next iteration
       scale -= RecurseScaleReduction;
       count--;
       if (scale < 0 || count < 0) return;
 
       for (int i = 0; i < vertexCount; i++) {
-        Vector2 a1 = (u*(i + 1))*vertices[i]*scale;
-        Vector2 a2 = (u*(i + 1))*vertices[(i + 1)%vertexCount]*scale;
+        Vector2R a1 = (u*(i + 1))*vertices[i]*scale;
+        Vector2R a2 = (u*(i + 1))*vertices[(i + 1)%vertexCount]*scale;
 
-        Vector2 v1 = pos + a1;
-        Vector2 v2 = pos + a2;
+        Vector2R v1 = pos + a1;
+        Vector2R v2 = pos + a2;
         body.room.Camera.DrawLine(v1, v2, 1f, body.color, (int)Layers.Under5);
 
         DrawRecurse(pos + a1, count, scale);
@@ -270,16 +270,16 @@ namespace OrbitVR.Physics {
 
     //Highlight something and then use [Shift *] to put it in a comment block!---------------------------------
 
-    public void SetCenterOfMass(Vector2[] verts) {
+    public void SetCenterOfMass(Vector2R[] verts) {
       int len = verts.Length;
       if (len < 3) return;
 
       Set(verts, len);
 
-      Vector2 centroid = FindCentroid(vertices, vertexCount);
+      Vector2R centroid = FindCentroid(vertices, vertexCount);
 
       for (int i = 0; i < vertexCount; i++) {
-        vertices[i] = new Vector2(vertices[i].X - centroid.X, vertices[i].Y - centroid.Y);
+        vertices[i] = new Vector2R(vertices[i].X - centroid.X, vertices[i].Y - centroid.Y);
       }
       //body.pos = new Vector2(x, y);
       Set(vertices, vertexCount);
@@ -289,7 +289,7 @@ namespace OrbitVR.Physics {
       body.pos = centroid; // +newCentroid;
     }
 
-    public Vector2 FindCentroid(Vector2[] verts, int? length = null) {
+    public Vector2R FindCentroid(Vector2R[] verts, int? length = null) {
       int len;
       if (length == null) {
         len = verts.Length;
@@ -300,8 +300,8 @@ namespace OrbitVR.Physics {
 
       float x = 0, y = 0, area = 0;
       for (int i = 0; i < len; i++) {
-        Vector2 next = verts[(i + 1)%len];
-        Vector2 current = verts[i];
+        Vector2R next = verts[(i + 1)%len];
+        Vector2R current = verts[i];
         float factor = current.X*next.Y - next.X*current.Y;
         x += (current.X + next.X)*factor;
         y += (current.Y + next.Y)*factor;
@@ -313,7 +313,7 @@ namespace OrbitVR.Physics {
       y /= 6*area;
       //if (x < 0 || y < 0) System.Diagnostics.Debugger.Break();
 
-      return new Vector2(x, y);
+      return new Vector2R(x, y);
     }
 
     // half width and half height
@@ -327,7 +327,7 @@ namespace OrbitVR.Physics {
       VMath.Set(ref normals[1], 1, 0); //normals[1].Set(1, 0);
       VMath.Set(ref normals[2], 0, 1); //normals[2].Set(0, 1);
       VMath.Set(ref normals[3], -1, 0); //normals[3].Set(-1, 0);
-      polyReach = Vector2.Distance(Vector2.Zero, new Vector2(hw, hh))*2;
+      polyReach = Vector2R.Distance(Vector2R.Zero, new Vector2R(hw, hh))*2;
       if (fill) {
         testTexture = CreateClippedTexture(body.texture, vertices, vertexCount, out this.offset);
         this.trueOffset = this.offset*-1f;
@@ -339,12 +339,12 @@ namespace OrbitVR.Physics {
       float maxX = vertices.Max(x => x.X);
       float minY = vertices.Min(x => x.Y);
       float maxY = vertices.Max(x => x.Y);
-      this.trueOffset = new Vector2((maxX - minX)/2, (maxY - minY)/2);
+      this.trueOffset = new Vector2R((maxX - minX)/2, (maxY - minY)/2);
       this.testTexture = CreateClippedTexture(body.texture, vertices, vertexCount, out offset);
-      this.offset = new Vector2(offset.X, offset.Y);
+      this.offset = new Vector2R(offset.X, offset.Y);
     }
 
-    public void Set(Vector2[] verts, int count) {
+    public void Set(Vector2R[] verts, int count) {
       //no hulls with less than 3 verticies (ensure actual polygon)
       //Debug.Assert(count > 2 && count < MaxPolyVertexCount);
       count = Math.Min(count, MaxPolyVertexCount);
@@ -384,8 +384,8 @@ namespace OrbitVR.Physics {
           // cross every set of three unquie verticies
           // record each counter clockwise third vertex and add
           // to the output hull
-          Vector2 e1 = verts[nextHullIndex] - verts[hull[outCount]];
-          Vector2 e2 = verts[i] - verts[hull[outCount]];
+          Vector2R e1 = verts[nextHullIndex] - verts[hull[outCount]];
+          Vector2R e2 = verts[i] - verts[hull[outCount]];
           double c = VMath.Cross(e1, e2);
           if (c < 0.0f)
             nextHullIndex = i;
@@ -408,7 +408,7 @@ namespace OrbitVR.Physics {
       // Copy vertices into shape's vertices
       for (int i = 0; i < vertexCount; ++i) {
         vertices[i] = verts[hull[i]];
-        float dist = Vector2.Distance(Vector2.Zero, vertices[i]);
+        float dist = Vector2R.Distance(Vector2R.Zero, vertices[i]);
         if (dist > maxDist) maxDist = dist;
       }
       polyReach = maxDist*2;
@@ -416,7 +416,7 @@ namespace OrbitVR.Physics {
       ComputeNormals();
     }
 
-    public Texture2D CreateClippedTexture(Textures tex, Vector2[] verts, int count, out Vector2 offset) {
+    public Texture2D CreateClippedTexture(Textures tex, Vector2R[] verts, int count, out Vector2R offset) {
       Point offsetP = new Point();
       Point[] points = new Point[count];
       for (int i = 0; i < count; i++) {
@@ -424,6 +424,8 @@ namespace OrbitVR.Physics {
       }
 
       Texture2D ret = Assets.ClippedBitmap(tex, points, out offsetP);
+      offset = Vector2R.One;
+
       offset.X = offsetP.X;
       offset.Y = offsetP.Y;
       return ret;
@@ -433,25 +435,25 @@ namespace OrbitVR.Physics {
       // Compute face normals
       for (int i1 = 0; i1 < vertexCount; ++i1) {
         int i2 = i1 + 1 < vertexCount ? i1 + 1 : 0;
-        Vector2 face = vertices[i2] - vertices[i1];
+        Vector2R face = vertices[i2] - vertices[i1];
 
         // Ensure no zero-length edges, because that's bad
         //Debug.Assert(face.LengthSquared() > GMath.EPSILON*GMath.EPSILON);
 
         // Calculate normal with 2D cross product between vector and scalar
-        normals[i1] = new Vector2(face.Y, -face.X);
+        normals[i1] = new Vector2R(face.Y, -face.X);
         VMath.NormalizeSafe(ref normals[i1]);
       }
     }
 
     // The extreme point along a direction within a polygon
-    public Vector2 GetSupport(Vector2 dir) {
+    public Vector2R GetSupport(Vector2R dir) {
       double bestProjection = -float.MaxValue; //-FLT_MAX;
-      Vector2 bestVertex = new Vector2(0, 0);
+      Vector2R bestVertex = new Vector2R(0, 0);
 
       for (int i = 0; i < vertexCount; ++i) {
-        Vector2 v = vertices[i];
-        double projection = Vector2.Dot(v, dir);
+        Vector2R v = vertices[i];
+        double projection = Vector2R.Dot(v, dir);
 
         if (projection > bestProjection) {
           bestVertex = v;
@@ -466,12 +468,12 @@ namespace OrbitVR.Physics {
   public struct Mat22 {
     //public Vector2 xCol;
     //public Vector2 yCol;
-    public Vector2 Col1, Col2;
+    public Vector2R Col1, Col2;
 
     /// <summary>
     /// Construct this matrix using columns.
     /// </summary>
-    public Mat22(Vector2 c1, Vector2 c2) {
+    public Mat22(Vector2R c1, Vector2R c2) {
       Col1 = c1;
       Col2 = c2;
     }
@@ -480,10 +482,8 @@ namespace OrbitVR.Physics {
     /// Construct this matrix using scalars.
     /// </summary>
     public Mat22(float a11, float a12, float a21, float a22) {
-      Col1.X = a11;
-      Col1.Y = a21;
-      Col2.X = a12;
-      Col2.Y = a22;
+      Col1 = new Vector2R(a11, a21);
+      Col2 = new Vector2R(a12,a22);
     }
 
     /// <summary>
@@ -492,16 +492,14 @@ namespace OrbitVR.Physics {
     /// </summary>
     public Mat22(float angle) {
       float c = (float) System.Math.Cos(angle), s = (float) System.Math.Sin(angle);
-      Col1.X = c;
-      Col2.X = -s;
-      Col1.Y = s;
-      Col2.Y = c;
+      Col1 = new Vector2R(c, s);
+      Col2 = new Vector2R(-s, c);
     }
 
     /// <summary>
     /// Initialize this matrix using columns.
     /// </summary>
-    public void Set(Vector2 c1, Vector2 c2) {
+    public void Set(Vector2R c1, Vector2R c2) {
       Col1 = c1;
       Col2 = c2;
     }
@@ -566,13 +564,13 @@ namespace OrbitVR.Physics {
     /// Solve A * x = b, where b is a column vector. This is more efficient
     /// than computing the inverse in one-shot cases.
     /// </summary>
-    public Vector2 Solve(Vector2 b) {
+    public Vector2R Solve(Vector2R b) {
       float a11 = Col1.X, a12 = Col2.X, a21 = Col1.Y, a22 = Col2.Y;
       float det = a11*a22 - a12*a21;
       //Box2DXDebug.Assert(det != 0.0f);
       //Debug.Assert(det != 0.0f);
       det = 1.0f/det;
-      Vector2 x = new Vector2();
+      Vector2R x = new Vector2R();
       x.X = det*(a22*b.X - a12*b.Y);
       x.Y = det*(a11*b.Y - a21*b.X);
       return x;
@@ -589,9 +587,9 @@ namespace OrbitVR.Physics {
     }
 
     // switched them and collision is working properly
-    public static Vector2 operator *(Mat22 m, Vector2 v) {
+    public static Vector2R operator *(Mat22 m, Vector2R v) {
       //return new Vector2(m.Col1.X * v.X + m.Col1.Y * v.Y, m.Col2.X * v.X + m.Col2.Y * v.Y);
-      return new Vector2(m.Col1.X*v.X + m.Col2.X*v.Y, m.Col1.Y*v.X + m.Col2.Y*v.Y);
+      return new Vector2R(m.Col1.X*v.X + m.Col2.X*v.Y, m.Col1.Y*v.X + m.Col2.Y*v.Y);
     }
 
     public static Mat22 operator *(Mat22 m, int i) {

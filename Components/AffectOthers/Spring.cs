@@ -84,7 +84,7 @@ namespace OrbitVR.Components.AffectOthers {
     public override void AffectOther(Node other) {
       if (!active) return;
 
-      float dist = Vector2.Distance(parent.body.pos, other.body.pos);
+      float dist = Vector2R.Distance(parent.body.pos, other.body.pos);
       //if (dist > radius) return;
       if (springMode == mode.PullOnly && dist < restdist) return;
       if (springMode == mode.PushOnly && dist > restdist) return;
@@ -93,7 +93,7 @@ namespace OrbitVR.Components.AffectOthers {
 
       float stretch = dist - restdist;
       float strength = -stretch*multiplier/10000f;
-      Vector2 force = other.body.pos - parent.body.pos;
+      Vector2R force = other.body.pos - parent.body.pos;
       VMath.NormalizeSafe(ref force);
       force *= strength;
       other.body.ApplyForce(force);

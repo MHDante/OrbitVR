@@ -14,9 +14,6 @@ namespace OrbitVR
     public static OrbIt Game;
     public static UserInterface UI;
     private FrameRateCounter _frameRateCounter;
-
-    public GameTime Time => gameTime;
-
     public static int ScreenWidth => Game.Graphics.PreferredBackBufferWidth;
     public static int ScreenHeight => Game.Graphics.PreferredBackBufferHeight;
     public static GlobalGameMode GlobalGameMode { get; private set; }
@@ -24,8 +21,6 @@ namespace OrbitVR
     public ProcessManager ProcessManager { get; private set; }
 
     private Model model;
-    private Thread workerThread;
-    private bool firstUpdate = true;
 
     protected OrbIt()
     {
@@ -55,33 +50,9 @@ namespace OrbitVR
 
      
     }
+    
 
-    protected sealed override void Update(GameTime gameTime)
-    {
-      base.Update(gameTime);
-      //Console.WriteLine("a" + Time.ElapsedGameTime.TotalSeconds);
-      
-      if (firstUpdate)
-      {
-        firstUpdate = false;
-        workerThread = new Thread(() =>
-        {
-          while (true)
-          {
-            //Thread.Sleep(100);
-            UpdateAsync();
-            //Console.WriteLine("b" + Time.ElapsedGameTime.TotalSeconds);
-
-            Room.Camera.EndDrawing();
-            //
-          }
-        });
-
-        workerThread.Start();
-      }
-    }
-
-    protected virtual void UpdateAsync()
+    protected override void UpdateAsync()
     {
       _frameRateCounter.Update();
       if (IsActive) UI.Update();
@@ -92,6 +63,7 @@ namespace OrbitVR
         Room.Draw();
         ProcessManager.Draw();
       }
+      Room.Camera.EndDrawing();
 
     }
 

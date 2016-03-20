@@ -73,7 +73,7 @@ namespace OrbitVR.Components.Linkers {
             float y = od.radius*(float) Math.Sin(od.angle);
 
             //n.transform.position.X = (float)Math.Atan2(parent.transform.position.Y - y, parent.transform.position.X - x);
-            n.body.pos = new Vector2(parent.body.pos.X - x, parent.body.pos.Y - y);
+            n.body.pos = new Vector2R(parent.body.pos.X - x, parent.body.pos.Y - y);
 
             orbiterDatas[n] = od;
           }

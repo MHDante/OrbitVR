@@ -208,7 +208,7 @@ namespace OrbitVR.Components.Items {
       rotation = (rotation + rotationRate)%(float) (Math.PI*2.0);
     }
 
-    public void Draw(Room room, Vector2 position, Color color) {
+    public void Draw(Room room, Vector2R position, Color color) {
       room.Camera.AddPermanentDraw(texture, position, color*alpha, scale, rotation, 20);
     }
   }

@@ -99,7 +99,7 @@ namespace OrbitVR.Components.Meta {
     public static void SwitchVelocities(Node parent, Node other) {
       int rand = Utils.random.Next(10);
       if (rand == 0) {
-        Vector2 tempVelocity = parent.body.velocity;
+        Vector2R tempVelocity = parent.body.velocity;
         parent.body.velocity = other.body.velocity;
         other.body.velocity = tempVelocity;
         //Console.WriteLine(rand);

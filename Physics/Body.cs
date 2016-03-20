@@ -28,10 +28,10 @@ namespace OrbitVR.Physics {
 
     public Color color = new Color(255, 255, 255);
 
-    public Vector2 effvelocity = new Vector2(0, 0);
-    public Vector2 force = new Vector2(0, 0);
+    public Vector2R effvelocity = new Vector2R(0, 0);
+    public Vector2R force = new Vector2R(0, 0);
     public Color permaColor = new Color(255, 255, 255);
-    public Vector2 velocity = new Vector2(0, 0);
+    public Vector2R velocity = new Vector2R(0, 0);
 
     [Info(UserLevel.Developer)]
     public override bool HandlersEnabled {
@@ -323,11 +323,11 @@ namespace OrbitVR.Physics {
       this.shape = shape;
     }
 
-    public void ApplyForce(Vector2 f) {
+    public void ApplyForce(Vector2R f) {
       force += f;
     }
 
-    public void ApplyImpulse(Vector2 impulse, Vector2 contactVector) {
+    public void ApplyImpulse(Vector2R impulse, Vector2R contactVector) {
       //
       velocity += invmass*impulse;
       //if (float.IsNaN(velocity.X)) System.Diagnostics.Debugger.Break();
@@ -340,13 +340,13 @@ namespace OrbitVR.Physics {
       mass = newMass;
     }
 
-    public void SetOrientV2(Vector2 direction) {
+    public void SetOrientV2(Vector2R direction) {
       float radians = VMath.VectorToAngle(direction);
       orient = radians;
       shape.SetOrient(radians);
     }
 
-    public Vector2 getOrientV2() {
+    public Vector2R getOrientV2() {
       return VMath.AngleToVector(orient);
     }
 

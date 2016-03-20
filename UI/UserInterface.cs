@@ -6,8 +6,8 @@ using SharpDX;
 namespace OrbitVR.UI {
   public class UserInterface {
 
-    private static Vector2 _mousePos;
-    public static Vector2 WorldMousePos;
+    private static Vector2R _mousePos;
+    public static Vector2R WorldMousePos;
     public static KeyboardState keybState, oldKeyBState;
     public static MouseState mouseState, oldMouseState;
     int _oldMouseScrollValue;
@@ -54,13 +54,13 @@ namespace OrbitVR.UI {
       oldKeyBState = Keyboard.GetState();
     }
 
-    public Node SelectNode(Vector2 pos) {
+    public Node SelectNode(Vector2R pos) {
       Node found = null;
       float shortedDistance = Int32.MaxValue;
       for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
         Node n = (Node) room.MasterGroup.fullSet.ElementAt(i);
         // find node that has been clicked, starting from the most recently placed nodes
-        float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
+        float distsquared = Vector2R.DistanceSquared(n.body.pos, pos);
         if (distsquared < n.body.radius*n.body.radius) {
           if (distsquared < shortedDistance) {
             found = n;
@@ -86,7 +86,7 @@ namespace OrbitVR.UI {
       //if (mouseState.XButton2 == ButtonState.Pressed)
       //    System.Console.WriteLine("X2");
 
-      _mousePos = new Vector2(mouseState.X, mouseState.Y) - OrbIt.Game.Room.Camera.CameraOffsetVect;
+      _mousePos = new Vector2R(mouseState.X, mouseState.Y) - OrbIt.Game.Room.Camera.CameraOffsetVect;
       WorldMousePos = (_mousePos/room.Camera.zoom) + room.Camera.virtualTopLeft;
       //ignore mouse clicks outside window
       if (!IsPaused) {
@@ -122,7 +122,7 @@ namespace OrbitVR.UI {
           for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
             Node n = room.MasterGroup.fullSet.ElementAt(i);
             // find node that has been clicked, starting from the most recently placed nodes
-            if (Vector2.DistanceSquared(n.body.pos, new Vector2(worldMouseX, worldMouseY)) < n.body.radius*n.body.radius) {
+            if (Vector2R.DistanceSquared(n.body.pos, new Vector2R(worldMouseX, worldMouseY)) < n.body.radius*n.body.radius) {
               room.TargetNode = n;
               found = true;
               break;

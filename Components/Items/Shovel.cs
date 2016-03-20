@@ -182,13 +182,13 @@ namespace OrbitVR.Components.Items {
     }
 
     public override void PlayerControl(Input input) {
-      Vector2 newstickpos = input.GetRightStick(shovelReach, true); //input.GetRightStick();
-      Vector2 pos = newstickpos*shovelReach;
-      Vector2 worldStickPos = parent.body.pos + pos;
-      Vector2 diff = worldStickPos - shovelNode.body.pos;
+      Vector2R newstickpos = input.GetRightStick(shovelReach, true).toV2R(); //input.GetRightStick();
+      Vector2R pos = newstickpos*shovelReach;
+      Vector2R worldStickPos = parent.body.pos + pos;
+      Vector2R diff = worldStickPos - shovelNode.body.pos;
       //float angle = Utils.VectorToAngle(shovelNode.body.pos - parent.body.pos) + VMath.PIbyTwo % VMath.twoPI;
-      Vector2 shovelDir = shovelNode.body.pos - parent.body.pos;
-      shovelDir = new Vector2(shovelDir.Y, -shovelDir.X);
+      Vector2R shovelDir = shovelNode.body.pos - parent.body.pos;
+      shovelDir = new Vector2R(shovelDir.Y, -shovelDir.X);
       shovelNode.body.SetOrientV2(shovelDir);
 
       if (modeShovelPosition == ModeShovelPosition.AbsoluteStickPos) {
@@ -197,22 +197,22 @@ namespace OrbitVR.Components.Items {
       else if (modeShovelPosition == ModeShovelPosition.PhysicsBased) {
         float len = diff.Length();
         if (len < 1) {
-          shovelNode.body.velocity = Vector2.Zero;
+          shovelNode.body.velocity = Vector2R.Zero;
         }
         else {
           float velLen = shovelNode.body.velocity.Length();
 
-          Vector2 diffcopy = diff;
+          Vector2R diffcopy = diff;
           VMath.NormalizeSafe(ref diffcopy);
 
-          Vector2 normalizedVel = shovelNode.body.velocity;
+          Vector2R normalizedVel = shovelNode.body.velocity;
           VMath.NormalizeSafe(ref normalizedVel);
 
           float result = 0;
-          Vector2.Dot(ref diffcopy, ref normalizedVel, out result);
+          Vector2R.Dot(ref diffcopy, ref normalizedVel, out result);
 
           diffcopy *= result;
-          Vector2 force = (diff/physicsDivisor);
+          Vector2R force = (diff/physicsDivisor);
           if (shovelling && compoundedMass >= 1) force /= compoundedMass*1;
           shovelNode.body.velocity = diffcopy + force;
           //shovelNode.body.ApplyForce(force);
@@ -228,7 +228,7 @@ namespace OrbitVR.Components.Items {
               n.body.velocity = n.body.effvelocity;
             }
             else {
-              Vector2 stickdirection = newstickpos;
+              Vector2R stickdirection = newstickpos;
               VMath.NormalizeSafe(ref stickdirection);
 
               n.body.velocity = stickdirection*throwSpeed;
@@ -259,7 +259,7 @@ namespace OrbitVR.Components.Items {
                                                if (modePlayers == ModePlayers.GrabOtherPlayers && c2.parent == parent)
                                                  return;
                                              }
-                                             float dist = Vector2.Distance(c1.pos, c2.pos);
+                                             float dist = Vector2R.Distance(c1.pos, c2.pos);
                                              if (dist <= scoopReach) {
                                                count++;
                                                capturedNodes.Add(c2.parent);
@@ -283,8 +283,8 @@ namespace OrbitVR.Components.Items {
     public override void Draw() {
       Color col = Color.White;
 
-      Vector2 position = shovelNode.body.pos;
-      if (position == Vector2.Zero) position = parent.body.pos;
+      Vector2R position = shovelNode.body.pos;
+      if (position == Vector2R.Zero) position = parent.body.pos;
       else {
         room.Camera.DrawLine(position, parent.body.pos, 2f, col, (int)Layers.Over3);
       }

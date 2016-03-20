@@ -119,7 +119,7 @@ namespace OrbitVR.Components.Movement {
       float length = parent.body.velocity.Length();
       float x = length*(float) Math.Sin(angle);
       float y = length*(float) Math.Cos(angle);
-      parent.body.velocity = new Vector2(x, y);
+      parent.body.velocity = new Vector2R(x, y);
     }
 
     public override void Draw() {}

@@ -10,7 +10,7 @@ namespace OrbitVR.Processes {
   public class DiodeSpawner : Process {
     public const int diodeThickness = 50;
     bool firstclick = true;
-    Vector2 firstPos = Vector2.Zero;
+    Vector2R firstPos = Vector2R.Zero;
     Node lastSpawnedDiode = null;
 
     public DiodeSpawner() {
@@ -20,7 +20,7 @@ namespace OrbitVR.Processes {
     }
 
     public void PlaceDiode() {
-      Vector2 mousePos = UserInterface.WorldMousePos;
+      Vector2R mousePos = UserInterface.WorldMousePos;
       if (firstclick) {
         firstclick = false;
         firstPos = mousePos;
@@ -41,14 +41,14 @@ namespace OrbitVR.Processes {
     }
 
     public void ChangeDiodeMode() {
-      Vector2 pos = UserInterface.WorldMousePos;
+      Vector2R pos = UserInterface.WorldMousePos;
       Node found = null;
       float shortedDistance = Int32.MaxValue;
       for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
         Node n = (Node) room.MasterGroup.fullSet.ElementAt(i);
         if (!n.HasComp<Diode>()) continue;
         // find node that has been clicked, starting from the most recently placed nodes
-        float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
+        float distsquared = Vector2R.DistanceSquared(n.body.pos, pos);
         //if (distsquared < n.body.radius * n.body.radius)
         //{
         if (distsquared < shortedDistance) {
@@ -67,14 +67,14 @@ namespace OrbitVR.Processes {
     }
 
     public void AddTickets() {
-      Vector2 pos = UserInterface.WorldMousePos;
+      Vector2R pos = UserInterface.WorldMousePos;
       Node found = null;
       float shortedDistance = Int32.MaxValue;
       for (int i = room.MasterGroup.fullSet.Count - 1; i >= 0; i--) {
         Node n = (Node) room.MasterGroup.fullSet.ElementAt(i);
         if (!n.HasComp<Diode>()) continue;
         // find node that has been clicked, starting from the most recently placed nodes
-        float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
+        float distsquared = Vector2R.DistanceSquared(n.body.pos, pos);
         //if (distsquared < n.body.radius * n.body.radius)
         //{
         if (distsquared < shortedDistance) {

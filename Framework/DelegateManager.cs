@@ -46,7 +46,7 @@ namespace OrbitVR.Framework {
     }
 
     public static void VelocityToOutput(Dictionary<string, dynamic> args, ModifierInfo mi) {
-      Vector2 velocity = ((Node) mi.fpInfos["v1"].ob).body.velocity;
+      Vector2R velocity = ((Node) mi.fpInfos["v1"].ob).body.velocity;
       float max = (Defaultered("max", args, 2f));
       float min = (Defaultered("min", args, 0.1f));
       float highest = (Defaultered("highest", args, 20f));
@@ -56,7 +56,7 @@ namespace OrbitVR.Framework {
     }
 
     public static void VectorSine(Dictionary<string, dynamic> args, ModifierInfo mi) {
-      Vector2 vector = ((Vector2) mi.fpInfos["v1"].GetValue());
+      Vector2R vector = ((Vector2R) mi.fpInfos["v1"].GetValue());
       float amp = (Defaultered("amp", args, (OrbIt.ScreenHeight/5)));
       float period = (Defaultered("period", args, (OrbIt.ScreenWidth/4)));
       //float min = (Defaultered("min", args, 0.1f));
@@ -69,7 +69,7 @@ namespace OrbitVR.Framework {
     }
 
     public static void VectorSineComposite(Dictionary<string, dynamic> args, ModifierInfo mi) {
-      Vector2 vector = ((Vector2) mi.fpInfos["v1"].GetValue());
+      Vector2R vector = ((Vector2R) mi.fpInfos["v1"].GetValue());
       float timer = (Defaultered("m1", mi, -9999));
       float amp = (Defaultered("amp", args, (OrbIt.ScreenHeight/5)));
       float period = (Defaultered("period", args, (OrbIt.ScreenWidth/4)));
@@ -149,8 +149,8 @@ namespace OrbitVR.Framework {
         if (val.GetType() == typeof (float) || val.GetType() == typeof (int)) {
           return (float) val;
         }
-        else if (val.GetType() == typeof (Vector2)) {
-          Vector2 vect = (Vector2) (val);
+        else if (val.GetType() == typeof (Vector2R)) {
+          Vector2R vect = (Vector2R) (val);
           ret = (vect.X + vect.Y)/10;
         }
         else {
@@ -174,8 +174,8 @@ namespace OrbitVR.Framework {
         else if (val.GetType() == typeof (int)) {
           return (int) val;
         }
-        else if (val.GetType() == typeof (Vector2)) {
-          Vector2 vect = (Vector2) (val);
+        else if (val.GetType() == typeof (Vector2R)) {
+          Vector2R vect = (Vector2R) (val);
           ret = (vect.X + vect.Y)/10;
         }
         else {
@@ -192,9 +192,9 @@ namespace OrbitVR.Framework {
       float ret = 0;
       //Type t = mi.fpInfos[id].GetValue().GetType();
       var val = mi.fpInfos[id].GetValue();
-      if (val is Vector2) //not sure if this works, might need a typeof
+      if (val is Vector2R) //not sure if this works, might need a typeof
       {
-        Vector2 vect = (Vector2) (val);
+        Vector2R vect = (Vector2R) (val);
         ret = (vect.X + vect.Y)/10;
       }
       else {

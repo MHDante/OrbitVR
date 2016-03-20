@@ -171,7 +171,7 @@ namespace OrbitVR.Framework {
                                                                         if (source == target) return;
                                                                         DistancesList.Add(
                                                                                           new Tuple<float, Node>(
-                                                                                            Vector2.DistanceSquared(
+                                                                                            Vector2R.DistanceSquared(
                                                                                                                     source
                                                                                                                       .body
                                                                                                                       .pos,

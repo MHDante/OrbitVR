@@ -63,15 +63,15 @@ namespace OrbitVR {
       BorderColor = Color.DarkGray;
 
       // grid System
-      GridsystemAffect = new GridSystem(this, 40, new Vector2(0, 0), worldWidth, OrbIt.ScreenHeight);
+      GridsystemAffect = new GridSystem(this, 40, new Vector2R(0, 0), worldWidth, OrbIt.ScreenHeight);
       CollisionManager = new CollisionManager(this);
       Level = new Level(this, 40, 40, GridsystemAffect.cellWidth, GridsystemAffect.cellHeight);
-      Camera = new MeshCamera(this,1f, Vector2.Zero);
+      Camera = new MeshCamera(this,1f, Vector2R.Zero);
       DrawLinks = true;
       Scheduler = new Scheduler();
 
       Dictionary<dynamic, dynamic> userPr = new Dictionary<dynamic, dynamic>() {
-        {nodeE.position, new Vector2(0, 0)},
+        {nodeE.position, new Vector2R(0, 0)},
         {nodeE.texture, Textures.Blackorb},
       };
 
@@ -203,7 +203,7 @@ namespace OrbitVR {
         n.Draw();
       }
       if (DebugFlags.drawRoomBorder) {
-        Camera.DrawRect(Vector2.Zero, new Vector2(WorldWidth, WorldHeight), BorderColor);
+        Camera.DrawRect(Vector2R.Zero, new Vector2R(WorldWidth, WorldHeight), BorderColor);
       }
       if (DebugFlags.drawAffectGrid) GridsystemAffect.DrawGrid(this, Color.LightBlue);
       if (DebugFlags.drawCollisionGrid) CollisionManager.Draw();
@@ -224,22 +224,22 @@ namespace OrbitVR {
 
     private void MakeWalls(float wallWidth) {
       Dictionary<dynamic, dynamic> props = new Dictionary<dynamic, dynamic>() {
-        {nodeE.position, new Vector2(0, 0)},
+        {nodeE.position, new Vector2R(0, 0)},
       };
       var v = wallWidth/2f;
       var v1 = WorldHeight/2f;
-      Node left = ConstructWallPoly(props, v, v1, new Vector2(v, v1));
-      Node right = ConstructWallPoly(props, v, v1, new Vector2(WorldWidth - v, v1));
-      Node top = ConstructWallPoly(props, (WorldWidth + wallWidth*2)/2f, v, new Vector2(WorldWidth/2f, v));
+      Node left = ConstructWallPoly(props, v, v1, new Vector2R(v, v1));
+      Node right = ConstructWallPoly(props, v, v1, new Vector2R(WorldWidth - v, v1));
+      Node top = ConstructWallPoly(props, (WorldWidth + wallWidth*2)/2f, v, new Vector2R(WorldWidth/2f, v));
       Node bottom = ConstructWallPoly(props, (WorldWidth + wallWidth*2)/2f, v,
-                                      new Vector2(WorldWidth/2f, WorldHeight - v));
+                                      new Vector2R(WorldWidth/2f, WorldHeight - v));
       left.name = "left wall";
       right.name = "right wall";
       top.name = "top wall";
       bottom.name = "bottom wall";
     }
 
-    private Node ConstructWallPoly(Dictionary<dynamic, dynamic> props, float hw, float hh, Vector2 pos) {
+    private Node ConstructWallPoly(Dictionary<dynamic, dynamic> props, float hw, float hh, Vector2R pos) {
       Node n = new Node(this, props);
       n.Comp<BasicDraw>().active = false;
       Polygon poly = new Polygon {body = n.body};
@@ -268,13 +268,13 @@ namespace OrbitVR {
     }
 
 
-    public Node SelectNodeAt(Vector2 pos) {
+    public Node SelectNodeAt(Vector2R pos) {
       Node found = null;
       float shortedDistance = Int32.MaxValue;
       for (int i = MasterGroup.fullSet.Count - 1; i >= 0; i--) {
         Node n = MasterGroup.fullSet.ElementAt(i);
         // find node that has been clicked, starting from the most recently placed nodes
-        float distsquared = Vector2.DistanceSquared(n.body.pos, pos);
+        float distsquared = Vector2R.DistanceSquared(n.body.pos, pos);
         if (distsquared < n.body.radius*n.body.radius) {
           if (distsquared < shortedDistance) {
             found = n;
@@ -287,7 +287,7 @@ namespace OrbitVR {
 
     public Node SpawnNode(int worldMouseX, int worldMouseY) {
       Dictionary<dynamic, dynamic> userP = new Dictionary<dynamic, dynamic>() {
-        {nodeE.position, new Vector2(worldMouseX, worldMouseY)},
+        {nodeE.position, new Vector2R(worldMouseX, worldMouseY)},
       };
       return SpawnNode(userP);
     }
@@ -339,25 +339,25 @@ namespace OrbitVR {
       return newNode;
     }
 
-    internal void Resize(Vector2 resizeVect, bool fillWithGrid = false) {
+    internal void Resize(Vector2R resizeVect, bool fillWithGrid = false) {
       _pendingRoomResize = () => {
                              WorldWidth = (int) resizeVect.X;
                              WorldHeight = (int) resizeVect.Y;
                              int newCellsX = WorldWidth/GridsystemAffect.cellWidth;
                              int gridHeight = fillWithGrid ? WorldHeight : OrbIt.ScreenHeight;
-                             GridsystemAffect = new GridSystem(this, newCellsX, new Vector2(0, WorldHeight - gridHeight),
+                             GridsystemAffect = new GridSystem(this, newCellsX, new Vector2R(0, WorldHeight - gridHeight),
                                                                WorldWidth,
                                                                gridHeight);
                              Level = new Level(this, newCellsX, newCellsX, GridsystemAffect.cellWidth,
                                                GridsystemAffect.cellHeight);
                              //roomRenderTarget = new RenderTarget2D(game.GraphicsDevice, worldWidth, worldHeight);
                              CollisionManager.gridsystemCollision = new GridSystem(this, newCellsX,
-                                                                                   new Vector2(0,
+                                                                                   new Vector2R(0,
                                                                                                WorldHeight - gridHeight),
                                                                                    WorldWidth, gridHeight);
                              fillWithGrid = false;
 
-                             Camera.pos = new Vector2(WorldWidth/2f, WorldHeight/2f);
+                             Camera.pos = new Vector2R(WorldWidth/2f, WorldHeight/2f);
                            };
     }
 

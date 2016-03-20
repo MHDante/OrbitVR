@@ -12,7 +12,7 @@ namespace OrbitVR.Components.AffectOthers {
   {
     public const mtypes CompType = mtypes.affectother;
 
-    private Vector2 _force = new Vector2(0, 1);
+    private Vector2R _force = new Vector2R(0, 1);
 
     public override mtypes compType {
       get { return CompType; }

@@ -62,8 +62,8 @@ namespace OrbitVR.Components.Tracers {
     //}
 
     public override void Draw() {
-      Vector2 pos = parent.body.pos;
-      Vector2 scalevect = new Vector2(rayscale, width);
+      Vector2R pos = parent.body.pos;
+      Vector2R scalevect = new Vector2R(rayscale, width);
       float angle = (float) (Math.Atan2(parent.body.velocity.Y, parent.body.velocity.X) + Math.PI/2);
       //room.Camera.AddPermanentDraw(Textures.Whitepixel, pos, parent.body.color, scalevect, angle, rayLength);
       //Todo:drawlines

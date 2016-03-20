@@ -185,7 +185,7 @@ namespace OrbitVR.Components.Items {
       if (state == GunState.inactive) {
         if (input.BtnClicked(InputButtons.RightTrigger_Mouse1)) {
           state = GunState.extending;
-          Vector2 dir = input.GetRightStick().NormalizeSafe()*shootNodeSpeed + parent.body.velocity;
+          Vector2R dir = input.GetRightStick().toV2R().NormalizeSafe()*shootNodeSpeed + parent.body.velocity;
           shootNode.body.pos = parent.body.pos + dir*5;
           shootNode.body.velocity = dir;
           shootNode.active = true;

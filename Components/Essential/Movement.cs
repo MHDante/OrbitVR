@@ -113,7 +113,7 @@ namespace OrbitVR.Components.Essential {
     public void IntegrateVelocity() {
       if (!active) return;
       if (parent.body.invmass == 0) {
-        parent.body.velocity = Vector2.Zero;
+        parent.body.velocity = Vector2R.Zero;
         return;
       }
       if (effvelocityMode) {
@@ -147,7 +147,7 @@ namespace OrbitVR.Components.Essential {
     public void RandomizeVelocity() {
       float x = ((float) Utils.random.NextDouble()*100) - 50;
       float y = ((float) Utils.random.NextDouble()*100) - 50;
-      Vector2 vel = new Vector2(x, y);
+      Vector2R vel = new Vector2R(x, y);
       VMath.NormalizeSafe(ref vel);
       //vel.Normalize();
       vel = vel*randInitialVel;
@@ -183,8 +183,8 @@ namespace OrbitVR.Components.Essential {
     }
 
     public override void PlayerControl(Input input) {
-      Vector2 stick = input.GetLeftStick();
-      Vector2 stick2 = input.GetRightStick();
+      Vector2R stick = input.GetLeftStick().toV2R();
+      Vector2R stick2 = input.GetRightStick().toV2R();
 
       //if (node != bigtony) node.collision.colliders["trigger"].radius = body.radius * 1.5f;
       //else node.collision.colliders["trigger"].radius = body.radius * 1.2f;
@@ -224,7 +224,7 @@ namespace OrbitVR.Components.Essential {
       int levelwidth = room.WorldWidth;
       int levelheight = room.WorldHeight;
 
-      Vector2 pos = parent.body.pos;
+      Vector2R pos = parent.body.pos;
 
       //if (parent.HasComp<Queuer>() && (parent.Comp<Queuer>().qs & queues.position) == queues.position)
       //{

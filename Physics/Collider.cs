@@ -13,14 +13,14 @@ namespace OrbitVR.Physics {
 
     public Func<Collider, Collider, bool> ExclusionCheck;
     public Func<Collider, Collider, bool> ExclusionCheckResolution;
-    public Vector2 objectSpacePos = new Vector2(0, 0);
+    public Vector2R objectSpacePos = new Vector2R(0, 0);
     public Action<Node> OnCollisionAllExit;
 
     public Action<Node, Node> OnCollisionEnter;
     public Action<Node, Node> OnCollisionExit;
     public Action<Node> OnCollisionFirstEnter;
     public Action<Node, Node> OnCollisionStay;
-    public Vector2 pos = new Vector2(0, 0);
+    public Vector2R pos = new Vector2R(0, 0);
 
     public Shape shape;
 

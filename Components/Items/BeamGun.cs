@@ -16,7 +16,7 @@ namespace OrbitVR.Components.Items {
     Queue<Node> currentlyColliding = new Queue<Node>();
 
     private float minLength, currentLength;
-    Vector2 stick = Vector2.Zero;
+    Vector2R stick = Vector2R.Zero;
     private int tempColorVal = 0;
 
     public override mtypes compType {
@@ -57,7 +57,7 @@ namespace OrbitVR.Components.Items {
     }
 
     public override void PlayerControl(Input input) {
-      stick = input.GetRightStick();
+      stick = input.GetRightStick().toV2R();
       if (input.BtnDown(InputButtons.RightTrigger_Mouse1)) {
         if (!beamNode.active) beamNode.active = true;
         if (currentlyColliding.Count != 0) {
@@ -112,20 +112,20 @@ namespace OrbitVR.Components.Items {
       float angle = VMath.VectorToAngle(stick);
       Polygon p = (Polygon) beamNode.body.shape;
       p.SetBox(halfwidth, halfheight, false);
-      Vector2 endpos = parent.body.pos + (stick.NormalizeSafe()*halfheight);
+      Vector2R endpos = parent.body.pos + (stick.NormalizeSafe()*halfheight);
       beamNode.body.pos = endpos;
       p.SetOrient(angle);
 
-      Vector2 normal = new Vector2(-stick.Y, stick.X).NormalizeSafe();
-      if (normal == Vector2.Zero) return;
+      Vector2R normal = new Vector2R(-stick.Y, stick.X).NormalizeSafe();
+      if (normal == Vector2R.Zero) return;
       Color c = Color.Blue;
       int r = Math.Sign(128 - c.R)*10;
       int g = Math.Sign(128 - c.G)*10;
       int b = Math.Sign(128 - c.B)*10;
       for (int i = 0; i < beamThickness; i++) {
-        Vector2 offset = normal*(i - beamThickness/2);
-        Vector2 start = parent.body.pos + offset;
-        Vector2 end = start + (stick.NormalizeSafe()*size);
+        Vector2R offset = normal*(i - beamThickness/2);
+        Vector2R start = parent.body.pos + offset;
+        Vector2R end = start + (stick.NormalizeSafe()*size);
         int seed = (int) DelegateManager.Triangle((i + tempColorVal), maxColorVal);
         Color newcol = new Color(c.R + r*seed, c.G + g*seed, c.B + g*seed); // *0.5f;
         room.Camera.DrawLine(start, end, 1f, newcol, (int)Layers.Under2);

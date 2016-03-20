@@ -77,7 +77,7 @@ namespace OrbitVR.Components.Items {
 
     public void RandomizeSpinningLines() {
       Color color = Utils.randomColor();
-      Vector2 center = parent.body.pos;
+      Vector2R center = parent.body.pos;
       float maxDist = (float) Utils.random.NextDouble()*distRange;
       //float angle = (float)Utils.random.NextDouble() * GMath.TwoPI;
       float speed = (float) Utils.random.NextDouble()*speedRange;
@@ -103,13 +103,13 @@ namespace OrbitVR.Components.Items {
   }
 
   public class SpinningLine {
-    public Vector2 center;
+    public Vector2R center;
     public Color? color = null;
     private float distLengthRatio, angleIncrement, copyOffset;
     public int lineCount, copyCount, permDraw;
     public float rotation, rotationSpeed, totalRotation, totalRotationSpeed, dist, minDist, maxDist, speed;
 
-    public SpinningLine(Vector2 center, float rotationSpeed, float totalRotationSpeed, float minDist, float maxDist,
+    public SpinningLine(Vector2R center, float rotationSpeed, float totalRotationSpeed, float minDist, float maxDist,
                         float speed, int lineCount, int copyCount, int permDraw, float? copyOffset, Color? color = null) {
       this.center = center;
       this.rotation = 0;
@@ -148,7 +148,7 @@ namespace OrbitVR.Components.Items {
         for (int i = 0; i < lineCount; i++) {
           float dirAngle = angleIncrement*i;
           dirAngle = (dirAngle + totalRotation)%GMath.TwoPI;
-          Vector2 dir = VMath.AngleToVector(dirAngle);
+          Vector2R dir = VMath.AngleToVector(dirAngle);
           dir *= dist;
           float rotationAngle = dirAngle + GMath.PIbyTwo; //) % GMath.TwoPI;
           rotationAngle = (rotationAngle + rotation + copyOffset*o)%GMath.TwoPI;

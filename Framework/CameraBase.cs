@@ -35,50 +35,50 @@ namespace OrbitVR.Framework {
 
     public bool TakeScreenshot { get; set; }
 
-    public Vector2 virtualTopLeft {
-      get { return pos - new Vector2(room.GridsystemAffect.gridWidth/2, room.GridsystemAffect.gridHeight/2)*1/zoom; }
+    public Vector2R virtualTopLeft {
+      get { return pos - new Vector2R(room.GridsystemAffect.gridWidth/2, room.GridsystemAffect.gridHeight/2)*1/zoom; }
     }
 
     public float zoom { get; set; }
-    public Vector2 CameraOffsetVect { get; set; }
-    public Vector2 pos { get; set; }
+    public Vector2R CameraOffsetVect { get; set; }
+    public Vector2R pos { get; set; }
 
     static CameraBase() {
       pen = new System.Drawing.Pen(new System.Drawing.Color());
     }
 
-    protected CameraBase(Room room, float zoom, Vector2? pos) {
+    protected CameraBase(Room room, float zoom, Vector2R? pos) {
       this.room = room;
       this.zoom = zoom;
       this.pos = pos ??
-                 new Vector2(room.GridsystemAffect.position.X + room.GridsystemAffect.gridWidth/2,
+                 new Vector2R(room.GridsystemAffect.position.X + room.GridsystemAffect.gridWidth/2,
                              10 + room.GridsystemAffect.position.Y + room.GridsystemAffect.gridHeight/2);
     }
 
-    public abstract void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect,
+    public abstract void AddPermanentDraw(Textures texture, Vector2R position, Color color, Vector2 scalevect,
                                           float rotation, int life);
 
-    public abstract void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation,
+    public abstract void AddPermanentDraw(Textures texture, Vector2R position, Color color, float scale, float rotation,
                                           int life);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, float depth);
+    public abstract void Draw(Textures texture, Vector2R position, Color color, Vector2 scalevect, float rotation, float depth);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, float depth);
+    public abstract void Draw(Textures texture, Vector2R position, Color color, float scale, float depth);
 
-    public abstract void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, float depth);
+    public abstract void Draw(Textures texture, Vector2R position, Color color, float scale, float rotation, float depth);
     
 
 
-    public abstract void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, float depth);
-    public abstract void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life);
+    public abstract void DrawLine(Vector2R start, Vector2R end, float thickness, Color color, float depth);
+    public abstract void DrawLinePermanent(Vector2R start, Vector2R end, float thickness, Color color, int life);
 
-    public abstract void DrawStringScreen(string text, Vector2 position, Color color, Color? color2 = default(Color?),
+    public abstract void DrawStringScreen(string text, Vector2R position, Color color, Color? color2 = default(Color?),
                                           float scale = 0.5F, bool offset = true, Layers Layer = Layers.Over5);
 
-    public abstract void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = default(Color?),
+    public abstract void DrawStringWorld(string text, Vector2R position, Color color, Color? color2 = default(Color?),
                                          float scale = 0.5F, bool offset = true, Layers Layer = Layers.Over5);
 
-    public abstract void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale);
+    public abstract void removePermanentDraw(Textures texture, Vector2R position, Color color, float scale);
 
     public virtual void Update() {
       if (phaseBackgroundColor) {
@@ -88,23 +88,23 @@ namespace OrbitVR.Framework {
       }
     }
 
-    public void DrawRect(Vector2 min, Vector2 max, Color borderColor) {
-      DrawLine(min, new Vector2(max.X, min.Y), 2, borderColor, (int)Layers.Under5);
-      DrawLine(min, new Vector2(min.X, max.Y), 2, borderColor, (int)Layers.Under5);
-      DrawLine(new Vector2(min.X, max.Y), max, 2, borderColor, (int)Layers.Under5);
-      DrawLine(new Vector2(max.X, min.Y), max, 2, borderColor, (int)Layers.Under5);
+    public void DrawRect(Vector2R min, Vector2R max, Color borderColor) {
+      DrawLine(min, new Vector2R(max.X, min.Y), 2, borderColor, (int)Layers.Under5);
+      DrawLine(min, new Vector2R(min.X, max.Y), 2, borderColor, (int)Layers.Under5);
+      DrawLine(new Vector2R(min.X, max.Y), max, 2, borderColor, (int)Layers.Under5);
+      DrawLine(new Vector2R(max.X, min.Y), max, 2, borderColor, (int)Layers.Under5);
     }
 
     public abstract void Draw(Matrix worldMatrix);
   }
 
   public struct Line {
-    public Vector2 Start;
-    public Vector2 End;
+    public Vector2R Start;
+    public Vector2R End;
 
     public Line(int x1, int y1, int x2, int y2) : this() {
-      Start = new Vector2(x1, y1);
-      End = new Vector2(x2, y2);
+      Start = new Vector2R(x1, y1);
+      End = new Vector2R(x2, y2);
     }
   }
 }

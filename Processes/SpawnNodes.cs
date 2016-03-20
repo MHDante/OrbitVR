@@ -9,7 +9,7 @@ namespace OrbitVR.Processes {
   public class SpawnNodes : Process {
     int rightClickCount = 0; //
     int rightClickMax = 1; //
-    private Vector2 spawnPos;
+    private Vector2R spawnPos;
 
     public int batchSpawnNum { get; set; }
 
@@ -60,10 +60,10 @@ namespace OrbitVR.Processes {
       rightClickCount++;
       if (rightClickCount%rightClickMax == 0) {
         //Vector2 positionToSpawn = new Vector2(Game1.sWidth, Game1.sHeight);
-        Vector2 positionToSpawn = spawnPos;
+        Vector2R positionToSpawn = spawnPos;
         //positionToSpawn /= (game.room.mapzoom * 2);
         //positionToSpawn /= (2);
-        Vector2 diff = UserInterface.WorldMousePos;
+        Vector2R diff = UserInterface.WorldMousePos;
         //diff *= room.zoom;
         diff = diff - positionToSpawn;
         //diff.Normalize();

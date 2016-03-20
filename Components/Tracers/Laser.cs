@@ -17,7 +17,7 @@ namespace OrbitVR.Components.Tracers {
 
     private int _laserLength = 10;
     private int counter = 0;
-    private Vector2 prevPos = Vector2.Zero;
+    private Vector2R prevPos = Vector2R.Zero;
 
     public override mtypes compType {
       get { return CompType; }
@@ -94,8 +94,8 @@ namespace OrbitVR.Components.Tracers {
 
     public override void Draw() {
       if (++counter%onceEveryAmount != 0) return;
-      Vector2 start = parent.body.pos;
-      if (prevPos == Vector2.Zero) {
+      Vector2R start = parent.body.pos;
+      if (prevPos == Vector2R.Zero) {
         prevPos = start;
         return;
       }
@@ -117,10 +117,10 @@ namespace OrbitVR.Components.Tracers {
         }
       }
 
-      Vector2 diff = (prevPos - start);
-      Vector2 centerpoint = (prevPos + start)/2;
+      Vector2R diff = (prevPos - start);
+      Vector2R centerpoint = (prevPos + start)/2;
       float len = diff.Length();
-      Vector2 scalevect;
+      Vector2R scalevect;
       float xscale = len;
       float yscale = thickness;
       //float outerscale = yscale;
@@ -134,12 +134,12 @@ namespace OrbitVR.Components.Tracers {
       //    outerscale = yscale * beamRatio;
       //}
 
-      scalevect = new Vector2(xscale, yscale);
+      scalevect = new Vector2R(xscale, yscale);
 
       float testangle = (float) (Math.Atan2(diff.Y, diff.X));
 
       VMath.NormalizeSafe(ref diff);
-      diff = new Vector2(-diff.Y, diff.X);
+      diff = new Vector2R(-diff.Y, diff.X);
 
       //uncommet later when not using direction based color shit
       Color coll;

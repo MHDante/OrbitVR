@@ -60,7 +60,7 @@ namespace OrbitVR.Processes {
 
 
     public Node CreateNode() {
-      Vector2 pos = UserInterface.WorldMousePos;
+      Vector2R pos = UserInterface.WorldMousePos;
 
       //new node(s)
       Dictionary<dynamic, dynamic> userP = new Dictionary<dynamic, dynamic>() {

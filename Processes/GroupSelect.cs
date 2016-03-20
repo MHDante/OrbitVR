@@ -7,7 +7,7 @@ using SharpDX;
 
 namespace OrbitVR.Processes {
   public class GroupSelect : Process {
-    private Vector2 groupSelectionBoxOrigin;
+    private Vector2R groupSelectionBoxOrigin;
     public HashSet<Node> groupSelectSet;
 
     public GroupSelect() : base() {
@@ -17,14 +17,14 @@ namespace OrbitVR.Processes {
     }
 
     public void UpdateBox() {
-      Vector2 mousePos = UserInterface.WorldMousePos;
+      Vector2R mousePos = UserInterface.WorldMousePos;
 
       float lowerx = Math.Min(mousePos.X, groupSelectionBoxOrigin.X);
       float upperx = Math.Max(mousePos.X, groupSelectionBoxOrigin.X);
       float lowery = Math.Min(mousePos.Y, groupSelectionBoxOrigin.Y);
       float uppery = Math.Max(mousePos.Y, groupSelectionBoxOrigin.Y);
 
-      room.Camera.DrawRect(new Vector2(lowerx, lowery), new Vector2(upperx, uppery), Color.White);
+      room.Camera.DrawRect(new Vector2R(lowerx, lowery), new Vector2R(upperx, uppery), Color.White);
       //Todo: don't draw on update.
       //Console.WriteLine(mousePos.X + " " + glob.X);
     }
@@ -52,7 +52,7 @@ namespace OrbitVR.Processes {
       bool altDown = UserInterface.oldKeyBState.IsKeyDown(Keys.LeftAlt);
       if (altDown) ctrlDown = false;
 
-      Vector2 mousePos = UserInterface.WorldMousePos;
+      Vector2R mousePos = UserInterface.WorldMousePos;
 
       float lowerx = Math.Min(mousePos.X, groupSelectionBoxOrigin.X);
       float upperx = Math.Max(mousePos.X, groupSelectionBoxOrigin.X);
@@ -80,7 +80,7 @@ namespace OrbitVR.Processes {
       //System.Console.WriteLine(groupSelectSet.Count);
 
       //Todo: don't draw on update. Also, is this line ncessary?
-      room.Camera.DrawRect(new Vector2(lowerx, lowery), new Vector2(upperx, uppery), Color.White);
+      room.Camera.DrawRect(new Vector2R(lowerx, lowery), new Vector2R(upperx, uppery), Color.White);
     }
   }
 }

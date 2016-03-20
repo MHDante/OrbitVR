@@ -30,7 +30,7 @@ namespace OrbitVR.Framework {
     //new attempt : april 14 2014   START
     public int[] offsetArray;
     public SortedDictionary<float, List<Tuple<int, int>>>[,] offsetsArrayCollection;
-    public Vector2 position;
+    public Vector2R position;
     public int preexistingCounter = 0;
     public int[] reachIndexs;
     public Room room;
@@ -43,7 +43,7 @@ namespace OrbitVR.Framework {
     public int gridWidth { get; set; }
     public int gridHeight { get; set; }
 
-    public GridSystem(Room room, int cellsX, Vector2 position, int? GridWidth = null, int? GridHeight = null) {
+    public GridSystem(Room room, int cellsX, Vector2R position, int? GridWidth = null, int? GridHeight = null) {
       linesToDraw = new List<Line>();
       this.position = position;
       this.room = room;
@@ -518,7 +518,7 @@ namespace OrbitVR.Framework {
     }
 
     public Tuple<int, int> getIndexs(Collider collider) {
-      Vector2 pos = new Vector2(collider.pos.X, collider.pos.Y);
+      Vector2R pos = new Vector2R(collider.pos.X, collider.pos.Y);
       int x = (int) collider.pos.X;
       int y = (int) collider.pos.Y;
       int gridx = (int) pos.X - ((int) pos.X%cellWidth);

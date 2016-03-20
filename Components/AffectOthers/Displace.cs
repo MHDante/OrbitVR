@@ -66,7 +66,7 @@ namespace OrbitVR.Components.AffectOthers {
       }
       if (exclusions.Contains(other)) return;
 
-      float distVects = Vector2.Distance(other.body.pos, parent.body.pos);
+      float distVects = Vector2R.Distance(other.body.pos, parent.body.pos);
 
       if (distVects < radius) {
         if (distVects < lowerbound) distVects = lowerbound;
@@ -85,7 +85,7 @@ namespace OrbitVR.Components.AffectOthers {
         //float gravForce = gnode1.GravMultiplier;
         float velX = (float) Math.Cos(aa)*gravForce;
         float velY = (float) Math.Sin(aa)*gravForce;
-        Vector2 delta = new Vector2(velX, velY);
+        Vector2R delta = new Vector2R(velX, velY);
 
         if (!ConstantPush) delta *= other.body.invmass;
         other.body.pos -= delta;

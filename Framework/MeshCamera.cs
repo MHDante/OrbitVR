@@ -58,7 +58,7 @@ namespace OrbitVR.Framework {
     private GraphicsDevice device;
     private EffectParameter spriteCountParam;
 
-    public MeshCamera(Room room, float zoom, Vector2? pos) : base(room, zoom, pos) {
+    public MeshCamera(Room room, float zoom, Vector2R? pos) : base(room, zoom, pos) {
       pendingVertices = new List<SpriteVertex>();
       //permVertices = new List<SpriteVertex>();
       //Perms = new HashSet<SpriteVertex>();
@@ -78,33 +78,33 @@ namespace OrbitVR.Framework {
       spriteCountParam.SetValue((float)Enum.GetValues(typeof(Textures)).Length);
 
     }
-    public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, int life) {
-      var v = new SpriteVertex(position.toV3(),scalevect,rotation,(int)texture, color);
+    public override void AddPermanentDraw(Textures texture, Vector2R position, Color color, Vector2 scalevect, float rotation, int life) {
+      var v = new SpriteVertex((Vector3)position,scalevect,rotation,(int)texture, color);
       pendingVertices.Add(v);//TODO:PERMS
     }
 
-    public override void AddPermanentDraw(Textures texture, Vector2 position, Color color, float scale, float rotation, int life) {
+    public override void AddPermanentDraw(Textures texture, Vector2R position, Color color, float scale, float rotation, int life) {
       AddPermanentDraw(texture, position, color, Vector2.One * scale, rotation, life);
     }
 
-    public override void Draw(Textures texture, Vector2 position, Color color, Vector2 scalevect, float rotation, float depth) {
+    public override void Draw(Textures texture, Vector2R position, Color color, Vector2 scalevect, float rotation, float depth) {
       var v = new SpriteVertex(new Vector3(position.X, position.Y, depth), scalevect*128, rotation, (int)texture, color);
       //Mesh.SetData(ref v);
       pendingVertices.Add(v);
     }
 
-    public override void Draw(Textures texture, Vector2 position, Color color, float scale, float depth) {
+    public override void Draw(Textures texture, Vector2R position, Color color, float scale, float depth) {
       Draw(texture,position,color,Vector2.One * scale, 0, depth);
     }
 
-    public override void Draw(Textures texture, Vector2 position, Color color, float scale, float rotation, float depth) {
+    public override void Draw(Textures texture, Vector2R position, Color color, float scale, float rotation, float depth) {
       Draw(texture, position, color, Vector2.One * scale, rotation, depth);
     }
 
-    public override void DrawLine(Vector2 start, Vector2 end, float thickness, Color color, float depth) {
+    public override void DrawLine(Vector2R start, Vector2R end, float thickness, Color color, float depth) {
       if (thickness * zoom < 1) thickness = 1 / zoom;
-      Vector2 diff = (end - start); // *mapzoom;
-      Vector2 centerpoint = (end + start) / 2;
+      Vector2R diff = (end - start); // *mapzoom;
+      Vector2R centerpoint = (end + start) / 2;
       //centerpoint *= mapzoom;
       float len = diff.Length();
       //thickness *= 2f * mapzoom;
@@ -113,10 +113,10 @@ namespace OrbitVR.Framework {
       Draw(Textures.Whitecircle, centerpoint, color, scalevect, angle, depth);
     }
 
-    public override void DrawLinePermanent(Vector2 start, Vector2 end, float thickness, Color color, int life) {
+    public override void DrawLinePermanent(Vector2R start, Vector2R end, float thickness, Color color, int life) {
       if (thickness * zoom < 1) thickness = 1 / zoom;
-      Vector2 diff = (end - start); // *mapzoom;
-      Vector2 centerpoint = (end + start) / 2;
+      Vector2R diff = (end - start); // *mapzoom;
+      Vector2R centerpoint = (end + start) / 2;
       //centerpoint *= mapzoom;
       float len = diff.Length();
       //thickness *= 2f * mapzoom;
@@ -126,18 +126,18 @@ namespace OrbitVR.Framework {
       AddPermanentDraw(Textures.Whitecircle, centerpoint, color, scalevect, angle, life);
     }
 
-    public override void DrawStringScreen(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
+    public override void DrawStringScreen(string text, Vector2R position, Color color, Color? color2 = null, float scale = 0.5f,
                                           bool offset = true, Layers layer = Layers.Over5) {
       return;
     }
 
-    public override void DrawStringWorld(string text, Vector2 position, Color color, Color? color2 = null, float scale = 0.5f,
+    public override void DrawStringWorld(string text, Vector2R position, Color color, Color? color2 = null, float scale = 0.5f,
                                          bool offset = true, Layers layer = Layers.Over5) {
 
       return;
     }
 
-    public override void removePermanentDraw(Textures texture, Vector2 position, Color color, float scale) {
+    public override void removePermanentDraw(Textures texture, Vector2R position, Color color, float scale) {
       //Perms.RemoveWhere(x => x.Pos.toV2() == position);
     }
 

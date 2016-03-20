@@ -246,7 +246,7 @@ namespace OrbitVR.Components.Essential {
     public static bool CircletoCircle(Manifold m, Collider a, Collider b) {
       Circle ca = (Circle) a.shape;
       Circle cb = (Circle) b.shape;
-      Vector2 normal = b.pos - a.pos;
+      Vector2R normal = b.pos - a.pos;
       float distSquared = normal.LengthSquared();
       double radius = a.radius + b.radius;
 
@@ -260,7 +260,7 @@ namespace OrbitVR.Components.Essential {
 
       if (distance == 0) {
         m.penetration = ca.radius;
-        m.normal = new Vector2(1, 0);
+        m.normal = new Vector2R(1, 0);
         m.contacts[0] = a.pos;
       }
       else {
@@ -277,7 +277,7 @@ namespace OrbitVR.Components.Essential {
       m.contact_count = 0;
 
       // Transform circle center to Polygon model space
-      Vector2 center = a.pos;
+      Vector2R center = a.pos;
       center = B.u.Transpose()*(center - b.pos);
 
       // Find edge with minimum penetration
@@ -285,7 +285,7 @@ namespace OrbitVR.Components.Essential {
       double separation = -float.MaxValue;
       int faceNormal = 0;
       for (int i = 0; i < B.vertexCount; ++i) {
-        double s = Vector2.Dot(B.normals[i], center - B.vertices[i]);
+        double s = Vector2R.Dot(B.normals[i], center - B.vertices[i]);
 
         if (s > A.radius) {
           return false;
@@ -298,9 +298,9 @@ namespace OrbitVR.Components.Essential {
       }
 
       // Grab face's vertices
-      Vector2 v1 = B.vertices[faceNormal];
+      Vector2R v1 = B.vertices[faceNormal];
       int i2 = faceNormal + 1 < B.vertexCount ? faceNormal + 1 : 0;
-      Vector2 v2 = B.vertices[i2];
+      Vector2R v2 = B.vertices[i2];
 
       // Check to see if center is within polygon
       if (separation < GMath.EPSILON) {
@@ -312,17 +312,17 @@ namespace OrbitVR.Components.Essential {
       }
 
       // Determine which voronoi region of the edge center of circle lies within
-      double dot1 = Vector2.Dot(center - v1, v2 - v1);
-      double dot2 = Vector2.Dot(center - v2, v1 - v2);
+      double dot1 = Vector2R.Dot(center - v1, v2 - v1);
+      double dot2 = Vector2R.Dot(center - v2, v1 - v2);
       m.penetration = A.radius - separation;
 
       // Closest to v1
       if (dot1 <= 0.0f) {
-        if (Vector2.DistanceSquared(center, v1) > A.radius*A.radius) {
+        if (Vector2R.DistanceSquared(center, v1) > A.radius*A.radius) {
           return false;
         }
         m.contact_count = 1;
-        Vector2 n = v1 - center;
+        Vector2R n = v1 - center;
         n = B.u*n;
         VMath.NormalizeSafe(ref n);
         m.normal = n;
@@ -331,12 +331,12 @@ namespace OrbitVR.Components.Essential {
       }
       // Closest to v2
       else if (dot2 <= 0.0f) {
-        if (Vector2.DistanceSquared(center, v2) > A.radius*A.radius) {
+        if (Vector2R.DistanceSquared(center, v2) > A.radius*A.radius) {
           return false;
         }
 
         m.contact_count = 1;
-        Vector2 n = v2 - center;
+        Vector2R n = v2 - center;
         v2 = B.u*v2 + b.pos;
         m.contacts[0] = v2;
         n = B.u*n;
@@ -345,8 +345,8 @@ namespace OrbitVR.Components.Essential {
       }
       // Closest to face
       else {
-        Vector2 n = B.normals[faceNormal];
-        if (Vector2.Dot(center - v1, n) > A.radius) {
+        Vector2R n = B.normals[faceNormal];
+        if (Vector2R.Dot(center - v1, n) > A.radius) {
           return false;
         }
 
@@ -370,25 +370,25 @@ namespace OrbitVR.Components.Essential {
 
       for (int i = 0; i < A.vertexCount; ++i) {
         // Retrieve a face normal from A
-        Vector2 n = A.normals[i];
-        Vector2 nw = A.u*n;
+        Vector2R n = A.normals[i];
+        Vector2R nw = A.u*n;
 
         // Transform face normal into B's model space
         Mat22 buT = B.u.Transpose();
         n = buT*nw;
 
         // Retrieve support point from B along -n
-        Vector2 s = B.GetSupport(-n);
+        Vector2R s = B.GetSupport(-n);
 
         // Retrieve vertex on face from A, transform into
         // B's model space
-        Vector2 v = A.vertices[i];
+        Vector2R v = A.vertices[i];
         v = A.u*v + A.body.pos;
         v -= B.body.pos;
         v = buT*v;
 
         // Compute penetration distance (in B's model space)
-        double d = Vector2.Dot(n, s - v);
+        double d = Vector2R.Dot(n, s - v);
 
         // Store greatest distance
         if (d > bestDistance) {
@@ -401,8 +401,8 @@ namespace OrbitVR.Components.Essential {
       return bestDistance;
     }
 
-    public static void FindIncidentFace(ref Vector2[] v, Polygon RefPoly, Polygon IncPoly, int referenceIndex) {
-      Vector2 referenceNormal = RefPoly.normals[referenceIndex];
+    public static void FindIncidentFace(ref Vector2R[] v, Polygon RefPoly, Polygon IncPoly, int referenceIndex) {
+      Vector2R referenceNormal = RefPoly.normals[referenceIndex];
 
       // Calculate normal in incident's frame of reference
       referenceNormal = RefPoly.u*referenceNormal; // To world space
@@ -412,7 +412,7 @@ namespace OrbitVR.Components.Essential {
       int incidentFace = 0;
       double minDot = float.MaxValue;
       for (int i = 0; i < IncPoly.vertexCount; ++i) {
-        double dot = Vector2.Dot(referenceNormal, IncPoly.normals[i]);
+        double dot = Vector2R.Dot(referenceNormal, IncPoly.normals[i]);
         if (dot < minDot) {
           minDot = dot;
           incidentFace = i;
@@ -425,17 +425,17 @@ namespace OrbitVR.Components.Essential {
       v[1] = IncPoly.u*IncPoly.vertices[incidentFace] + IncPoly.body.pos;
     }
 
-    public static int Clip(Vector2 n, double c, ref Vector2[] face) {
+    public static int Clip(Vector2R n, double c, ref Vector2R[] face) {
       int sp = 0;
-      Vector2[] outV = new Vector2[2] {
+      Vector2R[] outV = new Vector2R[2] {
         face[0],
         face[1],
       };
 
       // Retrieve distances from each endpoint to the line
       // d = ax + by - c
-      double d1 = Vector2.Dot(n, face[0]) - c;
-      double d2 = Vector2.Dot(n, face[1]) - c;
+      double d1 = Vector2R.Dot(n, face[0]) - c;
+      double d2 = Vector2R.Dot(n, face[1]) - c;
 
       // If negative (behind plane) clip
       if (d1 <= 0.0f) outV[sp++] = face[0];
@@ -500,7 +500,7 @@ namespace OrbitVR.Components.Essential {
       }
 
       // World space incident face
-      Vector2[] incidentFace = new Vector2[2];
+      Vector2R[] incidentFace = new Vector2R[2];
       FindIncidentFace(ref incidentFace, RefPoly, IncPoly, referenceIndex);
 
       //        y
@@ -517,26 +517,26 @@ namespace OrbitVR.Components.Essential {
       //  n : incident normal
 
       // Setup reference face vertices
-      Vector2 v1 = RefPoly.vertices[referenceIndex];
+      Vector2R v1 = RefPoly.vertices[referenceIndex];
       referenceIndex = referenceIndex + 1 == RefPoly.vertexCount ? 0 : referenceIndex + 1;
-      Vector2 v2 = RefPoly.vertices[referenceIndex];
+      Vector2R v2 = RefPoly.vertices[referenceIndex];
 
       // Transform vertices to world space
       v1 = RefPoly.u*v1 + RefPoly.body.pos;
       v2 = RefPoly.u*v2 + RefPoly.body.pos;
 
       // Calculate reference face side normal in world space
-      Vector2 sidePlaneNormal = (v2 - v1);
+      Vector2R sidePlaneNormal = (v2 - v1);
       VMath.NormalizeSafe(ref sidePlaneNormal);
 
       // Orthogonalize
-      Vector2 refFaceNormal = new Vector2(sidePlaneNormal.Y, -sidePlaneNormal.X);
+      Vector2R refFaceNormal = new Vector2R(sidePlaneNormal.Y, -sidePlaneNormal.X);
 
       // ax + by = c
       // c is distance from origin
-      double refC = Vector2.Dot(refFaceNormal, v1);
-      double negSide = -Vector2.Dot(sidePlaneNormal, v1);
-      double posSide = Vector2.Dot(sidePlaneNormal, v2);
+      double refC = Vector2R.Dot(refFaceNormal, v1);
+      double negSide = -Vector2R.Dot(sidePlaneNormal, v1);
+      double posSide = Vector2R.Dot(sidePlaneNormal, v2);
 
       // Clip incident face to reference face side planes
       if (Clip(-sidePlaneNormal, negSide, ref incidentFace) < 2)
@@ -550,7 +550,7 @@ namespace OrbitVR.Components.Essential {
 
       // Keep points behind reference face
       int cp = 0; // clipped points behind reference face
-      double separation = Vector2.Dot(refFaceNormal, incidentFace[0]) - refC;
+      double separation = Vector2R.Dot(refFaceNormal, incidentFace[0]) - refC;
       if (separation <= 0.0f) {
         m.contacts[cp] = incidentFace[0];
         m.penetration = -separation;
@@ -559,7 +559,7 @@ namespace OrbitVR.Components.Essential {
       else
         m.penetration = 0;
 
-      separation = Vector2.Dot(refFaceNormal, incidentFace[1]) - refC;
+      separation = Vector2R.Dot(refFaceNormal, incidentFace[1]) - refC;
       if (separation <= 0.0f) {
         m.contacts[cp] = incidentFace[1];
 
@@ -577,7 +577,7 @@ namespace OrbitVR.Components.Essential {
 
     ////////FUCKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
     public static bool CircletoCircleCheck(Collider a, Collider b) {
-      Vector2 normal = b.pos - a.pos;
+      Vector2R normal = b.pos - a.pos;
       float distSquared = normal.LengthSquared();
       double radius = a.radius + b.radius;
       return distSquared < radius*radius;
@@ -590,7 +590,7 @@ namespace OrbitVR.Components.Essential {
       //m.contact_count = 0;
 
       // Transform circle center to Polygon model space
-      Vector2 center = a.pos;
+      Vector2R center = a.pos;
       center = B.u.Transpose()*(center - b.pos);
 
       // Find edge with minimum penetration
@@ -598,7 +598,7 @@ namespace OrbitVR.Components.Essential {
       double separation = -float.MaxValue;
       int faceNormal = 0;
       for (int i = 0; i < B.vertexCount; ++i) {
-        double s = Vector2.Dot(B.normals[i], center - B.vertices[i]);
+        double s = Vector2R.Dot(B.normals[i], center - B.vertices[i]);
 
         if (s > A.radius) {
           return false;
@@ -611,9 +611,9 @@ namespace OrbitVR.Components.Essential {
       }
 
       // Grab face's vertices
-      Vector2 v1 = B.vertices[faceNormal];
+      Vector2R v1 = B.vertices[faceNormal];
       int i2 = faceNormal + 1 < B.vertexCount ? faceNormal + 1 : 0;
-      Vector2 v2 = B.vertices[i2];
+      Vector2R v2 = B.vertices[i2];
 
       // Check to see if center is within polygon
       if (separation < GMath.EPSILON) {
@@ -625,13 +625,13 @@ namespace OrbitVR.Components.Essential {
       }
 
       // Determine which voronoi region of the edge center of circle lies within
-      double dot1 = Vector2.Dot(center - v1, v2 - v1);
-      double dot2 = Vector2.Dot(center - v2, v1 - v2);
+      double dot1 = Vector2R.Dot(center - v1, v2 - v1);
+      double dot2 = Vector2R.Dot(center - v2, v1 - v2);
       //m.penetration = A.radius - separation;
 
       // Closest to v1
       if (dot1 <= 0.0f) {
-        if (Vector2.DistanceSquared(center, v1) > A.radius*A.radius) {
+        if (Vector2R.DistanceSquared(center, v1) > A.radius*A.radius) {
           return false;
         }
         //m.contact_count = 1;
@@ -644,7 +644,7 @@ namespace OrbitVR.Components.Essential {
       }
       // Closest to v2
       else if (dot2 <= 0.0f) {
-        if (Vector2.DistanceSquared(center, v2) > A.radius*A.radius) {
+        if (Vector2R.DistanceSquared(center, v2) > A.radius*A.radius) {
           return false;
         }
 
@@ -658,8 +658,8 @@ namespace OrbitVR.Components.Essential {
       }
       // Closest to face
       else {
-        Vector2 n = B.normals[faceNormal];
-        if (Vector2.Dot(center - v1, n) > A.radius) {
+        Vector2R n = B.normals[faceNormal];
+        if (Vector2R.Dot(center - v1, n) > A.radius) {
           return false;
         }
 
@@ -714,29 +714,29 @@ namespace OrbitVR.Components.Essential {
         //flip = true;
       }
       // World space incident face
-      Vector2[] incidentFace = new Vector2[2];
+      Vector2R[] incidentFace = new Vector2R[2];
       FindIncidentFace(ref incidentFace, RefPoly, IncPoly, referenceIndex);
       // Setup reference face vertices
-      Vector2 v1 = RefPoly.vertices[referenceIndex];
+      Vector2R v1 = RefPoly.vertices[referenceIndex];
       referenceIndex = referenceIndex + 1 == RefPoly.vertexCount ? 0 : referenceIndex + 1;
-      Vector2 v2 = RefPoly.vertices[referenceIndex];
+      Vector2R v2 = RefPoly.vertices[referenceIndex];
 
       // Transform vertices to world space
       v1 = RefPoly.u*v1 + RefPoly.body.pos;
       v2 = RefPoly.u*v2 + RefPoly.body.pos;
 
       // Calculate reference face side normal in world space
-      Vector2 sidePlaneNormal = (v2 - v1);
+      Vector2R sidePlaneNormal = (v2 - v1);
       VMath.NormalizeSafe(ref sidePlaneNormal);
 
       // Orthogonalize
-      Vector2 refFaceNormal = new Vector2(sidePlaneNormal.Y, -sidePlaneNormal.X);
+      Vector2R refFaceNormal = new Vector2R(sidePlaneNormal.Y, -sidePlaneNormal.X);
 
       // ax + by = c
       // c is distance from origin
-      double refC = Vector2.Dot(refFaceNormal, v1);
-      double negSide = -Vector2.Dot(sidePlaneNormal, v1);
-      double posSide = Vector2.Dot(sidePlaneNormal, v2);
+      double refC = Vector2R.Dot(refFaceNormal, v1);
+      double negSide = -Vector2R.Dot(sidePlaneNormal, v1);
+      double posSide = Vector2R.Dot(sidePlaneNormal, v2);
 
       // Clip incident face to reference face side planes
       if (Clip(-sidePlaneNormal, negSide, ref incidentFace) < 2)
@@ -750,7 +750,7 @@ namespace OrbitVR.Components.Essential {
 
       // Keep points behind reference face
       int cp = 0; // clipped points behind reference face
-      double separation = Vector2.Dot(refFaceNormal, incidentFace[0]) - refC;
+      double separation = Vector2R.Dot(refFaceNormal, incidentFace[0]) - refC;
       if (separation <= 0.0f) {
         //m.contacts[cp] = incidentFace[0];
         //m.penetration = -separation;
@@ -759,7 +759,7 @@ namespace OrbitVR.Components.Essential {
       //else
       //    m.penetration = 0;
 
-      separation = Vector2.Dot(refFaceNormal, incidentFace[1]) - refC;
+      separation = Vector2R.Dot(refFaceNormal, incidentFace[1]) - refC;
       if (separation <= 0.0f) {
         //m.contacts[cp] = incidentFace[1];
         //

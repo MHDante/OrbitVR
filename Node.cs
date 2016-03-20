@@ -81,11 +81,11 @@ namespace OrbitVR {
     private List<Type> drawProps = new List<Type>();
     public List<string> nodeHistory = new List<string>();
     private List<Type> playerProps = new List<Type>();
-    public Vector2 previousFramePosition = new Vector2();
+    public Vector2R previousFramePosition = new Vector2R();
     public Room room;
     public bool spawned = false;
     private Dictionary<Type, bool> tempCompActiveValues = new Dictionary<Type, bool>();
-    private Vector2 tempPosition = new Vector2(0, 0);
+    private Vector2R tempPosition = new Vector2R(0, 0);
 
     private bool triggerSortComponentsUpdate = false, triggerSortComponentsDraw = false, triggerRemoveComponent = false;
 
@@ -331,9 +331,9 @@ namespace OrbitVR {
       if (val == nodeE.color) body.color = dict[val];
     }
 
-    public static Node ContructLineWall(Room room, Vector2 start, Vector2 end, int thickness,
+    public static Node ContructLineWall(Room room, Vector2R start, Vector2R end, int thickness,
                                         Dictionary<dynamic, dynamic> props = null, bool addToWallGroup = true) {
-      float dist = Vector2.Distance(start, end);
+      float dist = Vector2R.Distance(start, end);
       int halfheight = (int) (dist/2);
       int halfwidth = thickness/2;
       float angle = VMath.VectorToAngle(start - end);
@@ -402,9 +402,9 @@ namespace OrbitVR {
         body.angularVelocity = 0;
       }
 
-      if (!movement.pushable && tempPosition != new Vector2(0, 0)) {
+      if (!movement.pushable && tempPosition != new Vector2R(0, 0)) {
         body.pos = tempPosition;
-        body.velocity = Vector2.Zero;
+        body.velocity = Vector2R.Zero;
       }
       previousFramePosition = tempPosition;
       body.effvelocity = body.pos - tempPosition;
@@ -744,9 +744,9 @@ namespace OrbitVR {
     }
 
 
-    public Vector2 TextureCenter() {
+    public Vector2R TextureCenter() {
       // TODO: variable size textures.
-      return new Vector2(64,64);
+      return new Vector2R(64,64);
     }
 
     public void SetColor(Color c) {
@@ -856,9 +856,9 @@ namespace OrbitVR {
           if (!field.Name.Equals("IsDefault"))
             field.SetValue(destNode, field.GetValue(sourceNode));
         }
-        else if (field.FieldType == typeof (Vector2)) {
-          Vector2 vect = (Vector2) field.GetValue(sourceNode);
-          Vector2 newvect = new Vector2(vect.X, vect.Y);
+        else if (field.FieldType == typeof (Vector2R)) {
+          Vector2R vect = (Vector2R) field.GetValue(sourceNode);
+          Vector2R newvect = new Vector2R(vect.X, vect.Y);
           field.SetValue(destNode, newvect);
         }
         else if (field.FieldType == typeof (Color)) {

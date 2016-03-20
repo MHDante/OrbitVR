@@ -162,7 +162,7 @@ namespace OrbitVR.Components.Items {
       if (shootMode == ShootMode.Rapid) {
         if (input.BtnDown(InputButtons.RightTrigger_Mouse1)) {
           if (shootingRateCount++%shootingDelay == 0) {
-            FireNode(input.GetRightStick());
+            FireNode(input.GetRightStick().toV2R());
           }
         }
         else {
@@ -173,7 +173,7 @@ namespace OrbitVR.Components.Items {
         //if (fc.newGamePadState.IsButtonDown(Buttons.RightTrigger) && fc.oldGamePadState.IsButtonUp(Buttons.RightTrigger))
         if (input.BtnClicked(InputButtons.RightTrigger_Mouse1)) {
           if (shootingRateCount++%shootingDelay == 0) {
-            FireNode(input.GetRightStick());
+            FireNode(input.GetRightStick().toV2R());
           }
         }
         else {
@@ -181,8 +181,8 @@ namespace OrbitVR.Components.Items {
         }
       }
       else if (shootMode == ShootMode.Auto) {
-        Vector2 rightstick = input.GetRightStick();
-        if (rightstick != Vector2.Zero) {
+        Vector2R rightstick = input.GetRightStick().toV2R();
+        if (rightstick != Vector2R.Zero) {
           if (shootingRateCount++%shootingDelay == 0) {
             FireNode(rightstick);
           }
@@ -200,14 +200,14 @@ namespace OrbitVR.Components.Items {
         float nearest = float.MaxValue;
         Node nearNode = null;
         foreach (Node n in room.Groups.Player.entities) {
-          float dist = Vector2.Distance(parent.body.pos, n.body.pos);
+          float dist = Vector2R.Distance(parent.body.pos, n.body.pos);
           if (dist < nearest) {
             nearNode = n;
             nearest = dist;
           }
         }
         if (nearNode != null) {
-          Vector2 dir = nearNode.body.pos - parent.body.pos;
+          Vector2R dir = nearNode.body.pos - parent.body.pos;
           VMath.NormalizeSafe(ref dir);
           dir.Y *= -1;
           FireNode(dir);
@@ -220,7 +220,7 @@ namespace OrbitVR.Components.Items {
       Essential.Meta.drawBar(parent, 0.5f, (float) ammo/(float) maxAmmo, true, Color.Goldenrod);
     }
 
-    public void FireNode(Vector2 dir) {
+    public void FireNode(Vector2R dir) {
       if (maxAmmo.enabled) ammo--;
       if (!useStickVelocity) VMath.NormalizeSafe(ref dir);
       Node n = bulletNode.CreateClone(room);

@@ -100,7 +100,7 @@ namespace OrbitVR.Components.AffectOthers {
       if (onlyObstructors && !other.HasActiveComponent<Obstructor>()) return;
       if (onlyAvailableObs && other.HasActiveComponent<Obstructor>() && !other.Comp<Obstructor>().Available) return;
 
-      float dist = Vector2.Distance(other.body.pos, parent.body.pos);
+      float dist = Vector2R.Distance(other.body.pos, parent.body.pos);
       if (dist < radius) {
         if (nodeDistances.Count < maxWalls) {
           nodeDistances.Add(new KeyValuePair<float, Node>(dist, other));
@@ -170,7 +170,7 @@ namespace OrbitVR.Components.AffectOthers {
       Polygon p = (Polygon) wall.body.shape;
       p.SetBox(halfwidth, halfheight, false); //flipped
 
-      Vector2 endpos = parent.body.pos + (other.body.pos - parent.body.pos)*0.25f;
+      Vector2R endpos = parent.body.pos + (other.body.pos - parent.body.pos)*0.25f;
       wall.body.pos = endpos; // (parent.body.pos + other.body.pos) / 2;
       p.SetOrient(angle);
 

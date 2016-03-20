@@ -473,8 +473,8 @@ namespace OrbitVR.Framework {
             color1 = sourceNode.body.color;
           }
 
-          Vector2 diff = target.body.pos - source.body.pos;
-          Vector2 perp = new Vector2(diff.Y, -diff.X);
+          Vector2R diff = target.body.pos - source.body.pos;
+          Vector2R perp = new Vector2R(diff.Y, -diff.X);
           VMath.NormalizeSafe(ref perp);
           perp *= 2;
 
@@ -486,9 +486,9 @@ namespace OrbitVR.Framework {
           if (!DrawTips) continue;
           perp *= 20;
 
-          Vector2 center = (target.body.pos + source.body.pos)/2;
+          Vector2R center = (target.body.pos + source.body.pos)/2;
 
-          Vector2 point = target.body.pos - (diff/5);
+          Vector2R point = target.body.pos - (diff/5);
           room.Camera.DrawLine(point + perp, target.body.pos, 2f, color1, (int)Layers.Under3);
           room.Camera.DrawLine(point - perp, target.body.pos, 2f, color1, (int)Layers.Under3);
         }

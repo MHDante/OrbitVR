@@ -49,7 +49,7 @@ namespace OrbitVR.Physics {
                       };
 
       gridsystemCollision = new GridSystem(room, room.GridsystemAffect.cellsX,
-                                           new Vector2(0, room.WorldHeight - OrbIt.ScreenHeight), room.WorldWidth,
+                                           new Vector2R(0, room.WorldHeight - OrbIt.ScreenHeight), room.WorldWidth,
                                            OrbIt.ScreenHeight);
     }
 
@@ -145,7 +145,7 @@ namespace OrbitVR.Physics {
         if (DebugFlags.skipOutsideGrid &&
             n.body.pos.isWithin(gridsystemCollision.position,
                                 gridsystemCollision.position +
-                                new Vector2(gridsystemCollision.gridWidth, gridsystemCollision.gridHeight)))
+                                new Vector2R(gridsystemCollision.gridWidth, gridsystemCollision.gridHeight)))
           continue;
         n.movement.IntegrateVelocity();
         VMath.Set(ref n.body.force, 0, 0);

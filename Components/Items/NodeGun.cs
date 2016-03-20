@@ -55,17 +55,17 @@ namespace OrbitVR.Components.Items {
       if (fireMode == mode.SingleFire) {
         if (input.BtnDown(InputButtons.RightTrigger_Mouse1)) {
           if (!input.oldInputState.IsButtonDown(InputButtons.RightTrigger_Mouse1)) {
-            FireNode(input.GetRightStick());
+            FireNode(input.GetRightStick().toV2R());
           }
           else if (steerNode && lastFired != null) {
-            lastFired.body.velocity = VMath.VectorRotateLerp(lastFired.body.velocity, input.GetRightStick(), 0.02f);
+            lastFired.body.velocity = VMath.VectorRotateLerp(lastFired.body.velocity, input.GetRightStick().toV2R(), 0.02f);
           }
         }
       }
       else if (fireMode == mode.AutoFire) {
         if (input.BtnDown(InputButtons.RightTrigger_Mouse1)) {
           if (shootingDelayCount++%shootingDelay == 0) {
-            FireNode(input.GetRightStick());
+            FireNode(input.GetRightStick().toV2R());
           }
         }
       }
@@ -104,7 +104,7 @@ namespace OrbitVR.Components.Items {
       }
     }
 
-    public void FireNode(Vector2 dir) {
+    public void FireNode(Vector2R dir) {
       if (currentGroup == null) return;
       Node n = room.SpawnNode(currentGroup);
       if (n == null) return;

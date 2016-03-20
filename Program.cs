@@ -33,7 +33,7 @@ namespace OrbitVR {
   internal class Tester : OrbIt {
     private Randomizer randomizer;
     private bool spawned;
-    private Vector2 spawnPos;
+    private Vector2R spawnPos;
     private double testTimer;
 
     protected override void Initialize() {
@@ -46,20 +46,20 @@ namespace OrbitVR {
       base.UpdateAsync();
 
       testTimer += Time.ElapsedGameTime.TotalMilliseconds;
-      //if (testTimer > 50) {
-      //  spawnPos += Vector2.One*10;
-      //  UserInterface.WorldMousePos = spawnPos;
-      //  randomizer.SpawnSemiRandom();
-      //  //randomizer.SpawnFullyRandom();
-      //  testTimer = 0;
-      //}
-      if (testTimer > 5) {
-        
-        Node n = Room.SpawnNode(20, 20);
-        n.addComponent<Gravity>();
-        n.addComponent<Transfer>();
-        n.body.velocity = new Vector2(1, 1) * 0.001f;
+      if (testTimer > 5000) {
+        spawnPos += Vector2R.One*10;
+        UserInterface.WorldMousePos = spawnPos;
+        randomizer.SpawnSemiRandom();
+        //randomizer.SpawnFullyRandom();
+        testTimer = 0;
       }
+      //if (testTimer > 5000) {
+      //  
+      //  Node n = Room.SpawnNode(20, 20);
+      //  n.addComponent<Gravity>();
+      //  //n.addComponent<Transfer>();
+      //  n.body.velocity = new Vector2(1, 1) * 0.001f;
+      //}
 
       //if (testTimer < 1000) {
       //  testTimer = 1000;
@@ -76,8 +76,8 @@ namespace OrbitVR {
         spawned = true;
         for (int i = 0; i < 150; i++) {
           Node n = Room.SpawnNode(i, i);
-          n.addComponent<Gravity>();
-        n.body.velocity  = new Vector2(1,1)*0.001f;
+          //n.addComponent<Gravity>();
+        n.body.velocity  = new Vector2R(1,1)*0.001f;
         }
 
       }

@@ -25,7 +25,7 @@ namespace OrbItProcs {
     private int _queuecount = 10;
     public Queue<float> angles;
 
-    public Queue<Vector2> positions;
+    public Queue<Vector2R> positions;
     public Queue<float> scales;
 
 

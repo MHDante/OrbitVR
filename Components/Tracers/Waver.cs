@@ -14,10 +14,10 @@ namespace OrbitVR.Components.Tracers {
   public class Waver : Component {
     public const mtypes CompType = mtypes.draw | mtypes.tracer;
 
-    [Info(UserLevel.Developer)] public Queue<Vector2> metapositions = new Queue<Vector2>();
+    [Info(UserLevel.Developer)] public Queue<Vector2R> metapositions = new Queue<Vector2R>();
 
-    private Vector2 previousMetaPos = Vector2.Zero, previousRelectPos = Vector2.Zero;
-    private Queue<Vector2> reflectpositions = new Queue<Vector2>();
+    private Vector2R previousMetaPos = Vector2R.Zero, previousRelectPos = Vector2R.Zero;
+    private Queue<Vector2R> reflectpositions = new Queue<Vector2R>();
 
     private float vshift = 0f;
     private float yval = 0f;
@@ -89,8 +89,8 @@ namespace OrbitVR.Components.Tracers {
     }
 
     public override void InitializeLists() {
-      metapositions = new Queue<Vector2>();
-      reflectpositions = new Queue<Vector2>();
+      metapositions = new Queue<Vector2R>();
+      reflectpositions = new Queue<Vector2R>();
     }
 
     public override void Draw() {
@@ -102,20 +102,20 @@ namespace OrbitVR.Components.Tracers {
 
       yval = DelegateManager.SineComposite(time, amp, period, vshift, composite);
 
-      Vector2 metapos = new Vector2(parent.body.velocity.Y, -parent.body.velocity.X);
+      Vector2R metapos = new Vector2R(parent.body.velocity.Y, -parent.body.velocity.X);
       VMath.NormalizeSafe(ref metapos);
       metapos *= yval;
-      Vector2 metaposfinal = parent.body.pos + metapos;
-      Vector2 reflectfinal = parent.body.pos - metapos;
+      Vector2R metaposfinal = parent.body.pos + metapos;
+      Vector2R reflectfinal = parent.body.pos - metapos;
 
       if (drawLines) {
-        if (previousMetaPos != Vector2.Zero) {
+        if (previousMetaPos != Vector2R.Zero) {
           room.Camera.DrawLinePermanent(previousMetaPos, metaposfinal, 2f, parent.body.color, Length);
         }
         previousMetaPos = metaposfinal;
         //previousRelectPos = metaposfinal;
         if (reflective) {
-          if (previousRelectPos != Vector2.Zero) {
+          if (previousRelectPos != Vector2R.Zero) {
             room.Camera.DrawLinePermanent(previousRelectPos, reflectfinal, 2f, parent.body.color, Length);
 
             if (drawSpin) {

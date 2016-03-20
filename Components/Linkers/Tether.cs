@@ -22,7 +22,7 @@ namespace OrbitVR.Components.Linkers {
     public int _maxdist = 300;
     public int _mindist = 100;
     private HashSet<Node> _outgoing = new HashSet<Node>();
-    private Dictionary<Node, Vector2> confiningVects;
+    private Dictionary<Node, Vector2R> confiningVects;
 
     private Dictionary<Node, int> lockedVals;
 
@@ -134,7 +134,7 @@ namespace OrbitVR.Components.Linkers {
       if (!active || !activated) {
         return;
       }
-      Vector2 diff = other.body.pos - parent.body.pos;
+      Vector2R diff = other.body.pos - parent.body.pos;
       float len;
       if (lockedDistance) {
         len = lockedVals[other];
@@ -182,8 +182,8 @@ namespace OrbitVR.Components.Linkers {
       room.Camera.Draw(parent.body.texture, parent.body.pos, col, parent.body.scale*1.2f, (int)Layers.Under2);
 
       foreach (Node receiver in outgoing) {
-        Vector2 diff = receiver.body.pos - parent.body.pos;
-        Vector2 perp = new Vector2(diff.Y, -diff.X);
+        Vector2R diff = receiver.body.pos - parent.body.pos;
+        Vector2R perp = new Vector2R(diff.Y, -diff.X);
         VMath.NormalizeSafe(ref perp);
         perp *= 2;
 
@@ -194,10 +194,10 @@ namespace OrbitVR.Components.Linkers {
 
         perp *= 20;
 
-        Vector2 center = (receiver.body.pos + parent.body.pos)/2;
+        Vector2R center = (receiver.body.pos + parent.body.pos)/2;
 
 
-        Vector2 point = receiver.body.pos - (diff/5);
+        Vector2R point = receiver.body.pos - (diff/5);
         room.Camera.DrawLine(point + perp, receiver.body.pos, 2f, col, (int)Layers.Under3);
         room.Camera.DrawLine(point - perp, receiver.body.pos, 2f, col, (int)Layers.Under3);
       }
@@ -211,7 +211,7 @@ namespace OrbitVR.Components.Linkers {
     public override void AffectSelf() {
       if (active && activated) {
         foreach (Node other in outgoing) {
-          Vector2 diff = other.body.pos - parent.body.pos;
+          Vector2R diff = other.body.pos - parent.body.pos;
           float len;
           if (lockedDistance) {
             len = lockedVals[other];
@@ -266,9 +266,9 @@ namespace OrbitVR.Components.Linkers {
 
     public void Confine() {
       if (parent == null) return;
-      confiningVects = new Dictionary<Node, Vector2>();
+      confiningVects = new Dictionary<Node, Vector2R>();
       foreach (Node other in outgoing.ToList()) {
-        Vector2 len = other.body.pos - parent.body.pos;
+        Vector2R len = other.body.pos - parent.body.pos;
         VMath.NormalizeSafe(ref len);
         confiningVects[other] = len;
       }
@@ -278,7 +278,7 @@ namespace OrbitVR.Components.Linkers {
       if (parent == null) return;
       lockedVals = new Dictionary<Node, int>();
       foreach (Node other in outgoing.ToList()) {
-        Vector2 len = other.body.pos - parent.body.pos;
+        Vector2R len = other.body.pos - parent.body.pos;
         lockedVals[other] = (int) len.Length();
       }
     }
@@ -295,7 +295,7 @@ namespace OrbitVR.Components.Linkers {
           outgoing.Add(node);
           node.Comp<Tether>().incoming.Add(parent);
           if (lockedAngle && !confiningVects.ContainsKey(node)) {
-            Vector2 v = (node.body.pos - parent.body.pos);
+            Vector2R v = (node.body.pos - parent.body.pos);
             VMath.NormalizeSafe(ref v);
             confiningVects.Add(node, v);
           }

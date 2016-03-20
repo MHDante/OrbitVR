@@ -7,7 +7,7 @@ using SharpDX;
 namespace OrbitVR.Processes {
   public class PolygonSpawner : Process {
     //int clickCount = 0;
-    List<Vector2> verts = new List<Vector2>();
+    List<Vector2R> verts = new List<Vector2R>();
 
     public PolygonSpawner() {
       this.addProcessKeyAction("createVert", KeyCodes.LeftClick, OnPress: CreateVertice);
@@ -16,7 +16,7 @@ namespace OrbitVR.Processes {
       this.addProcessKeyAction("createRandPoly", KeyCodes.MiddleClick, OnPress: CreateRandomPolygon);
     }
 
-    private static int Orientation(Vector2 p1, Vector2 p2, Vector2 p) {
+    private static int Orientation(Vector2R p1, Vector2R p2, Vector2R p) {
       // Determinant
       float Orin = (p2.X - p1.X)*(p.Y - p1.Y) - (p.X - p1.X)*(p2.Y - p1.Y);
       if (Orin > 0)
@@ -27,14 +27,14 @@ namespace OrbitVR.Processes {
     }
 
     public void CreateVertice() {
-      Vector2 mp = UserInterface.WorldMousePos;
+      Vector2R mp = UserInterface.WorldMousePos;
       verts.Add(mp);
     }
 
     public void CreatePolygon() {
       if (verts.Count < 3) return;
 
-      Vector2[] vertices = verts.ToArray();
+      Vector2R[] vertices = verts.ToArray();
       Node newNode = new Node(room, ShapeType.Polygon);
       //Node.cloneNode(Game1.ui.sidebar.ActiveDefaultNode, newNode);
       //Polygon poly = new Polygon();
@@ -45,19 +45,19 @@ namespace OrbitVR.Processes {
 
       //newNode.body.shape = poly;
       room.SpawnNode(newNode);
-      verts = new List<Vector2>();
+      verts = new List<Vector2R>();
     }
 
     public void CreateRandomPolygon() {
-      Vector2 mp = UserInterface.WorldMousePos;
-      List<Vector2> randVerts = new List<Vector2>();
+      Vector2R mp = UserInterface.WorldMousePos;
+      List<Vector2R> randVerts = new List<Vector2R>();
       int count = Utils.random.Next(7) + 3;
       for (int i = 0; i < count; i++) {
-        Vector2 v = new Vector2(Utils.random.Next(200) - 100, Utils.random.Next(200) - 100);
+        Vector2R v = new Vector2R(Utils.random.Next(200) - 100, Utils.random.Next(200) - 100);
         randVerts.Add(v);
       }
 
-      Vector2[] vertices = randVerts.ToArray();
+      Vector2R[] vertices = randVerts.ToArray();
       //Node newNode = new Node(ShapeType.ePolygon);
       Node newNode = room.ActiveDefaultNode.CreateClone();
       //Node.cloneNode(OrbIt.ui.sidebar.ActiveDefaultNode, newNode);
@@ -69,11 +69,11 @@ namespace OrbitVR.Processes {
       newNode.body.pos = mp;
       room.SpawnNode(newNode);
 
-      verts = new List<Vector2>();
+      verts = new List<Vector2R>();
     }
 
     public void CreateBox() {
-      Vector2 mp = UserInterface.WorldMousePos;
+      Vector2R mp = UserInterface.WorldMousePos;
 
       //if (verts.Count < 3) return;
       //Vector2[] vertices = verts.ToArray();

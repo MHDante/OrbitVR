@@ -20,7 +20,7 @@ namespace OrbitVR.Framework.Gametypes {
     public static float tonymass = 10;
     public static Node bigtony = null;
 
-    public Vector2 accel;
+    public Vector2R accel;
     Action<Node> after;
     Action<Node> before;
     public Action<Node, Node> onCollisionEnter;
@@ -33,7 +33,7 @@ namespace OrbitVR.Framework.Gametypes {
     };
 
     Dictionary<dynamic, dynamic> userP = new Dictionary<dynamic, dynamic>() {
-      {nodeE.position, new Vector2(0, 0)},
+      {nodeE.position, new Vector2R(0, 0)},
       {nodeE.texture, Textures.Blueorb},
     };
 
@@ -53,7 +53,7 @@ namespace OrbitVR.Framework.Gametypes {
                             t.body.color = Color.White;
                           }
                         };
-      accel = new Vector2(0, 0);
+      accel = new Vector2R(0, 0);
       absaccel = 0.2f;
       friction = 0.01f;
       before = (n) => { if (n != bigtony) n.body.mass = smallmass; };
@@ -67,13 +67,13 @@ namespace OrbitVR.Framework.Gametypes {
         //Player p = Player.GetNew(i);
         Player p = new Player(i);
         if (p == null) break;
-        Vector2 spawnPos = Vector2.Zero;
+        Vector2R spawnPos = Vector2R.Zero;
         double angle = Utils.random.NextDouble()*Math.PI*2;
         angle -= Math.PI;
         float dist = 200;
         float x = dist*(float) Math.Cos(angle);
         float y = dist*(float) Math.Sin(angle);
-        spawnPos = new Vector2(room.WorldWidth/2, room.WorldHeight/2) - new Vector2(x, y);
+        spawnPos = new Vector2R(room.WorldWidth/2, room.WorldHeight/2) - new Vector2R(x, y);
 
         //add //{ nodeE.position, spawnPos },
         p.node = room.SpawnNode(playerProps);
@@ -97,7 +97,7 @@ namespace OrbitVR.Framework.Gametypes {
       //    return;
       //}
       Dictionary<dynamic, dynamic> tonyProps = new Dictionary<dynamic, dynamic>() {
-        {nodeE.position, new Vector2(room.WorldWidth/2, room.WorldHeight/2)},
+        {nodeE.position, new Vector2R(room.WorldWidth/2, room.WorldHeight/2)},
         {nodeE.texture, Textures.Blackorb},
         {typeof (PhaseOrb), true},
       };

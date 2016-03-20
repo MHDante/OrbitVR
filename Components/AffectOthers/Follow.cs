@@ -26,7 +26,7 @@ namespace OrbitVR.Components.AffectOthers {
     }
 
     public const mtypes CompType = mtypes.affectother | mtypes.affectself;
-    List<Vector2> directions = new List<Vector2>();
+    List<Vector2R> directions = new List<Vector2R>();
     float nearestDistSqrd = float.MaxValue;
     Node nearestNode = null;
 
@@ -65,7 +65,7 @@ namespace OrbitVR.Components.AffectOthers {
     public Link link { get; set; }
 
     public override void AffectOther(Node other) {
-      Vector2 dir = other.body.pos - parent.body.pos;
+      Vector2R dir = other.body.pos - parent.body.pos;
       if (link != null) {
         if (FollowMode != followMode.FollowNone) {
           TurnTowardsDirection(parent, dir, flee, LerpPercent);
@@ -109,12 +109,12 @@ namespace OrbitVR.Components.AffectOthers {
       }
       else if (FollowMode == followMode.FollowAll) {
         if (directions.Count == 0) return;
-        Vector2 result = new Vector2();
-        foreach (Vector2 dir in directions) {
+        Vector2R result = new Vector2R();
+        foreach (Vector2R dir in directions) {
           result += dir;
         }
         TurnTowardsDirection(parent, result, flee, LerpPercent);
-        directions = new List<Vector2>();
+        directions = new List<Vector2R>();
       }
       if (LeadMode == leadMode.LeadNearest) {
         if (nearestDistSqrd == float.MaxValue || nearestNode == null) return;
@@ -124,13 +124,13 @@ namespace OrbitVR.Components.AffectOthers {
       }
     }
 
-    public static void TurnTowardsDirection(Node node, Vector2 direction, bool flip, float lerpPercent) {
-      if (direction == Vector2.Zero) return;
-      if (flip) direction *= new Vector2(-1, -1);
+    public static void TurnTowardsDirection(Node node, Vector2R direction, bool flip, float lerpPercent) {
+      if (direction == Vector2R.Zero) return;
+      if (flip) direction *= new Vector2R(-1, -1);
       float oldAngle = VMath.VectorToAngle(node.body.velocity);
       float newAngle = VMath.VectorToAngle(direction);
       float lerpedAngle = GMath.AngleLerp(oldAngle, newAngle, lerpPercent/100f);
-      Vector2 finalDir = VMath.AngleToVector(lerpedAngle);
+      Vector2R finalDir = VMath.AngleToVector(lerpedAngle);
       node.body.velocity = VMath.Redirect(node.body.velocity, finalDir);
     }
   }

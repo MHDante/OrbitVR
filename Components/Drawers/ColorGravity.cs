@@ -147,7 +147,7 @@ namespace OrbitVR.Components.Drawers {
           //Console.WriteLine("dist: {0} force: {1}", dist, force);
         }
         else if (distancemod == DistanceMod.spatial) {
-          dist = Vector2.Distance(parent.body.pos, other.body.pos)/divisor;
+          dist = Vector2R.Distance(parent.body.pos, other.body.pos)/divisor;
           if (dist == 0) return;
           float force = multiplier*other.body.mass*parent.body.mass/(dist*dist);
           float diff = hue - other.Comp<ColorGravity>().hue;
@@ -169,7 +169,7 @@ namespace OrbitVR.Components.Drawers {
           dist = Vector3.Distance(parentCol, otherCol)/100f;
         }
         else if (distancemod == DistanceMod.spatial) {
-          dist = Vector2.Distance(parent.body.pos, other.body.pos)/divisor/divisor;
+          dist = Vector2R.Distance(parent.body.pos, other.body.pos)/divisor/divisor;
         }
         Vector3 direction = otherCol - parentCol;
         if (dist < 1) dist = 1;

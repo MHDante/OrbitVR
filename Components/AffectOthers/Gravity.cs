@@ -143,7 +143,7 @@ namespace OrbitVR.Components.AffectOthers {
 
       if (AffectsOnlyGravity && !other.HasComp<Gravity>()) return;
 
-      float distVects = Vector2.DistanceSquared(other.body.pos, parent.body.pos);
+      float distVects = Vector2R.DistanceSquared(other.body.pos, parent.body.pos);
       Node affector = parent;
       Node affected = other;
       if (affectDirection == AffectDirection.OthersAffectThis) {
@@ -181,7 +181,7 @@ namespace OrbitVR.Components.AffectOthers {
         //float gravForce = gnode1.GravMultiplier;
         float velX = (float) Math.Cos(angletemp)*gravForce;
         float velY = (float) Math.Sin(angletemp)*gravForce;
-        Vector2 delta = new Vector2(velX, velY);
+        Vector2R delta = new Vector2R(velX, velY);
 
         /*
                 delta /= other.transform.mass;

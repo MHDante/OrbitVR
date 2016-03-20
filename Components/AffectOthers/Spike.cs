@@ -12,7 +12,7 @@ namespace OrbitVR.Components.AffectOthers {
   [Info(UserLevel.User, "The spike hurts nodes.")]
   public class Spike : Component //, IRadius
   {
-    public enum DamanageMode {
+    public enum DamageMode {
       Players,
       Nodes,
       Both,
@@ -55,7 +55,7 @@ namespace OrbitVR.Components.AffectOthers {
     /// The damage mode of the spike.
     /// </summary>
     [Info(UserLevel.User, "The damage mode of the spike.")]
-    public DamanageMode damageMode { get; set; }
+    public DamageMode damageMode { get; set; }
 
     public Spike() : this(null) {}
 
@@ -65,17 +65,17 @@ namespace OrbitVR.Components.AffectOthers {
       damageMultiplier = 1f;
       pushBack = new Toggle<float>(10f, true);
       stunSeconds = new Toggle<float>(1f, true);
-      damageMode = DamanageMode.Players;
+      damageMode = DamageMode.Players;
     }
 
     public override void OnSpawn() {
       collisionAction = (s, t) => {
                           if (t.IsPlayer) {
-                            if (damageMode == DamanageMode.Players || damageMode == DamanageMode.Both) {
+                            if (damageMode == DamageMode.Players || damageMode == DamageMode.Both) {
                               t.meta.CalculateDamage(s, damageMultiplier);
                             }
                             if (pushBack.enabled) {
-                              Vector2 f = (t.body.pos - s.body.pos);
+                              Vector2R f = (t.body.pos - s.body.pos);
                               VMath.NormalizeSafe(ref f);
                               f *= pushBack.value;
                               t.body.velocity += f;
@@ -89,11 +89,11 @@ namespace OrbitVR.Components.AffectOthers {
                             }
                           }
                           else {
-                            if (damageMode == DamanageMode.Nodes || damageMode == DamanageMode.Both) {
+                            if (damageMode == DamageMode.Nodes || damageMode == DamageMode.Both) {
                               t.meta.CalculateDamage(s, damageMultiplier);
                             }
                             if (pushBack.enabled) {
-                              Vector2 f = (t.body.pos - s.body.pos);
+                              Vector2R f = (t.body.pos - s.body.pos);
                               VMath.NormalizeSafe(ref f);
                               f *= pushBack.value;
                               t.body.velocity += f;
@@ -112,7 +112,7 @@ namespace OrbitVR.Components.AffectOthers {
       Polygon poly = new Polygon();
       poly.body = parent.body;
       float dist = parent.body.radius*1.3f;
-      Vector2[] verts = new Vector2[3];
+      Vector2R[] verts = new Vector2R[3];
       for (int i = 0; i < 3; i++) {
         verts[i] = VMath.AngleToVector(GMath.TwoPI/3f*i)*dist;
       }
@@ -122,7 +122,7 @@ namespace OrbitVR.Components.AffectOthers {
       parent.body.orient = parent.body.orient; //todo:set this every init of polys
       parent.body.OnCollisionEnter += collisionAction;
 
-      parent.body.ExclusionCheck += (s, t) => { return Vector2.Distance(s.pos, t.pos) > dist; };
+      parent.body.ExclusionCheck += (s, t) => { return Vector2R.Distance(s.pos, t.pos) > dist; };
     }
   }
 }

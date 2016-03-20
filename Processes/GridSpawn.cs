@@ -10,7 +10,7 @@ namespace OrbitVR.Processes {
 
     public void SpawnNodeGrid() {
       ///
-      Vector2 MousePos = UserInterface.WorldMousePos;
+      Vector2R MousePos = UserInterface.WorldMousePos;
       int mult = 3;
       int dx = (int) MousePos.X/(room.Level.cellWidth*mult);
       int dy = (int) MousePos.Y/(room.Level.cellHeight*mult);

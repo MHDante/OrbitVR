@@ -1,4 +1,5 @@
 #define RUNVR
+using System.Threading;
 using OrbitVR.PSMove;
 using SharpDX;
 using SharpDX.Direct2D1;
@@ -22,7 +23,6 @@ namespace OrbitVR.UI
     private Vector3[] hmdToEyeViewOffset = new Vector3[2];
     private LayerEyeFov layerEyeFov;
     private SharpDX.Direct3D11.Texture2D mirrorTexture;
-
     public SharpDX.Direct2D1.PixelFormat pixelFormat = new SharpDX.Direct2D1.PixelFormat(Format.R8G8B8A8_UNorm,
                                                                                          AlphaMode.Premultiplied);
 
@@ -30,8 +30,11 @@ namespace OrbitVR.UI
     public PSMoveController PsMoveController;
     private Model ship;
     public Matrix view;
+    protected bool firstUpdate = true;
+    private Thread workerThread;
 
     public bool UsePsMove { get; } = false;
+    public GameTime Time => gameTime;
 
     protected VRGame()
     {
@@ -184,13 +187,33 @@ namespace OrbitVR.UI
 #endif
     }
 
-    protected override void Update(GameTime gameTime)
+    protected abstract void UpdateAsync();
+
+
+    protected sealed override void Update(GameTime gameTime)
     {
       base.Update(gameTime);
       if (UsePsMove)
       {
         PSMoveManager.GetManagerInstance().Update();
         PsMoveController.Update();
+      }
+      if (firstUpdate)
+      {
+        firstUpdate = false;
+        workerThread = new Thread(() =>
+        {
+          while (true)
+          {
+            //Thread.Sleep(100);
+            UpdateAsync();
+            //Console.WriteLine("b" + Time.ElapsedGameTime.TotalSeconds);
+
+            //
+          }
+        });
+
+        workerThread.Start();
       }
     }
 
@@ -202,5 +225,7 @@ namespace OrbitVR.UI
         OVR.Shutdown();
       }
     }
+
+
   }
 }

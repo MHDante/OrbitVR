@@ -119,16 +119,16 @@ namespace OrbitVR.Framework {
 
     #endregion
 
-    public static void Set(ref Vector2 v, float x, float y) {
+    public static void Set(ref Vector2R v, float x, float y) {
       v.X = x;
       v.Y = y;
     }
 
-    public static Vector2 AngleToVector(float angle) {
-      return new Vector2((float) Math.Sin(angle), -(float) Math.Cos(angle));
+    public static Vector2R AngleToVector(float angle) {
+      return new Vector2R((float) Math.Sin(angle), -(float) Math.Cos(angle));
     }
 
-    public static float VectorToAngle(Vector2 vector) {
+    public static float VectorToAngle(Vector2R vector) {
       float value = (float) Math.Atan2(vector.X, -vector.Y); //should the components be swapped here?
       if (value > GMath.TwoPI) //should this be a sawtooth?
         value = value%GMath.TwoPI;
@@ -137,7 +137,7 @@ namespace OrbitVR.Framework {
       return value;
     }
 
-    public static Vector2 VectorRotateLerp(Vector2 source, Vector2 direction, float amount) {
+    public static Vector2R VectorRotateLerp(Vector2R source, Vector2R direction, float amount) {
       float oldAngle = VMath.VectorToAngle(source);
       float newAngle = VMath.VectorToAngle(direction);
       float lerpedAngle = GMath.AngleLerp(oldAngle, newAngle, amount);
@@ -146,11 +146,15 @@ namespace OrbitVR.Framework {
     }
 
 
-    public static bool isWithin(this Vector2 v, Vector2 TopLeft, Vector2 BottomRight) {
-      return (v.X >= TopLeft.X && v.Y >= TopLeft.Y && v.X <= BottomRight.X && v.Y <= BottomRight.Y);
+    public static bool isWithin(this Vector2R v, Vector2R TopLeft, Vector2R BottomRight)
+    {
+
+      var fromTL = v - TopLeft;
+      var fromBR = v-BottomRight;
+      return (fromTL.X > 0 && fromTL.Y < 0 && fromBR.X <0 && fromBR.Y >0);
     }
 
-    public static Vector2 Rotate(this Vector2 v, float radians) {
+    public static Vector2R Rotate(this Vector2R v, float radians) {
       double c = Math.Cos(radians);
       double s = Math.Sin(radians);
       double xp = v.X*c - v.Y*s;
@@ -160,24 +164,24 @@ namespace OrbitVR.Framework {
       return v;
     }
 
-    public static Vector2 ProjectOnto(this Vector2 source, Vector2 target) {
-      return (Vector2.Dot(source, target)/target.LengthSquared())*target;
+    public static Vector2R ProjectOnto(this Vector2R source, Vector2R target) {
+      return (Vector2R.Dot(source, target)/target.LengthSquared())*target;
     }
 
-    public static Vector2 Cross(Vector2 v, double a) {
-      return new Vector2((float) a*v.Y, -(float) a*v.X);
+    public static Vector2R Cross(Vector2R v, double a) {
+      return new Vector2R((float) a*v.Y, -(float) a*v.X);
     }
 
-    public static Vector2 Cross(double a, Vector2 v) {
-      return new Vector2(-(float) a*v.Y, (float) a*v.X);
+    public static Vector2R Cross(double a, Vector2R v) {
+      return new Vector2R(-(float) a*v.Y, (float) a*v.X);
     }
 
-    public static double Cross(Vector2 a, Vector2 b) {
+    public static double Cross(Vector2R a, Vector2R b) {
       return a.X*b.Y - a.Y*b.X;
     }
 
-    public static Vector2 MultVectDouble(Vector2 v, double d) {
-      return new Vector2(v.X*(float) d, v.Y*(float) d);
+    public static Vector2R MultVectDouble(Vector2R v, double d) {
+      return new Vector2R(v.X*(float) d, v.Y*(float) d);
     }
 
     //todo: test resize and redirect
@@ -185,12 +189,12 @@ namespace OrbitVR.Framework {
       return v *= length/v.Length();
     }
 
-    public static Vector2 Redirect(Vector2 source, Vector2 direction) {
+    public static Vector2R Redirect(Vector2R source, Vector2R direction) {
       return direction *= source.Length()/direction.Length();
       //return Resize(direction, source.Length());
     }
 
-    public static Vector2 NormalizeSafe(this Vector2 v) {
+    public static Vector2R NormalizeSafe(this Vector2R v) {
       if (v.X == 0 && v.Y == 0) return v;
       float len = v.Length();
       if (len == 0) return v;
@@ -200,7 +204,7 @@ namespace OrbitVR.Framework {
       return v;
     }
 
-    public static void NormalizeSafe(ref Vector2 v) {
+    public static void NormalizeSafe(ref Vector2R v) {
       if (v.X != 0 || v.Y != 0) {
         float len = v.Length();
         if (len == 0) return;

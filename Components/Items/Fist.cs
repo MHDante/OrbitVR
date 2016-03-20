@@ -19,10 +19,10 @@ namespace OrbitVR.Components.Items {
     public const mtypes CompType = mtypes.playercontrol | mtypes.draw | mtypes.item; // | mtypes.affectself;
 
     private bool movingStick = false;
-    Vector2 oldstickpos = Vector2.Zero;
+    Vector2R oldstickpos = Vector2R.Zero;
     fistmode state = fistmode.ready;
 
-    Vector2 target;
+    Vector2R target;
 
     public override bool active {
       get { return base.active; }
@@ -111,14 +111,14 @@ namespace OrbitVR.Components.Items {
       fistNode.body.OnCollisionEnter += (p, o) => {
                                           if (o.dataStore.ContainsKey("swordnodeparent")) {
                                             Node otherparent = o.dataStore["swordnodeparent"];
-                                            Vector2 f = otherparent.body.pos - parent.body.pos;
+                                            Vector2R f = otherparent.body.pos - parent.body.pos;
                                             VMath.NormalizeSafe(ref f);
                                             f *= parryKnockback;
                                             otherparent.body.ApplyForce(f);
                                           }
                                           else if (o.dataStore.ContainsKey("fistnodeparent")) {
                                             Node otherparent = o.dataStore["fistnodeparent"];
-                                            Vector2 f = otherparent.body.pos - parent.body.pos;
+                                            Vector2R f = otherparent.body.pos - parent.body.pos;
                                             VMath.NormalizeSafe(ref f);
                                             f *= parryKnockback;
                                             otherparent.body.ApplyForce(f);
@@ -135,8 +135,8 @@ namespace OrbitVR.Components.Items {
     public override void PlayerControl(Input input) {
       //fistNode.movement.active = false;
       //fistNode.body.velocity = fistNode.body.effvelocity * nodeKnockback;
-      Vector2 newstickpos = input.GetRightStick();
-      Vector2 relVel = newstickpos - oldstickpos;
+      Vector2R newstickpos = input.GetRightStick().toV2R();
+      Vector2R relVel = newstickpos - oldstickpos;
 
       if (state == fistmode.ready) {
         fistNode.body.pos = parent.body.pos;
@@ -161,7 +161,7 @@ namespace OrbitVR.Components.Items {
       }
       else if (state == fistmode.punching) {
         //check if fully punched.
-        if (Vector2.Distance(fistNode.body.pos, parent.body.pos) > fistReach) {
+        if (Vector2R.Distance(fistNode.body.pos, parent.body.pos) > fistReach) {
           state = fistmode.retracting;
         }
       }
@@ -173,14 +173,14 @@ namespace OrbitVR.Components.Items {
         //vel *= 1;
         //fistNode.body.velocity = vel;
 
-        Vector2 vel = (parent.body.pos - fistNode.body.pos);
+        Vector2R vel = (parent.body.pos - fistNode.body.pos);
         //if (vel.Length() < 5)
         //{
         VMath.NormalizeSafe(ref vel);
         vel *= 20;
         //}
         fistNode.body.velocity = vel;
-        if (Vector2.DistanceSquared(fistNode.body.pos, parent.body.pos) < 50*50) {
+        if (Vector2R.DistanceSquared(fistNode.body.pos, parent.body.pos) < 50*50) {
           state = fistmode.ready;
         }
       }
@@ -190,8 +190,8 @@ namespace OrbitVR.Components.Items {
     }
 
     public override void Draw() {
-      Vector2 position = fistNode.body.pos;
-      if (position == Vector2.Zero) position = parent.body.pos;
+      Vector2R position = fistNode.body.pos;
+      if (position == Vector2R.Zero) position = parent.body.pos;
       else {
         //Utils.DrawLine(room, position, parent.body.pos, 2f, parent.body.color, Layers.Under2);
         //Utils.DrawLine(room, target, parent.body.pos, 2f, Color.Red, Layers.Under2);
@@ -211,15 +211,15 @@ namespace OrbitVR.Components.Items {
         //fistNode.movement.active = false;
         //fistNode.body.velocity = fistNode.body.effvelocity * nodeKnockback;
 
-        bool atReach = Vector2.Distance(fistNode.body.pos, parent.body.pos) > fistReach;
+        bool atReach = Vector2R.Distance(fistNode.body.pos, parent.body.pos) > fistReach;
 
         if (fc.newGamePadState.ThumbSticks.Right.LengthSquared() > 0.2*0.2) {
           if (!atReach) {
             movingStick = true;
-            target = fc.newGamePadState.ThumbSticks.Right*fistReach;
+            target = fc.newGamePadState.ThumbSticks.Right.toV2R() * fistReach;
             target.Y *= -1;
             target = parent.body.pos + target;
-            Vector2 force = target - fistNode.body.pos;
+            Vector2R force = target - fistNode.body.pos;
             fistNode.body.ApplyForce(force/10);
             //fistNode.body.velocity += force;
             //Console.WriteLine(force.X + " : " + force.Y);
@@ -233,7 +233,7 @@ namespace OrbitVR.Components.Items {
           //fistNode.body.orient = Utils.AngleLerp(fistNode.body.orient, parent.body.orient, 0.1f);
         }
         if (atReach) {
-          Vector2 direction = fistNode.body.pos - parent.body.pos;
+          Vector2R direction = fistNode.body.pos - parent.body.pos;
           VMath.NormalizeSafe(ref direction);
           direction *= fistReach;
           fistNode.body.pos = parent.body.pos + direction;

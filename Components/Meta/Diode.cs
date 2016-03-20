@@ -13,10 +13,10 @@ namespace OrbitVR.Components.Meta {
     }
 
     public const mtypes CompType = mtypes.affectself;
-    public Vector2 end;
+    public Vector2R end;
     HashSet<Node> goingThrough = new HashSet<Node>();
 
-    public Vector2 start;
+    public Vector2R start;
     private int usedTickets;
 
     public override mtypes compType {
@@ -98,7 +98,7 @@ namespace OrbitVR.Components.Meta {
     }
 
     public bool IsOnCorrectSide(Node wall, Node other, bool belowPi) {
-      Vector2 direction = other.body.pos - wall.body.pos;
+      Vector2R direction = other.body.pos - wall.body.pos;
       float dirAngle = VMath.VectorToAngle(direction);
       float resAngle = (parent.body.orient - dirAngle).between0and2pi();
       if (belowPi) return resAngle < GMath.PI;

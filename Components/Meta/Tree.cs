@@ -20,7 +20,7 @@ namespace OrbitVR.Components.Meta {
 
     private int lifeleft;
     bool original = false;
-    private Queue<Vector2> positions;
+    private Queue<Vector2R> positions;
     private float r1, g1, b1;
     private Queue<float> scales;
 
@@ -84,7 +84,7 @@ namespace OrbitVR.Components.Meta {
     }
 
     public override void InitializeLists() {
-      positions = new Queue<Vector2>();
+      positions = new Queue<Vector2R>();
       scales = new Queue<float>();
     }
 
@@ -102,7 +102,7 @@ namespace OrbitVR.Components.Meta {
       }
       if (depth >= branchStages) {
         lifeleft = -1;
-        parent.body.velocity = new Vector2(0, 0);
+        parent.body.velocity = new Vector2R(0, 0);
         depth = -1;
         original = false;
         //return;
@@ -120,18 +120,18 @@ namespace OrbitVR.Components.Meta {
         int velLength = (int) parent.body.velocity.Length();
         double angle = Math.Atan2(parent.body.velocity.Y, parent.body.velocity.X);
 
-        parent.body.velocity = new Vector2(0, 0);
+        parent.body.velocity = new Vector2R(0, 0);
         //if (parent.comps.ContainsKey(comp.gravity)) parent.comps[comp.gravity].active = false;
 
         int childcount = Utils.random.Next(maxChilds + 1) + 1;
         for (int i = 0; i < childcount; i++) {
           float childscale = parent.body.scale*scaledown;
-          Vector2 childpos = parent.body.pos;
+          Vector2R childpos = parent.body.pos;
           float anglechange = Utils.random.Next((int) angleRange) - (angleRange/2);
           //
           anglechange = anglechange*(float) (Math.PI/180);
           angle += anglechange; //we might need to do a Math.Max(360,Math.Min(0,x));
-          Vector2 childvel = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle))*velLength;
+          Vector2R childvel = new Vector2R((float) Math.Cos(angle), (float) Math.Sin(angle))*velLength;
           int randomlife = (Utils.random.Next(randlife - randlife/10 - 5)) + 5;
           //int randomlife = randlife;
           //userP[node.transform.position] = childpos;
@@ -178,7 +178,7 @@ namespace OrbitVR.Components.Meta {
       float a, b, c;
       a = b = c = 0;
       int count = 0;
-      foreach (Vector2 pos in positions) {
+      foreach (Vector2R pos in positions) {
         a += r1/fade;
         b += g1/fade;
         c += b1/fade;

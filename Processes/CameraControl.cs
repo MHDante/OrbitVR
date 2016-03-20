@@ -42,7 +42,7 @@ namespace OrbitVR.Processes {
       bool right = state.IsKeyDown(Keys.Right);
 
       Stick s = new Stick(up, down, left, right);
-      room.Camera.pos += s.v2*velocity;
+      room.Camera.pos += s.v2r*velocity;
     }
   }
 }

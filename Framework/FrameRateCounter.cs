@@ -58,16 +58,16 @@ namespace OrbitVR.Framework {
         process = OrbIt.UI.keyManager.TemporaryProcess.GetType().ToString().LastWord('.');
       }
 
-      room.Camera.DrawStringScreen(fps, new Vector2(0, OrbIt.ScreenHeight - y1), Color.Black);
+      room.Camera.DrawStringScreen(fps, new Vector2R(0, OrbIt.ScreenHeight - y1), Color.Black);
       y1 -= 30;
-      room.Camera.DrawStringScreen(ups, new Vector2(0, OrbIt.ScreenHeight - y1), Color.Black);
+      room.Camera.DrawStringScreen(ups, new Vector2R(0, OrbIt.ScreenHeight - y1), Color.Black);
       y1 -= 30;
-      if (hasProcess) room.Camera.DrawStringScreen(process, new Vector2(0, OrbIt.ScreenHeight - y1), Color.Black);
+      if (hasProcess) room.Camera.DrawStringScreen(process, new Vector2R(0, OrbIt.ScreenHeight - y1), Color.Black);
 
       if (room.MasterGroup != null) {
         string count = room.Groups.General.fullSet.Count.ToString();
         int x = OrbIt.ScreenWidth - (count.Length*7) - 20;
-        room.Camera.DrawStringScreen(count, new Vector2(x, OrbIt.ScreenHeight - y1), Color.Black, offset: false,
+        room.Camera.DrawStringScreen(count, new Vector2R(x, OrbIt.ScreenHeight - y1), Color.Black, offset: false,
                                      layer: Layers.Over5);
       }
     }
