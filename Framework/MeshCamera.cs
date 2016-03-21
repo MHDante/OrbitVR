@@ -67,7 +67,7 @@ namespace OrbitVR.Framework {
       Mesh = Buffer.Vertex.New<SpriteVertex>(OrbIt.Game.GraphicsDevice, 16 * 1024);
       layout = VertexInputLayout.FromBuffer(0, Mesh);
       
-      effect = OrbIt.Game.Content.Load<Effect>("Effects/MixedShaders");
+      effect = OrbIt.Game.Content.Load<Effect>("Effects/MixedShaders2");
       texture = OrbIt.Game.Content.Load<Texture2D>("Textures/spritesheet");
 
       mvpParam = effect.Parameters["mvp"];

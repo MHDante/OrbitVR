@@ -91,7 +91,7 @@ namespace OrbitVR.Components.Essential {
       if (parent != null) this.parent = parent;
       randInitialVel = new Toggle<float>(8f);
       pushable = true;
-      mode = movemode.screenwrap;
+      mode = movemode.free;
       effvelocityMode = false;
     }
 

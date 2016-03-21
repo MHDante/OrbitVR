@@ -1,5 +1,8 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using OrbitVR.Components.AffectOthers;
+using OrbitVR.Components.Movement;
+using OrbitVR.Framework;
 using OrbitVR.Processes;
 using OrbitVR.UI;
 using SharpDX;
@@ -49,7 +52,8 @@ namespace OrbitVR {
       if (testTimer > 5000) {
         spawnPos += Vector2R.One*10;
         UserInterface.WorldMousePos = spawnPos;
-        randomizer.SpawnSemiRandom();
+        Node n = randomizer.CreateNode();
+        n.body.radius = 5;
         //randomizer.SpawnFullyRandom();
         testTimer = 0;
       }
@@ -74,10 +78,21 @@ namespace OrbitVR {
 
       if (!spawned) {
         spawned = true;
-        for (int i = 0; i < 150; i++) {
+        Node n2 = randomizer.CreateNode();
+        n2.body.radius = 5;
+        for (int i = 0; i < 10; i++) {
           Node n = Room.SpawnNode(i, i);
+          n.body.radius = 5;
+          
           //n.addComponent<Gravity>();
-        n.body.velocity  = new Vector2R(1,1)*0.001f;
+        n.body.velocity  = new Vector2R(Utils.random.NextFloat(1, 360),Utils.random.NextFloat(1, 360));
+          Friction f = n.addComponent<Friction>();
+          f.force = 0.05f;
+          n.addComponent<Gravity>().multiplier = Utils.random.NextFloat(-.2f, .2f);
+          n.movement.minVelocity.value = .1f;
+          n.movement.minVelocity.enabled = true;
+          n.movement.maxVelocity.value = .1f;
+          n.movement.maxVelocity.enabled = true;
         }
 
       }

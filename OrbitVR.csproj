@@ -80,6 +80,9 @@
     <ToolkitFxc Include="Content\Effects\MixedShaders.fx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ToolkitFxc>
+    <ToolkitFxc Include="Content\Effects\MixedShaders2.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ToolkitFxc>
     <Content Include="Content\fanfare.wav" />
     <Content Include="Content\Game.ico" />
     <Content Include="Content\Textures\Individual\1 symboli.png" />

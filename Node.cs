@@ -541,10 +541,12 @@ namespace OrbitVR {
     public void addComponent(Type t, bool active, bool overwrite = false) {
       bool fetch = fetchComponent(t, active, overwrite);
       if (fetch) SortComponentLists();
+      
     }
 
-    public void addComponent<T>(bool active = true, bool overwrite = false) where T : Component {
+    public T addComponent<T>(bool active = true, bool overwrite = false) where T : Component {
       addComponent(typeof (T), active, overwrite);
+      return Comp<T>();
     }
 
     public void addComponent(Component component, bool active, bool overwrite = false) {

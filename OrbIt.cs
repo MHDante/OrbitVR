@@ -14,8 +14,8 @@ namespace OrbitVR
     public static OrbIt Game;
     public static UserInterface UI;
     private FrameRateCounter _frameRateCounter;
-    public static int ScreenWidth => Game.Graphics.PreferredBackBufferWidth;
-    public static int ScreenHeight => Game.Graphics.PreferredBackBufferHeight;
+    public static int ScreenWidth => 360;
+    public static int ScreenHeight => 360;
     public static GlobalGameMode GlobalGameMode { get; private set; }
     public Room Room { get; private set; }
     public ProcessManager ProcessManager { get; private set; }
@@ -77,11 +77,12 @@ namespace OrbitVR
       var time = (float)Time.TotalGameTime.TotalSeconds;
 
       var world =
-        Matrix.Translation(-ScreenWidth/2, - ScreenHeight/2, -5) * 
-        Matrix.Scaling(.01f) *
-            Matrix.RotationY(MathHelper.Pi);
-      //model.Draw(GraphicsDevice, world, view, projection);
-      
+        //Matrix.Translation(-ScreenWidth/2, - ScreenHeight/2, -5) * 
+        Matrix.Scaling(-1f) *
+        Matrix.RotationY(MathHelper.Pi)*
+        Matrix.Identity;
+        //model.Draw(GraphicsDevice, world, view, projection);
+        
       Room.Draw3D(world);
     }
 
