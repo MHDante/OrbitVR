@@ -21,7 +21,7 @@ namespace OrbitVR
     public ProcessManager ProcessManager { get; private set; }
 
     private Model model;
-
+    Model landscape;
     protected OrbIt()
     {
       Game = this;
@@ -46,6 +46,8 @@ namespace OrbitVR
 
       GlobalKeyBinds(UI);
       model = Content.Load<Model>("Ship");
+      landscape = Content.Load<Model>("landscape");
+
       BasicEffect.EnableDefaultLighting(model, true);
 
      
@@ -81,11 +83,43 @@ namespace OrbitVR
         Matrix.Scaling(-1f) *
         Matrix.RotationY(MathHelper.Pi)*
         Matrix.Identity;
-        //model.Draw(GraphicsDevice, world, view, projection);
-        
+      //model.Draw(GraphicsDevice, world, view, projection);
+      DrawLandscape(gt);
       Room.Draw3D(world);
     }
+    public void DrawLandscape(GameTime gameTime)
+    {
 
+      Vector3 lightDirection = Vector3.Normalize(new Vector3(3, -1, 1));
+      Vector3 lightColor = new Vector3(0.3f, 0.4f, 0.2f);
+
+      // First we draw the ground geometry using BasicEffect.
+      foreach (ModelMesh mesh in landscape.Meshes)
+      {
+        if (mesh.Name != "Billboards")
+        {
+          foreach (BasicEffect effect in mesh.Effects)
+          {
+            effect.World = Matrix.Translation(0,-40,0);
+            effect.View = view;
+            effect.Projection = projection;
+
+            effect.LightingEnabled = true;
+
+            effect.DirectionalLight0.Enabled = true;
+            effect.DirectionalLight0.Direction = lightDirection;
+            effect.DirectionalLight0.DiffuseColor = lightColor;
+
+            effect.AmbientLightColor = new Vector3(0.1f, 0.2f, 0.1f);
+          }
+          GraphicsDevice.SetBlendState(GraphicsDevice.BlendStates.Opaque);
+          GraphicsDevice.SetDepthStencilState(GraphicsDevice.DepthStencilStates.Default);
+          GraphicsDevice.SetRasterizerState(GraphicsDevice.RasterizerStates.CullBack);
+
+          mesh.Draw(GraphicsDevice,null);
+        }
+      }
+    }
     private void GlobalKeyBinds(UserInterface ui)
     {
       ui.keyManager.addGlobalKeyAction("exitgame", KeyCodes.Escape, OnPress: Exit);

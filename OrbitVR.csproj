@@ -267,7 +267,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Content\Courier New.spritefont" />
-    <None Include="Content\landscape.x" />
+    <ToolkitModel Include="Content\landscape.x">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ToolkitModel>
     <None Include="Content\PSMove.fbx" />
     <ToolkitModel Include="Content\Ship.fbx" />
     <ToolkitTexture Include="Content\ShipDiffuse.dds" />

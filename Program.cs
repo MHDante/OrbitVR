@@ -48,15 +48,15 @@ namespace OrbitVR {
     protected override void UpdateAsync() {
       base.UpdateAsync();
 
-      testTimer += Time.ElapsedGameTime.TotalMilliseconds;
-      if (testTimer > 5000) {
-        spawnPos += Vector2R.One*10;
-        UserInterface.WorldMousePos = spawnPos;
-        Node n = randomizer.CreateNode();
-        n.body.radius = 5;
-        //randomizer.SpawnFullyRandom();
-        testTimer = 0;
-      }
+      //testTimer += Time.ElapsedGameTime.TotalMilliseconds;
+      //if (testTimer > 5000) {
+      //  spawnPos += Vector2R.One*10;
+      //  UserInterface.WorldMousePos = spawnPos;
+      //  Node n = randomizer.CreateNode();
+      //  n.body.radius = 5;
+      //  //randomizer.SpawnFullyRandom();
+      //  testTimer = 0;
+      //}
       //if (testTimer > 5000) {
       //  
       //  Node n = Room.SpawnNode(20, 20);
@@ -78,21 +78,19 @@ namespace OrbitVR {
 
       if (!spawned) {
         spawned = true;
-        Node n2 = randomizer.CreateNode();
-        n2.body.radius = 5;
-        for (int i = 0; i < 10; i++) {
-          Node n = Room.SpawnNode(i, i);
-          n.body.radius = 5;
+        for (int i = 0; i < 100; i++) {
+          Node n = Room.SpawnNode(Utils.random.Next(180), Utils.random.Next(180));
+          n.body.radius = 50;
           
           //n.addComponent<Gravity>();
-        n.body.velocity  = new Vector2R(Utils.random.NextFloat(1, 360),Utils.random.NextFloat(1, 360));
-          Friction f = n.addComponent<Friction>();
-          f.force = 0.05f;
-          n.addComponent<Gravity>().multiplier = Utils.random.NextFloat(-.2f, .2f);
-          n.movement.minVelocity.value = .1f;
-          n.movement.minVelocity.enabled = true;
+          n.body.velocity  = Vector2R.Zero;
+          //; new Vector2R(Utils.random.NextFloat(1, 360),Utils.random.NextFloat(1, 360));
+          //f.force = 0.05f;
+          n.addComponent<Gravity>().multiplier = Utils.random.NextFloat(-.01f, .01f);
+          n.collision.active = false;
           n.movement.maxVelocity.value = .1f;
           n.movement.maxVelocity.enabled = true;
+
         }
 
       }

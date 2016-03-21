@@ -45,7 +45,7 @@ void GS(point VSGS_IN sprite[1], inout TriangleStream<PS_IN> triStream)
   float y = sprite[0].pos.y;
   float z = sprite[0].pos.z;
 
-  float4 base = float4(0, 0, 200, 1);
+  float4 base = float4(0, 0, 500, 1);
   float t = sprite[0].rot;
   float2x2 trans = { cos(t), sin(t),-sin(t),cos(t) };
   float2 wh = { sprite[0].size.x / 2, sprite[0].size.y / 2 };

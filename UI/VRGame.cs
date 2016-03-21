@@ -1,4 +1,4 @@
-//#define RUNVR
+#define RUNVR
 using System.Threading;
 using OrbitVR.PSMove;
 using SharpDX;
