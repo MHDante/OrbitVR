@@ -42,7 +42,7 @@ namespace OrbitVR.Framework {
     {
     
     private Buffer<SpriteVertex> Mesh;
-      private ConcurrentQueue<List<SpriteVertex>> pendingVertexQueue;
+      private BlockingCollection<List<SpriteVertex>> pendingVertexQueue;
     //private Buffer<SpriteVertex> Perms;
     
     private Effect effect;
@@ -63,7 +63,7 @@ namespace OrbitVR.Framework {
       pendingVertices = new List<SpriteVertex>();
       //permVertices = new List<SpriteVertex>();
       //Perms = new HashSet<SpriteVertex>();
-      pendingVertexQueue = new ConcurrentQueue<List<SpriteVertex>>();
+      pendingVertexQueue = new BlockingCollection<List<SpriteVertex>>(10);
       device = OrbIt.Game.GraphicsDevice;
       Mesh = Buffer.Vertex.New<SpriteVertex>(OrbIt.Game.GraphicsDevice, 16 * 1024);
       layout = VertexInputLayout.FromBuffer(0, Mesh);
@@ -156,7 +156,7 @@ namespace OrbitVR.Framework {
     public override void Draw(Matrix world)
     {
       List<SpriteVertex> newVerts;
-      var gotNewVerts = pendingVertexQueue.TryDequeue(out newVerts);
+      var gotNewVerts = pendingVertexQueue.TryTake(out newVerts);
       if (gotNewVerts) drawingVertices = newVerts;
       if (drawingVertices == null)
         return; 
@@ -197,7 +197,7 @@ namespace OrbitVR.Framework {
 
       public void EndDrawing()
       {
-        pendingVertexQueue.Enqueue(pendingVertices);
+        pendingVertexQueue.TryAdd(pendingVertices);
         pendingVertices = new List<SpriteVertex>();
       }
     }

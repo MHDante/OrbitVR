@@ -55,11 +55,13 @@ namespace OrbitVR.UI
       if (UsePsMove)
       {
         var manager = new PSMoveManager();
+        manager.TrackerEnabled = false;
         manager.Initialize();
         ToDispose(manager);
         PsMoveController = new PSMoveController(Vector3.Zero);
         ToDispose(PsMoveController);
         PsMoveController.OnButtonSelectPressed += (sender, args) => PsMoveController.ResetYaw();
+        PsMoveController.OnButtonStartPressed += (sender, args) => PsMoveController.ResetYaw();
       }
       eyeTexture[0] = hmd.CreateSwapTexture(GraphicsDevice, Format.B8G8R8A8_UNorm,
                                             hmd.GetFovTextureSize(EyeType.Left, hmd.DefaultEyeFov[0]), true);

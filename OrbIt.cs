@@ -47,7 +47,6 @@ namespace OrbitVR
       GlobalKeyBinds(UI);
       ship = Content.Load<Model>("Ship");
       landscape = Content.Load<Model>("landscape");
-
       BasicEffect.EnableDefaultLighting(ship, true);
 
      
