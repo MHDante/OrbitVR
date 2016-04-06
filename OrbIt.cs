@@ -20,7 +20,7 @@ namespace OrbitVR
     public Room Room { get; private set; }
     public ProcessManager ProcessManager { get; private set; }
 
-    private Model model;
+    private Model ship;
     Model landscape;
     protected OrbIt()
     {
@@ -45,10 +45,10 @@ namespace OrbitVR
       Room.ActiveGroupName = "Group1";
 
       GlobalKeyBinds(UI);
-      model = Content.Load<Model>("Ship");
+      ship = Content.Load<Model>("Ship");
       landscape = Content.Load<Model>("landscape");
 
-      BasicEffect.EnableDefaultLighting(model, true);
+      BasicEffect.EnableDefaultLighting(ship, true);
 
      
     }

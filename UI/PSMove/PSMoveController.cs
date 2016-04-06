@@ -1,5 +1,6 @@
 using System;
 using SharpDX;
+using SharpDX.Toolkit.Graphics;
 
 namespace OrbitVR.PSMove {
   public class PSMoveController : Object3D, IDisposable {
@@ -20,13 +21,14 @@ namespace OrbitVR.PSMove {
     /// See README for more information.
     /// </summary>
     public PSMoveController(Vector3 Position) {
-      //model = m ?? OrbIt.Game.Content.Load<Model>("PSMove"); Todo: model
       transform = new Transform();
       transform.parent = new Transform() {position = Position};
       if (PSMoveManager.GetManagerInstance() != null) {
         dataContext = PSMoveManager.GetManagerInstance().AcquirePSMove(this.PSMoveID);
       }
-      //model = m; Todo: model
+      model = OrbIt.Game.Content.Load<Model>("PSMove");
+
+      BasicEffect.EnableDefaultLighting(model, true);
     }
 
     public void Dispose() {
@@ -108,7 +110,7 @@ namespace OrbitVR.PSMove {
     // Debug
     public bool ShowTrackingDebug;
     public bool ShowHMDFrustumDebug;
-    //private Model model;Todo: model
+    private Model model;
 
     #endregion
 
@@ -144,9 +146,9 @@ namespace OrbitVR.PSMove {
 
     #region Unity Callbacks
 
-    //public void Draw(GraphicsDevice device, Matrix v, Matrix p) {
-    //  model.Draw(device, transform.getMatrix(), v, p);
-    //}Todo: model
+    public void Draw(GraphicsDevice device, Matrix v, Matrix p) {
+      model.Draw(device, transform.getMatrix(), v, p);
+    }
 
     public void Update() {
       // Get the latest state from the 

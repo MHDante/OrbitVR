@@ -61,6 +61,7 @@ namespace OrbitVR.PSMove {
     public void Dispose() {
       if (ManagerInstance != null) {
         PSMoveWorker.GetWorkerInstance().OnGameEnded();
+        
         ManagerInstance = null;
       }
     }
@@ -265,7 +266,7 @@ namespace OrbitVR.PSMove {
           psmoveapiHandle = LoadLib("Assets/Plugins/x86_64/psmoveapi.dll");
         }
         else {
-          psmoveapiHandle = LoadLib("Assets/Plugins/x86/psmoveapi.dll");
+          psmoveapiHandle = LoadLib("/Includes/psmoveapi.dll");
         }
       }
 
@@ -274,7 +275,7 @@ namespace OrbitVR.PSMove {
           psmoveapiTrackerHandle = LoadLib("Assets/Plugins/x86_64/psmoveapi_tracker.dll");
         }
         else {
-          psmoveapiTrackerHandle = LoadLib("Assets/Plugins/x86/psmoveapi_tracker.dll");
+          psmoveapiTrackerHandle = LoadLib("/Includes/psmoveapi_tracker.dll");
         }
       }
 #endif // LOAD_DLL_MANUALLY
@@ -290,9 +291,9 @@ namespace OrbitVR.PSMove {
         // Signal the thread to stop
         HaltThreadSignal.Set();
 
-        // Wait ten seconds for the thread to finish
-        ThreadExitedSignal.WaitOne(10*1000);
-
+        // Wait 2 seconds for the thread to finish
+        ThreadExitedSignal.WaitOne(2*1000);
+        //WorkerThread.Abort();
         // Reset the stop and exited flags so that the thread can be restarted
         HaltThreadSignal.Reset();
         ThreadExitedSignal.Reset();

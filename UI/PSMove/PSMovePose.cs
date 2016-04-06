@@ -81,7 +81,7 @@ namespace OrbitVR.PSMove {
       Quaternion PSMOriNative = DataContext.GetTrackingSpaceOrientation();
       // Apply controller orientation first, then apply orientation transform
       Quaternion PSMOriWorld =
-        OrientationTransform*PSMoveUtility.PSMoveQuatToUnityQuat(PSMOriNative);
+        PSMoveUtility.PSMoveQuatToUnityQuat(PSMOriNative)* OrientationTransform;
 
       // Save the resulting pose, updating for internal zero yaw
       UncorrectedWorldOrientation = PSMOriWorld;

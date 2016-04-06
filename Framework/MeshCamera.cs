@@ -57,8 +57,9 @@ namespace OrbitVR.Framework {
     //private List<SpriteVertex> permVertices;
     private GraphicsDevice device;
     private EffectParameter spriteCountParam;
+      private EffectParameter textureSamplerParameter;
 
-    public MeshCamera(Room room, float zoom, Vector2R? pos) : base(room, zoom, pos) {
+      public MeshCamera(Room room, float zoom, Vector2R? pos) : base(room, zoom, pos) {
       pendingVertices = new List<SpriteVertex>();
       //permVertices = new List<SpriteVertex>();
       //Perms = new HashSet<SpriteVertex>();
@@ -69,12 +70,16 @@ namespace OrbitVR.Framework {
       
       effect = OrbIt.Game.Content.Load<Effect>("Effects/MixedShaders2");
       texture = OrbIt.Game.Content.Load<Texture2D>("Textures/spritesheet");
-
+      
       mvpParam = effect.Parameters["mvp"];
       spriteCountParam = effect.Parameters["SpriteCount"];
       textureParam = effect.Parameters["ModelTexture"];
+
+      textureSamplerParameter = effect.Parameters["_sampler"];
       effectPass = effect.Techniques["Render"].Passes[0];
       textureParam.SetResource(texture);
+
+      textureSamplerParameter.SetResource(device.SamplerStates.LinearClamp);
       spriteCountParam.SetValue((float)Enum.GetValues(typeof(Textures)).Length);
 
     }

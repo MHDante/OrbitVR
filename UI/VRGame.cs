@@ -28,12 +28,11 @@ namespace OrbitVR.UI
 
     public Matrix projection;
     public PSMoveController PsMoveController;
-    private Model ship;
     public Matrix view;
     protected bool firstUpdate = true;
     private Thread workerThread;
 
-    public bool UsePsMove { get; } = false;
+    public bool UsePsMove { get; } = true;
     public GameTime Time => gameTime;
 
     protected VRGame()
@@ -60,6 +59,7 @@ namespace OrbitVR.UI
         ToDispose(manager);
         PsMoveController = new PSMoveController(Vector3.Zero);
         ToDispose(PsMoveController);
+        PsMoveController.OnButtonSelectPressed += (sender, args) => PsMoveController.ResetYaw();
       }
       eyeTexture[0] = hmd.CreateSwapTexture(GraphicsDevice, Format.B8G8R8A8_UNorm,
                                             hmd.GetFovTextureSize(EyeType.Left, hmd.DefaultEyeFov[0]), true);
@@ -142,10 +142,10 @@ namespace OrbitVR.UI
                                                                                               .Stencil, 1, 0);
         ((SharpDX.Direct3D11.Device)GraphicsDevice).ImmediateContext.ClearRenderTargetView(swapTexture.CurrentView,
                                                                                             Color.CornflowerBlue);
-
-        //if (UsePsMove) PsMoveController.Draw(GraphicsDevice, view, projection);
-        //Todo: Draw PSMOVE model
         DrawScene(gameTime);
+        if (UsePsMove) PsMoveController.Draw(GraphicsDevice, view, projection);
+        
+        
       }
 #else
       GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -203,7 +203,7 @@ namespace OrbitVR.UI
         firstUpdate = false;
         workerThread = new Thread(() =>
         {
-          while (true)
+          while (IsRunning)
           {
             //Thread.Sleep(100);
             UpdateAsync();
@@ -216,6 +216,7 @@ namespace OrbitVR.UI
         workerThread.Start();
       }
     }
+    
 
     protected override void Dispose(bool disposeManagedResources)
     {

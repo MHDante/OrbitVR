@@ -9,14 +9,16 @@ namespace OrbitVR.PSMove {
     public static float MetersToCM = 100.0f;
 
     public static Quaternion PSMoveQuatToUnityQuat(Quaternion q) {
-      return new Quaternion(-q.X, -q.Y, q.Z, q.W);
+      //return q;
+      
+      return new Quaternion(-q.X, q.Y, -q.Z, q.W);
     }
 
     public static Vector3 PSMoveCSToUnityCSPosition(Vector3 p) {
       // Convert from OpenGL/PSMove Right Handed coordinate system to Unity Left Handed coordinate system.
       // PSMove Coordinate System -> Unity Coordinate system ==> (x, y, z) -> (-x, y, z)
       // PSMove also specifies points in centimenters, while Unity specifies them in meters
-      return new Vector3(-p.X*CMToMeters, p.Y*CMToMeters, p.Z*CMToMeters);
+      return new Vector3(p.X*CMToMeters, -p.Y*CMToMeters, p.Z*CMToMeters);
     }
 
     public static void ComputeTrackingToWorldTransforms(
@@ -122,15 +124,16 @@ namespace OrbitVR.PSMove {
       ref float cameraNearZ,
       ref float cameraFarZ) {
       TrackingState ss = OrbIt.Game.hmd.GetTrackingState(0.0);
+      
 
-      rotation = new Quaternion(ss.HeadPose.ThePose.Orientation.X,
-                                ss.HeadPose.ThePose.Orientation.Y,
-                                ss.HeadPose.ThePose.Orientation.Z,
-                                ss.HeadPose.ThePose.Orientation.W);
+      rotation = new Quaternion(ss.CameraPose.Orientation.X,
+                                ss.CameraPose.Orientation.Y,
+                                ss.CameraPose.Orientation.Z,
+                                ss.CameraPose.Orientation.W);
 
-      position = new Vector3(ss.HeadPose.ThePose.Position.X, // meters
-                             ss.HeadPose.ThePose.Position.Y,
-                             ss.HeadPose.ThePose.Position.Z);
+      position = new Vector3(ss.CameraPose.Position.X, // meters
+                             ss.CameraPose.Position.Y,
+                             ss.CameraPose.Position.Z);
 
       cameraHFov = 74; // degrees
       cameraVFov = 54; // degrees
