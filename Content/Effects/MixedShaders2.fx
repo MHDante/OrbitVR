@@ -57,15 +57,15 @@ void GS(point VSGS_IN sprite[1], inout TriangleStream<PS_IN> triStream)
 
   float tx = x * DEG2RAD;
   float ty = y * DEG2RAD;
-  float s = sin(tx);
-  float c = cos(tx);
+  float s = sin(-ty);
+  float c = cos(-ty);
   float4x4 rotx = 
   { 1,0,0,0 ,
    0,c,s,0 ,
    0,-s,c,0 ,
    0,0,0,1 };
-  s = sin(ty);
-  c = cos(ty);
+  s = sin(-tx);
+  c = cos(-tx);
   float4x4 roty = 
   { c,0,-s,0 ,
    0,1,0,0 ,

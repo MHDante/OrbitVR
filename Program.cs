@@ -41,18 +41,22 @@ namespace OrbitVR {
     private Vector2R spawnPos;
     private double testTimer;
     private Node selectNode;
+    private int gravSign = 1;
+    private int gravMult = 1;
     protected override void Initialize() {
       base.Initialize();
       selectNode = Room.SpawnNode(0, 0);
       selectNode.body.radius = 25;
       selectNode.body.velocity = Vector2R.Zero;
-      selectNode.addComponent<Gravity>().multiplier = Utils.random.NextFloat(-.01f, .01f);
+      var gravity = selectNode.addComponent<Gravity>();
+      gravity.multiplier = 0;
       selectNode.collision.active = false;
       selectNode.movement.maxVelocity.value = .1f;
       selectNode.movement.maxVelocity.enabled = true;
-
       randomizer = Game.ProcessManager.GetProcess<Randomizer>();
-      
+      PsMoveController.OnButtonMovePressed += (s, a) => gravity.multiplier = 100;
+      PsMoveController.OnButtonMoveReleased += (s, a) => gravity.multiplier = 0;
+      gravity.CallDraw = true;
     }
 
 
@@ -109,10 +113,11 @@ namespace OrbitVR {
 
       }
 
+      
 
 
 
-     
+
 
 
       //testTimer += Time.ElapsedGameTime.TotalMilliseconds;
@@ -132,18 +137,18 @@ namespace OrbitVR {
       //  n.body.velocity = new Vector2(1, 1) * 0.001f;
       //}
 
-      //if (testTimer < 1000) {
-      //  testTimer = 1000;
-      //  Node n = spawnNode(0, 0);
-      //  n.addComponent<Lifetime>(true);
-      //  n.Comp<Lifetime>().timeUntilDeath.value = 2000;
-      //  n.Comp<Lifetime>().timeUntilDeath.enabled = true;
-      //  n.addComponent<Tree>(true);
-      //  //n.Comp<Tree>().branchStages = 1;
-      //  n.addComponent<Shovel>(true);
-      //}
+        //if (testTimer < 1000) {
+        //  testTimer = 1000;
+        //  Node n = spawnNode(0, 0);
+        //  n.addComponent<Lifetime>(true);
+        //  n.Comp<Lifetime>().timeUntilDeath.value = 2000;
+        //  n.Comp<Lifetime>().timeUntilDeath.enabled = true;
+        //  n.addComponent<Tree>(true);
+        //  //n.Comp<Tree>().branchStages = 1;
+        //  n.addComponent<Shovel>(true);
+        //}
 
-      if (!spawned) {
+        if (!spawned) {
         spawned = true;
         for (int i = 0; i < 10; i++) {
           Node n = Room.SpawnNode(Utils.random.Next(180), Utils.random.Next(180));
@@ -153,7 +158,7 @@ namespace OrbitVR {
           n.body.velocity  = Vector2R.Zero;
           //; new Vector2R(Utils.random.NextFloat(1, 360),Utils.random.NextFloat(1, 360));
           //f.force = 0.05f;
-          n.addComponent<Gravity>().multiplier = Utils.random.NextFloat(-.01f, .01f);
+          //n.addComponent<Gravity>().multiplier = Utils.random.NextFloat(-.01f, .01f);
           n.collision.active = false;
           n.movement.maxVelocity.value = .1f;
           n.movement.maxVelocity.enabled = true;

@@ -55,7 +55,6 @@ namespace OrbitVR.UI
       if (UsePsMove)
       {
         var manager = new PSMoveManager();
-        manager.TrackerEnabled = false;
         manager.Initialize();
         ToDispose(manager);
         PsMoveController = new PSMoveController(Vector3.Zero);

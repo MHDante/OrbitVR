@@ -63,7 +63,7 @@ namespace OrbitVR.Framework {
       pendingVertices = new List<SpriteVertex>();
       //permVertices = new List<SpriteVertex>();
       //Perms = new HashSet<SpriteVertex>();
-      pendingVertexQueue = new BlockingCollection<List<SpriteVertex>>(10);
+      pendingVertexQueue = new BlockingCollection<List<SpriteVertex>>(3);
       device = OrbIt.Game.GraphicsDevice;
       Mesh = Buffer.Vertex.New<SpriteVertex>(OrbIt.Game.GraphicsDevice, 16 * 1024);
       layout = VertexInputLayout.FromBuffer(0, Mesh);

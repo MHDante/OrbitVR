@@ -5,7 +5,7 @@ using SharpDX.Toolkit.Graphics;
 namespace OrbitVR.PSMove {
   public class PSMoveController : Object3D, IDisposable {
     // Used to send and receive controller data from the PSMoveWorker thread
-    private PSMoveDataContext dataContext;
+    public PSMoveDataContext dataContext;
     public float lerpRate;
     private Vector3 lerpTarget;
 
